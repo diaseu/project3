@@ -5,6 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Navbar from './components/Navbar'
 import Projects from './pages/Projects'
+import Project from './pages/Project'
 import Dashboard from './pages/Dashboard'
 import Me from './pages/Me'
 import Help from './pages/Help/Index'
@@ -71,6 +72,9 @@ function App() {
               </Route>
               <Route path="/projectIssue">
                 <ProjectIssue />
+              </Route>
+              <Route path="/project">
+                <Project />
               </Route>
             </Switch>
           </Container>

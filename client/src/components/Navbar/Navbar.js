@@ -207,7 +207,7 @@ const Navbar = ({ pages, setpageState }) => {
             <ListItemIcon>
               <PeopleIcon />
             </ListItemIcon>
-              <Link to="/help"><ListItemText primary="Public Issues" /></Link>
+              <Link to="/help"><ListItemText primary="Community Issues" /></Link>
           </ListItem>
         </div>
       </List>

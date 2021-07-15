@@ -3,8 +3,8 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import ProjectIssue from '../../components/ProjectIssue'
-import CommunityIssue from '../../components/CommunityIssue'
+import Issue from '../../components/Issue'
+import PubIssue from '../../components/CommunityIssue'
 import Project from '../../components/Project'
 import ProjectCard from '../../components/ProjectCard'
 import Spacer from '../../components/Spacer'
@@ -61,15 +61,15 @@ const Dashboard = () => {
             </Grid>
           </Grid>
 
-          <ProjectIssue />
+          <Issue />
           <Spacer y={1} />
-          <ProjectIssue />
+          <Issue />
           <Spacer y={1} />
-          <ProjectIssue />
+          <Issue />
           <Spacer y={1} />
-          <ProjectIssue />
+          <Issue />
           <Spacer y={1} />
-          <ProjectIssue />
+          <Issue />
           
         </Grid>
         <Spacer x={2} />
@@ -77,15 +77,15 @@ const Dashboard = () => {
           <Typography variant="h6" component="h2">
             Help Answer Others' Issues
           </Typography>
-          <CommunityIssue />
+          <PubIssue />
           <Spacer y={1} />
-          <CommunityIssue />
+          <PubIssue />
           <Spacer y={1} />
-          <CommunityIssue />
+          <PubIssue />
           <Spacer y={1} />
-          <CommunityIssue />
+          <PubIssue />
           <Spacer y={1} />
-          <CommunityIssue />
+          <PubIssue />
 
         </Grid>
       </Grid>

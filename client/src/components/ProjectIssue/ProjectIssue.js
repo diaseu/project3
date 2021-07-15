@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
 import FaceIcon from '@material-ui/icons/Face';
-import Spacer from '../../components/Spacer'
+import Spacer from '../Spacer'
 
 const useStyles = makeStyles({
   root: {
@@ -28,7 +28,7 @@ const useStyles = makeStyles({
 });
 
 
-const Issue = () => {
+const ProjectIssue = () => {
   const classes = useStyles();
 
   return(
@@ -64,4 +64,4 @@ const Issue = () => {
   )
 }
 
-export default Issue
+export default ProjectIssue
