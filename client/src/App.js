@@ -7,7 +7,8 @@ import Navbar from './components/Navbar'
 import Projects from './pages/Projects'
 import Dashboard from './pages/Dashboard'
 import Me from './pages/Me'
-import Help from './pages/Help'
+import Help from './pages/Help/Index'
+import ProjectIssue from './pages/ProjectIssue/Index'
 import {
   BrowserRouter as Router,
   Switch,
@@ -67,6 +68,9 @@ function App() {
               </Route>
               <Route path="/help">
                 <Help />
+              </Route>
+              <Route path="/projectIssue">
+                <ProjectIssue />
               </Route>
             </Switch>
           </Container>
