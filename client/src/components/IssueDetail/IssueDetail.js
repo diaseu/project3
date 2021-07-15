@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
 import FaceIcon from '@material-ui/icons/Face';
-import Spacer from '../../components/Spacer'
+import Spacer from '../Spacer'
 
 const useStyles = makeStyles({
   root: {
@@ -28,7 +28,7 @@ const useStyles = makeStyles({
 });
 
 
-const Issue = () => {
+const IssueDetail = () => {
   const classes = useStyles();
 
   return(
@@ -40,6 +40,10 @@ const Issue = () => {
           justifyContent="flex-start"
           alignItems="flex-start"
         >
+          <Button variant="contained" color="primary" href="#contained-buttons">
+            Open
+          </Button>
+          <Spacer x={2} />
           <Grid item xs>
             <Typography className={classes.pos} color="textSecondary">
               <Chip label="Study Blog App" size="small" component="a" href="#chip" clickable />
@@ -64,4 +68,4 @@ const Issue = () => {
   )
 }
 
-export default Issue
+export default IssueDetail
