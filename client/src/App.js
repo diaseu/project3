@@ -7,6 +7,7 @@ import Navbar from './components/Navbar'
 import Projects from './pages/Projects'
 import Dashboard from './pages/Dashboard'
 import Me from './pages/Me'
+import Help from './pages/Help'
 import {
   BrowserRouter as Router,
   Switch,
@@ -64,10 +65,12 @@ function App() {
               <Route path="/me">
                 <Me />
               </Route>
+              <Route path="/help">
+                <Help />
+              </Route>
             </Switch>
           </Container>
         </main>
-        {/* <Section /> */}
       </div>
     </Router>
   );

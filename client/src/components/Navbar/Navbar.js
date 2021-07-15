@@ -18,6 +18,12 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -183,25 +189,25 @@ const Navbar = ({ pages, setpageState }) => {
             <ListItemIcon>
               <LayersIcon />
             </ListItemIcon>
-            <ListItemText primary="Dashboard" />
+              <Link to="/"><ListItemText primary="Dashboard" /></Link>
           </ListItem>
           <ListItem button>
             <ListItemIcon>
               <DashboardIcon />
             </ListItemIcon>
-            <ListItemText primary="View My Projects" />
+              <Link to="/projects"><ListItemText primary="View My Projects" /></Link>
           </ListItem>
           <ListItem button>
             <ListItemIcon>
               <BarChartIcon />
             </ListItemIcon>
-            <ListItemText primary="Reported By Me" />
+              <Link to="/me"><ListItemText primary="Reported By Me" /></Link>
           </ListItem>
           <ListItem button>
             <ListItemIcon>
               <PeopleIcon />
             </ListItemIcon>
-            <ListItemText primary="Public Issues" />
+              <Link to="/help"><ListItemText primary="Public Issues" /></Link>
           </ListItem>
         </div>
       </List>

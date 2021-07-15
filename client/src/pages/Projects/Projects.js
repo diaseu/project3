@@ -3,7 +3,7 @@
 const Projects = () => {
   return (
     <>
-    <h1>Project: Study Blog App</h1>
+    <h1>View My Projects</h1>
       <img src="https://i.imgur.com/gBB2our.png" alt="" />
     </>
   )
