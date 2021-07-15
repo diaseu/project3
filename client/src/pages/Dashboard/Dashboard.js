@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import Issue from '../../components/Issue'
 import PubIssue from '../../components/PubIssue'
 import Project from '../../components/Project'
+import ProjectCard from '../../components/ProjectCard'
 import Spacer from '../../components/Spacer'
 
 const Dashboard = () => {
@@ -19,23 +20,23 @@ const Dashboard = () => {
           </Typography>
         </Grid>
         <Grid item xs={2}>
-          <Project />
+          <ProjectCard />
         </Grid>
           <Spacer x={2} />
         <Grid item xs={2}>
-          <Project />
+          <ProjectCard />
         </Grid>
         <Spacer x={2} />
         <Grid item xs={2}>
-          <Project />
+          <ProjectCard />
         </Grid>
         <Spacer x={2} />
         <Grid item xs={2}>
-          <Project />
+          <ProjectCard />
         </Grid>
         <Spacer x={2} />
         <Grid item xs={2}>
-          <Project />
+          <ProjectCard />
         </Grid>
       </Grid>
       <Spacer y={4} />
