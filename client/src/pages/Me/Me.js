@@ -5,38 +5,21 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import Issue from '../../components/Issue'
-import CommunityIssue from '../../components/CommunityIssue'
+import ProjectIssue from '../../components/ProjectIssue'
 
 
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
   },
-  contactcontainer: {
-    maxWidth: 1200,
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
   title: {
     fontSize: 14,
   },
-  cct: {
-    marginBottom: 40,
-  },
-  ccinfo: {
-    marginLeft: 40,
-    marginBottom: 20,
-  },
-  ccicon: {
-    marginRight: 40,
-  },
-  cardinfo: {
-    
+  right: {
+    textAlign: 'right',
   }
 });
 
@@ -46,92 +29,58 @@ const Me = () => {
   return (
     <>
       <h1 align="center">My Issues</h1>
-      <div className='contactcontainer'>
-        
-            <Card className={classes.cardinfo}>
-              <CardContent>
-                <Grid container>
-                  <Grid item xs={12}>
-                <CommunityIssue />
-              </Grid>
-            </Grid>
+      <Grid container>
+        <Grid item xs={9}>
+          <Typography variant="h6" component="h2">
+            Issues Reported By Me
+          </Typography>
+        </Grid>
+        <Grid item className={classes.right} xs={3}>
+          <Button size="small" variant="contained" href="#sort-project">
+            Sort by Project
+          </Button>
+          <Button size="small" variant="contained" href="#sort-recent">
+            Sort by Recent
+          </Button>
+        </Grid>
+      </Grid>
+      <div>
 
-            <br/>
-
+        <Card className={classes.cardinfo}>
+          <CardContent>
             <Grid container>
               <Grid item xs={12}>
+            <ProjectIssue />
+          </Grid>
+        </Grid>
 
+        <br/>
 
+        <Grid container>
+          <Grid item xs={12}>
+            <ProjectIssue />
+          </Grid>
+        </Grid>
 
-                <Issue />
-              </Grid>
-            </Grid>
+        <br/>
 
-            <br/>
+        <Grid container>
+          <Grid item xs={12}>
+            <ProjectIssue />
+          </Grid>
+        </Grid>
 
-            <Grid container>
-              <Grid item xs={12}>
+        <br />
 
+        <Grid container>
+          <Grid item xs={12}>
+            <ProjectIssue />
+          </Grid>
+        </Grid>
 
-
-                <Issue />
-              </Grid>
-            </Grid>
-
-            <br />
-
-            <Grid container>
-              <Grid item xs={12}>
-
-
-
-                <Issue />
-              </Grid>
-            </Grid>
-
-            <br />
-
-            
-
-            
-
-                    {/* <Typography variant="h5" component="h2" gutterBottom className="center">
-                    Latest Issues
-                        
-                        <Card className={classes.cardinfo}>
-                    <CardContent>
-                      <Grid container>
-                        <Grid item xs={12}>
-
-                          <Typography variant="h5" component="h2" gutterBottom>
-                            Issue Title
-                    </Typography>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <Typography variant="h5" component="h4" gutterBottom>
-                            Poster
-                          </Typography>
-
-                          <Typography variant="h5" component="h2" gutterBottom>
-                            Issue Body
-                    </Typography>
-                        </Grid>
-                      </Grid>
-                    </CardContent>
-                  </Card>
-
-                  <PubIssue />
-
-
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={4}>
-                    {/* <Typography variant="h5" component="h2" gutterBottom>
-                      Put stuff here
-                    </Typography> */}
-                 
-              </CardContent>
-            </Card>
+              
+          </CardContent>
+        </Card>
 
 
           

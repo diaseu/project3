@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
 import FaceIcon from '@material-ui/icons/Face';
 import Spacer from '../Spacer'
+import Icon from '@material-ui/core/Icon';
 
 const useStyles = makeStyles({
   root: {
@@ -19,11 +20,21 @@ const useStyles = makeStyles({
     margin: '0 2px',
     transform: 'scale(0.8)',
   },
-  title: {
-    fontSize: 12,
+  secondary: {
+    fontSize: 11,
+    textAlign: 'right',
   },
-  pos: {
-    marginBottom: 12,
+  priority: {
+    fontSize: 12,
+    textAlign: 'center',
+    marginRight: 10,
+    color: 'red',
+    fontWeight: '800'
+  },
+  center: {
+    flexDirection: "column",
+    justifyContent: "center",
+    verticalAlign: 'center',
   },
 });
 
@@ -40,22 +51,25 @@ const ProjectIssue = () => {
           justifyContent="flex-start"
           alignItems="flex-start"
         >
-          <Grid item xs>
+          <Grid item xs={9}>
             <Typography className={classes.pos} color="textSecondary">
               <Chip label="Study Blog App" size="small" component="a" href="#chip" clickable />
             </Typography>
-            <Typography variant="body2" component="p">
-              Error: Node Sass version 5.0.0 is incompatible with ^4.0.0
-            </Typography>
-            
-            <Spacer y={2} />
-            <Typography className={classes.title} color="textSecondary" gutterBottom>
+          </Grid>
+          <Grid item xs={3}>
+            <Typography className={classes.secondary} color="textSecondary">
               posted by <Chip
-                icon={<FaceIcon />}
                 label="Jake Doe"
                 variant="outlined"
               />
             </Typography>
+          </Grid>
+          
+          <Grid item className={classes.center} xs={12}>
+            <Icon className={classes.priority}>radio_button_unchecked</Icon>
+            
+              Error: Node Sass version 5.0.0 is incompatible with ^4.0.0
+            
           </Grid>
         </Grid>
       </CardContent>

@@ -38,7 +38,7 @@ const PubIssue = () => {
         <Typography variant="body2" component="p">
           How to fix missing dependency warning when using useEffect React Hook?
         </Typography>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
+        <Typography className={classes.title} color="textSecondary">
           asked by <Chip
             icon={<FaceIcon />}
             label="Joe Doe"

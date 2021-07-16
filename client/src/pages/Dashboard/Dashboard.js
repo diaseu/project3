@@ -13,6 +13,7 @@ const Dashboard = () => {
 
   return(
     <>
+      <h1>Dashboard</h1>
       <Grid container>
         <Grid item xs={12}>
           <Typography variant="h6" component="h2">
@@ -48,7 +49,7 @@ const Dashboard = () => {
           <Grid container>
             <Grid item xs={8}>
               <Typography variant="h6" component="h2">
-                Recent Issues
+                Project Issues
               </Typography>
             </Grid>
             <Grid item xs={4}>
