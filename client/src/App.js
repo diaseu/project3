@@ -58,6 +58,9 @@ function App() {
           <div className={classes.appBarSpacer} />
           <Container className={classes.container}>
             <Switch>
+              <Route exact path="/login">
+                <Login />
+              </Route>
               <Route exact path="/">
                 <Dashboard />
               </Route>
