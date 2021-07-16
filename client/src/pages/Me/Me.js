@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Icon from '@material-ui/core/Icon';
 import Issue from '../../components/Issue'
-import PubIssue from '../../components/PubIssue'
+import CommunityIssue from '../../components/CommunityIssue'
 
 
 const useStyles = makeStyles({
@@ -52,16 +52,11 @@ const Me = () => {
               <CardContent>
                 <Grid container>
                   <Grid item xs={12}>
-
-                
-
-                <Issue />
+                <CommunityIssue />
               </Grid>
             </Grid>
 
             <br/>
-            
-
 
             <Grid container>
               <Grid item xs={12}>

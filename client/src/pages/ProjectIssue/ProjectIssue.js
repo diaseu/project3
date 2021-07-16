@@ -43,10 +43,6 @@ const ProjectIssue = () => {
 
   return (
     <>
-
-      
-
-
      
       <div className='contactcontainer'>
 
@@ -69,9 +65,9 @@ const ProjectIssue = () => {
                 <Typography variant="h5" component="h2" gutterBottom>
                 
 
-                   <Button variant="contained" color="primary" href="#contained-buttons">
+                  <Button variant="contained" color="primary" href="#contained-buttons">
                     Make Issue Public
-          </Button>
+                  </Button>
                   <h3>Assignees</h3>
                   <h3>Priority</h3>
                 </Typography>

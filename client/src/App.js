@@ -8,8 +8,8 @@ import Projects from './pages/Projects'
 import Project from './pages/Project'
 import Dashboard from './pages/Dashboard'
 import Me from './pages/Me'
-import Help from './pages/Help/Index'
-import ProjectIssue from './pages/ProjectIssue/Index'
+import Help from './pages/Help'
+import ProjectIssue from './pages/ProjectIssue'
 import {
   BrowserRouter as Router,
   Switch,
