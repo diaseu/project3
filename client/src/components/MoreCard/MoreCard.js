@@ -13,14 +13,19 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     flexWrap: 'wrap',
     height: 200,
+    flexDirection: "column",
+    justifyContent: "center",
+    textAlign: 'center',
+    backgroundColor: 'rgba(0,0,0,0.15)'
   },
   bullet: {
     display: 'inline-block',
     margin: '0 2px',
     transform: 'scale(0.8)',
   },
-  title: {
-    fontSize: 12,
+  add: {
+    fontSize: 92,
+    color: '#fff'
   },
   pos: {
     fontSize: 13,
@@ -28,31 +33,20 @@ const useStyles = makeStyles({
   },
 });
 
-const ProjectCard = () => {
+const MoreCard = () => {
   const classes = useStyles();
 
   return (
     <Card className={classes.root}>
       <CardContent>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          Project
+        
+        <Typography className={classes.add}>
+          +
         </Typography>
-        <Typography variant="h6" component="h2">
-          Project Name
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          Project description quasi reiciendis voluptates quo id similique itaque sed.
-        </Typography>
-        <Chip
-          icon={<FaceIcon />}
-          label="John Doe"
-        />
+        
       </CardContent>
-      {/* <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions> */}
     </Card>
   )
 }
 
-export default ProjectCard
+export default MoreCard
