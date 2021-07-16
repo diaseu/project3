@@ -13,6 +13,7 @@ const Dashboard = () => {
 
   return(
     <>
+      <h1>Dashboard</h1>
       <Grid container>
         <Grid item xs={12}>
           <Typography variant="h6" component="h2">
