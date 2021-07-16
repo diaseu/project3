@@ -10,6 +10,7 @@ import Dashboard from './pages/Dashboard'
 import Me from './pages/Me'
 import Help from './pages/Help'
 import ProjectIssue from './pages/ProjectIssue'
+import Login from './pages/Login'
 import {
   BrowserRouter as Router,
   Switch,
