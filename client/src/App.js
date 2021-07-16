@@ -11,6 +11,7 @@ import Me from './pages/Me'
 import Help from './pages/Help'
 import ProjectIssue from './pages/ProjectIssue'
 import Login from './pages/Login'
+import SignUp from './pages/SignUp'
 import {
   BrowserRouter as Router,
   Switch,
@@ -50,6 +51,9 @@ function App() {
   const classes = useStyles();
 
   return (
+
+
+    
     <Router>
       <div className={classes.root}>
         <CssBaseline />
@@ -59,6 +63,9 @@ function App() {
           <div className={classes.appBarSpacer} />
           <Container className={classes.container}>
             <Switch>
+              <Route exact path="/signUp">
+                <SignUp />
+              </Route>
               <Route exact path="/login">
                 <Login />
               </Route>
