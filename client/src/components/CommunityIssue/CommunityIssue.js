@@ -1,3 +1,4 @@
+import './CommunityIssue.css';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -7,21 +8,21 @@ import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import FaceIcon from '@material-ui/icons/Face';
 import Badge from '@material-ui/core/Badge';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
+    paddingBottom: 0,
   },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
+  secondary: {
+    fontSize: 11,
   },
   title: {
     fontSize: 12,
   },
-  pos: {
-    marginBottom: 12,
+  answer: {
+    textAlign: 'right'
   },
 });
 
@@ -31,24 +32,24 @@ const PubIssue = () => {
   return(
     <Card className={classes.root}>
       <CardContent>
-    
-        <Typography className={classes.pos} color="textSecondary">
-          
-        </Typography>
         <Typography variant="body2" component="p">
           How to fix missing dependency warning when using useEffect React Hook?
         </Typography>
-        <Typography className={classes.title} color="textSecondary">
-          asked by <Chip
-            icon={<FaceIcon />}
-            label="Joe Doe"
-          />
-          <Badge badgeContent={4} color="secondary">
-            <Button size="small" variant="contained" color="primary" href="#contained-buttons">
-            Answer
-          </Button>
-          </Badge>
-        </Typography>
+        <Grid container>
+          <Grid item xs={8}>
+            <span className={classes.secondary} color="textSecondary">
+              asked on 7/16/21 @ 1:15 PM</span>
+          </Grid>
+          <Grid className={classes.answer} item xs={4}>
+            <Badge badgeContent={4} color="secondary">
+              <Button size="small" variant="contained" color="primary" href="#contained-buttons">
+                Answer
+              </Button>
+            </Badge>
+          </Grid>
+        </Grid>
+
+        
       </CardContent>
       
     </Card>

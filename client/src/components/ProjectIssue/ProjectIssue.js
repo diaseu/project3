@@ -9,6 +9,13 @@ import Chip from '@material-ui/core/Chip';
 import FaceIcon from '@material-ui/icons/Face';
 import Spacer from '../Spacer'
 import Icon from '@material-ui/core/Icon';
+import IssueDetail from '../IssueDetail'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -51,19 +58,7 @@ const ProjectIssue = () => {
           justifyContent="flex-start"
           alignItems="flex-start"
         >
-          <Grid item xs={9}>
-            <Typography className={classes.pos} color="textSecondary">
-              <Chip label="Study Blog App" size="small" component="a" href="#chip" clickable />
-            </Typography>
-          </Grid>
-          <Grid item xs={3}>
-            <Typography className={classes.secondary} color="textSecondary">
-              posted by <Chip
-                label="Jake Doe"
-                variant="outlined"
-              />
-            </Typography>
-          </Grid>
+          <IssueDetail />
           
           <Grid item className={classes.center} xs={12}>
             <Icon className={classes.priority}>radio_button_unchecked</Icon>
@@ -73,7 +68,6 @@ const ProjectIssue = () => {
           </Grid>
         </Grid>
       </CardContent>
-      
     </Card>
   )
 }

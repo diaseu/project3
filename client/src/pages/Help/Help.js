@@ -6,6 +6,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Icon from '@material-ui/core/Icon';
+import Button from '@material-ui/core/Button';
+import ProjectIssue from '../../components/ProjectIssue'
 
 const useStyles = makeStyles({
   root: {
@@ -42,26 +44,42 @@ const Help = () => {
 
   return (
     <>
-      <h1>Answer Others' Issues - Public Issues</h1>
-      <div className='contactcontainer'>
+      <h1>Community Issues </h1>
+      <Grid container>
+        <Grid item xs={9}>
+          <Typography variant="h6" component="h2">
+            Help Answer Others' Issues
+          </Typography>
+        </Grid>
+        <Grid item className={classes.right} xs={3}>
+          <Button size="small" variant="contained" href="#sort-project">
+            Sort by Project
+          </Button>
+          <Button size="small" variant="contained" href="#sort-project">
+            Sort by Recent
+          </Button>
+        </Grid>
+      </Grid>
 
-        <Card className={classes.cardinfo}>
-          <CardContent>
-            <Grid container>
-              <Grid item xs={8}>
-                <Typography variant="h5" component="h2" gutterBottom>
-                  Put stuff here
-                </Typography>
-              </Grid>
-              <Grid item xs={4}>
-                <Typography variant="h5" component="h2" gutterBottom>
-                  Put stuff here
-                </Typography>
-              </Grid>
-            </Grid>
-          </CardContent>
-        </Card>
+      <div>
+        <Grid container>
+          <Grid item xs={12}>
+            <ProjectIssue />
+          </Grid>
 
+          <Grid item xs={12}>
+            <ProjectIssue />
+          </Grid>
+
+          <Grid item xs={12}>
+            <ProjectIssue />
+          </Grid>
+
+          <Grid item xs={12}>
+            <ProjectIssue />
+          </Grid>
+
+        </Grid>
       </div>
     </>
   )

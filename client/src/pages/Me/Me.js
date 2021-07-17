@@ -39,51 +39,31 @@ const Me = () => {
           <Button size="small" variant="contained" href="#sort-project">
             Sort by Project
           </Button>
-          <Button size="small" variant="contained" href="#sort-recent">
+          <Button size="small" variant="contained" href="#sort-project">
             Sort by Recent
           </Button>
         </Grid>
       </Grid>
+
       <div>
-
-        <Card className={classes.cardinfo}>
-          <CardContent>
-            <Grid container>
-              <Grid item xs={12}>
-            <ProjectIssue />
-          </Grid>
-        </Grid>
-
-        <br/>
-
         <Grid container>
           <Grid item xs={12}>
             <ProjectIssue />
           </Grid>
-        </Grid>
 
-        <br/>
-
-        <Grid container>
           <Grid item xs={12}>
             <ProjectIssue />
           </Grid>
-        </Grid>
 
-        <br />
-
-        <Grid container>
           <Grid item xs={12}>
             <ProjectIssue />
           </Grid>
-        </Grid>
 
-              
-          </CardContent>
-        </Card>
+          <Grid item xs={12}>
+            <ProjectIssue />
+          </Grid>
 
-
-          
+        </Grid>     
       </div>
     </>
   )
