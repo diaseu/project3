@@ -1,5 +1,6 @@
 const { model, Schema } = require('mongoose')
 
+//be able to access a users projects and see issues they posted
 const User = new Schema({
   name: String,
   email: String,
@@ -8,9 +9,9 @@ const User = new Schema({
     ref: 'Project'
   }],
   issues: [{
-    
+    type: Schema.Types.ObjectId,
+    ref: 'Issue'
   }]
-  
 })
 
 User.plugin(require('passport-local-mongoose'))
