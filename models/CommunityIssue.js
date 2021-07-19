@@ -1,12 +1,10 @@
 const { model, Schema } = require('mongoose')
 
 //see author, see replies
-const Issue = new Schema({
+const CommunityIssue = new Schema({
   title: String,
   body: String,
-  // isPublic: Boolean,
   status: String,
-  priority: String,
   author: {
     type: Schema.Types.ObjectId,
     ref: 'User'
@@ -14,7 +12,11 @@ const Issue = new Schema({
   replies: [{
     type: Schema.Types.ObjectId,
     ref: 'Reply'
-  }]
+  }],
+  issue: {
+    type: Schema.Types.ObjectId,
+    ref: 'Issue'
+  }
 })
 
-module.exports = model('Issue', Issue)
+module.exports = model('CommunityIssue', CommunityIssue)

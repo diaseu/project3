@@ -72,6 +72,9 @@ function App() {
           <div className={classes.appBarSpacer} />
           <Container className={classes.container}>
             <Switch>
+              <Route exact path="/">
+                <Dashboard />
+              </Route>
               <Route exact path="/About">
                 <About />
               </Route>
@@ -80,9 +83,6 @@ function App() {
               </Route>
               <Route exact path="/login">
                 <Login />
-              </Route>
-              <Route exact path="/">
-                <Dashboard />
               </Route>
               <Route path="/projects">
                 <Projects />
