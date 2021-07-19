@@ -15,6 +15,8 @@ import Issue from '../../components/Issue'
 import CommunityIssue from '../../components/CommunityIssue'
 import ProjectIssue from '../../components/ProjectIssue'
 import ProjectIssueModal from '../../components/ProjectIssueModal'
+import EditProjectModal from '../../components/EditProjectModal'
+import AddIssue from '../../components/AddIssue'
 import ProjectCard from '../../components/ProjectCard'
 import Spacer from '../../components/Spacer'
 import {
@@ -41,6 +43,10 @@ const useStyles = makeStyles({
     paddingLeft: 20,
     borderLeft: '1px solid #ccc',
   },
+  members: {
+    paddingLeft: 20,
+    borderLeft: '1px solid #ccc',
+  },
   issuerightchip: {
     marginBottom: 20,
     borderLeft: '1px solid #ccc',
@@ -61,23 +67,37 @@ const useStyles = makeStyles({
   }, 
 });
 
-
-
 const Project = () => {
   const classes = useStyles();
+
+  // Modals
   const [open, setOpen] = useState(false);
+  const [openEditProject, setEditProjectOpen] = useState(false);
+  const [openAddIssue, setAddIssueOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
+  const handleEditProjectOpen = () => {
+    setEditProjectOpen(true);
+  };
+  
+  const handleAddIssueOpen = () => {
+    setAddIssueOpen(true);
+  };
+  
   const handleClose = () => {
     setOpen(false);
+    setAddIssueOpen(false);
+    setEditProjectOpen(false)
   };
 
   const handleDelete = () => {
     console.info('You clicked the delete icon.');
   };
+
+  
 
   return(
     <>
@@ -89,19 +109,56 @@ const Project = () => {
         </Grid>
         <Grid className={classes.columngrid} item xs={1}>
           <div className={classes.editbtn}>
-            <Chip
+            <Link onClick={handleEditProjectOpen}>
+              <Chip
               clickable
               label="Edit Project"
               variant="outlined"
               size='small'
+              onClickEditProject={() => setEditProjectOpen(true)}
+            />
+            </Link>
+            <EditProjectModal 
+              open={openEditProject} 
+              handleClose={() => setEditProjectOpen(false)}
             />
           </div>
         </Grid>
         <Grid className={classes.columngrid} item xs={12}>
+          <Typography className={classes.title} color="textSecondary" gutterBottom>
+            Project Lead <Chip
+            icon={<FaceIcon />}
+            clickable
+            label="Susan Doe"
+            variant="outlined"
+            /> <span className="members">Project Members <Chip
+              icon={<FaceIcon />}
+              clickable
+              label="Matt Bitt"
+              onDelete={handleDelete}
+              color="default"
+              variant="outlined"
+            />
+            <Chip
+              icon={<FaceIcon />}
+              clickable
+              label="Simon Cowell"
+              onDelete={handleDelete}
+              color="default"
+              variant="outlined"
+            />
+            <Chip
+              icon={<AddIcon />}
+              label="Add"
+              clickable
+              variant="outlined"
+            />
+            </span>
+          </Typography>
+          
           <div className={classes.column}>
             <Card className={classes.columntest}>
               <CardContent>
-                
                 <Typography variant="p" component="p">
                   The Gantt Museum (Baltimore, MD) aims to redesign its website. The museum contains the world's largest collection of gantt charts created by project managers from around the world. The Museum has begun digitizing and cataloging each piece and would like to display them on their website, along with other pertinent Museum information and content.
                 </Typography>
@@ -124,18 +181,27 @@ const Project = () => {
                     </Typography>
                   </Grid>
                   <Grid className={classes.right} item xs={6}>
-                    <Chip
-                      icon={<AddIcon />}
-                      clickable
-                      className={classes.addbtn}
-                      label="Add Issue"
-                      variant="outlined"
+                    <Link onClick={handleAddIssueOpen}>
+                      <Chip
+                        icon={<AddIcon />}
+                        clickable
+                        className={classes.addbtn}
+                        label="Add Issue"
+                        variant="outlined"
+                        onClickAddIssue={() => setAddIssueOpen(true)}
+                      />
+                    </Link>
+                    <AddIssue
+                      open={openAddIssue}
+                      handleClose={() => setAddIssueOpen(false)}
                     />
                   </Grid>
                 </Grid>
-                
               
-                <Link onClick={handleClickOpen}>
+
+
+              
+                <Link onClick={handleClickOpen} i={1}>
                   <Issue />
                 </Link>
                 <ProjectIssueModal 
@@ -143,6 +209,15 @@ const Project = () => {
                   handleClose={handleClose}
                 />
 
+                <Link onClick={handleClickOpen} i={2}>
+                  <Issue />
+                </Link>
+                <ProjectIssueModal 
+                  open={open}
+                  handleClose={handleClose}
+                />
+
+                
                 <Issue />
                 <Issue />
                 <Issue />

@@ -1,3 +1,4 @@
+import './ProjectIssueModal.css'
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -16,7 +17,11 @@ import Icon from '@material-ui/core/Icon';
 import FaceIcon from '@material-ui/icons/Face';
 import AddIcon from '@material-ui/icons/Add';
 import Spacer from '../../components/Spacer'
-
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
 
 const useStyles = makeStyles({
   root: {
@@ -71,7 +76,14 @@ const useStyles = makeStyles({
   },
   editbtn: {
     textAlign: 'right',
-  }
+  },
+  formControl: {
+    margin: 10,
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: 20,
+  },
 });
 
 
@@ -103,29 +115,48 @@ function MyConstructor(data, transport) {
 };`;
 
 
+const issueexamples = [
+  {
+    title: 'Why do I get “Reducer […] returned undefined during initialization” despite providing initialState to createStore() ?',
+    body: "I have a constructor function which registers an event handler: However, I'm not able to access the data property of the created object inside the callback. It looks like this does not refer to the object that was created but to an other one. I also tried to use an object method instead of an anonymous function: but it exhibits the same problems. How can I access the correct object ?",
+    status: "Open",
+    priority: "High",
+    author: "John Doe",
+    replies: []
+  },
+  {
+    title: 'Home button missing from nav',
+    body: "There is no home button on the navigation bar",
+    status: "Open",
+    priority: "Low",
+    author: "Susan Doe",
+    replies: []
+  }
+]
+
 const ProjectCard = props => {
   const classes = useStyles();
 
+  const [issueState, setIssueState] = useState({
+    title: '',
+    body: '',
+    priority: '',
+    issue: []
+  })
+
+  const handleInputChange = ({ target }) => {
+    setIssueState({ ...issueState, [target.name]: target.value })
+  }
+
   return (
     <Dialog maxWidth='lg' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">Why do I get “Reducer […] returned undefined during initialization” despite providing initialState to createStore()?</DialogTitle>
+      <DialogTitle id="form-dialog-title" className='dialogtitle'>{issueexamples[0].title}</DialogTitle>
       <DialogContent>
         <DialogContentText>
           <Grid container>
             <Grid className={classes.issueleft} item xs={9}>
               <Typography className={classes.mb} variant="p" component="p">
-                I have a constructor function which registers an event handler:
-                <div className={classes.codebox}>{myHTML}</div>
-
-                However, I'm not able to access the data property of the created object inside the callback. It looks like this does not refer to the object that was created but to an other one.
-
-                I also tried to use an object method instead of an anonymous function:
-                <div className={classes.codebox}>{myHTML2}</div>
-
-
-                but it exhibits the same problems.
-
-                How can I access the correct object?
+                {issueexamples[0].body}
               </Typography>
 
               <TextField
@@ -144,7 +175,7 @@ const ProjectCard = props => {
               <Chip
                 icon={<FaceIcon />}
                 clickable
-                label="Susan Doe"
+                label={issueexamples[0].author}
                 variant="outlined"
               />
               <Spacer y={2} />
@@ -178,7 +209,7 @@ const ProjectCard = props => {
                 color="primary"
                 endIcon={<Icon>expand_more</Icon>}
               >
-                Open
+                {issueexamples[0].status}
               </Button>
               <Spacer y={2} />
 
@@ -186,8 +217,22 @@ const ProjectCard = props => {
               <Typography className={classes.title} color="textSecondary" gutterBottom>
                 Priority
               </Typography>
+
+              <FormControl className={classes.formControl}>
+                <InputLabel id="priority-label">Priority</InputLabel>
+                <Select
+                  labelId="priority-label"
+                  id="priority"
+                  value={issueState.priority}
+                  onChange={handleInputChange}
+                >
+                  <MenuItem value="High">High</MenuItem>
+                  <MenuItem value="Medium">Medium</MenuItem>
+                  <MenuItem value="Low">Low</MenuItem>
+                </Select>
+              </FormControl>
               <Icon className={classes.priority}>radio_button_unchecked</Icon>
-              <span className={classes.priority}>High Priority</span>
+              <span className={classes.priority}>{issueexamples[0].priority}</span>
               <Spacer y={4} />
 
 
