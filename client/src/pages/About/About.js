@@ -165,7 +165,7 @@ export default function About() {
             </Card>
 
             <Box m={0.5} />
-            <Divider />
+          
             <br/>
 
             <Card className={classes.root}>
@@ -201,6 +201,7 @@ export default function About() {
             </Card>
 
             <Box m={0.5} />
+            
             <br/>
 
             <Card className={classes.root}>
@@ -232,8 +233,10 @@ export default function About() {
             </Card>
 
 
-            <Box m={0.5} />
+            <Box m={.5}  />
+            
             <br/>
+            
 
             <Card className={classes.root}>
               <CardActionArea>

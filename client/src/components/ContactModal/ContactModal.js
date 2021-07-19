@@ -72,6 +72,7 @@ const useStyles = makeStyles({
   editbtn: {
     textAlign: 'right',
   }
+  
 });
 
 
@@ -107,13 +108,33 @@ const ContactModal = props => {
   const classes = useStyles();
 
   return (
-    <Dialog maxWidth='lg' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">Contact the Team</DialogTitle>
+    <Dialog maxWidth='lg' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title" >
+      <DialogTitle id="form-dialog-title" >Contact the Team</DialogTitle>
       <DialogContent>
+
+
         <DialogContentText>
           <Grid container>
-            <Grid className={classes.issueleft} item xs={9}>
-             
+            <Grid className={classes.issueleft} item xs={9} >
+
+              <TextField
+                margin="dense"
+                id="name"
+                label="name"
+                type="comment"
+               
+              />
+
+              <br/>
+
+              <TextField
+                margin="dense"
+                id="email"
+                label="email"
+                type="comment"
+
+              />
+
               <TextField
                 margin="dense"
                 id="comment"
@@ -121,13 +142,14 @@ const ContactModal = props => {
                 type="comment"
                 fullWidth
               />
-            
+
             </Grid>
-           
+
           </Grid>
 
         </DialogContentText>
 
+       
       </DialogContent>
       <DialogActions>
         <Button onClick={props.handleClose} color="primary">

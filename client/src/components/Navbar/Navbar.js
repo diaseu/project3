@@ -19,6 +19,8 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
+import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -212,6 +214,12 @@ const Navbar = ({ pages, setpageState }) => {
             </ListItemIcon>
               <Link to="/help"><ListItemText primary="Community Issues" /></Link>
           </ListItem>
+            <ListItem button>
+              <ListItemIcon>
+                <EmojiPeopleIcon />
+              </ListItemIcon>
+              <Link to="/about"><ListItemText primary="About" /></Link>
+            </ListItem>
         </div>
       </List>
     </Drawer>
