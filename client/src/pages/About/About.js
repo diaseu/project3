@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CameraIcon from '@material-ui/icons/PhotoCamera';
@@ -14,6 +14,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import Avatar from '@material-ui/core/Avatar';
+import Box from '@material-ui/core/Box';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import Divider from '@material-ui/core/Divider';
+import Dia from '../../images/Snapchat-2077905771_1.jpg'
+import Joon from '../../images/Joon2.jpeg'
+import Mike from '../../images/IMG_0003.PNG'
+import Chip from '@material-ui/core/Chip';
+import ContactModal from '../../components/ContactModal'
+
 
 function Copyright() {
   return (
@@ -44,37 +53,26 @@ const useStyles = makeStyles((theme) => ({
   heroButtons: {
     marginTop: theme.spacing(4),
   },
-  cardGrid: {
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
+  root: {
+    maxWidth: 275,
   },
-  card: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
+  media: {
+    height: 140,
   },
-  cardMedia: {
-    paddingTop: '56.25%', // 16:9
-  },
-  cardContent: {
-    flexGrow: 1,
-  },
-  footer: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(6),
-  },
-  large: {
-    textAlign: 'center',
-    margin: 'auto',
-    minWidth: 200,
-    minHeight: 200
-  }
 }));
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
 
 export default function About() {
   const classes = useStyles();
+
+  const [openEditProject, setEditProjectOpen] = useState(false);
+  const handleEditProjectOpen = () => {
+    setEditProjectOpen(true);
+  };
+  const handleClose = () => {
+    setEditProjectOpen(false)
+  };
 
   return (
     <React.Fragment>
@@ -82,6 +80,14 @@ export default function About() {
       <main>
         {/* Hero unit */}
         <div className={classes.heroContent}>
+
+
+          
+
+
+
+
+
           <Container maxWidth="sm">
             <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
               About <span className={classes.brand}>ZAP</span>
@@ -92,54 +98,188 @@ export default function About() {
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justifyContent="center">
                 <Grid item>
-                  <Button variant="contained" color="primary">
-                    Contact the Team
-                  </Button>
+                 
+                    
+                    <Link onClick={handleEditProjectOpen}>
+                      <Chip
+                        clickable
+                        label="Contact"
+                        variant="contained"
+                        size='medium'
+                        onClickEditProject={() => setEditProjectOpen(true)}
+                      />
+                    </Link>
+                    <ContactModal
+                      open={openEditProject}
+                      handleClose={() => setEditProjectOpen(false)}
+                    />
+                 
                 </Grid>
                 <Grid item>
-                  <Button variant="outlined" color="primary">
-                    Leave Feedback
-                  </Button>
+               
                 </Grid>
               </Grid>
             </div>
           </Container>
         </div>
           {/* End hero unit */}
+        <Box m={3.2} />
+
+
         <Container className={classes.cardGrid} maxWidth="lg">
-          <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
-                <Card className={classes.card}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" className={classes.large} />
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      John Doe
-                    </Typography>
-                    <Typography>
-                      This is a media card. You can use this section to describe the content.
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small" color="primary">
-                      View
-                    </Button>
-                    <Button size="small" color="primary">
-                      Edit
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}
+          <Grid
+            container
+            spacing={4}
+            direction="row"
+            justify="center"
+            alignItems="center"
+          >
+            <Card className={classes.root}>
+              <CardActionArea>
+
+                <CardContent>
+                  <img src={Dia} width="240" height="240" />
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Diana Seung
+          </Typography>
+
+                  <Typography variant="body2" color="textSecondary" component="p">
+                    
+          </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Button size="small" color="primary">
+                  <Link href="https://www.linkedin.com/in/dianaseung/" target="_blank">
+                   LinkedIn
+  </Link>
+        </Button>
+                <Button size="small" color="primary">
+                  <Link href="https://github.com/diaseu" >
+                    GitHub
+  </Link>
+                  
+        </Button>
+
+              </CardActions>
+            </Card>
+
+            <Box m={0.5} />
+          
+            <br/>
+
+            <Card className={classes.root}>
+              <CardActionArea>
+
+
+
+                <CardContent>
+                  <img src={Joon} width="240" height="240" />
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Sle Ahn
+          </Typography>
+
+                  <Typography variant="body2" color="textSecondary" component="p">
+                   
+          </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Button size="small" color="primary">
+                  <Link href="https://www.linkedin.com/in/sle-ahn" target="_blank">
+                    LinkedIn
+  </Link>
+                </Button>
+                <Button size="small" color="primary">
+                  <Link href="https://github.com/silentsonata92" target="_blank" >
+                    GitHub
+  </Link>
+
+                </Button>
+
+              </CardActions>
+            </Card>
+
+            <Box m={0.5} />
+            
+            <br/>
+
+            <Card className={classes.root}>
+              <CardActionArea>
+
+
+
+                <CardContent>
+                  <img src={'https://i.imgur.com/AlYe5XY.jpeg'} width="240" height="240" />
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Jake Eckfeldt
+          </Typography>
+
+                  <Typography variant="body2" color="textSecondary" component="p">
+                    
+          </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+               
+                <Button size="small" color="primary">
+                  <Link href="https://github.com/JEckfeldt" target="_blank" >
+                    GitHub
+  </Link>
+
+                </Button>
+
+              </CardActions>
+            </Card>
+
+
+            <Box m={.5}  />
+            
+            <br/>
+            
+
+            <Card className={classes.root}>
+              <CardActionArea>
+
+
+
+                <CardContent>
+                  <img src={Mike} width="240" height="240" />
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Michael Scharf
+          </Typography>
+
+                  <Typography variant="body2" color="textSecondary" component="p">
+                   
+          </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Button size="small" color="primary">
+                  <Link href="https://www.linkedin.com/in/michael-scharf-398899111" target="_blank">
+                    LinkedIn
+  </Link>
+                </Button>
+                <Button size="small" color="primary">
+                  <Link href="https://github.com/2017mike" target="_blank">
+                    GitHub
+  </Link>
+
+                </Button>
+
+              </CardActions>
+            </Card>
+            
+
+
+
+
+
+
           </Grid>
         </Container>
       </main>
-      {/* Footer */}
-      <footer className={classes.footer}>
-      
-        <Copyright />
-      </footer>
-      {/* End footer */}
+     
     </React.Fragment>
   );
 }
