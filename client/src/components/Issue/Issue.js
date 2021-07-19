@@ -23,13 +23,16 @@ const useStyles = makeStyles({
   title: {
     fontSize: 12,
   },
+  issue: {
+    
+  },
   priority: {
     fontSize: 12,
     textAlign: 'center',
     marginRight: 10,
     color: 'red',
     fontWeight: '800'
-  }
+  },
 });
 
 
@@ -46,7 +49,7 @@ const Issue = () => {
           alignItems="flex-start"
         >
 
-          <Grid item className={classes.center} xs={12}>
+          <Grid item className={classes.issue} xs={12}>
             <Icon className={classes.priority}>radio_button_unchecked</Icon>
 
             Error: Node Sass version 5.0.0 is incompatible with ^4.0.0
