@@ -2,7 +2,28 @@ const router = require('express').Router()
 const { Issue, Reply, Project, User } = require('../models')
 const passport = require('passport')
 
-//get project by id get the info, owner, members, issues, and issues authors
+//get all projects
+router.get('/projects', passport.authenticate('jwt'), (req, res) => {
+  Project.find({})
+    .populate('owner')
+    .populate({
+      path: 'members',
+      model: 'User'
+    })
+    .populate({
+      path: 'issues',
+      model: 'Issue',
+      populate: {
+        path: 'author',
+        model: 'User'
+      }
+    })
+    .then(posts => res.json(posts))
+    .catch(err => console.log(err))
+})
+
+
+//get project by id
 router.get('/projects/:id', passport.authenticate('jwt'), (req, res) => {
   Project.findById(req.params.id)
     .populate('owner')
@@ -26,7 +47,8 @@ router.get('/projects/:id', passport.authenticate('jwt'), (req, res) => {
 router.post('/projects', passport.authenticate('jwt'), (req, res) => {
   Project.create({
     title: req.body.title,
-    description: req.body.description
+    description: req.body.description,
+    owner: req.user
   })
     .then(project => {
       User.findByIdAndUpdate(req.user.id, { $push: { posts: project._id } })
