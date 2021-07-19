@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CameraIcon from '@material-ui/icons/PhotoCamera';
@@ -20,6 +20,8 @@ import Divider from '@material-ui/core/Divider';
 import Dia from '../../images/Snapchat-2077905771_1.jpg'
 import Joon from '../../images/Joon2.jpeg'
 import Mike from '../../images/IMG_0003.PNG'
+import Chip from '@material-ui/core/Chip';
+import ContactModal from '../../components/ContactModal'
 
 
 function Copyright() {
@@ -64,12 +66,28 @@ const useStyles = makeStyles((theme) => ({
 export default function About() {
   const classes = useStyles();
 
+  const [openEditProject, setEditProjectOpen] = useState(false);
+  const handleEditProjectOpen = () => {
+    setEditProjectOpen(true);
+  };
+  const handleClose = () => {
+    setEditProjectOpen(false)
+  };
+
   return (
     <React.Fragment>
       <CssBaseline />
       <main>
         {/* Hero unit */}
         <div className={classes.heroContent}>
+
+
+          
+
+
+
+
+
           <Container maxWidth="sm">
             <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
               About <span className={classes.brand}>ZAP</span>
@@ -80,14 +98,25 @@ export default function About() {
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justifyContent="center">
                 <Grid item>
-                  <Button variant="contained" color="primary">
-                    Contact the Team
-                  </Button>
+                 
+                    
+                    <Link onClick={handleEditProjectOpen}>
+                      <Chip
+                        clickable
+                        label="Contact"
+                        variant="contained"
+                        size='medium'
+                        onClickEditProject={() => setEditProjectOpen(true)}
+                      />
+                    </Link>
+                    <ContactModal
+                      open={openEditProject}
+                      handleClose={() => setEditProjectOpen(false)}
+                    />
+                 
                 </Grid>
                 <Grid item>
-                  <Button variant="outlined" color="primary">
-                    Leave Feedback
-                  </Button>
+               
                 </Grid>
               </Grid>
             </div>
