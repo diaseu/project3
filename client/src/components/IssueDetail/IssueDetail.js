@@ -39,7 +39,7 @@ const IssueDetail = () => {
     <>
       <Grid item xs={9}>
         <Typography className={classes.pos} color="textSecondary">
-          <Chip label="Study Blog App" size="small" component="a" href="#chip" clickable />
+          <Chip label="Apollo Titus" size="small" component="a" href="/project" clickable />
         </Typography>
       </Grid>
       <Grid item xs={3}>
