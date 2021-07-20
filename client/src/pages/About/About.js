@@ -25,7 +25,6 @@ import ContactModal from '../../components/ContactModal'
 import ContactForm from '../../components/ContactForm'
 
 
-
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -61,9 +60,10 @@ const useStyles = makeStyles((theme) => ({
   media: {
     height: 140,
   },
+  paper: {
+    padding: theme.spacing(1)
+  }
 }));
-
-
 
 export default function About() {
   const classes = useStyles();
@@ -82,14 +82,6 @@ export default function About() {
       <main>
         {/* Hero unit */}
         <div className={classes.heroContent}>
-
-
-          
-
-        
-
-
-
           <Container maxWidth="sm">
             <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
               About <span className={classes.brand}>ZAP</span>
@@ -100,24 +92,18 @@ export default function About() {
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justifyContent="center">
                 <Grid item>
-                 
-                    
-                  
-                    <ContactModal
-                      open={openEditProject}
-                      handleClose={() => setEditProjectOpen(false)}
-                      
-                    />
-                 
+                  <ContactModal
+                    open={openEditProject}
+                    handleClose={() => setEditProjectOpen(false)}
+                  />
                 </Grid>
                 <Grid item>
-               
                 </Grid>
               </Grid>
             </div>
           </Container>
         </div>
-          {/* End hero unit */}
+        {/* End hero unit */}
         <Box m={3.2} />
 
       
@@ -125,157 +111,140 @@ export default function About() {
         <Container className={classes.cardGrid} maxWidth="lg">
           <Grid
             container
-            spacing={4}
+            spacing={1}
             direction="row"
             justify="center"
             alignItems="center"
           >
-            <Card className={classes.root}>
-              <CardActionArea>
-
-                <CardContent>
-                  <img src={Dia} width="240" height="240" />
-                  <Typography gutterBottom variant="h5" component="h2">
-                    Diana Seung
-          </Typography>
-
-                  <Typography variant="body2" color="textSecondary" component="p">
-                    
-          </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button size="small" color="primary">
-                  <Link href="https://www.linkedin.com/in/dianaseung/" target="_blank">
-                   LinkedIn
-  </Link>
-        </Button>
-                <Button size="small" color="primary">
-                  <Link href="https://github.com/diaseu" >
-                    GitHub
-  </Link>
-                  
-        </Button>
-
-              </CardActions>
-            </Card>
-
-            <Box m={0.5} />
-          
-            <br/>
-
-            <Card className={classes.root}>
-              <CardActionArea>
+            <Grid item s={2}>
+              <Card className={classes.root}>
+                <CardActionArea>
+                  <CardContent>
+                    <img src={Dia} width="170" height="170" />
+                    <Typography gutterBottom variant="h5" component="h2">
+                      Diana Seung
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+                <CardActions>
+                  <Button size="small" color="primary">
+                    <Link href="https://www.linkedin.com/in/dianaseung/" target="_blank">
+                      LinkedIn
+                    </Link>
+                  </Button>
+                  <Button size="small" color="primary">
+                    <Link href="https://github.com/diaseu" >
+                      GitHub
+                    </Link>
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+            <br />
+            <Grid item s={2}>
+              <Card className={classes.root}>
+                <CardActionArea>
 
 
 
-                <CardContent>
-                  <img src={Joon} width="240" height="240" />
-                  <Typography gutterBottom variant="h5" component="h2">
-                    Sle Ahn
-          </Typography>
+                  <CardContent>
+                    <img src={Joon} width="170" height="170" />
+                    <Typography gutterBottom variant="h5" component="h2">
+                      Sle Ahn
+                    </Typography>
 
-                  <Typography variant="body2" color="textSecondary" component="p">
-                   
-          </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button size="small" color="primary">
-                  <Link href="https://www.linkedin.com/in/sle-ahn" target="_blank">
-                    LinkedIn
-  </Link>
-                </Button>
-                <Button size="small" color="primary">
-                  <Link href="https://github.com/silentsonata92" target="_blank" >
-                    GitHub
-  </Link>
+                    <Typography variant="body2" color="textSecondary" component="p">
 
-                </Button>
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+                <CardActions>
+                  <Button size="small" color="primary">
+                    <Link href="https://www.linkedin.com/in/sle-ahn" target="_blank">
+                      LinkedIn
+                    </Link>
+                  </Button>
+                  <Button size="small" color="primary">
+                    <Link href="https://github.com/silentsonata92" target="_blank" >
+                      GitHub
+                    </Link>
 
-              </CardActions>
-            </Card>
+                  </Button>
 
-            <Box m={0.5} />
-            
-            <br/>
-
-            <Card className={classes.root}>
-              <CardActionArea>
+                </CardActions>
+              </Card>
+            </Grid>
+            <br />
 
 
-
-                <CardContent>
-                  <img src={'https://i.imgur.com/AlYe5XY.jpeg'} width="255" height="240" />
-                  <Typography gutterBottom variant="h5" component="h2">
-                    Jake Eckfeldt
-          </Typography>
-
-                  <Typography variant="body2" color="textSecondary" component="p">
-                    
-          </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-               
-                <Button size="small" color="primary">
-                  <Link href="https://github.com/JEckfeldt" target="_blank" >
-                    GitHub
-  </Link>
-
-                </Button>
-
-              </CardActions>
-            </Card>
-
-
-            <Box m={.5}  />
-            
-            <br/>
-            
-
-            <Card className={classes.root}>
-              <CardActionArea>
+            <Grid item s={2}>
+              <Card className={classes.root}>
+                <CardActionArea>
 
 
 
-                <CardContent>
-                  <img src={Mike} width="255" height="240" />
-                  <Typography gutterBottom variant="h5" component="h2">
-                    Michael Scharf
-          </Typography>
+                  <CardContent>
+                    <img src={'https://i.imgur.com/AlYe5XY.jpeg'} width="170" height="170" />
+                    <Typography gutterBottom variant="h5" component="h2">
+                      Jake Eckfeldt
+                    </Typography>
 
-                  <Typography variant="body2" color="textSecondary" component="p">
-                   
-          </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button size="small" color="primary">
-                  <Link href="https://www.linkedin.com/in/michael-scharf-398899111" target="_blank">
-                    LinkedIn
-  </Link>
-                </Button>
-                <Button size="small" color="primary">
-                  <Link href="https://github.com/2017mike" target="_blank">
-                    GitHub
-  </Link>
+                    <Typography variant="body2" color="textSecondary" component="p">
 
-                </Button>
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+                <CardActions>
 
-              </CardActions>
-            </Card>
-            
+                  <Button size="small" color="primary">
+                    <Link href="https://github.com/JEckfeldt" target="_blank" >
+                      GitHub
+                    </Link>
 
+                  </Button>
 
+                </CardActions>
+              </Card>
 
+            </Grid>
+            <br />
 
+            <Grid item s={2}>
+              <Card className={classes.root}>
+                <CardActionArea>
 
 
+
+                  <CardContent>
+                    <img src={Mike} width="170" height="170" />
+                    <Typography gutterBottom variant="h5" component="h2">
+                      Michael Scharf
+                    </Typography>
+
+                    <Typography variant="body2" color="textSecondary" component="p">
+
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+                <CardActions>
+                  <Button size="small" color="primary">
+                    <Link href="https://www.linkedin.com/in/michael-scharf-398899111" target="_blank">
+                      LinkedIn
+                    </Link>
+                  </Button>
+                  <Button size="small" color="primary">
+                    <Link href="https://github.com/2017mike" target="_blank">
+                      GitHub
+                    </Link>
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
           </Grid>
         </Container>
       </main>
-     
     </React.Fragment>
   );
 }
