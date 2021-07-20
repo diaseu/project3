@@ -17,6 +17,7 @@ import ProjectIssue from '../../components/ProjectIssue'
 import ProjectIssueModal from '../../components/ProjectIssueModal'
 import EditProjectModal from '../../components/EditProjectModal'
 import AddIssue from '../../components/AddIssue'
+import AddMember from '../../components/AddMember'
 import ProjectCard from '../../components/ProjectCard'
 import Spacer from '../../components/Spacer'
 import {
@@ -61,6 +62,8 @@ const useStyles = makeStyles({
   },
   right: {
     textAlign: 'right',
+    paddingRight: 20,
+    marginBottom: 20,
   },
   columntest: {
     backgroundColor: '#ddd'
@@ -74,6 +77,7 @@ const Project = () => {
   const [open, setOpen] = useState(false);
   const [openEditProject, setEditProjectOpen] = useState(false);
   const [openAddIssue, setAddIssueOpen] = useState(false);
+  const [openAddMember, setAddMemberOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -86,10 +90,15 @@ const Project = () => {
   const handleAddIssueOpen = () => {
     setAddIssueOpen(true);
   };
+
+  const handleAddMemberOpen = () => {
+    setAddMemberOpen(true);
+  };
   
   const handleClose = () => {
     setOpen(false);
     setAddIssueOpen(false);
+    setAddMemberOpen(false);
     setEditProjectOpen(false)
   };
 
@@ -147,12 +156,21 @@ const Project = () => {
               color="default"
               variant="outlined"
             />
-            <Chip
-              icon={<AddIcon />}
-              label="Add"
-              clickable
-              variant="outlined"
-            />
+
+              <Link onClick={handleAddMemberOpen}>
+                <Chip
+                  icon={<AddIcon />}
+                  clickable
+                  className={classes.addbtn}
+                  label="Add Member"
+                  variant="outlined"
+                  onClickAddMember={() => setAddMemberOpen(true)}
+                />
+              </Link>
+              <AddMember
+                open={openAddMember}
+                handleClose={() => setAddMemberOpen(false)}
+              />
             </span>
           </Typography>
           
@@ -170,6 +188,23 @@ const Project = () => {
       </Grid>
 
       <Grid container>
+        <Grid className={classes.right} item xs={12}>
+          <Link onClick={handleAddIssueOpen}>
+            <Chip
+              icon={<AddIcon />}
+              clickable
+              className={classes.addbtn}
+              label="Add Issue"
+              // variant="outlined"
+              color="primary"
+              onClickAddIssue={() => setAddIssueOpen(true)}
+            />
+          </Link>
+          <AddIssue
+            open={openAddIssue}
+            handleClose={() => setAddIssueOpen(false)}
+          />
+        </Grid>
         <Grid className={classes.columngrid} item xs={4}>
           <div className={classes.column}>
             <Card className={classes.columntest}>
@@ -180,22 +215,7 @@ const Project = () => {
                       Open
                     </Typography>
                   </Grid>
-                  <Grid className={classes.right} item xs={6}>
-                    <Link onClick={handleAddIssueOpen}>
-                      <Chip
-                        icon={<AddIcon />}
-                        clickable
-                        className={classes.addbtn}
-                        label="Add Issue"
-                        variant="outlined"
-                        onClickAddIssue={() => setAddIssueOpen(true)}
-                      />
-                    </Link>
-                    <AddIssue
-                      open={openAddIssue}
-                      handleClose={() => setAddIssueOpen(false)}
-                    />
-                  </Grid>
+                  
                 </Grid>
               
 
@@ -242,15 +262,6 @@ const Project = () => {
                     In Progress
                   </Typography>
                 </Grid>
-                <Grid className={classes.right} item xs={6}>
-                  <Chip
-                    icon={<AddIcon />}
-                    clickable
-                    className={classes.addbtn}
-                    label="Add Issue"
-                    variant="outlined"
-                  />
-                </Grid>
               </Grid>
               <Issue />
               <Issue />
@@ -270,15 +281,6 @@ const Project = () => {
                     <Typography className={classes.mb} variant="h5" component="h5">
                       Closed
                     </Typography>
-                  </Grid>
-                  <Grid className={classes.right} item xs={6}>
-                    <Chip
-                      icon={<AddIcon />}
-                      clickable
-                      className={classes.addbtn}
-                      label="Add Issue"
-                      variant="outlined"
-                    />
                   </Grid>
                 </Grid>
                 <Issue />
