@@ -100,15 +100,7 @@ export default function About() {
                 <Grid item>
                  
                     
-                    <Link onClick={handleEditProjectOpen}>
-                      <Chip
-                        clickable
-                        label="Contact"
-                        variant="contained"
-                        size='medium'
-                        onClickEditProject={() => setEditProjectOpen(true)}
-                      />
-                    </Link>
+                   
                     <ContactModal
                       open={openEditProject}
                       handleClose={() => setEditProjectOpen(false)}
@@ -210,7 +202,7 @@ export default function About() {
 
 
                 <CardContent>
-                  <img src={'https://i.imgur.com/AlYe5XY.jpeg'} width="240" height="240" />
+                  <img src={'https://i.imgur.com/AlYe5XY.jpeg'} width="255" height="240" />
                   <Typography gutterBottom variant="h5" component="h2">
                     Jake Eckfeldt
           </Typography>
@@ -244,7 +236,7 @@ export default function About() {
 
 
                 <CardContent>
-                  <img src={Mike} width="240" height="240" />
+                  <img src={Mike} width="255" height="240" />
                   <Typography gutterBottom variant="h5" component="h2">
                     Michael Scharf
           </Typography>
