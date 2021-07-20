@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import ProjectIssue from '../../components/ProjectIssue'
 import CommunityIssue from '../../components/CommunityIssue'
-import Project from '../../components/Project'
+import Project from '../../components/Project-candelete'
 import ProjectCard from '../../components/ProjectCard'
 import Spacer from '../../components/Spacer'
 

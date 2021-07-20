@@ -113,7 +113,7 @@ const Project = () => {
       <Grid container>
         <Grid className={classes.columngrid} item xs={11}>
           <Typography className={classes.mb} variant="h3" component="h2">
-                Project: Gantt Museum
+                Project: Apollo Titus
           </Typography>
         </Grid>
         <Grid className={classes.columngrid} item xs={1}>
@@ -178,7 +178,7 @@ const Project = () => {
             <Card className={classes.columntest}>
               <CardContent>
                 <Typography variant="p" component="p">
-                  The Gantt Museum (Baltimore, MD) aims to redesign its website. The museum contains the world's largest collection of gantt charts created by project managers from around the world. The Museum has begun digitizing and cataloging each piece and would like to display them on their website, along with other pertinent Museum information and content.
+                  Project Apollo Titus aims to redesign its website. The museum contains the world's largest collection of gantt charts created by project managers from around the world. The Museum has begun digitizing and cataloging each piece and would like to display them on their website, along with other pertinent Museum information and content. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad temporibus beatae quas pariatur, nemo nobis quis sit eaque neque qui, nihil eveniet praesentium sunt aspernatur eius omnis harum et placeat.
                 </Typography>
                 
               </CardContent>
