@@ -40,6 +40,9 @@ const useStyles = makeStyles((theme) => ({
   media: {
     height: 140,
   },
+  paper: {
+    padding: theme.spacing(1)
+  }
 }));
 
 export default function About() {
@@ -93,129 +96,140 @@ export default function About() {
         <Container className={classes.cardGrid} maxWidth="lg">
           <Grid
             container
-            spacing={4}
+            spacing={1}
             direction="row"
             justify="center"
             alignItems="center"
           >
-            <Card className={classes.root}>
-              <CardActionArea>
+            <Grid item s={2}>
+              <Card className={classes.root}>
+                <CardActionArea>
+                  <CardContent>
+                    <img src={Dia} width="170" height="170" />
+                    <Typography gutterBottom variant="h5" component="h2">
+                      Diana Seung
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+                <CardActions>
+                  <Button size="small" color="primary">
+                    <Link href="https://www.linkedin.com/in/dianaseung/" target="_blank">
+                      LinkedIn
+                    </Link>
+                  </Button>
+                  <Button size="small" color="primary">
+                    <Link href="https://github.com/diaseu" >
+                      GitHub
+                    </Link>
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+            <br />
+            <Grid item s={2}>
+              <Card className={classes.root}>
+                <CardActionArea>
 
-                <CardContent>
-                  <img src={Dia} width="240" height="240" alt="Dia" />
-                  <Typography gutterBottom variant="h5" component="h2">
-                    Diana Seung
-                  </Typography>
 
-                  <Typography variant="body2" color="textSecondary" component="p">
-                    
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button size="small" color="primary">
-                  <Link href="https://github.com/diaseu" >
-                    GitHub
-                  </Link>
-                </Button>
-                <Button size="small" color="primary">
-                  <Link href="https://www.linkedin.com/in/dianaseung/" target="_blank">
-                    LinkedIn
-                  </Link>
-                </Button>
 
-              </CardActions>
-            </Card>
+                  <CardContent>
+                    <img src={Joon} width="170" height="170" />
+                    <Typography gutterBottom variant="h5" component="h2">
+                      Sle Ahn
+                    </Typography>
 
-            <Box m={0.5} />
+                    <Typography variant="body2" color="textSecondary" component="p">
 
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+                <CardActions>
+                  <Button size="small" color="primary">
+                    <Link href="https://www.linkedin.com/in/sle-ahn" target="_blank">
+                      LinkedIn
+                    </Link>
+                  </Button>
+                  <Button size="small" color="primary">
+                    <Link href="https://github.com/silentsonata92" target="_blank" >
+                      GitHub
+                    </Link>
+
+                  </Button>
+
+                </CardActions>
+              </Card>
+            </Grid>
             <br />
 
-            <Card className={classes.root}>
-              <CardActionArea>
-                <CardContent>
-                  <img src={Joon} width="240" height="240" />
-                  <Typography gutterBottom variant="h5" component="h2">
-                    Sle Ahn
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary" component="p">
 
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button size="small" color="primary">
-                  <Link href="https://github.com/silentsonata92" target="_blank" >
-                    GitHub
-                  </Link>
-                </Button>
-                <Button size="small" color="primary">
-                  <Link href="https://www.linkedin.com/in/sle-ahn" target="_blank">
-                    LinkedIn
-                  </Link>
-                </Button>
-              </CardActions>
-            </Card>
+            <Grid item s={2}>
+              <Card className={classes.root}>
+                <CardActionArea>
 
-            <Box m={0.5} />
 
+
+                  <CardContent>
+                    <img src={'https://i.imgur.com/AlYe5XY.jpeg'} width="170" height="170" />
+                    <Typography gutterBottom variant="h5" component="h2">
+                      Jake Eckfeldt
+                    </Typography>
+
+                    <Typography variant="body2" color="textSecondary" component="p">
+
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+                <CardActions>
+
+                  <Button size="small" color="primary">
+                    <Link href="https://github.com/JEckfeldt" target="_blank" >
+                      GitHub
+                    </Link>
+
+                  </Button>
+
+                </CardActions>
+              </Card>
+
+            </Grid>
             <br />
 
-            <Card className={classes.root}>
-              <CardActionArea>
-                <CardContent>
-                  <img src={'https://i.imgur.com/AlYe5XY.jpeg'} width="255" height="240" />
-                  <Typography gutterBottom variant="h5" component="h2">
-                    Jake Eckfeldt
-                  </Typography>
+            <Grid item s={2}>
+              <Card className={classes.root}>
+                <CardActionArea>
 
-                  <Typography variant="body2" color="textSecondary" component="p">
 
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button size="small" color="primary">
-                  <Link href="https://github.com/JEckfeldt" target="_blank" >
-                    GitHub
-                  </Link>
-                </Button>
-              </CardActions>
-            </Card>
 
-            <Box m={.5} />
+                  <CardContent>
+                    <img src={Mike} width="170" height="170" />
+                    <Typography gutterBottom variant="h5" component="h2">
+                      Michael Scharf
+                    </Typography>
 
-            <br />
+                    <Typography variant="body2" color="textSecondary" component="p">
 
-            <Card className={classes.root}>
-              <CardActionArea>
-                <CardContent>
-                  <img src={Mike} width="255" height="240" />
-                  <Typography gutterBottom variant="h5" component="h2">
-                    Michael Scharf
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary" component="p">
-
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button size="small" color="primary">
-                  <Link href="https://github.com/2017mike" target="_blank">
-                    GitHub
-                  </Link>
-                </Button>
-                <Button size="small" color="primary">
-                  <Link href="https://www.linkedin.com/in/michael-scharf-398899111" target="_blank">
-                    LinkedIn
-                  </Link>
-                </Button>
-              </CardActions>
-            </Card>
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+                <CardActions>
+                  <Button size="small" color="primary">
+                    <Link href="https://www.linkedin.com/in/michael-scharf-398899111" target="_blank">
+                      LinkedIn
+                    </Link>
+                  </Button>
+                  <Button size="small" color="primary">
+                    <Link href="https://github.com/2017mike" target="_blank">
+                      GitHub
+                    </Link>
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
           </Grid>
         </Container>
       </main>
-
     </React.Fragment>
   );
 }
