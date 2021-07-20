@@ -25,22 +25,22 @@ router.get('/users/me', passport.authenticate('jwt'), (req, res) => {
   res.json(req.user)
 })
 
-// router.get('/users/:username', passport.authenticate('jwt'), (req, res) => {
-//   User.findOne({ username: req.params.username })
-//     .populate({
-//       path: 'posts',
-//       model: 'Post',
-//       populate: {
-//         path: 'comments',
-//         model: 'Comment',
-//         populate: {
-//           path: 'author',
-//           model: 'User'
-//         }
-//       }
-//     })
-//     .then(user => res.json(user))
-//     .catch(err => console.log(err))
-// })
+router.get('/users/:username', passport.authenticate('jwt'), (req, res) => {
+  User.findOne({ username: req.params.username })
+    .populate({
+      path: 'projects',
+      model: 'Project',
+      populate: {
+        path: 'issues',
+        model: 'Issue',
+        populate: {
+          path: 'author',
+          model: 'User'
+        }
+      }
+    })
+    .then(user => res.json(user))
+    .catch(err => console.log(err))
+})
 
 module.exports = router

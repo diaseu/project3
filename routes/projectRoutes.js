@@ -13,18 +13,27 @@ router.get('/projects', passport.authenticate('jwt'), (req, res) => {
     .populate({
       path: 'issues',
       model: 'Issue',
-      populate: {
-        path: 'author',
-        model: 'User'
-      }
+      populate: [
+        {
+          path: 'author',
+          model: 'User'
+        },
+        {
+          path: 'replies',
+          model: 'Reply',
+          populate: {
+            path: 'author',
+            model: 'User'
+          }
+        }
+      ]
     })
-    .then(posts => res.json(posts))
-    .catch(err => console.log(err))
+    .then(project => res.json(project))
+    .catch(err => console.log(err)))
 })
 
-
 //get project by id
-router.get('/projects/:id', passport.authenticate('jwt'), (req, res) => {
+router.get(`/projects/:id`, passport.authenticate('jwt'), (req, res) => {
   Project.findById(req.params.id)
     .populate('owner')
     .populate({
@@ -34,36 +43,50 @@ router.get('/projects/:id', passport.authenticate('jwt'), (req, res) => {
     .populate({
       path: 'issues',
       model: 'Issue',
-      populate: {
-        path: 'author',
-        model: 'User'
-      }
+      populate: [
+        {
+          path: 'author',
+          model: 'User'
+        },
+        {
+          path: 'replies',
+          model: 'Reply',
+          populate: {
+            path: 'author',
+            model: 'User'
+          }
+        }
+      ]
     })
     .then(project => res.json(project))
     .catch(err => console.log(err))
 })
 
-//create new project route
+//create new project
 router.post('/projects', passport.authenticate('jwt'), (req, res) => {
   Project.create({
     title: req.body.title,
     description: req.body.description,
-    owner: req.user
+    owner: req.user._id
   })
     .then(project => {
-      User.findByIdAndUpdate(req.user.id, { $push: { posts: project._id } })
+      User.findByIdAndUpdate(req.user._id, { $push: { projects: project._id } })
         .then(() => {
-          res.json({
-            id: project._id,
-            title: project.title,
-            description: project.description,
-            owner: req.user,
-            members: [],
-            issues: []
-          })
+          Project.findByIdAndUpdate(project._id, { $push: { members: project.owner._id } })
+            .then(() => res.sendStatus(200))
+            .catch(err => console.log(err))
         })
+        .catch(err => console.log(err))
     })
     .catch(err => console.log(err))
 })
 
-module.exports = router 
+//update project
+router.put(`/projects/:id`, passport.authenticate('jwt'), (req, res) => {
+  Project.findByIdAndUpdate(req.params.id, req.body, {new: true})
+    .then(project => res.json(project))
+    .catch(err => console.log(err))
+})
+
+
+module.exports = router
