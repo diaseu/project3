@@ -68,8 +68,8 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
     textTransform: 'uppercase',
-    fontFamily: 'Sugo',
-    fontSize: '34px'
+    fontFamily: 'Days One',
+    fontSize: '32px'
   },
   drawerPaper: {
     position: 'relative',

@@ -16,8 +16,7 @@ import About from './pages/About'
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 
 
@@ -52,7 +51,7 @@ function App() {
   const classes = useStyles();
   
   function navbar () {
-    if (document.location.pathname != "/login" && document.location.pathname != "/signup") {
+    if (document.location.pathname !== "/login" && document.location.pathname !== "/signup") {
       return (
         <Navbar />
       )

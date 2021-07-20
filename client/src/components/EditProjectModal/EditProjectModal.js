@@ -123,7 +123,7 @@ const EditProjectModal = props => {
       <DialogContent>
         <DialogContentText>
           <Grid container>
-            <Grid className={classes.issueleft} item xs={9}>
+            <Grid className={classes.issueleft} item xs={12} lg={9}>
               <TextField
                 id="title"
                 label="Title"
@@ -146,8 +146,9 @@ const EditProjectModal = props => {
                 fullWidth
               />
               
+              <Spacer y={2} />
             </Grid>
-            <Grid className={classes.issueright} item xs={3}>
+            <Grid className={classes.issueright} item xs={12} lg={3}>
               <Typography className={classes.title} color="textSecondary" gutterBottom>
                 Project Lead
               </Typography>
@@ -179,12 +180,12 @@ const EditProjectModal = props => {
                 color="default"
                 variant="outlined"
               />
-              <Chip
+              {/* <Chip
                 icon={<AddIcon />}
                 label="Add"
                 clickable
                 variant="outlined"
-              />
+              /> */}
               <Spacer y={2} />
 
 

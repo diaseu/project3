@@ -2,13 +2,8 @@ import './Projects.css'
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import ProjectCard from '../../components/ProjectCard'
 import MoreCard from '../../components/MoreCard'
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Spacer from '../../components/Spacer'
-import Project from '../Project'
 import {
   BrowserRouter as Router,
   Switch,
@@ -48,42 +43,42 @@ const Projects = () => {
     <>
     <h1>View My Projects</h1>
       <Grid container>
-        <Grid item xs={12}>
+        <Grid item xs={12} lg={12}>
         </Grid>
-        <Grid className={classes.projectcard} item xs={2}>
+        <Grid className={classes.projectcard} item xs={12} sm={5} lg={2}>
           <Link to="/project"><ProjectCard /></Link>
         </Grid>
-        <Grid className={classes.projectcard} item xs={2}>
+        <Grid className={classes.projectcard} item xs={12} sm={5} lg={2}>
           <ProjectCard />
         </Grid>
-        <Grid className={classes.projectcard} item xs={2}>
+        <Grid className={classes.projectcard} item xs={12} sm={5} lg={2}>
           <ProjectCard />
         </Grid>
-        <Grid className={classes.projectcard} item xs={2}>
+        <Grid className={classes.projectcard} item xs={12} sm={5} lg={2}>
           <ProjectCard />
         </Grid>
-        <Grid className={classes.projectcard} item xs={2}>
+        <Grid className={classes.projectcard} item xs={12} sm={5} lg={2}>
           <ProjectCard />
         </Grid>
-        <Grid className={classes.projectcard} item xs={2}>
+        <Grid className={classes.projectcard} item xs={12} sm={5} lg={2}>
           <ProjectCard />
         </Grid>
-        <Grid className={classes.projectcard} item xs={2}>
+        <Grid className={classes.projectcard} item xs={12} sm={5} lg={2}>
           <ProjectCard />
         </Grid>
-        <Grid className={classes.projectcard} item xs={2}>
+        <Grid className={classes.projectcard} item xs={12} md={5} lg={2}>
           <ProjectCard />
         </Grid>
-        <Grid className={classes.projectcard} item xs={2}>
+        <Grid className={classes.projectcard} item xs={12} md={5} lg={2}>
           <ProjectCard />
         </Grid>
-        <Grid className={classes.projectcard} item xs={2}>
+        <Grid className={classes.projectcard} item xs={12} md={5} lg={2}>
           <ProjectCard />
         </Grid>
-        <Grid className={classes.projectcard} item xs={2}>
+        <Grid className={classes.projectcard} item xs={12} md={5} lg={2}>
           <ProjectCard />
         </Grid>
-        <Grid className={classes.projectcard} item xs={2}>
+        <Grid className={classes.projectcard} item xs={12} md={5} lg={2}>
           <MoreCard />
         </Grid>
       </Grid>

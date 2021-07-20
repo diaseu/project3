@@ -1,25 +1,18 @@
 import './Project.css';
 import React, { useState } from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Chip from '@material-ui/core/Chip';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Icon from '@material-ui/core/Icon';
 import FaceIcon from '@material-ui/icons/Face';
 import AddIcon from '@material-ui/icons/Add';
 import Issue from '../../components/Issue'
-import CommunityIssue from '../../components/CommunityIssue'
-import ProjectIssue from '../../components/ProjectIssue'
 import ProjectIssueModal from '../../components/ProjectIssueModal'
 import EditProjectModal from '../../components/EditProjectModal'
 import AddIssue from '../../components/AddIssue'
 import AddMember from '../../components/AddMember'
-import ProjectCard from '../../components/ProjectCard'
-import Spacer from '../../components/Spacer'
 import {
   BrowserRouter as Router,
   Switch,
@@ -45,8 +38,8 @@ const useStyles = makeStyles({
     borderLeft: '1px solid #ccc',
   },
   members: {
-    paddingLeft: 20,
-    borderLeft: '1px solid #ccc',
+    // paddingLeft: 20,
+    borderLeft: '1px solid #fff',
   },
   issuerightchip: {
     marginBottom: 20,
@@ -111,7 +104,7 @@ const Project = () => {
   return(
     <>
       <Grid container>
-        <Grid className={classes.columngrid} item xs={11}>
+        <Grid className={classes.columngrid} item xs={12} md={11}>
           <Typography className={classes.mb} variant="h3" component="h2">
                 Project: Apollo Titus
           </Typography>
@@ -134,45 +127,53 @@ const Project = () => {
           </div>
         </Grid>
         <Grid className={classes.columngrid} item xs={12}>
-          <Typography className={classes.title} color="textSecondary" gutterBottom>
-            Project Lead <Chip
-            icon={<FaceIcon />}
-            clickable
-            label="Susan Doe"
-            variant="outlined"
-            /> <span className="members">Project Members <Chip
-              icon={<FaceIcon />}
-              clickable
-              label="Matt Bitt"
-              onDelete={handleDelete}
-              color="default"
-              variant="outlined"
-            />
-            <Chip
-              icon={<FaceIcon />}
-              clickable
-              label="Simon Cowell"
-              onDelete={handleDelete}
-              color="default"
-              variant="outlined"
-            />
-
-              <Link onClick={handleAddMemberOpen}>
-                <Chip
-                  icon={<AddIcon />}
+          <Grid container>
+            <Grid item xs={12} md={3}>
+              <span className={classes.title} color="textSecondary" gutterBottom>
+                Project Lead <Chip
+                  icon={<FaceIcon />}
                   clickable
-                  className={classes.addbtn}
-                  label="Add Member"
+                  label="Susan Doe"
                   variant="outlined"
-                  onClickAddMember={() => setAddMemberOpen(true)}
                 />
-              </Link>
-              <AddMember
-                open={openAddMember}
-                handleClose={() => setAddMemberOpen(false)}
+              </span>
+            </Grid>
+            <Grid itemxs={12} md={9}>
+              <span className="members">Project Members <Chip
+                icon={<FaceIcon />}
+                clickable
+                label="Matt Bitt"
+                onDelete={handleDelete}
+                color="default"
+                variant="outlined"
               />
-            </span>
-          </Typography>
+                <Chip
+                  icon={<FaceIcon />}
+                  clickable
+                  label="Simon Cowell"
+                  onDelete={handleDelete}
+                  color="default"
+                  variant="outlined"
+                />
+
+                <Link onClick={handleAddMemberOpen}>
+                  <Chip
+                    icon={<AddIcon />}
+                    clickable
+                    className={classes.addbtn}
+                    label="Add Member"
+                    variant="outlined"
+                    onClickAddMember={() => setAddMemberOpen(true)}
+                  />
+                </Link>
+                <AddMember
+                  open={openAddMember}
+                  handleClose={() => setAddMemberOpen(false)}
+                />
+              </span>
+            </Grid>
+          </Grid>
+          
           
           <div className={classes.column}>
             <Card className={classes.columntest}>
@@ -205,7 +206,7 @@ const Project = () => {
             handleClose={() => setAddIssueOpen(false)}
           />
         </Grid>
-        <Grid className={classes.columngrid} item xs={4}>
+        <Grid className={classes.columngrid} item xs={12} lg={4}>
           <div className={classes.column}>
             <Card className={classes.columntest}>
               <CardContent>
@@ -252,7 +253,7 @@ const Project = () => {
             </Card>
           </div>
         </Grid>
-        <Grid className={classes.columngrid} item xs={4}>
+        <Grid className={classes.columngrid} item xs={12} lg={4}>
           <div className={classes.column}>
             <Card className={classes.columntest}>
             <CardContent>
@@ -272,7 +273,7 @@ const Project = () => {
           </Card>
           </div>
         </Grid>
-        <Grid className={classes.columngrid} item xs={4}>
+        <Grid className={classes.columngrid} item xs={12} lg={4}>
           <div className={classes.column}>
             <Card className={classes.columntest}>
               <CardContent>
