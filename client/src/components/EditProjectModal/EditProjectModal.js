@@ -103,32 +103,53 @@ function MyConstructor(data, transport) {
 };`;
 
 
-const ProjectCard = props => {
+const EditProjectModal = props => {
   const classes = useStyles();
 
+  const [issueState, setIssueState] = useState({
+    title: '',
+    body: '',
+    priority: '',
+    issue: []
+  })
+
+  const handleInputChange = ({ target }) => {
+    setIssueState({ ...issueState, [target.name]: target.value })
+  }
+
   return (
-    <Dialog maxWidth='lg' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">Gantt Museum</DialogTitle>
+    <Dialog maxWidth='sm' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
+      <DialogTitle id="form-dialog-title">Edit Project</DialogTitle>
       <DialogContent>
         <DialogContentText>
           <Grid container>
             <Grid className={classes.issueleft} item xs={9}>
-              <Typography className={classes.mb} variant="p" component="p">
-                Project description
-              </Typography>
-
+              <TextField
+                id="title"
+                label="Title"
+                variant="outlined"
+                name='title'
+                fullWidth
+                value={issueState.title}
+                onChange={handleInputChange}
+              />
               <TextField
                 margin="dense"
-                id="comment"
-                label="Comment"
-                type="comment"
+                id="body"
+                label="Description"
+                type="text"
+                variant="outlined"
+                value={issueState.body}
+                onChange={handleInputChange}
+                multiline
+                rows={6}
                 fullWidth
               />
-              <Button color="primary" variant="contained">Submit</Button>
+              
             </Grid>
             <Grid className={classes.issueright} item xs={3}>
               <Typography className={classes.title} color="textSecondary" gutterBottom>
-                Posted by
+                Project Lead
               </Typography>
               <Chip
                 icon={<FaceIcon />}
@@ -140,12 +161,20 @@ const ProjectCard = props => {
 
 
               <Typography className={classes.title} color="textSecondary" gutterBottom>
-                Assigned
+                Project Members
               </Typography>
               <Chip
                 icon={<FaceIcon />}
                 clickable
                 label="Matt Bitt"
+                onDelete={props.handleDelete}
+                color="default"
+                variant="outlined"
+              />
+              <Chip
+                icon={<FaceIcon />}
+                clickable
+                label="Simon Cowell"
                 onDelete={props.handleDelete}
                 color="default"
                 variant="outlined"
@@ -159,38 +188,11 @@ const ProjectCard = props => {
               <Spacer y={2} />
 
 
-              <Typography className={classes.title} color="textSecondary" gutterBottom>
-                Status
-              </Typography>
-              <Button
-                variant="contained"
-                color="primary"
-                endIcon={<Icon>expand_more</Icon>}
-              >
-                Open
-              </Button>
-              <Spacer y={2} />
+          
 
 
-              <Typography className={classes.title} color="textSecondary" gutterBottom>
-                Priority
-              </Typography>
-              <Icon className={classes.priority}>radio_button_unchecked</Icon>
-              <span className={classes.priority}>High Priority</span>
-              <Spacer y={4} />
 
 
-              <Typography className={classes.title} color="textSecondary" gutterBottom>
-                Ask the Community
-              </Typography>
-              <Button
-                variant="contained"
-                color="secondary"
-                className={classes.ask}
-                endIcon={<Icon>expand_more</Icon>}
-              >
-                Ask the Community
-              </Button>
             </Grid>
           </Grid>
 
@@ -201,7 +203,7 @@ const ProjectCard = props => {
         <Button onClick={props.handleClose} color="primary">
           Cancel
         </Button>
-        <Button onClick={props.handleClose} color="primary">
+        <Button onClick={props.handleClose} color="primary" variant="contained">
           Save
         </Button>
       </DialogActions>
@@ -209,4 +211,4 @@ const ProjectCard = props => {
   )
 }
 
-export default ProjectCard
+export default EditProjectModal
