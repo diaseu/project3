@@ -22,6 +22,8 @@ import Joon from '../../images/Joon2.jpeg'
 import Mike from '../../images/IMG_0003.PNG'
 import Chip from '@material-ui/core/Chip';
 import ContactModal from '../../components/ContactModal'
+import ContactForm from '../../components/ContactForm'
+
 
 
 function Copyright() {
@@ -84,7 +86,7 @@ export default function About() {
 
           
 
-
+        
 
 
 
@@ -100,10 +102,11 @@ export default function About() {
                 <Grid item>
                  
                     
-                   
+                  
                     <ContactModal
                       open={openEditProject}
                       handleClose={() => setEditProjectOpen(false)}
+                      
                     />
                  
                 </Grid>
@@ -117,6 +120,7 @@ export default function About() {
           {/* End hero unit */}
         <Box m={3.2} />
 
+      
 
         <Container className={classes.cardGrid} maxWidth="lg">
           <Grid
