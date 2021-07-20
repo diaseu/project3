@@ -6,6 +6,7 @@ const Issue = new Schema({
   body: String,
   isPublic: Boolean,
   status: String,
+  priority: String,
   author: {
     type: Schema.Types.ObjectId,
     ref: 'User'
