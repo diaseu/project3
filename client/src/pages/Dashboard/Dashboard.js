@@ -5,7 +5,6 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import ProjectIssue from '../../components/ProjectIssue'
 import CommunityIssue from '../../components/CommunityIssue'
-import Project from '../../components/Project'
 import ProjectCard from '../../components/ProjectCard'
 import Spacer from '../../components/Spacer'
 
@@ -20,39 +19,36 @@ const Dashboard = () => {
             My Projects
           </Typography>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={12} lg={2}>
           <ProjectCard />
         </Grid>
-          <Spacer x={2} />
-        <Grid item xs={2}>
+        <Spacer x={2} y={1} />
+        <Grid item xs={12} lg={2}>
           <ProjectCard />
         </Grid>
-        <Spacer x={2} />
-        <Grid item xs={2}>
+        <Spacer x={2} y={1} />
+        <Grid item xs={12} lg={2}>
           <ProjectCard />
         </Grid>
-        <Spacer x={2} />
-        <Grid item xs={2}>
+        <Spacer x={2} y={1} />
+        <Grid item xs={12} lg={2}>
           <ProjectCard />
         </Grid>
-        <Spacer x={2} />
-        <Grid item xs={2}>
+        <Spacer x={2} y={1} />
+        <Grid item xs={12} lg={2}>
           <ProjectCard />
         </Grid>
       </Grid>
       <Spacer y={4} />
       <Grid container>
-        <Grid item xs={12}>
-          
-        </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={12} lg={8}>
           <Grid container>
-            <Grid item xs={8}>
+            <Grid item xs={12} lg={8}>
               <Typography variant="h6" component="h2">
                 Project Issues
               </Typography>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={12} lg={4}>
               <Button size="small" variant="contained" href="#contained-buttons">
                 Only My Issues
               </Button>
@@ -74,7 +70,7 @@ const Dashboard = () => {
           
         </Grid>
         <Spacer x={2} />
-        <Grid item xs={3}>
+        <Grid item xs={12} lg={3}>
           <Typography variant="h6" component="h2">
             Help Answer Others' Issues
           </Typography>

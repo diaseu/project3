@@ -66,6 +66,27 @@ const useStyles = makeStyles({
     color: 'red',
     fontWeight: '800'
   },
+  highpriority: {
+    fontSize: 12,
+    textAlign: 'center',
+    marginRight: 10,
+    color: 'red',
+    fontWeight: '800'
+  },
+  mediumpriority: {
+    fontSize: 12,
+    textAlign: 'center',
+    marginRight: 10,
+    color: '#f79d0c',
+    fontWeight: '800'
+  },
+  lowpriority: {
+    fontSize: 12,
+    textAlign: 'center',
+    marginRight: 10,
+    color: '#14a7fc',
+    fontWeight: '800'
+  },
   ask: {
     backgroundColor: 'red',
     width: '90%'
@@ -140,13 +161,24 @@ const ProjectCard = props => {
   const [issueState, setIssueState] = useState({
     title: '',
     body: '',
+    status: '',
     priority: '',
     issue: []
   })
 
+  const [openStatus, setStatusOpen] = useState(false);
+
   const handleInputChange = ({ target }) => {
     setIssueState({ ...issueState, [target.name]: target.value })
   }
+
+  const handleStatusOpen = () => {
+    setStatusOpen(true);
+  };
+
+  const handleClose = () => {
+    setStatusOpen(false);
+  };
 
   return (
     <Dialog maxWidth='lg' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
@@ -154,7 +186,7 @@ const ProjectCard = props => {
       <DialogContent>
         <DialogContentText>
           <Grid container>
-            <Grid className={classes.issueleft} item xs={9}>
+            <Grid className={classes.issueleft} item xs={12} lg={9}>
               <Typography className={classes.mb} variant="p" component="p">
                 {issueexamples[0].body}
               </Typography>
@@ -167,8 +199,9 @@ const ProjectCard = props => {
                 fullWidth
               />
               <Button color="primary" variant="contained">Submit</Button>
+              <Spacer y={4} />
             </Grid>
-            <Grid className={classes.issueright} item xs={3}>
+            <Grid className={classes.issueright} item xs={12} lg={3}>
               <Typography className={classes.title} color="textSecondary" gutterBottom>
                 Posted by
               </Typography>
@@ -199,6 +232,7 @@ const ProjectCard = props => {
                 variant="outlined"
               />
               <Spacer y={2} />
+              <Spacer y={2} />
 
 
               <Typography className={classes.title} color="textSecondary" gutterBottom>
@@ -207,32 +241,58 @@ const ProjectCard = props => {
               <Button
                 variant="contained"
                 color="primary"
+                onClick={handleInputChange}
                 endIcon={<Icon>expand_more</Icon>}
               >
                 {issueexamples[0].status}
               </Button>
+
+              <FormControl className={classes.formControl}>
+                <Select
+                  id="status"
+                  defaultValue="Open"
+                  value={issueState.issue.status}
+                  onChange={handleInputChange}
+                  fullWidth
+                  open={openStatus}
+                  onClose={handleClose}
+                  onOpen={handleStatusOpen}
+                  value={issueState.issue.status}
+                  onChange={handleInputChange}
+                >
+                  <MenuItem value="Open">
+                    <Icon className={classes.openstatus}>radio_button_unchecked</Icon> Open
+                  </MenuItem>
+                  <MenuItem value="In Progress">
+                    <Icon className={classes.ipstatus}>radio_button_unchecked</Icon> In Progress</MenuItem>
+                  <MenuItem value="Closed">
+                    <Icon className={classes.closedstatus}>radio_button_unchecked</Icon> Closed</MenuItem>
+                </Select>
+              </FormControl>
               <Spacer y={2} />
 
 
-              <Typography className={classes.title} color="textSecondary" gutterBottom>
+              <Typography color="textSecondary" gutterBottom>
                 Priority
               </Typography>
 
               <FormControl className={classes.formControl}>
-                <InputLabel id="priority-label">Priority</InputLabel>
                 <Select
-                  labelId="priority-label"
                   id="priority"
-                  value={issueState.priority}
+                  defaultValue="Medium"
+                  value={issueState.issue.priority}
                   onChange={handleInputChange}
+                  fullWidth
                 >
-                  <MenuItem value="High">High</MenuItem>
-                  <MenuItem value="Medium">Medium</MenuItem>
-                  <MenuItem value="Low">Low</MenuItem>
+                  <MenuItem value="High">
+                    <Icon className={classes.highpriority}>radio_button_unchecked</Icon> High
+                  </MenuItem>
+                  <MenuItem value="Medium">
+                    <Icon className={classes.mediumpriority}>radio_button_unchecked</Icon> Medium</MenuItem>
+                  <MenuItem value="Low">
+                    <Icon className={classes.lowpriority}>radio_button_unchecked</Icon> Low</MenuItem>
                 </Select>
               </FormControl>
-              <Icon className={classes.priority}>radio_button_unchecked</Icon>
-              <span className={classes.priority}>{issueexamples[0].priority}</span>
               <Spacer y={4} />
 
 

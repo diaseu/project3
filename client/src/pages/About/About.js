@@ -1,26 +1,19 @@
 import React, { useState } from 'react';
-import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
-import CameraIcon from '@material-ui/icons/PhotoCamera';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
-import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import Divider from '@material-ui/core/Divider';
 import Dia from '../../images/Snapchat-2077905771_1.jpg'
 import Joon from '../../images/Joon2.jpeg'
 import Mike from '../../images/IMG_0003.PNG'
-import Chip from '@material-ui/core/Chip';
 import ContactModal from '../../components/ContactModal'
 
 function Copyright() {
@@ -66,12 +59,14 @@ const useStyles = makeStyles((theme) => ({
 export default function About() {
   const classes = useStyles();
 
-  const [openEditProject, setEditProjectOpen] = useState(false);
-  const handleEditProjectOpen = () => {
-    setEditProjectOpen(true);
+  const [openContact, setContactOpen] = useState(false);
+  
+  const handleContactOpen = () => {
+    setContactOpen(true);
   };
+  
   const handleClose = () => {
-    setEditProjectOpen(false)
+    setContactOpen(false)
   };
 
   return (

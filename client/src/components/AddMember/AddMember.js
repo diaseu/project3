@@ -14,15 +14,11 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import FaceIcon from '@material-ui/icons/Face';
-import AddIcon from '@material-ui/icons/Add';
+import SearchIcon from '@material-ui/icons/Search';
 import Spacer from '../Spacer'
-import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 
 const useStyles = makeStyles({
@@ -122,7 +118,6 @@ const SetModal = props => {
   const [issueState, setIssueState] = useState({
     title: '',
     body: '',
-    status: 'Open',
     priority: '',
     issue: []
   })
@@ -137,68 +132,34 @@ const SetModal = props => {
     issue.push({
       title: issueState.title,
       body: issueState.body,
-      status: 'Open',
       priority: issueState.priority
     })
   }
 
   return (
     <Dialog maxWidth='sm' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">Add Issue</DialogTitle>
+      <DialogTitle id="form-dialog-title">Add Member to Project</DialogTitle>
       <DialogContent>
         <DialogContentText>
           <Grid container>
             <Grid className={classes.issueleft} item xs={12}>
-              <Typography className={classes.mb} variant="p" component="p">
-                <form>
-                  <p>
-                    <TextField
-                      id="title"
-                      label="Title"
-                      variant="outlined"
-                      name='title'
-                      fullWidth
-                      value={issueState.title}
-                      onChange={handleInputChange}
-                    />
-                  </p>
-                  <p>
-                    <TextField 
-                      id="outlined-basic" 
-                      label="Description" 
-                      variant="outlined" 
-                      name='body'
-                      multiline
-                      rows={6}
-                      fullWidth
-                      value={issueState.body}
-                      onChange={handleInputChange}
-                    />
-                  </p>
-                </form>
-              </Typography>
+              
+              <Autocomplete
+                freeSolo
+                id="add-member"
+                disableClearable
+                options={sampleusers.map((option) => option.name)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Search Member to Add"
+                    margin="normal"
+                    variant="outlined"
+                    InputProps={{ ...params.InputProps, type: 'search' }}
+                  />
+                )}
+              />
 
-            <div className={classes.right}>
-              <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel id="priority-label">Priority</InputLabel>
-                <Select
-                  labelId="priority-label"
-                  id="priority"
-                  defaultValue="Medium"
-                  value={issueState.issue.priority}
-                  onChange={handleInputChange}
-                  fullWidth
-                >
-                  <MenuItem value="High">
-                    <Icon className={classes.highpriority}>radio_button_unchecked</Icon> High
-                  </MenuItem>
-                  <MenuItem value="Medium">
-                    <Icon className={classes.mediumpriority}>radio_button_unchecked</Icon> Medium</MenuItem>
-                  <MenuItem value="Low">
-                    <Icon className={classes.lowpriority}>radio_button_unchecked</Icon> Low</MenuItem>
-                </Select>
-              </FormControl>
-            </div>
             </Grid>
           </Grid>
         </DialogContentText>
@@ -206,11 +167,21 @@ const SetModal = props => {
       </DialogContent>
       <DialogActions>
         <Button onClick={handleAddIssue} onClick={props.handleClose} color="primary" variant="contained">
-          Add Issue
+          Add Member
         </Button>
       </DialogActions>
     </Dialog>
   )
 }
+
+const sampleusers = [
+  { name: 'Adam Doe', email: 'adamdoe@gmail.com' },
+  { name: 'Andy Doe', email: 'andydoe@gmail.com' },
+  { name: 'Alan Doe', email: 'alandoe@gmail.com' },
+  { name: 'Amber Doe', email: 'amberdoe@gmail.com' },
+  { name: 'Aspen Doe', email: 'aspendoe@gmail.com' },
+  { name: "Anthony Doe", email: 'anthonydoe@gmail.com' },
+  { name: 'Akon Doe', email: 'akondoe@gmail.com' },
+];
 
 export default SetModal

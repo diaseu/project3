@@ -21,13 +21,13 @@ export default function ContactModal() {
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Contact
+        Contact the ZAP team
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Contact</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Please leave your message and e-mail here and we will get back to you as soon as possible. 
+            Please leave your email and message here and we will get back to you as soon as possible. 
           </DialogContentText>
           <TextField
             autoFocus
@@ -45,7 +45,7 @@ export default function ContactModal() {
             autoFocus
             margin="dense"
             id="message"
-            label="message"
+            label="Message"
             type="email"
             fullWidth
           />

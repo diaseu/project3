@@ -1,24 +1,18 @@
 import './Project.css';
 import React, { useState } from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Chip from '@material-ui/core/Chip';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Icon from '@material-ui/core/Icon';
 import FaceIcon from '@material-ui/icons/Face';
 import AddIcon from '@material-ui/icons/Add';
 import Issue from '../../components/Issue'
-import CommunityIssue from '../../components/CommunityIssue'
-import ProjectIssue from '../../components/ProjectIssue'
 import ProjectIssueModal from '../../components/ProjectIssueModal'
 import EditProjectModal from '../../components/EditProjectModal'
 import AddIssue from '../../components/AddIssue'
-import ProjectCard from '../../components/ProjectCard'
-import Spacer from '../../components/Spacer'
+import AddMember from '../../components/AddMember'
 import {
   BrowserRouter as Router,
   Switch,
@@ -44,8 +38,8 @@ const useStyles = makeStyles({
     borderLeft: '1px solid #ccc',
   },
   members: {
-    paddingLeft: 20,
-    borderLeft: '1px solid #ccc',
+    // paddingLeft: 20,
+    borderLeft: '1px solid #fff',
   },
   issuerightchip: {
     marginBottom: 20,
@@ -61,6 +55,8 @@ const useStyles = makeStyles({
   },
   right: {
     textAlign: 'right',
+    paddingRight: 20,
+    marginBottom: 20,
   },
   columntest: {
     backgroundColor: '#ddd'
@@ -74,6 +70,7 @@ const Project = () => {
   const [open, setOpen] = useState(false);
   const [openEditProject, setEditProjectOpen] = useState(false);
   const [openAddIssue, setAddIssueOpen] = useState(false);
+  const [openAddMember, setAddMemberOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -86,10 +83,15 @@ const Project = () => {
   const handleAddIssueOpen = () => {
     setAddIssueOpen(true);
   };
+
+  const handleAddMemberOpen = () => {
+    setAddMemberOpen(true);
+  };
   
   const handleClose = () => {
     setOpen(false);
     setAddIssueOpen(false);
+    setAddMemberOpen(false);
     setEditProjectOpen(false)
   };
 
@@ -102,9 +104,9 @@ const Project = () => {
   return(
     <>
       <Grid container>
-        <Grid className={classes.columngrid} item xs={11}>
+        <Grid className={classes.columngrid} item xs={12} md={11}>
           <Typography className={classes.mb} variant="h3" component="h2">
-                Project: Gantt Museum
+                Project: Apollo Titus
           </Typography>
         </Grid>
         <Grid className={classes.columngrid} item xs={1}>
@@ -125,42 +127,59 @@ const Project = () => {
           </div>
         </Grid>
         <Grid className={classes.columngrid} item xs={12}>
-          <Typography className={classes.title} color="textSecondary" gutterBottom>
-            Project Lead <Chip
-            icon={<FaceIcon />}
-            clickable
-            label="Susan Doe"
-            variant="outlined"
-            /> <span className="members">Project Members <Chip
-              icon={<FaceIcon />}
-              clickable
-              label="Matt Bitt"
-              onDelete={handleDelete}
-              color="default"
-              variant="outlined"
-            />
-            <Chip
-              icon={<FaceIcon />}
-              clickable
-              label="Simon Cowell"
-              onDelete={handleDelete}
-              color="default"
-              variant="outlined"
-            />
-            <Chip
-              icon={<AddIcon />}
-              label="Add"
-              clickable
-              variant="outlined"
-            />
-            </span>
-          </Typography>
+          <Grid container>
+            <Grid item xs={12} md={3}>
+              <span className={classes.title} color="textSecondary" gutterBottom>
+                Project Lead <Chip
+                  icon={<FaceIcon />}
+                  clickable
+                  label="Susan Doe"
+                  variant="outlined"
+                />
+              </span>
+            </Grid>
+            <Grid itemxs={12} md={9}>
+              <span className="members">Project Members <Chip
+                icon={<FaceIcon />}
+                clickable
+                label="Matt Bitt"
+                onDelete={handleDelete}
+                color="default"
+                variant="outlined"
+              />
+                <Chip
+                  icon={<FaceIcon />}
+                  clickable
+                  label="Simon Cowell"
+                  onDelete={handleDelete}
+                  color="default"
+                  variant="outlined"
+                />
+
+                <Link onClick={handleAddMemberOpen}>
+                  <Chip
+                    icon={<AddIcon />}
+                    clickable
+                    className={classes.addbtn}
+                    label="Add Member"
+                    variant="outlined"
+                    onClickAddMember={() => setAddMemberOpen(true)}
+                  />
+                </Link>
+                <AddMember
+                  open={openAddMember}
+                  handleClose={() => setAddMemberOpen(false)}
+                />
+              </span>
+            </Grid>
+          </Grid>
+          
           
           <div className={classes.column}>
             <Card className={classes.columntest}>
               <CardContent>
                 <Typography variant="p" component="p">
-                  The Gantt Museum (Baltimore, MD) aims to redesign its website. The museum contains the world's largest collection of gantt charts created by project managers from around the world. The Museum has begun digitizing and cataloging each piece and would like to display them on their website, along with other pertinent Museum information and content.
+                  Project Apollo Titus aims to redesign its website. The museum contains the world's largest collection of gantt charts created by project managers from around the world. The Museum has begun digitizing and cataloging each piece and would like to display them on their website, along with other pertinent Museum information and content. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad temporibus beatae quas pariatur, nemo nobis quis sit eaque neque qui, nihil eveniet praesentium sunt aspernatur eius omnis harum et placeat.
                 </Typography>
                 
               </CardContent>
@@ -170,7 +189,24 @@ const Project = () => {
       </Grid>
 
       <Grid container>
-        <Grid className={classes.columngrid} item xs={4}>
+        <Grid className={classes.right} item xs={12}>
+          <Link onClick={handleAddIssueOpen}>
+            <Chip
+              icon={<AddIcon />}
+              clickable
+              className={classes.addbtn}
+              label="Add Issue"
+              // variant="outlined"
+              color="primary"
+              onClickAddIssue={() => setAddIssueOpen(true)}
+            />
+          </Link>
+          <AddIssue
+            open={openAddIssue}
+            handleClose={() => setAddIssueOpen(false)}
+          />
+        </Grid>
+        <Grid className={classes.columngrid} item xs={12} lg={4}>
           <div className={classes.column}>
             <Card className={classes.columntest}>
               <CardContent>
@@ -180,22 +216,7 @@ const Project = () => {
                       Open
                     </Typography>
                   </Grid>
-                  <Grid className={classes.right} item xs={6}>
-                    <Link onClick={handleAddIssueOpen}>
-                      <Chip
-                        icon={<AddIcon />}
-                        clickable
-                        className={classes.addbtn}
-                        label="Add Issue"
-                        variant="outlined"
-                        onClickAddIssue={() => setAddIssueOpen(true)}
-                      />
-                    </Link>
-                    <AddIssue
-                      open={openAddIssue}
-                      handleClose={() => setAddIssueOpen(false)}
-                    />
-                  </Grid>
+                  
                 </Grid>
               
 
@@ -232,7 +253,7 @@ const Project = () => {
             </Card>
           </div>
         </Grid>
-        <Grid className={classes.columngrid} item xs={4}>
+        <Grid className={classes.columngrid} item xs={12} lg={4}>
           <div className={classes.column}>
             <Card className={classes.columntest}>
             <CardContent>
@@ -241,15 +262,6 @@ const Project = () => {
                   <Typography className={classes.mb} variant="h5" component="h5">
                     In Progress
                   </Typography>
-                </Grid>
-                <Grid className={classes.right} item xs={6}>
-                  <Chip
-                    icon={<AddIcon />}
-                    clickable
-                    className={classes.addbtn}
-                    label="Add Issue"
-                    variant="outlined"
-                  />
                 </Grid>
               </Grid>
               <Issue />
@@ -261,7 +273,7 @@ const Project = () => {
           </Card>
           </div>
         </Grid>
-        <Grid className={classes.columngrid} item xs={4}>
+        <Grid className={classes.columngrid} item xs={12} lg={4}>
           <div className={classes.column}>
             <Card className={classes.columntest}>
               <CardContent>
@@ -270,15 +282,6 @@ const Project = () => {
                     <Typography className={classes.mb} variant="h5" component="h5">
                       Closed
                     </Typography>
-                  </Grid>
-                  <Grid className={classes.right} item xs={6}>
-                    <Chip
-                      icon={<AddIcon />}
-                      clickable
-                      className={classes.addbtn}
-                      label="Add Issue"
-                      variant="outlined"
-                    />
                   </Grid>
                 </Grid>
                 <Issue />
