@@ -65,7 +65,7 @@ const Projects = () => {
               projectData={projectData} 
               title={projectData.title}
               description={projectData.description}
-              owner={projectData.owner}
+              owner={projectData.owner.name}
             />
           </Link>
           </Grid>

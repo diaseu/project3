@@ -11,7 +11,7 @@ router.get('/users/all', (req, res) => {
     .catch(err => res.json(err))
 })
 
-//reg user
+// register user
 router.post('/users/register', (req, res) => {
   const { name, email, username } = req.body
   User.register(new User({ name, email, username }), req.body.password, err => {
@@ -20,7 +20,7 @@ router.post('/users/register', (req, res) => {
   })
 })
 
-//login auth
+// login auth
 router.post('/users/login', (req, res) => {
   User.authenticate()(req.body.username, req.body.password, (err, user) => {
     if (err) { console.log(err) }
@@ -28,7 +28,7 @@ router.post('/users/login', (req, res) => {
   })
 })
 
-//get curr user
+// get current user
 router.get('/users/me', passport.authenticate('jwt'), (req, res) => {
   res.json(req.user)
 })

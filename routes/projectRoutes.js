@@ -7,10 +7,10 @@ const passport = require('passport')
 router.get('/projects', (req, res) => {
   Project.find({})
     .populate('owner')
-    .populate({
-      path: 'members',
-      model: 'User'
-    })
+    // .populate({
+    //   path: 'members',
+    //   model: 'User'
+    // })
     .then(project => res.json(project))
     .catch(err => console.log(err))
 })
