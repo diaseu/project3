@@ -15,7 +15,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/zap_db', {
       {
         name: 'John Doe',
         username: 'johndoe123',
-        email: 'spamulous@gmail.com',
+        email: 'johndoe12345@gmail.com',
         projects: [mongoose.Types.ObjectId('60f33d96aabe8e8458c39031')],
         issues: [],
         score: 0
@@ -32,7 +32,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/zap_db', {
     const ProjectSeed = [
       {
         title: 'Apollo',
-        description: 'Apollo is an app that does blah blah blah',
+        description: 'Apollo is an app that will change your life in all the good ways. Using Node.JS, Express and React',
         owner: users.ops[0]._id,
         members: [],
         issues: []

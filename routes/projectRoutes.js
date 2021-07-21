@@ -2,37 +2,6 @@ const router = require('express').Router()
 const { Issue, Reply, Project, User } = require('../models')
 const passport = require('passport')
 
-//get all projects
-// passport.authenticate('jwt'), 
-router.get('/projects', (req, res) => {
-  Project.find({})
-    .populate('owner')
-    .populate({
-      path: 'members',
-      model: 'User'
-    })
-    // .populate({
-    //   path: 'issues',
-    //   model: 'Issue',
-    //   populate: [
-    //     {
-    //       path: 'author',
-    //       model: 'User'
-    //     },
-    //     {
-    //       path: 'replies',
-    //       model: 'Reply',
-    //       populate: {
-    //         path: 'author',
-    //         model: 'User'
-    //       }
-    //     }
-    //   ]
-    // })
-    .then(project => res.json(project))
-    .catch(err => console.log(err))
-})
-
 //get project by id
 router.get(`/projects/:id`, passport.authenticate('jwt'), (req, res) => {
   Project.findById(req.params.id)
@@ -96,5 +65,14 @@ router.put(`/projects/:id/addmember`, passport.authenticate('jwt'), (req, res) =
     .catch(err => console.log(err))
 })
 
+//delete project, non public issues, and members
+router.delete(`/projects/:id`, passport.authenticate('jwt'), (req, res) => {
+  Project.findByIdAndDelete(req.params.id, {new: true})
+    .then(project => {
+      //go through members, remove the project from their projects
+      res.json(project)
+    })
+    .catch(err => console.log(err))
+})
 
 module.exports = router

@@ -2,21 +2,21 @@ const router = require('express').Router()
 const { Issue, Reply, Project, User } = require('../models')
 const passport = require('passport')
 
-// //get issue by id
-// router.get('/issues/:id', passport.authenticate('jwt'), (req, res) => {
-//   Issue.findById(req.params.id)
-//     .populate('author')
-//     .populate({
-//       path: 'replies',
-//       model: 'Reply'
-//       populate: {
-//         path: 'author',
-//         model: 'User'
-//       }
-//     })
-//     .then(issue => res.json(issue))
-//     .catch(err => console.log(err))
-// })
+//get issue by id
+router.get('/issues/:id', passport.authenticate('jwt'), (req, res) => {
+  Issue.findById(req.params.id, {new: true})
+    .populate('author')
+    .populate({
+      path: 'replies',
+      model: 'Reply',
+      populate: {
+        path: 'author',
+        model: 'User'
+      }
+    })
+    .then(issue => res.json(issue))
+    .catch(err => console.log(err))
+})
 
 //create new issue (needs project id)
 router.post('/issues', passport.authenticate('jwt'), (req, res) => {
