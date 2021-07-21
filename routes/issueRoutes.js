@@ -8,7 +8,7 @@ router.get('/issues/:id', passport.authenticate('jwt'), (req, res) => {
     .populate('author')
     .populate({
       path: 'replies',
-      model: 'Reply'
+      model: 'Reply',
       populate: {
         path: 'author',
         model: 'User'

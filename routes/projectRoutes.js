@@ -11,24 +11,6 @@ router.get('/projects', (req, res) => {
       path: 'members',
       model: 'User'
     })
-    // .populate({
-    //   path: 'issues',
-    //   model: 'Issue',
-    //   populate: [
-    //     {
-    //       path: 'author',
-    //       model: 'User'
-    //     },
-    //     {
-    //       path: 'replies',
-    //       model: 'Reply',
-    //       populate: {
-    //         path: 'author',
-    //         model: 'User'
-    //       }
-    //     }
-    //   ]
-    // })
     .then(project => res.json(project))
     .catch(err => console.log(err))
 })

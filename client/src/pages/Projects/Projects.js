@@ -59,46 +59,19 @@ const Projects = () => {
         <Grid item xs={12} lg={12}>
         </Grid>
         {projectState.map((projectData) => (
-          <Grid className={classes.projectcard} item xs={12} sm={5} lg={2}>
+          <Grid className={classes.projectcard} item xs={12} sm={4} lg={2}>
           <Link to="/project">
             <ProjectCard 
               projectData={projectData} 
               title={projectData.title}
+              description={projectData.description}
+              owner={projectData.owner}
             />
           </Link>
           </Grid>
         ))}
-        <Grid className={classes.projectcard} item xs={12} sm={5} lg={2}>
-          <ProjectCard />
-        </Grid>
-        <Grid className={classes.projectcard} item xs={12} sm={5} lg={2}>
-          <ProjectCard />
-        </Grid>
-        <Grid className={classes.projectcard} item xs={12} sm={5} lg={2}>
-          <ProjectCard />
-        </Grid>
-        <Grid className={classes.projectcard} item xs={12} sm={5} lg={2}>
-          <ProjectCard />
-        </Grid>
-        <Grid className={classes.projectcard} item xs={12} sm={5} lg={2}>
-          <ProjectCard />
-        </Grid>
-        <Grid className={classes.projectcard} item xs={12} sm={5} lg={2}>
-          <ProjectCard />
-        </Grid>
-        <Grid className={classes.projectcard} item xs={12} md={5} lg={2}>
-          <ProjectCard />
-        </Grid>
-        <Grid className={classes.projectcard} item xs={12} md={5} lg={2}>
-          <ProjectCard />
-        </Grid>
-        <Grid className={classes.projectcard} item xs={12} md={5} lg={2}>
-          <ProjectCard />
-        </Grid>
-        <Grid className={classes.projectcard} item xs={12} md={5} lg={2}>
-          <ProjectCard />
-        </Grid>
-        <Grid className={classes.projectcard} item xs={12} md={5} lg={2}>
+        
+        <Grid className={classes.projectcard} item xs={12} md={4} lg={2}>
           <MoreCard />
         </Grid>
       </Grid>

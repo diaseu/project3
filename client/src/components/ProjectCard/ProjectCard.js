@@ -41,11 +41,11 @@ const ProjectCard = props => {
           {props.title}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          Apollo Titus is an application used as a sample filler text. Using Node.JS, Express and React
+          {props.description}
         </Typography>
         <Chip
           icon={<FaceIcon />}
-          label="John Doe"
+          label={props.owner}
         />
       </CardContent>
       {/* <CardActions>
