@@ -6,7 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
+import ContactForm from '../../components/ContactForm'
 export default function ContactModal() {
   const [open, setOpen] = React.useState(false);
 
@@ -25,40 +25,13 @@ export default function ContactModal() {
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Contact</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Please leave your email and message here and we will get back to you as soon as possible. 
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Email Address"
-            type="email"
-            fullWidth
-          />
-          <br/>
-          <br/>
-          
-
-          <TextField
-            autoFocus
-            margin="dense"
-            id="message"
-            label="Message"
-            type="email"
-            fullWidth
-          />
-        </DialogContent>
+       <ContactForm></ContactForm>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleClose} color="primary">
-            Submit
-          </Button>
+          
         </DialogActions>
       </Dialog>
+
+ 
     </div>
   );
 }

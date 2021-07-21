@@ -15,19 +15,7 @@ import Dia from '../../images/Snapchat-2077905771_1.jpg'
 import Joon from '../../images/Joon2.jpeg'
 import Mike from '../../images/IMG_0003.PNG'
 import ContactModal from '../../components/ContactModal'
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import ContactForm from '../../components/ContactForm'
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -99,6 +87,7 @@ export default function About() {
         {/* End hero unit */}
         <Box m={3.2} />
 
+      
 
         <Container className={classes.cardGrid} maxWidth="lg">
           <Grid
