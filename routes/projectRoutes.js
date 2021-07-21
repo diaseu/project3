@@ -29,7 +29,7 @@ router.get('/projects', passport.authenticate('jwt'), (req, res) => {
       ]
     })
     .then(project => res.json(project))
-    .catch(err => console.log(err)))
+    .catch(err => console.log(err))
 })
 
 //get project by id
