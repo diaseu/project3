@@ -44,7 +44,8 @@ const Projects = () => {
 
   useEffect(() => {
     // console.log('hello')
-    axios.get('/api/projects')
+    // axios.get('/api/projects')
+    Projects.showAll
       .then(data => {
         console.log(data)
         setProjectState(data.data)
