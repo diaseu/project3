@@ -78,5 +78,9 @@ router.put(`/projects/:id/addmember`, passport.authenticate('jwt'), (req, res) =
     .catch(err => console.log(err))
 })
 
+//delete project, non public issues, and members
+router.delete(`/projects/:id`, passport.authenticate('jwt'), (req, res) => {
+  Project.findById
+})
 
 module.exports = router
