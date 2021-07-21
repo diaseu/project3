@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/2017mike/project3#readme",
   "dependencies": {
+    "axios": "^0.21.1",
     "concurrently": "^6.2.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
