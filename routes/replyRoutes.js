@@ -25,4 +25,10 @@ router.put(`/replies/:id`, passport.authenticate('jwt'), (req, res) => {
     .catch(err => console.log(err))
 })
 
+router.delete(`/replies/:id`, passport.authenticate('jwt'), (req, res) => {
+  Reply.findByIdAndDelete(req.params.id)
+    .then(reply => res.json(reply))
+    .catch(err => console.log(err))
+})
+
 module.exports = router
