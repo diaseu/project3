@@ -38,10 +38,10 @@ const ProjectCard = () => {
           Project
         </Typography>
         <Typography variant="h6" component="h2">
-          Project Name
+          Apollo Titus
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          Project description quasi reiciendis voluptates quo id similique itaque sed.
+          Apollo Titus is an application used as a sample filler text. Using Node.JS, Express and React
         </Typography>
         <Chip
           icon={<FaceIcon />}

@@ -21,7 +21,7 @@ export default function ContactModal() {
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Contact
+        Contact the ZAP team
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Contact</DialogTitle>

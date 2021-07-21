@@ -186,7 +186,7 @@ const ProjectCard = props => {
       <DialogContent>
         <DialogContentText>
           <Grid container>
-            <Grid className={classes.issueleft} item xs={9}>
+            <Grid className={classes.issueleft} item xs={12} lg={9}>
               <Typography className={classes.mb} variant="p" component="p">
                 {issueexamples[0].body}
               </Typography>
@@ -199,8 +199,9 @@ const ProjectCard = props => {
                 fullWidth
               />
               <Button color="primary" variant="contained">Submit</Button>
+              <Spacer y={4} />
             </Grid>
-            <Grid className={classes.issueright} item xs={3}>
+            <Grid className={classes.issueright} item xs={12} lg={3}>
               <Typography className={classes.title} color="textSecondary" gutterBottom>
                 Posted by
               </Typography>
@@ -230,6 +231,7 @@ const ProjectCard = props => {
                 clickable
                 variant="outlined"
               />
+              <Spacer y={2} />
               <Spacer y={2} />
 
 

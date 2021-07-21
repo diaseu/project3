@@ -6,7 +6,6 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
-import FaceIcon from '@material-ui/icons/Face';
 import Spacer from '../Spacer'
 import Icon from '@material-ui/core/Icon';
 import IssueDetail from '../IssueDetail'
