@@ -3,31 +3,32 @@ const { Issue, Reply, Project, User } = require('../models')
 const passport = require('passport')
 
 //get all projects
-router.get('/projects', passport.authenticate('jwt'), (req, res) => {
+// passport.authenticate('jwt'), 
+router.get('/projects', (req, res) => {
   Project.find({})
     .populate('owner')
     .populate({
       path: 'members',
       model: 'User'
     })
-    .populate({
-      path: 'issues',
-      model: 'Issue',
-      populate: [
-        {
-          path: 'author',
-          model: 'User'
-        },
-        {
-          path: 'replies',
-          model: 'Reply',
-          populate: {
-            path: 'author',
-            model: 'User'
-          }
-        }
-      ]
-    })
+    // .populate({
+    //   path: 'issues',
+    //   model: 'Issue',
+    //   populate: [
+    //     {
+    //       path: 'author',
+    //       model: 'User'
+    //     },
+    //     {
+    //       path: 'replies',
+    //       model: 'Reply',
+    //       populate: {
+    //         path: 'author',
+    //         model: 'User'
+    //       }
+    //     }
+    //   ]
+    // })
     .then(project => res.json(project))
     .catch(err => console.log(err))
 })
@@ -84,6 +85,13 @@ router.post('/projects', passport.authenticate('jwt'), (req, res) => {
 //update project
 router.put(`/projects/:id`, passport.authenticate('jwt'), (req, res) => {
   Project.findByIdAndUpdate(req.params.id, req.body, {new: true})
+    .then(project => res.json(project))
+    .catch(err => console.log(err))
+})
+
+//update members for project
+router.put(`/projects/:id/addmember`, passport.authenticate('jwt'), (req, res) => {
+  Project.findByIdAndUpdate(req.params.id, { $addToSet: { members: req.body } }, {new: true})
     .then(project => res.json(project))
     .catch(err => console.log(err))
 })

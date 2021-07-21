@@ -17,6 +17,7 @@ import Mike from '../../images/IMG_0003.PNG'
 import ContactModal from '../../components/ContactModal'
 import ContactForm from '../../components/ContactForm'
 
+
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
