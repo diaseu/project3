@@ -73,7 +73,7 @@ router.post('/projects', passport.authenticate('jwt'), (req, res) => {
       User.findByIdAndUpdate(req.user._id, { $push: { projects: project._id } })
         .then(() => {
           Project.findByIdAndUpdate(project._id, { $push: { members: project.owner._id } })
-            .then(() => res.sendStatus(200))
+            .then(() => res.json(project._id))
             .catch(err => console.log(err))
         })
         .catch(err => console.log(err))
