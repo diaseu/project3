@@ -2,15 +2,23 @@ const router = require('express').Router()
 const { Issue, Reply, Project, User } = require('../models')
 const passport = require('passport')
 
-// //get issue by id
-// router.get('/issues/:id', passport.authenticate('jwt'), (req, res) => {
-//   Issue.findById(req.params.id)
-//     .populate('author')
-//     .then(issue => res.json(issue))
-//     .catch(err => console.log(err))
-// })
+//get issue by id
+router.get('/issues/:id', passport.authenticate('jwt'), (req, res) => {
+  Issue.findById(req.params.id)
+    .populate('author')
+    .populate({
+      path: 'replies',
+      model: 'Reply'
+      populate: {
+        path: 'author',
+        model: 'User'
+      }
+    })
+    .then(issue => res.json(issue))
+    .catch(err => console.log(err))
+})
 
-//create new issue needs a pid passed in to update projects issues
+//create new issue (needs project id)
 router.post('/issues', passport.authenticate('jwt'), (req, res) => {
   Issue.create({
     title: req.body.title,
@@ -30,6 +38,13 @@ router.post('/issues', passport.authenticate('jwt'), (req, res) => {
         })
         .catch(err => console.log(err))
     })
+    .catch(err => console.log(err))
+})
+
+//update issue
+router.put(`/issues/:id`, passport.authenticate('jwt'), (req, res) => {
+  Issue.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .then(project => res.json(project))
     .catch(err => console.log(err))
 })
 
