@@ -1,7 +1,7 @@
 import axios from 'axios'
 const localStorage = window.localStorage
 
-const Profiles = {
+const User = {
   showMine: () => axios.get('/api/users/me', {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -20,4 +20,4 @@ const Profiles = {
   })
 }
 
-export default Profiles
+export default User
