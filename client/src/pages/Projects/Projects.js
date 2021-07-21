@@ -1,9 +1,10 @@
 import './Projects.css'
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import ProjectCard from '../../components/ProjectCard'
 import MoreCard from '../../components/MoreCard'
+import axios from 'axios';
 import {
   BrowserRouter as Router,
   Switch,
@@ -39,15 +40,34 @@ const useStyles = makeStyles({
 const Projects = () => {
   const classes = useStyles();
 
+  const [projectState, setProjectState] = useState([])
+
+  useEffect(() => {
+    // console.log('hello')
+    axios.get('/api/projects')
+      .then(data => {
+        console.log(data)
+        setProjectState(data.data)
+      })
+      .catch(err => console.log(err))
+  }, [])
+
   return (
     <>
     <h1>View My Projects</h1>
       <Grid container>
         <Grid item xs={12} lg={12}>
         </Grid>
-        <Grid className={classes.projectcard} item xs={12} sm={5} lg={2}>
-          <Link to="/project"><ProjectCard /></Link>
-        </Grid>
+        {projectState.map((projectData) => (
+          <Grid className={classes.projectcard} item xs={12} sm={5} lg={2}>
+          <Link to="/project">
+            <ProjectCard 
+              projectData={projectData} 
+              title={projectData.title}
+            />
+          </Link>
+          </Grid>
+        ))}
         <Grid className={classes.projectcard} item xs={12} sm={5} lg={2}>
           <ProjectCard />
         </Grid>

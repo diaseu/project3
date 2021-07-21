@@ -28,7 +28,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ProjectCard = () => {
+const ProjectCard = props => {
   const classes = useStyles();
 
   return (
@@ -38,7 +38,7 @@ const ProjectCard = () => {
           Project
         </Typography>
         <Typography variant="h6" component="h2">
-          Apollo Titus
+          {props.title}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
           Apollo Titus is an application used as a sample filler text. Using Node.JS, Express and React

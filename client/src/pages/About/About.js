@@ -17,6 +17,7 @@ import Mike from '../../images/IMG_0003.PNG'
 import ContactModal from '../../components/ContactModal'
 import ContactForm from '../../components/ContactForm'
 
+
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
@@ -73,12 +74,15 @@ export default function About() {
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justifyContent="center">
                 <Grid item>
+
                   <ContactModal
-                    open={openEditProject}
-                    handleClose={() => setEditProjectOpen(false)}
+                    open={openContact}
+                    handleClose={() => setContactOpen(false)}
                   />
+
                 </Grid>
                 <Grid item>
+
                 </Grid>
               </Grid>
             </div>
