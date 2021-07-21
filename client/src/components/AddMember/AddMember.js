@@ -1,4 +1,4 @@
-import React, { useState, PureComponent } from 'react';
+import React, { useState, useEffect, PureComponent } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import PropTypes from "prop-types";
@@ -19,7 +19,7 @@ import Spacer from '../Spacer'
 import TextField from '@material-ui/core/TextField';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-
+import axios from 'axios';
 
 const useStyles = makeStyles({
   root: {
@@ -122,6 +122,8 @@ const SetModal = props => {
     issue: []
   })
 
+  const [userState, setUserState] = useState([])
+
   const handleInputChange = ({ target }) => {
     setIssueState({ ...issueState, [target.name]: target.value })
   }
@@ -136,6 +138,25 @@ const SetModal = props => {
     })
   }
 
+  const addMembertoProject = event => {
+    event.preventDefault();
+    // console.log(document.getElementById('add-member').value)
+    let id = document.getElementById('add-member').value
+    axios.post(`/api/projects/${id}/addmembers`)
+
+    props.handleClose()
+  }
+
+  useEffect(() => {
+    // console.log('hello')
+    axios.get('/api/users/all')
+      .then(data => {
+        // console.log(data)
+        setUserState(data.data) 
+      })
+      .catch(err => console.log(err))
+  }, [])
+
   return (
     <Dialog maxWidth='sm' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">Add Member to Project</DialogTitle>
@@ -148,40 +169,29 @@ const SetModal = props => {
                 freeSolo
                 id="add-member"
                 disableClearable
-                options={sampleusers.map((option) => option.name)}
+                options={userState.map((option) => option.name)}
                 renderInput={(params) => (
                   <TextField
                     {...params}
                     label="Search Member to Add"
+                    id="member"
                     margin="normal"
                     variant="outlined"
                     InputProps={{ ...params.InputProps, type: 'search' }}
                   />
                 )}
               />
-
+            
             </Grid>
           </Grid>
         </DialogContentText>
-
+        
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleAddIssue} onClick={props.handleClose} color="primary" variant="contained">
-          Add Member
-        </Button>
+        <Button onClick={handleAddIssue} onClick={addMembertoProject} color="primary" variant="contained">Add Member</Button>
       </DialogActions>
     </Dialog>
   )
 }
-
-const sampleusers = [
-  { name: 'Adam Doe', email: 'adamdoe@gmail.com' },
-  { name: 'Andy Doe', email: 'andydoe@gmail.com' },
-  { name: 'Alan Doe', email: 'alandoe@gmail.com' },
-  { name: 'Amber Doe', email: 'amberdoe@gmail.com' },
-  { name: 'Aspen Doe', email: 'aspendoe@gmail.com' },
-  { name: "Anthony Doe", email: 'anthonydoe@gmail.com' },
-  { name: 'Akon Doe', email: 'akondoe@gmail.com' },
-];
 
 export default SetModal
