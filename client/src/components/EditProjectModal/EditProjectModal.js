@@ -63,13 +63,17 @@ const useStyles = makeStyles({
   },
   ask: {
     backgroundColor: 'red',
-    width: '90%'
+    width: '90%',
+    marginLeft: 12,
   },
   addbtn: {
     textAlign: 'center',
     margin: 'auto'
   },
   editbtn: {
+    textAlign: 'right',
+  },
+  right: {
     textAlign: 'right',
   }
 });
@@ -190,7 +194,7 @@ const EditProjectModal = props => {
 
 
           
-
+              
 
 
 
@@ -201,12 +205,26 @@ const EditProjectModal = props => {
 
       </DialogContent>
       <DialogActions>
-        <Button onClick={props.handleClose} color="primary">
-          Cancel
-        </Button>
-        <Button onClick={props.handleClose} color="primary" variant="contained">
-          Save
-        </Button>
+        <Grid container>
+          <Grid item xs={12} md={4}>
+            <Button
+              variant="contained"
+              color="secondary"
+              className={classes.ask}
+            >
+              Delete Project
+            </Button>
+          </Grid>
+          <Grid item xs={12} md={8} className={classes.right}>
+            <Button onClick={props.handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={props.handleClose} color="primary" variant="contained">
+              Save
+            </Button>
+          </Grid>
+        </Grid>
+        
       </DialogActions>
     </Dialog>
   )
