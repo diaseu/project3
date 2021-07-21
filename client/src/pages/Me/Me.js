@@ -1,13 +1,9 @@
 import './Me.css';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
-import Issue from '../../components/Issue'
 import ProjectIssue from '../../components/ProjectIssue'
 
 
@@ -39,51 +35,31 @@ const Me = () => {
           <Button size="small" variant="contained" href="#sort-project">
             Sort by Project
           </Button>
-          <Button size="small" variant="contained" href="#sort-recent">
+          <Button size="small" variant="contained" href="#sort-project">
             Sort by Recent
           </Button>
         </Grid>
       </Grid>
+
       <div>
-
-        <Card className={classes.cardinfo}>
-          <CardContent>
-            <Grid container>
-              <Grid item xs={12}>
-            <ProjectIssue />
-          </Grid>
-        </Grid>
-
-        <br/>
-
         <Grid container>
           <Grid item xs={12}>
             <ProjectIssue />
           </Grid>
-        </Grid>
 
-        <br/>
-
-        <Grid container>
           <Grid item xs={12}>
             <ProjectIssue />
           </Grid>
-        </Grid>
 
-        <br />
-
-        <Grid container>
           <Grid item xs={12}>
             <ProjectIssue />
           </Grid>
-        </Grid>
 
-              
-          </CardContent>
-        </Card>
+          <Grid item xs={12}>
+            <ProjectIssue />
+          </Grid>
 
-
-          
+        </Grid>     
       </div>
     </>
   )

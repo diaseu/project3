@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
 import FaceIcon from '@material-ui/icons/Face';
 import Spacer from '../../components/Spacer'
+import Icon from '@material-ui/core/Icon';
 
 const useStyles = makeStyles({
   root: {
@@ -22,8 +23,15 @@ const useStyles = makeStyles({
   title: {
     fontSize: 12,
   },
-  pos: {
-    marginBottom: 12,
+  issue: {
+    
+  },
+  priority: {
+    fontSize: 12,
+    textAlign: 'center',
+    marginRight: 10,
+    color: 'red',
+    fontWeight: '800'
   },
 });
 
@@ -40,26 +48,15 @@ const Issue = () => {
           justifyContent="flex-start"
           alignItems="flex-start"
         >
-          <Grid item xs>
-            <Typography className={classes.pos} color="textSecondary">
-              <Chip label="Study Blog App" size="small" component="a" href="#chip" clickable />
-            </Typography>
-            <Typography variant="body2" component="p">
-              Error: Node Sass version 5.0.0 is incompatible with ^4.0.0
-            </Typography>
-            
-            <Spacer y={2} />
-            <Typography className={classes.title} color="textSecondary" gutterBottom>
-              posted by <Chip
-                icon={<FaceIcon />}
-                label="Jake Doe"
-                variant="outlined"
-              />
-            </Typography>
+
+          <Grid item className={classes.issue} xs={12}>
+            <Icon className={classes.priority}>radio_button_unchecked</Icon>
+
+            Error: Node Sass version 5.0.0 is incompatible with ^4.0.0
+
           </Grid>
         </Grid>
       </CardContent>
-      
     </Card>
   )
 }

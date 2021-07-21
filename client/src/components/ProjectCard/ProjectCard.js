@@ -28,7 +28,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ProjectCard = () => {
+const ProjectCard = props => {
   const classes = useStyles();
 
   return (
@@ -38,14 +38,14 @@ const ProjectCard = () => {
           Project
         </Typography>
         <Typography variant="h6" component="h2">
-          Project Name
+          {props.title}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          Project description quasi reiciendis voluptates quo id similique itaque sed.
+          {props.description}
         </Typography>
         <Chip
           icon={<FaceIcon />}
-          label="John Doe"
+          label={props.owner}
         />
       </CardContent>
       {/* <CardActions>

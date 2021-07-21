@@ -25,6 +25,10 @@ const useStyles = makeStyles({
   pos: {
     marginBottom: 12,
   },
+  secondary: {
+    fontSize: 11,
+    textAlign: 'right',
+  }
 });
 
 
@@ -32,39 +36,21 @@ const IssueDetail = () => {
   const classes = useStyles();
 
   return(
-    <Card className={classes.root}>
-      <CardContent>
-        <Grid
-          container
-          direction="row"
-          justifyContent="flex-start"
-          alignItems="flex-start"
-        >
-          <Button variant="contained" color="primary" href="#contained-buttons">
-            Open
-          </Button>
-          <Spacer x={2} />
-          <Grid item xs>
-            <Typography className={classes.pos} color="textSecondary">
-              <Chip label="Study Blog App" size="small" component="a" href="#chip" clickable />
-            </Typography>
-            <Typography variant="body2" component="p">
-              Error: Node Sass version 5.0.0 is incompatible with ^4.0.0
-            </Typography>
-            
-            <Spacer y={2} />
-            <Typography className={classes.title} color="textSecondary" gutterBottom>
-              posted by <Chip
-                icon={<FaceIcon />}
-                label="Jake Doe"
-                variant="outlined"
-              />
-            </Typography>
-          </Grid>
-        </Grid>
-      </CardContent>
-      
-    </Card>
+    <>
+      <Grid item xs={9}>
+        <Typography className={classes.pos} color="textSecondary">
+          <Chip label="Apollo Titus" size="small" component="a" href="/project" clickable />
+        </Typography>
+      </Grid>
+      <Grid item xs={3}>
+        <Typography className={classes.secondary} color="textSecondary">
+          posted by <Chip
+            label="Jake Doe"
+            variant="outlined"
+          />
+        </Typography>
+      </Grid>
+    </>
   )
 }
 

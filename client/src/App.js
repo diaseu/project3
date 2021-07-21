@@ -10,11 +10,13 @@ import Dashboard from './pages/Dashboard'
 import Me from './pages/Me'
 import Help from './pages/Help'
 import ProjectIssue from './pages/ProjectIssue'
+import Login from './pages/Login'
+import SignUp from './pages/SignUp'
+import About from './pages/About'
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 
 
@@ -47,19 +49,39 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   const classes = useStyles();
-
+  
+  function navbar () {
+    if (document.location.pathname !== "/login" && document.location.pathname !== "/signup") {
+      return (
+        <Navbar />
+      )
+    }
+  }
+  
   return (
+
+
+    
     <Router>
       <div className={classes.root}>
         <CssBaseline />
-        <Navbar
-        />
+       {navbar()}
+       
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Container className={classes.container}>
             <Switch>
               <Route exact path="/">
                 <Dashboard />
+              </Route>
+              <Route exact path="/About">
+                <About />
+              </Route>
+              <Route exact path="/signup">
+                <SignUp />
+              </Route>
+              <Route exact path="/login">
+                <Login />
               </Route>
               <Route path="/projects">
                 <Projects />
