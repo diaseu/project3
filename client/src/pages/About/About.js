@@ -74,8 +74,8 @@ export default function About() {
               <Grid container spacing={2} justifyContent="center">
                 <Grid item>
                   <ContactModal
-                    open={openEditProject}
-                    handleClose={() => setEditProjectOpen(false)}
+                    open={handleContactOpen}
+                    handleClose={() => handleClose}
                   />
                 </Grid>
                 <Grid item>
