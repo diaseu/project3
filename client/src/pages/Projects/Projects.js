@@ -60,7 +60,8 @@ const Projects = () => {
         </Grid>
         {projectState.map((projectData) => (
           <Grid className={classes.projectcard} item xs={12} sm={4} lg={2}>
-          <Link to="/project">
+            {/* <Link to={`/projects/${id}`}> */}
+            <Link to='/project'>
             <ProjectCard 
               projectData={projectData} 
               title={projectData.title}
