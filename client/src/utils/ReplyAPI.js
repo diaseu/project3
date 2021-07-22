@@ -1,23 +1,22 @@
 import axios from 'axios'
 const localStorage = window.localStorage
 
-const User = {
-  showMine: () => axios.get('/api/users/me', {
+const Reply = {
+  create: reply => axios.post('/api/replies', reply, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`
     }
   }),
-  login: user => axios.post('/api/users/login', user),
-  me: () => axios.get('/api/users/me', {
+  delete: id => axios.delete(`/api/replies/${id}`, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`
     }
   }),
-  create: post => axios.post('/api/projects/', post, {
+  update: (id, reply) => axios.put(`/api/replies/${id}`, reply, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`
     }
   })
 }
 
-export default User
+export default Reply

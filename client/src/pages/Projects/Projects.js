@@ -6,6 +6,11 @@ import ProjectCard from '../../components/ProjectCard'
 import MoreCard from '../../components/MoreCard'
 import ProjectsAPI from '../../utils/ProjectsAPI'
 import axios from 'axios';
+import Chip from '@material-ui/core/Chip';
+import AddIssue from '../../components/AddIssue'
+import NewProjectModal from '../../components/NewProjectModal'
+
+import AddIcon from '@material-ui/icons/Add';
 import {
   BrowserRouter as Router,
   Switch,
@@ -41,8 +46,23 @@ const useStyles = makeStyles({
 const Projects = () => {
   const classes = useStyles();
 
+  const [openNewProjectModal, setNewProjectModalOpen] = useState(false);
+
   const [projectState, setProjectState] = useState([])
 
+  const handleNewProjectModalOpen = () => {
+    setNewProjectModalOpen(true);
+  };
+
+  // useEffect(() => {
+  //   console.log('hello')
+  //   axios.get('/api/projects')
+  //     .then(data => {
+  //       console.log(data)
+  //       setProjectState(data.data)
+  //     })
+  //     .catch(err => console.log(err))
+  // }, [])
   useEffect(() => {
     ProjectsAPI.me()
       .then(data => {
@@ -54,6 +74,12 @@ const Projects = () => {
 
   return (
     <>
+
+      
+
+     
+
+
     <h1>View My Projects</h1>
       <Grid container>
         <Grid item xs={12} lg={12}>
@@ -73,8 +99,28 @@ const Projects = () => {
         ))}
         
         <Grid className={classes.projectcard} item xs={12} md={4} lg={2}>
-          <MoreCard />
+          
+          
+          
+          
+          
         </Grid>
+        <Link onClick={handleNewProjectModalOpen}>
+          <MoreCard
+
+            clickable
+            className={classes.addbtn}
+
+            // variant="outlined"
+
+            onClickAddIssue={() => setNewProjectModalOpen(true)}
+          />
+
+        </Link>
+        <NewProjectModal
+          open={openNewProjectModal}
+          handleClose={() => setNewProjectModalOpen(false)}
+        />
       </Grid>
       
     </>
