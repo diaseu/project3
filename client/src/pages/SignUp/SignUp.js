@@ -10,6 +10,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Paper from '@material-ui/core/Paper';
 
 
 function Copyright() {
@@ -27,7 +28,7 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(1),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -89,6 +90,7 @@ function handleName(e) {
       }
       )
     })
+    window.location = '/login'
   }
 
 
@@ -96,8 +98,10 @@ function handleName(e) {
   console.log('this is our name', name)
   
   return (
-    <Container component="main" maxWidth="xs">
+    
+    <Grid container component="main" className={classes.root} align="center" justify="center" alignItems="center">
       <CssBaseline />
+      <Grid item xs={12} sm={6} md={4} component={Paper} elevation={6} square >
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -106,9 +110,9 @@ function handleName(e) {
           Sign up
         </Typography>
         <form className={classes.form} noValidate onSubmit={(e) => handleSubmit(e)}>
-          <Grid container spacing={2}>
+            <Grid container spacing={2} align="center" justify="center" alignItems="center">
             
-            <Grid item xs={12} sm={12}>
+            <Grid item xs={10} sm={10}>
               <TextField
                 variant="outlined"
                 required
@@ -120,7 +124,7 @@ function handleName(e) {
                 onChange = {(e) => handleName(e)}
               />
             </Grid>
-            <Grid item xs={12} sm={12}>
+            <Grid item xs={10} sm={10}>
               <TextField
                 variant="outlined"
                 required
@@ -132,7 +136,7 @@ function handleName(e) {
                 onChange={(e) => handleUsername(e)}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={10}>
               <TextField
                 variant="outlined"
                 required
@@ -144,7 +148,7 @@ function handleName(e) {
                 onChange={(e) => handleEmail(e)}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={10}>
               <TextField
                 variant="outlined"
                 required
@@ -166,7 +170,7 @@ function handleName(e) {
           </Grid>
           <Button
             type="submit"
-            fullWidth
+            
             variant="contained"
             color="primary"
             className={classes.submit}
@@ -176,7 +180,7 @@ function handleName(e) {
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="/login" variant="body2">
-                Already have an account? Sign in
+                  Already have an account? Sign in‎‏‎ ‎‏‎
               </Link>
             </Grid>
           </Grid>
@@ -185,6 +189,8 @@ function handleName(e) {
       <Box mt={5}>
         <Copyright />
       </Box>
-    </Container>
+      </Grid>
+      </Grid>
+ 
   );
 }

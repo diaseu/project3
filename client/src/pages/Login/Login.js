@@ -32,13 +32,16 @@ const useStyles = makeStyles((theme) => ({
   root: {
     height: '50vh',
   },
+  gridContainer: {
+    backgroundImage: 'url(https://cdn.pixabay.com/photo/2016/06/13/22/12/flash-1455285_1280.jpg)'
+  },
+  
   image: {
     backgroundImage: 'url(https://cdn.pixabay.com/photo/2016/06/13/22/12/flash-1455285_1280.jpg)',
     backgroundRepeat: 'no-repeat',
-    backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
     backgroundSize: 'cover',
     backgroundPosition: 'center',
+    height: '100vh'
   },
   paper: {
     margin: theme.spacing(2, 4),
@@ -94,10 +97,11 @@ export default function Login() {
   }
 
   return (
-    <Grid container component="main" className={classes.root}>
-      <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+    <Grid container component="main" className={classes.root} align="center" justify="center" alignItems="center">
+
+      
+      {/* <Grid item xs={false} sm={4} md={7} className={classes.image} /> */}
+      <Grid item xs={12} sm={6} md={4} component={Paper} elevation={6} square >
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
@@ -131,10 +135,10 @@ export default function Login() {
               autoComplete="current-password"
               onChange={(e) => handlePassword(e)}
             />
-            <FormControlLabel
+            {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
-            />
+            /> */}
             <Button
               type="submit"
               fullWidth
@@ -147,9 +151,9 @@ export default function Login() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                {/* <Link href="#" variant="body2">
                   Forgot password?
-                </Link>
+                </Link> */}
               </Grid>
               <Grid item>
                 <Link href="/signup" variant="body2">
@@ -164,7 +168,7 @@ export default function Login() {
         </div>
       </Grid>
 
-      <Box m={20} />
+     
 
     </Grid>
   );
