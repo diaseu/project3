@@ -15,10 +15,12 @@ import Dia from '../../images/Snapchat-2077905771_1.jpg'
 import Joon from '../../images/Joon2.jpeg'
 import Mike from '../../images/IMG_0003.PNG'
 import ContactModal from '../../components/ContactModal'
-import ContactForm from '../../components/ContactForm'
 
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    maxWidth: 275,
+  },
   icon: {
     marginRight: theme.spacing(2),
   },
@@ -33,9 +35,6 @@ const useStyles = makeStyles((theme) => ({
   },
   heroButtons: {
     marginTop: theme.spacing(4),
-  },
-  root: {
-    maxWidth: 275,
   },
   media: {
     height: 140,
@@ -102,7 +101,7 @@ export default function About() {
               <Card className={classes.root}>
                 <CardActionArea>
                   <CardContent>
-                    <img src={Dia} width="170" height="170" />
+                    <img src={Dia} width="170" height="170" alt="" />
                     <Typography gutterBottom variant="h5" component="h2">
                       Diana Seung
                     </Typography>
@@ -129,10 +128,8 @@ export default function About() {
               <Card className={classes.root}>
                 <CardActionArea>
 
-
-
                   <CardContent>
-                    <img src={Joon} width="170" height="170" />
+                    <img src={Joon} width="170" height="170" alt="" />
                     <Typography gutterBottom variant="h5" component="h2">
                       Sle Ahn
                     </Typography>
@@ -165,10 +162,8 @@ export default function About() {
               <Card className={classes.root}>
                 <CardActionArea>
 
-
-
                   <CardContent>
-                    <img src={'https://i.imgur.com/AlYe5XY.jpeg'} width="170" height="170" />
+                    <img src={'https://i.imgur.com/AlYe5XY.jpeg'} width="170" height="170" alt="" />
                     <Typography gutterBottom variant="h5" component="h2">
                       Jake Eckfeldt
                     </Typography>
@@ -200,7 +195,7 @@ export default function About() {
 
 
                   <CardContent>
-                    <img src={Mike} width="170" height="170" />
+                    <img src={Mike} width="170" height="170" alt="" />
                     <Typography gutterBottom variant="h5" component="h2">
                       Michael Scharf
                     </Typography>
