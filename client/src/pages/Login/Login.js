@@ -30,7 +30,11 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '50vh',
+    height: '100vh',
+    backgroundImage: 'url(https://cdn.pixabay.com/photo/2016/06/13/22/12/flash-1455285_1280.jpg)',
+    padding: '0!important',
+    margin: '0!important',
+    width: '100%'
   },
   gridContainer: {
     backgroundImage: 'url(https://cdn.pixabay.com/photo/2016/06/13/22/12/flash-1455285_1280.jpg)'
@@ -82,8 +86,8 @@ export default function Login() {
   function handleLogin(e) {
     e.preventDefault()
     axios.post('api/users/login', {
-      username: document.getElementById('username').value,
-      password: document.getElementById('password').value
+      username: username,
+      password: password
     })
       .then(({ data: token }) => {
         if (token) {
