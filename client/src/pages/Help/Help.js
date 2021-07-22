@@ -33,6 +33,9 @@ const useStyles = makeStyles({
   },
   cardinfo: {
     
+  },
+  right: {
+    textAlign: 'right',
   }
 });
 

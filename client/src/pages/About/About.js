@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 275,
   },
   media: {
-    height: 140,
+    height: 150,
   },
   paper: {
     padding: theme.spacing(1)
@@ -102,8 +102,8 @@ export default function About() {
               <Card className={classes.root}>
                 <CardActionArea>
                   <CardContent>
-                    <img src={Dia} width="170" height="170" />
-                    <Typography gutterBottom variant="h5" component="h2">
+                    <img src={Dia} width="150" height="150" />
+                    <Typography gutterBottom variant="h5" component="p" align='center'>
                       Diana Seung
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
@@ -132,8 +132,8 @@ export default function About() {
 
 
                   <CardContent>
-                    <img src={Joon} width="170" height="170" />
-                    <Typography gutterBottom variant="h5" component="h2">
+                    <img src={Joon} width="150" height="150" />
+                    <Typography gutterBottom variant="h5" component="h2" align='center'>
                       Sle Ahn
                     </Typography>
 
@@ -168,7 +168,7 @@ export default function About() {
 
 
                   <CardContent>
-                    <img src={'https://i.imgur.com/AlYe5XY.jpeg'} width="170" height="170" />
+                    <img src={'https://i.imgur.com/AlYe5XY.jpeg'} width="150" height="150" align='center'/>
                     <Typography gutterBottom variant="h5" component="h2">
                       Jake Eckfeldt
                     </Typography>
@@ -200,7 +200,7 @@ export default function About() {
 
 
                   <CardContent>
-                    <img src={Mike} width="170" height="170" />
+                    <img src={Mike} width="150" height="150" align='center'/>
                     <Typography gutterBottom variant="h5" component="h2">
                       Michael Scharf
                     </Typography>

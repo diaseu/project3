@@ -24,7 +24,7 @@ const Me = () => {
 
   return (
     <>
-      <h1 align="center">My Issues</h1>
+      <h1 align="left">My Issues</h1>
       <Grid container>
         <Grid item xs={9}>
           <Typography variant="h6" component="h2">
