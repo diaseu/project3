@@ -45,7 +45,7 @@ const useStyles = makeStyles({
 });
 
 
-const ProjectIssue = () => {
+const ProjectIssue = props => {
   const classes = useStyles();
 
   return(

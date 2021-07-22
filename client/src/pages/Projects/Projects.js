@@ -4,18 +4,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import ProjectCard from '../../components/ProjectCard'
 import MoreCard from '../../components/MoreCard'
-import ProjectAPI from '../../utils/ProjectAPI'
 import UserAPI from '../../utils/UserAPI'
-import axios from 'axios';
-import Chip from '@material-ui/core/Chip';
-import AddIssue from '../../components/AddIssue'
 import NewProjectModal from '../../components/NewProjectModal'
-
-import AddIcon from '@material-ui/icons/Add';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
   Link
 } from "react-router-dom";
 
@@ -52,7 +43,6 @@ const Projects = () => {
   useEffect(() => {
     UserAPI.me()
       .then(data => {
-        // console.log(data)
         setProjectState(data.data.projects)
       })
       .catch(err => console.log(err))
