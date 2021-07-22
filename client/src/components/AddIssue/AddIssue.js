@@ -181,6 +181,7 @@ const SetModal = props => {
             <div className={classes.right}>
               <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel id="priority-label">Priority</InputLabel>
+                <br />
                 <Select
                   labelId="priority-label"
                   id="priority"
