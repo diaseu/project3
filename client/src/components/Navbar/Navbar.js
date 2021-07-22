@@ -143,7 +143,7 @@ const Navbar = ({ pages, setpageState, me, isLoggedIn, handleLogOut }) => {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -239,31 +239,31 @@ const Navbar = ({ pages, setpageState, me, isLoggedIn, handleLogOut }) => {
       <Divider />
       <List>
         <div>
-          <ListItem button>
+          <ListItem button component={Link} to='/'>
             <ListItemIcon>
-              <LayersIcon />
+                <LayersIcon />
             </ListItemIcon>
-              <Link to="/"><ListItemText primary="Dashboard" /></Link>
+              <ListItemText primary="Dashboard" /> 
           </ListItem>
-          <ListItem button>
+          <ListItem button component={Link} to='/projects'>
             <ListItemIcon>
               <DashboardIcon />
             </ListItemIcon>
               <Link to="/projects"><ListItemText primary="View My Projects" /></Link>
           </ListItem>
-          <ListItem button>
+            <ListItem button component={Link} to='/me'>
             <ListItemIcon>
               <BarChartIcon />
             </ListItemIcon>
               <Link to="/me"><ListItemText primary="Reported By Me" /></Link>
           </ListItem>
-          <ListItem button>
+            <ListItem button component={Link} to='/help'>
             <ListItemIcon>
               <PeopleIcon />
             </ListItemIcon>
               <Link to="/help"><ListItemText primary="Community Issues" /></Link>
           </ListItem>
-            <ListItem button>
+            <ListItem button component={Link} to='/about'>
               <ListItemIcon>
                 <EmojiPeopleIcon />
               </ListItemIcon>
