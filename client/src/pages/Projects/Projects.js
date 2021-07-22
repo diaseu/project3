@@ -4,7 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import ProjectCard from '../../components/ProjectCard'
 import MoreCard from '../../components/MoreCard'
-import ProjectsAPI from '../../utils/ProjectsAPI'
+import ProjectAPI from '../../utils/ProjectAPI'
+import UserAPI from '../../utils/UserAPI'
 import axios from 'axios';
 import Chip from '@material-ui/core/Chip';
 import AddIssue from '../../components/AddIssue'
@@ -35,12 +36,6 @@ const useStyles = makeStyles({
     marginRight: 20,
     marginBottom: 20,
   },
-  ccicon: {
-    marginRight: 40,
-  },
-  cardinfo: {
-
-  }
 });
 
 const Projects = () => {
@@ -54,19 +49,9 @@ const Projects = () => {
     setNewProjectModalOpen(true);
   };
 
-  // useEffect(() => {
-  //   console.log('hello')
-  //   axios.get('/api/projects')
-  //     .then(data => {
-  //       console.log(data)
-  //       setProjectState(data.data)
-  //     })
-  //     .catch(err => console.log(err))
-  // }, [])
   useEffect(() => {
-    ProjectsAPI.me()
+    UserAPI.me()
       .then(data => {
-        console.log(data)
         setProjectState(data.data.projects)
       })
       .catch(err => console.log(err))
@@ -74,12 +59,6 @@ const Projects = () => {
 
   return (
     <>
-
-      
-
-     
-
-
     <h1>View My Projects</h1>
       <Grid container>
         <Grid item xs={12} lg={12}>
@@ -89,40 +68,26 @@ const Projects = () => {
             {/* <Link to={`/projects/${id}`}> */}
             <Link to='/project'>
             <ProjectCard 
-              // projectData={projectData} 
               title={projectData.title}
               description={projectData.description}
-              // owner={projectData.owner.name}
             />
           </Link>
           </Grid>
         ))}
         
         <Grid className={classes.projectcard} item xs={12} md={4} lg={2}>
-          
-          
-          
-          
-          
-        </Grid>
-        <Link onClick={handleNewProjectModalOpen}>
-          <MoreCard
-
-            clickable
-            className={classes.addbtn}
-
-            // variant="outlined"
-
-            onClickAddIssue={() => setNewProjectModalOpen(true)}
+          <Link onClick={handleNewProjectModalOpen}>
+            <MoreCard
+              clickable
+              onClickAddIssue={() => setNewProjectModalOpen(true)}
+            />
+          </Link>
+          <NewProjectModal
+            open={openNewProjectModal}
+            handleClose={() => setNewProjectModalOpen(false)}
           />
-
-        </Link>
-        <NewProjectModal
-          open={openNewProjectModal}
-          handleClose={() => setNewProjectModalOpen(false)}
-        />
+        </Grid>
       </Grid>
-      
     </>
   )
 }

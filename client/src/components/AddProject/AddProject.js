@@ -1,8 +1,7 @@
-import axios from 'axios'
-import PropTypes from "prop-types";
 import React, { useState, PureComponent } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
+import PropTypes from "prop-types";
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -12,6 +11,11 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
+import FaceIcon from '@material-ui/icons/Face';
+import AddIcon from '@material-ui/icons/Add';
+import Spacer from '../Spacer'
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
@@ -19,31 +23,46 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
-import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
-import FaceIcon from '@material-ui/icons/Face';
-import AddIcon from '@material-ui/icons/Add';
-import Spacer from '../Spacer'
-import ProjectAPI from '../../utils/ProjectAPI'
-
 
 
 const useStyles = makeStyles({
+  issueleft: {
+    paddingRight: 20,
+  },
   mb: {
     marginBottom: 20,
   },
   right: {
     textAlign: 'right',
   },
-  issueleft: {
-    paddingRight: 20,
+  highpriority: {
+    fontSize: 12,
+    textAlign: 'center',
+    marginRight: 10,
+    color: 'red',
+    fontWeight: '800'
+  },
+  mediumpriority: {
+    fontSize: 12,
+    textAlign: 'center',
+    marginRight: 10,
+    color: '#f79d0c',
+    fontWeight: '800'
+  },
+  lowpriority: {
+    fontSize: 12,
+    textAlign: 'center',
+    marginRight: 10,
+    color: '#14a7fc',
+    fontWeight: '800'
   },
   formControl: {
     marginBottom: 10,
+    // minWidth: 220,
     width: '100%',
     fontSize: 12,
     textAlign: 'left',
-  },
+  }
 });
 
 
@@ -51,105 +70,56 @@ const useStyles = makeStyles({
 const SetModal = props => {
   const classes = useStyles();
 
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState('')
-
-  function handleTitle(e) {
-    setTitle(e.target.value)
-  }
-
-  function handleDescription(e) {
-    setDescription(e.target.value)
-  }
-
-
-  // issueState
+  // projectState
   // const [projectState, setProjectState] = useState({
   //   title: '',
   //   description: '',
+  //   owner: '',
+  //   priority: '',
+  //   issue: []
   // })
-
-  // const handleInputChange = ({ target }) => {
-  //   setProjectState({ ...projectState, [target.name]: target.value })
-  // }
-
-  // const handleNewProjectModal = event => {
-  //   event.preventDefault();
-  //   const project = [...projectState.project]
-  //   project.push({
-  //     title: projectState.title,
-  //     description: projectState.description,
-  //   })
-  // }
-
-
-  function handleProjectSubmit(e) {
-    e.preventDefault();
-    axios.post('/api/projects', {
-      title: title,
-      description: description
-    },
-      {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
-      }
-    )
-    // ProjectAPI.create()
-    .then(res => {
-      props.handleClose()
-    }) 
-  }
-  
 
   return (
     <Dialog maxWidth='sm' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">New Project</DialogTitle>
+      <DialogTitle id="form-dialog-title">Add Project</DialogTitle>
       <DialogContent>
         <DialogContentText>
           <Grid container>
             <Grid className={classes.issueleft} item xs={12}>
-              <Typography className={classes.mb} variant="p" component="p">
-                <form onSubmit={(e) => handleProjectSubmit(e)}>
+                <form>
                   <p>
                     <TextField
                       id="title"
-                      label="Title"
+                      label="Project Title"
                       variant="outlined"
                       name='title'
                       fullWidth
-                      onChange={(e) => handleTitle(e)}
+                      value={props.title}
+                      onChange={props.handleInputChange}
                     />
                   </p>
                   <p>
-                    <TextField
-                      id="description"
-                      label="Description"
-                      variant="outlined"
-                      name='description'
+                    <TextField 
+                      id="outlined-basic" 
+                      label="Project Description" 
+                      variant="outlined" 
+                      name='body'
                       multiline
                       rows={6}
                       fullWidth
-                      onChange={(e) => handleDescription(e)}
+                      value={props.body}
+                      onChange={props.handleInputChange}
                     />
                   </p>
                 </form>
-              </Typography>
             </Grid>
           </Grid>
         </DialogContentText>
 
       </DialogContent>
       <DialogActions>
-        <Button 
-          variant="contained"
-          color="primary"
-          className={classes.submit} 
-          onClick={(e) => handleProjectSubmit(e)} 
-          color="primary" 
-          variant="contained" 
-          type="submit">
-          Create Project
+        <Button onClick={props.handleAddProject} color="primary" variant="contained">
+          Add Project
         </Button>
       </DialogActions>
     </Dialog>
