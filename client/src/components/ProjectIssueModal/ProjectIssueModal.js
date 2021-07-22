@@ -108,53 +108,6 @@ const useStyles = makeStyles({
 });
 
 
-const myHTML = `
-function MyConstructor(data, transport) {
-                              this.data = data;
-                            transport.on('data', function () {
-                              alert(this.data);
-    });
-}
-
-                            // Mock transport object
-                            var transport = {
-                              on: function(event, callback) {
-                              setTimeout(callback, 1000);
-    }
-};
-
-                            // called as
-                            var obj = new MyConstructor('foo', transport);`;
-const myHTML2 = `
-function MyConstructor(data, transport) {
-                              this.data = data;
-                            transport.on('data', this.alert);
-}
-
-                            MyConstructor.prototype.alert = function() {
-                              alert(this.name);
-};`;
-
-
-const issueexamples = [
-  {
-    title: 'Why do I get “Reducer […] returned undefined during initialization” despite providing initialState to createStore() ?',
-    body: "I have a constructor function which registers an event handler: However, I'm not able to access the data property of the created object inside the callback. It looks like this does not refer to the object that was created but to an other one. I also tried to use an object method instead of an anonymous function: but it exhibits the same problems. How can I access the correct object ?",
-    status: "Open",
-    priority: "High",
-    author: "John Doe",
-    replies: []
-  },
-  {
-    title: 'Home button missing from nav',
-    body: "There is no home button on the navigation bar",
-    status: "Open",
-    priority: "Low",
-    author: "Susan Doe",
-    replies: []
-  }
-]
-
 const ProjectCard = props => {
   const classes = useStyles();
 
@@ -180,15 +133,17 @@ const ProjectCard = props => {
     setStatusOpen(false);
   };
 
+  console.log(props)
+
   return (
     <Dialog maxWidth='lg' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title" className='dialogtitle'>{issueexamples[0].title}</DialogTitle>
+      <DialogTitle id="form-dialog-title" className='dialogtitle'>{props.title}</DialogTitle>
       <DialogContent>
         <DialogContentText>
           <Grid container>
             <Grid className={classes.issueleft} item xs={12} lg={9}>
               <Typography className={classes.mb} variant="p" component="p">
-                {issueexamples[0].body}
+                {props.body}
               </Typography>
 
               <TextField
@@ -208,7 +163,7 @@ const ProjectCard = props => {
               <Chip
                 icon={<FaceIcon />}
                 clickable
-                label={issueexamples[0].author}
+                label={props.author}
                 variant="outlined"
               />
               <Spacer y={2} />
@@ -244,7 +199,7 @@ const ProjectCard = props => {
                 onClick={handleInputChange}
                 endIcon={<Icon>expand_more</Icon>}
               >
-                {issueexamples[0].status}
+                {props.status}
               </Button>
 
               <FormControl className={classes.formControl}>

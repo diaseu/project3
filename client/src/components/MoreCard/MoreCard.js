@@ -3,8 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import Chip from '@material-ui/core/Chip';
-import FaceIcon from '@material-ui/icons/Face';
 
 const useStyles = makeStyles({
   root: {
@@ -14,7 +12,6 @@ const useStyles = makeStyles({
     flexWrap: 'wrap',
     height: 200,
     flexDirection: "column",
-    justifyContent: "center",
     textAlign: 'center',
     backgroundColor: 'rgba(0,0,0,0.15)'
   },

@@ -9,15 +9,12 @@ import Chip from '@material-ui/core/Chip';
 import FaceIcon from '@material-ui/icons/Face';
 import AddIcon from '@material-ui/icons/Add';
 import Issue from '../../components/Issue'
-import ProjectIssueModal from '../../components/ProjectIssueModal'
 import EditProjectModal from '../../components/EditProjectModal'
-import AddIssue from '../../components/AddIssue'
 import AddMember from '../../components/AddMember'
+import AddIssue from '../../components/AddIssue'
+import ProjectIssueModal from '../../components/ProjectIssueModal'
 import ProjectAPI from '../../utils/ProjectAPI'
-import axios from 'axios';
 import {
-  Switch,
-  Route,
   Link,
   useParams
 } from "react-router-dom";
@@ -102,39 +99,30 @@ const Project = () => {
   };
 
   // Get Project Info
-  const [projectState, setProjectState] = useState([])
-
   const [status, setStatus] = useState({ isLoading: true });
   const params = useParams();
-  console.log(params);
-
   const { isLoading, project, err } = status;
-  console.log(status);
-
-  // useEffect(() => {
-  //   axios.get(`/api/project/${params.projectId}`)
-  //     .then(res => setStatus({ project: res.data }))
-  //     .catch(err => setStatus({ err: err }))
-  // }, [])
 
   useEffect(() => {
-    ProjectAPI.getById(`${params.projectId}`)
+    ProjectAPI.getById(params.projectId)
       .then(res => {
         console.log(res)
-        // setProjectState(data.data.projects)
         setStatus({ project: res.data })
       })
       .catch(err => setStatus({ err: err }))
-  }, [])
+  // eslint-disable-next-line
+    }, [])
 
   return  isLoading ? <span>loading...</span> : err ? <h1>{err.message}</h1> : (
     <>
       <Grid container>
+        {/* Project Title */}
         <Grid className={classes.columngrid} item xs={12} md={11}>
           <Typography className={classes.mb} variant="h3" component="h2">
               {project.title}
           </Typography>
         </Grid>
+        {/* Edit Project Button */}
         <Grid className={classes.columngrid} item xs={1}>
           <div className={classes.editbtn}>
             <Link onClick={handleEditProjectOpen}>
@@ -148,40 +136,40 @@ const Project = () => {
             </Link>
             <EditProjectModal 
               open={openEditProject} 
+              title={project.title}
+              description={project.description}
+              owner={project.owner.name}
+              members={project.members}
               handleClose={() => setEditProjectOpen(false)}
             />
           </div>
         </Grid>
         <Grid className={classes.columngrid} item xs={12}>
           <Grid container>
+            {/* Project Owner Chip */}
             <Grid item xs={12} md={3}>
               <span className={classes.title} color="textSecondary" gutterBottom>
                 Project Lead <Chip
                   icon={<FaceIcon />}
-                  clickable
                   label={project.owner.name}
                   variant="outlined"
                 />
               </span>
             </Grid>
+            {/* Project Members Chips */}
             <Grid itemxs={12} md={9}>
-              <span className="members">Project Members <Chip
-                icon={<FaceIcon />}
-                clickable
-                label="Matt Bitt"
-                onDelete={handleDelete}
-                color="default"
-                variant="outlined"
-              />
-                <Chip
-                  icon={<FaceIcon />}
-                  clickable
-                  label="Simon Cowell"
-                  onDelete={handleDelete}
-                  color="default"
-                  variant="outlined"
-                />
-
+              <span className="members">Project Members 
+                {project.members.map((members) => (
+                    <Chip
+                      icon={<FaceIcon />}
+                      clickable
+                      label={members.name}
+                      onDelete={handleDelete}
+                      color="default"
+                      variant="outlined"
+                    />
+                ))}
+                {/* Add Member Chip */}
                 <Link onClick={handleAddMemberOpen}>
                   <Chip
                     icon={<AddIcon />}
@@ -200,14 +188,13 @@ const Project = () => {
             </Grid>
           </Grid>
           
-          
+          {/* Project Description */}
           <div className={classes.column}>
             <Card className={classes.columntest}>
               <CardContent>
                 <Typography variant="p" component="p">
                  {project.description}
                 </Typography>
-                
               </CardContent>
             </Card>
           </div>
@@ -216,6 +203,7 @@ const Project = () => {
 
       <Grid container>
         <Grid className={classes.right} item xs={12}>
+          {/* Add Issue Chip */}
           <Link onClick={handleAddIssueOpen}>
             <Chip
               icon={<AddIcon />}
@@ -232,6 +220,8 @@ const Project = () => {
             handleClose={() => setAddIssueOpen(false)}
           />
         </Grid>
+
+        {/* Open Issues column */}
         <Grid className={classes.columngrid} item xs={12} lg={4}>
           <div className={classes.column}>
             <Card className={classes.columntest}>
@@ -242,10 +232,27 @@ const Project = () => {
                       Open
                     </Typography>
                   </Grid>
-                  
                 </Grid>
               
-
+                {project.issues.map((issueData) => (
+                  <>
+                    <Link onClick={handleClickOpen}>
+                      <Issue 
+                        body={issueData.body}
+                        />
+                    </Link>
+                    <ProjectIssueModal 
+                      open={open}
+                      title={issueData.title}
+                      body={issueData.body}
+                      author={issueData.author.name}
+                      authorusername={issueData.author.username}
+                      status={issueData.status}
+                      priority={issueData.priority}
+                      handleClose={handleClose}
+                    />
+                  </>
+                ))}
 
               
                 <Link onClick={handleClickOpen} i={1}>
@@ -255,25 +262,6 @@ const Project = () => {
                   open={open}
                   handleClose={handleClose}
                 />
-
-                <Link onClick={handleClickOpen} i={2}>
-                  <Issue />
-                </Link>
-                <ProjectIssueModal 
-                  open={open}
-                  handleClose={handleClose}
-                />
-
-                
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
 
               </CardContent>
             </Card>
@@ -291,9 +279,7 @@ const Project = () => {
                 </Grid>
               </Grid>
               <Issue />
-              <Issue />
-              <Issue />
-              <Issue />
+  
               
             </CardContent>
           </Card>
@@ -311,20 +297,7 @@ const Project = () => {
                   </Grid>
                 </Grid>
                 <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
+
 
               </CardContent>
             </Card>

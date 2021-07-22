@@ -4,7 +4,7 @@ const { model, Schema } = require('mongoose')
 const Issue = new Schema({
   title: String,
   body: String,
-  // isPublic: Boolean,
+  isPublic: Boolean,
   status: String,
   priority: String,
   author: {

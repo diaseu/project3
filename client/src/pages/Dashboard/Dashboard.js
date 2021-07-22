@@ -7,12 +7,10 @@ import Button from '@material-ui/core/Button';
 import ProjectIssue from '../../components/ProjectIssue'
 import CommunityIssue from '../../components/CommunityIssue'
 import ProjectCard from '../../components/ProjectCard'
+import ProjectIssueModal from '../../components/ProjectIssueModal'
 import Spacer from '../../components/Spacer'
-import axios from 'axios';
+import UserAPI from '../../utils/UserAPI'
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
   Link
 } from "react-router-dom";
 
@@ -26,18 +24,29 @@ const useStyles = makeStyles({
 const Dashboard = () => {
   const classes = useStyles();
 
+  // Modals
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  // Get Info
+
   const [projectState, setProjectState] = useState([])
+  const [issueState, setIssueState] = useState([])
 
   useEffect(() => {
-    // console.log('hello')
-    axios.get('/api/projects',{
-      params: {
-        _limit: 3
-      }
-    })
+    UserAPI.me()
       .then(data => {
         console.log(data)
-        setProjectState(data.data)
+        setProjectState(data.data.projects)
+        setIssueState(data.data.issues)
       })
       .catch(err => console.log(err))
   }, [])
@@ -52,13 +61,12 @@ const Dashboard = () => {
           </Typography>
         </Grid>
         {projectState.map((projectData) => (
-          <Grid className={classes.projectcard} item xs={12} sm={5} lg={2}>
+          <Grid className={classes.projectcard} item xs={12} sm={4} lg={2}>
+            {/* <Link to={`/projects/${id}`}> */}
             <Link to={`/project/${projectData._id}`}>
               <ProjectCard
-                projectData={projectData}
                 title={projectData.title}
                 description={projectData.description}
-                owner={projectData.owner.name}
               />
             </Link>
           </Grid>
@@ -82,6 +90,29 @@ const Dashboard = () => {
               </Button>
             </Grid>
           </Grid>
+
+          {issueState.map((issueData) => (
+            <>
+              <Link onClick={handleClickOpen}>
+                <ProjectIssue
+                  title={issueData.title}
+                  body={issueData.body}
+                  status  ={issueData.status  }
+                  priority={issueData.priority}
+                />
+              </Link>
+              <ProjectIssueModal 
+                      open={open}
+                      title={issueData.title}
+                      body={issueData.body}
+                      author={issueData.author.name}
+                      authorusername={issueData.author.username}
+                      status={issueData.status}
+                      priority={issueData.priority}
+                      handleClose={handleClose}
+                    />
+            </>
+          ))}
 
           <ProjectIssue />
           <Spacer y={1} />

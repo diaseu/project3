@@ -36,7 +36,7 @@ const useStyles = makeStyles({
 });
 
 
-const Issue = () => {
+const Issue = props => {
   const classes = useStyles();
 
   return(
@@ -52,7 +52,7 @@ const Issue = () => {
           <Grid item className={classes.issue} xs={12}>
             <Icon className={classes.priority}>radio_button_unchecked</Icon>
 
-            Error: Node Sass version 5.0.0 is incompatible with ^4.0.0
+            {props.body}
 
           </Grid>
         </Grid>
