@@ -111,11 +111,7 @@ const Project = () => {
   const { isLoading, project, err } = status;
   console.log(status);
 
-  // useEffect(() => {
-  //   axios.get(`/api/project/${params.projectId}`)
-  //     .then(res => setStatus({ project: res.data }))
-  //     .catch(err => setStatus({ err: err }))
-  // }, [])
+
 
   useEffect(() => {
     ProjectAPI.getById(`${params.projectId}`)

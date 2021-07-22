@@ -26,7 +26,7 @@ router.post('/issues', passport.authenticate('jwt'), (req, res) => {
     isPublic: req.body.isPublic,
     status: req.body.status,
     priority: req.body.priority,
-    //expected pid here
+    //expected pid here (req.body.pid)
     author: req.user._id
   })
     .then(issue => {
