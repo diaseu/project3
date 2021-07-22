@@ -66,7 +66,7 @@ const Projects = () => {
           </Grid>
         ))}
         
-        <Grid className={classes.projectcard} item xs={12} md={4} lg={2}>
+        <Grid className={classes.projectcard} item xs={12} sm={4} lg={2}>
           <Link onClick={handleNewProjectModalOpen}>
             <MoreCard
               clickable

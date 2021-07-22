@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(4),
   },
   media: {
-    height: 150,
+    height: 145,
   },
   paper: {
     padding: theme.spacing(1)
@@ -101,10 +101,10 @@ export default function About() {
               <Card className={classes.root}>
                 <CardActionArea>
                   <CardContent align='center'>
-                    <img src={Dia} width="150" height="150" />
+                    <img src={Dia} width="145" height="145" />
                     <br />
                     <br />
-                    <Typography gutterBottom variant="h6" component="h6" align='center'>
+                    <Typography gutterBottom variant="h7" component="h3" align='center'>
                       Diana Seung
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
@@ -130,10 +130,10 @@ export default function About() {
               <Card className={classes.root}>
                 <CardActionArea>
                   <CardContent align='center'>
-                    <img src={Joon} width="150" height="150" />
+                    <img src={Joon} width="145" height="145" />
                     <br />
                     <br />
-                    <Typography gutterBottom variant="h6" component="h2" align='center'>
+                    <Typography gutterBottom variant="h7" component="h3" align='center'>
                       Sle Ahn
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
@@ -160,10 +160,10 @@ export default function About() {
               <Card className={classes.root}>
                 <CardActionArea>
                   <CardContent align='center'>
-                    <img src={'https://i.imgur.com/AlYe5XY.jpeg'} width="150" height="150" align='center'/>
+                    <img src={'https://i.imgur.com/AlYe5XY.jpeg'} width="145" height="145" />
                     <br />
                     <br />
-                    <Typography gutterBottom variant="h6" component="h2" align='center'>
+                    <Typography gutterBottom variant="h7" component="h3" align='center'>
                       Jake Eckfeldt
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
@@ -183,14 +183,11 @@ export default function About() {
             <Grid item xs={12} sm={6} md={3}>
               <Card className={classes.root}>
                 <CardActionArea>
-
-
-
                   <CardContent align='center'>
-                    <img src={Mike} width="150" height="150" align='center'/>
+                    <img src={Mike} width="145" height="145" align='center'/>
                     <br />
                     <br />
-                    <Typography gutterBottom variant="h6" component="h2">
+                    <Typography gutterBottom variant="h7" component="h3" align='center'>
                       Michael Scharf
                     </Typography>
 
