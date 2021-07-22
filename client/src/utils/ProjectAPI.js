@@ -2,12 +2,12 @@ import axios from 'axios'
 const localStorage = window.localStorage
 
 const Project = {
-  getById: id => axios.get(`/api/users/${id}`, {
+  getById: id => axios.get(`/api/projects/${id}`, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`
     }
   }),
-  create: project => axios.post('/api/posts', project, {
+  create: project => axios.post('/api/projects', project, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`
     }
