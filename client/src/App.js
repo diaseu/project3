@@ -126,7 +126,6 @@ function App() {
                 <Container className={classes.container}>
                   <Dashboard />
                 </Container>
-              </div>
             </main>
           </Route>
           <Route exact path="/About">
@@ -135,7 +134,6 @@ function App() {
                 <Container className={classes.container}>
                   <About />
                 </Container>
-              </div>
             </main>
           </Route>
           <Route path="/projects">
@@ -144,7 +142,6 @@ function App() {
               <Container className={classes.container}>
                 <Projects />
                 </Container>
-              </div>
             </main>
           </Route>
           <Route path="/me">
@@ -153,7 +150,6 @@ function App() {
               <Container className={classes.container}>
                 <Me />
                 </Container>
-              </div>
             </main>
           </Route>
           <Route path="/help">
@@ -162,7 +158,6 @@ function App() {
               <Container className={classes.container}>
                 <Help />
               </Container>
-              </div>
             </main>
           </Route>
           <Route path="/project">
@@ -171,7 +166,6 @@ function App() {
                 <Container className={classes.container}>
                   <Project />
                 </Container>
-              </div>
             </main>
           </Route>
           <Route path="/projectIssue">
@@ -180,10 +174,10 @@ function App() {
               <Container className={classes.container}>
                 <ProjectIssue />
               </Container>
-              </div>
             </main>
-        </Route>
-      </Switch>
+          </Route>
+        </Switch>
+      </div>
     </Router>
 );
 }
