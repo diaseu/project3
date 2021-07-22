@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken')
 
 // get all users (figure out later another method for scalability)
 router.get('/users/all', (req, res) => {
-  console.log('backend')
   User.find()
     .then(users => res.json(users))
     .catch(err => res.json(err))
