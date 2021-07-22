@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     marginRight: 20,
     marginBottom: 20,
   },
-});
+})
 
 const Dashboard = () => {
   const classes = useStyles();

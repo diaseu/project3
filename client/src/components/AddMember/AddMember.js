@@ -20,6 +20,7 @@ import TextField from '@material-ui/core/TextField';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import axios from 'axios';
+import ProjectAPI from '../../utils/ProjectAPI'
 
 const useStyles = makeStyles({
   root: {
@@ -126,24 +127,6 @@ const SetModal = props => {
     setIssueState({ ...issueState, [target.name]: target.value })
   }
 
-  const handleAddIssue = event => {
-    event.preventDefault();
-    const issue = [...issueState.issue]
-    issue.push({
-      title: issueState.title,
-      body: issueState.body,
-      priority: issueState.priority
-    })
-  }
-
-  const addMembertoProject = event => {
-    event.preventDefault();
-    // console.log(document.getElementById('add-member').value)
-    let id = document.getElementById('add-member').value
-    axios.post(`/api/projects/${id}/addmembers`)
-
-    props.handleClose()
-  }
 
   // Get all users for Autocomplete
   const [userState, setUserState] = useState([])
