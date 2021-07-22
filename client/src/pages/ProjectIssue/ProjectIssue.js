@@ -153,17 +153,22 @@ const Project = () => {
             </Grid>
             {/* Project Members Chips */}
             <Grid itemxs={12} md={9}>
-              <span className="members">Project Members 
-                {project.members.map((members) => (
-                    <Chip
-                      icon={<FaceIcon />}
-                      clickable
-                      label={members.name}
-                      onDelete={handleDelete}
-                      color="default"
-                      variant="outlined"
-                    />
-                ))}
+              <span className="members">Project Members <Chip
+                icon={<FaceIcon />}
+                clickable
+                label="Matt Bitt"
+                onDelete={handleDelete}
+                color="default"
+                variant="outlined"
+              />
+                <Chip
+                  icon={<FaceIcon />}
+                  clickable
+                  label="Simon Cowell"
+                  onDelete={handleDelete}
+                  color="default"
+                  variant="outlined"
+                />
                 {/* Add Member Chip */}
                 <Link onClick={handleAddMemberOpen}>
                   <Chip
@@ -229,25 +234,7 @@ const Project = () => {
                   </Grid>
                 </Grid>
               
-                {project.issues.map((issueData) => (
-                  <>
-                    <Link onClick={handleClickOpen}>
-                      <Issue 
-                        body={issueData.body}
-                        />
-                    </Link>
-                    <ProjectIssueModal 
-                      open={open}
-                      title={issueData.title}
-                      body={issueData.body}
-                      author={issueData.author.name}
-                      authorusername={issueData.author.username}
-                      status={issueData.status}
-                      priority={issueData.priority}
-                      handleClose={handleClose}
-                    />
-                  </>
-                ))}
+
 
               
                 <Link onClick={handleClickOpen} i={1}>
