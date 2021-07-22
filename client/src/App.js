@@ -160,7 +160,7 @@ function App() {
               </Container>
             </main>
           </Route>
-          <Route path="/project">
+          <Route path="/project/:projectId">
             <main className={classes.content}>
               <div className={classes.appBarSpacer} />
                 <Container className={classes.container}>

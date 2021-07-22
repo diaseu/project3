@@ -27,6 +27,13 @@ function Copyright() {
 }
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    height: '100vh',
+    backgroundImage: 'url(https://cdn.pixabay.com/photo/2016/06/13/22/12/flash-1455285_1280.jpg)',
+    padding: '0!important',
+    margin: '0!important',
+    width: '100%'
+  },
   paper: {
     marginTop: theme.spacing(1),
     display: 'flex',
