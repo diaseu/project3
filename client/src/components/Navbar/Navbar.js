@@ -36,6 +36,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    
   },
   toolbar: {
     paddingRight: 24, // keep right padding when drawer closed
@@ -46,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-end',
     padding: '0 8px',
     ...theme.mixins.toolbar,
+    
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -53,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    
   },
   appBarShift: {
     marginLeft: drawerWidth,
@@ -61,10 +64,16 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    
   },
   menuButton: {
     marginRight: 36,
+    
   },
+  [theme.breakpoints.down('xs')]: {
+      width: 0,
+      display: 'none',
+    },
   menuButtonHidden: {
     display: 'none',
   },
@@ -82,6 +91,10 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    [theme.breakpoints.down('xs')]: {
+      position: 'absolute'
+    },
+    
   },
   drawerPaperClose: {
     overflowX: 'hidden',
@@ -93,22 +106,29 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       width: theme.spacing(9),
     },
+    [theme.breakpoints.down('xs')]: {
+      width: 0,
+      display: 'none',
+    },
   },
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
     height: '100vh',
     overflow: 'auto',
+    
   },
   container: {
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
+    
   },
   paper: {
     padding: theme.spacing(2),
     display: 'flex',
     overflow: 'auto',
     flexDirection: 'column',
+    
   },
   fixedHeight: {
     height: 240,
@@ -123,7 +143,7 @@ const Navbar = ({ pages, setpageState, me, isLoggedIn, handleLogOut }) => {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -219,34 +239,31 @@ const Navbar = ({ pages, setpageState, me, isLoggedIn, handleLogOut }) => {
       <Divider />
       <List>
         <div>
-          <ListItem button>
-              
-                <ListItemIcon>
-                  <LayersIcon />
-                </ListItemIcon>
-              <Link to="/">
-                <ListItemText primary="Dashboard" />
-              </Link>
+          <ListItem button component={Link} to='/'>
+            <ListItemIcon>
+                <LayersIcon />
+            </ListItemIcon>
+              <ListItemText primary="Dashboard" /> 
           </ListItem>
-          <ListItem button>
+          <ListItem button component={Link} to='/projects'>
             <ListItemIcon>
               <DashboardIcon />
             </ListItemIcon>
               <Link to="/projects"><ListItemText primary="View My Projects" /></Link>
           </ListItem>
-          <ListItem button>
+            <ListItem button component={Link} to='/me'>
             <ListItemIcon>
               <BarChartIcon />
             </ListItemIcon>
               <Link to="/me"><ListItemText primary="Reported By Me" /></Link>
           </ListItem>
-          <ListItem button>
+            <ListItem button component={Link} to='/help'>
             <ListItemIcon>
               <PeopleIcon />
             </ListItemIcon>
               <Link to="/help"><ListItemText primary="Community Issues" /></Link>
           </ListItem>
-            <ListItem button>
+            <ListItem button component={Link} to='/about'>
               <ListItemIcon>
                 <EmojiPeopleIcon />
               </ListItemIcon>
