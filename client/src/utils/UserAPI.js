@@ -13,7 +13,7 @@ const User = {
       Authorization: `Bearer ${localStorage.getItem('token')}`
     }
   }),
-  profile: username => axios.get(`/api/users/${username}`, {
+  create: post => axios.post('/api/projects/', post, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`
     }

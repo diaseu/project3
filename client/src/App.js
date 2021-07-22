@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
@@ -13,6 +13,7 @@ import ProjectIssue from './pages/ProjectIssue'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import About from './pages/About'
+import User from './utils/UserAPI'
 import {
   BrowserRouter as Router,
   Switch,
@@ -49,19 +50,64 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   const classes = useStyles();
+
+  // const history = useHistory()
+  const [meState, setMeState] = useState({
+    me: {},
+    isLoggedIn: true
+  })
+
+  const getMe = () => {
+    User.me()
+      .then(({ data: me }) => {
+        if (me) {
+          setMeState({ me, isLoggedIn: true })
+        } else {
+          getMe()
+        }
+      })
+      .catch(err => {
+        console.error(err)
+        setMeState({ ...meState, isLoggedIn: false })
+      })
+  }
+
+  const handleLogOut = () => {
+    localStorage.removeItem('token')
+    setMeState({ me: {}, isLoggedIn: false })
+    window.location = '/login'
+  }
+
+  useEffect(() => {
+    getMe()
+  }, [])
+
+  const updateMe = () => {
+    User.me()
+      .then(({ data: me }) => {
+        console.log(me)
+        setMeState({ me, isLoggedIn: true })
+      })
+      .catch(err => {
+        console.error(err)
+        setMeState({ ...meState, isLoggedIn: false })
+      })
+  }
   
   function navbar () {
     if (document.location.pathname !== "/login" && document.location.pathname !== "/signup") {
       return (
-        <Navbar />
+        <Navbar 
+          me={meState.me}
+          isLoggedIn={meState.isLoggedIn}
+          handleLogOut={handleLogOut}
+        />
       )
     }
   }
   
   return (
 
-
-    
     <Router>
       <div className={classes.root}>
         <CssBaseline />

@@ -13,6 +13,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MenuIcon from '@material-ui/icons/Menu';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import DashboardIcon from '@material-ui/icons/Dashboard';
@@ -20,6 +22,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
+import Button from '@material-ui/core/Button';
 
 import {
   BrowserRouter as Router,
@@ -112,7 +115,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navbar = ({ pages, setpageState }) => {
+const Navbar = ({ pages, setpageState, me, isLoggedIn, handleLogOut }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -146,6 +149,14 @@ const Navbar = ({ pages, setpageState }) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const handleUserClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleUserClose = () => {
+    setAnchorEl(null);
+  };
+
   return(
   <>
     <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
@@ -163,15 +174,33 @@ const Navbar = ({ pages, setpageState }) => {
           Zap
         </Typography>
           <div className={classes.sectionDesktop}>
-            
-            <IconButton
-              aria-label="account of current user"
-              aria-controls="primary-search-account-menu"
-              aria-haspopup="true"
-              color="inherit"
+            {
+              !isLoggedIn
+              ? (
+                  <Button color="inherit" href="/login">Login</Button>
+              )
+              : (
+                  <IconButton
+                    aria-label="user menu"
+                    aria-controls="user-menu"
+                    aria-haspopup="true"
+                    color="inherit"
+                    onClick={handleUserClick}
+                  >
+                    <AccountCircle /> <span className="usermenuname">{me.username}</span>
+                  </IconButton>
+              )
+            }
+            <Menu
+              id="user-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleUserClose}
             >
-              <AccountCircle />
-            </IconButton>
+              <MenuItem onClick={handleUserClose}>Profile</MenuItem>
+              <MenuItem onClick={handleLogOut}>Logout</MenuItem>
+            </Menu>
           </div>
       </Toolbar>
     </AppBar>

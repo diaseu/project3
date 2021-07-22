@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import ProjectCard from '../../components/ProjectCard'
 import MoreCard from '../../components/MoreCard'
+import ProjectsAPI from '../../utils/ProjectsAPI'
 import axios from 'axios';
 import Chip from '@material-ui/core/Chip';
 import AddIssue from '../../components/AddIssue'
@@ -62,6 +63,14 @@ const Projects = () => {
   //     })
   //     .catch(err => console.log(err))
   // }, [])
+  useEffect(() => {
+    ProjectsAPI.me()
+      .then(data => {
+        console.log(data)
+        setProjectState(data.data.projects)
+      })
+      .catch(err => console.log(err))
+  }, [])
 
   return (
     <>
@@ -80,10 +89,10 @@ const Projects = () => {
             {/* <Link to={`/projects/${id}`}> */}
             <Link to='/project'>
             <ProjectCard 
-              projectData={projectData} 
+              // projectData={projectData} 
               title={projectData.title}
               description={projectData.description}
-              owner={projectData.owner.name}
+              // owner={projectData.owner.name}
             />
           </Link>
           </Grid>
