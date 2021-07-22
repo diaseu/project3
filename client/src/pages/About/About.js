@@ -102,6 +102,8 @@ export default function About() {
                 <CardActionArea>
                   <CardContent align='center'>
                     <img src={Dia} width="150" height="150" />
+                    <br />
+                    <br />
                     <Typography gutterBottom variant="h6" component="h6" align='center'>
                       Diana Seung
                     </Typography>
@@ -129,6 +131,8 @@ export default function About() {
                 <CardActionArea>
                   <CardContent align='center'>
                     <img src={Joon} width="150" height="150" />
+                    <br />
+                    <br />
                     <Typography gutterBottom variant="h6" component="h2" align='center'>
                       Sle Ahn
                     </Typography>
@@ -157,6 +161,8 @@ export default function About() {
                 <CardActionArea>
                   <CardContent align='center'>
                     <img src={'https://i.imgur.com/AlYe5XY.jpeg'} width="150" height="150" align='center'/>
+                    <br />
+                    <br />
                     <Typography gutterBottom variant="h6" component="h2" align='center'>
                       Jake Eckfeldt
                     </Typography>
@@ -182,6 +188,8 @@ export default function About() {
 
                   <CardContent align='center'>
                     <img src={Mike} width="150" height="150" align='center'/>
+                    <br />
+                    <br />
                     <Typography gutterBottom variant="h6" component="h2">
                       Michael Scharf
                     </Typography>
