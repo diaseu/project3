@@ -110,6 +110,7 @@ const Project = () => {
         setStatus({ project: res.data })
       })
       .catch(err => setStatus({ err: err }))
+      // eslint-disable-next-line
   }, [])
 
   return  isLoading ? <span>loading...</span> : err ? <h1>{err.message}</h1> : (

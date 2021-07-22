@@ -9,10 +9,10 @@ import Chip from '@material-ui/core/Chip';
 import FaceIcon from '@material-ui/icons/Face';
 import AddIcon from '@material-ui/icons/Add';
 import Issue from '../../components/Issue'
-import ProjectIssueModal from '../../components/ProjectIssueModal'
 import EditProjectModal from '../../components/EditProjectModal'
-import AddIssue from '../../components/AddIssue'
 import AddMember from '../../components/AddMember'
+import AddIssue from '../../components/AddIssue'
+import ProjectIssueModal from '../../components/ProjectIssueModal'
 import ProjectAPI from '../../utils/ProjectAPI'
 import {
   Link,
@@ -104,13 +104,14 @@ const Project = () => {
   const { isLoading, project, err } = status;
 
   useEffect(() => {
-    ProjectAPI.getById(`${params.projectId}`)
+    ProjectAPI.getById(params.projectId)
       .then(res => {
         console.log(res)
         setStatus({ project: res.data })
       })
       .catch(err => setStatus({ err: err }))
-  }, [])
+  // eslint-disable-next-line
+    }, [])
 
   return  isLoading ? <span>loading...</span> : err ? <h1>{err.message}</h1> : (
     <>
@@ -135,6 +136,10 @@ const Project = () => {
             </Link>
             <EditProjectModal 
               open={openEditProject} 
+              title={project.title}
+              description={project.description}
+              owner={project.owner.name}
+              members={project.members}
               handleClose={() => setEditProjectOpen(false)}
             />
           </div>
@@ -258,25 +263,6 @@ const Project = () => {
                   handleClose={handleClose}
                 />
 
-                <Link onClick={handleClickOpen} i={2}>
-                  <Issue />
-                </Link>
-                <ProjectIssueModal 
-                  open={open}
-                  handleClose={handleClose}
-                />
-
-                
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-
               </CardContent>
             </Card>
           </div>
@@ -293,9 +279,7 @@ const Project = () => {
                 </Grid>
               </Grid>
               <Issue />
-              <Issue />
-              <Issue />
-              <Issue />
+  
               
             </CardContent>
           </Card>
@@ -313,20 +297,7 @@ const Project = () => {
                   </Grid>
                 </Grid>
                 <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
-                <Issue />
+
 
               </CardContent>
             </Card>

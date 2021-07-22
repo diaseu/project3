@@ -79,34 +79,6 @@ const useStyles = makeStyles({
 });
 
 
-const myHTML = `
-function MyConstructor(data, transport) {
-                              this.data = data;
-                            transport.on('data', function () {
-                              alert(this.data);
-    });
-}
-
-                            // Mock transport object
-                            var transport = {
-                              on: function(event, callback) {
-                              setTimeout(callback, 1000);
-    }
-};
-
-                            // called as
-                            var obj = new MyConstructor('foo', transport);`;
-const myHTML2 = `
-function MyConstructor(data, transport) {
-                              this.data = data;
-                            transport.on('data', this.alert);
-}
-
-                            MyConstructor.prototype.alert = function() {
-                              alert(this.name);
-};`;
-
-
 const EditProjectModal = props => {
   const classes = useStyles();
 
@@ -134,16 +106,16 @@ const EditProjectModal = props => {
                 variant="outlined"
                 name='title'
                 fullWidth
-                value={issueState.title}
+                value={props.title}
                 onChange={handleInputChange}
               />
               <TextField
                 margin="dense"
-                id="body"
+                id="description"
                 label="Description"
                 type="text"
                 variant="outlined"
-                value={issueState.body}
+                value={props.description}
                 onChange={handleInputChange}
                 multiline
                 rows={6}
@@ -158,8 +130,7 @@ const EditProjectModal = props => {
               </Typography>
               <Chip
                 icon={<FaceIcon />}
-                clickable
-                label="Susan Doe"
+                label={props.owner}
                 variant="outlined"
               />
               <Spacer y={2} />
@@ -168,28 +139,14 @@ const EditProjectModal = props => {
               <Typography className={classes.title} color="textSecondary" gutterBottom>
                 Project Members
               </Typography>
-              <Chip
-                icon={<FaceIcon />}
-                clickable
-                label="Matt Bitt"
-                onDelete={props.handleDelete}
-                color="default"
-                variant="outlined"
-              />
-              <Chip
-                icon={<FaceIcon />}
-                clickable
-                label="Simon Cowell"
-                onDelete={props.handleDelete}
-                color="default"
-                variant="outlined"
-              />
-              {/* <Chip
-                icon={<AddIcon />}
-                label="Add"
-                clickable
-                variant="outlined"
-              /> */}
+              {props.members.map((members) => (
+                <Chip
+                  icon={<FaceIcon />}
+                  label={members.name}
+                  color="default"
+                  variant="outlined"
+                />
+              ))}
               <Spacer y={2} />
 
 
