@@ -1,9 +1,9 @@
 import axios from 'axios'
 const localStorage = window.localStorage
 
-const Projects = {
+const ProjectsAPI = {
   showAll: () => axios.get('/api/projects'),
-  showMine: () => axios.get('/api/users/me', {
+  me: () => axios.get('/api/users/me', {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`
     }
@@ -15,4 +15,4 @@ const Projects = {
   })
 }
 
-export default Projects
+export default ProjectsAPI
