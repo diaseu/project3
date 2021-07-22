@@ -7,27 +7,9 @@ const passport = require('passport')
 router.get('/projects', (req, res) => {
   Project.find({})
     .populate('owner')
-    .populate({
-      path: 'members',
-      model: 'User'
-    })
     // .populate({
-    //   path: 'issues',
-    //   model: 'Issue',
-    //   populate: [
-    //     {
-    //       path: 'author',
-    //       model: 'User'
-    //     },
-    //     {
-    //       path: 'replies',
-    //       model: 'Reply',
-    //       populate: {
-    //         path: 'author',
-    //         model: 'User'
-    //       }
-    //     }
-    //   ]
+    //   path: 'members',
+    //   model: 'User'
     // })
     .then(project => res.json(project))
     .catch(err => console.log(err))
@@ -74,7 +56,7 @@ router.post('/projects', passport.authenticate('jwt'), (req, res) => {
       User.findByIdAndUpdate(req.user._id, { $push: { projects: project._id } })
         .then(() => {
           Project.findByIdAndUpdate(project._id, { $push: { members: project.owner._id } })
-            .then(() => res.sendStatus(200))
+            .then(() => res.json(project._id))
             .catch(err => console.log(err))
         })
         .catch(err => console.log(err))
@@ -96,5 +78,14 @@ router.put(`/projects/:id/addmember`, passport.authenticate('jwt'), (req, res) =
     .catch(err => console.log(err))
 })
 
+//delete project, non public issues, and members
+router.delete(`/projects/:id`, passport.authenticate('jwt'), (req, res) => {
+  Project.findByIdAndDelete(req.params.id, {new: true})
+    .then(project => {
+      //go through members, remove the project from their projects
+      res.json(project)
+    })
+    .catch(err => console.log(err))
+})
 
 module.exports = router

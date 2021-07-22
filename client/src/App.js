@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
@@ -13,6 +13,7 @@ import ProjectIssue from './pages/ProjectIssue'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import About from './pages/About'
+import User from './utils/UserAPI'
 import {
   BrowserRouter as Router,
   Switch,
@@ -49,61 +50,136 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   const classes = useStyles();
-  
-  function navbar () {
+
+  // const history = useHistory()
+  const [meState, setMeState] = useState({
+    me: {},
+    isLoggedIn: true
+  })
+
+  const getMe = () => {
+    User.me()
+      .then(({ data: me }) => {
+        if (me) {
+          setMeState({ me, isLoggedIn: true })
+        } else {
+          getMe()
+        }
+      })
+      .catch(err => {
+        console.error(err)
+        setMeState({ ...meState, isLoggedIn: false })
+      })
+  }
+
+  const handleLogOut = () => {
+    localStorage.removeItem('token')
+    setMeState({ me: {}, isLoggedIn: false })
+    window.location = '/login'
+  }
+
+  useEffect(() => {
+    getMe()
+  }, [])
+
+  const updateMe = () => {
+    User.me()
+      .then(({ data: me }) => {
+        console.log(me)
+        setMeState({ me, isLoggedIn: true })
+      })
+      .catch(err => {
+        console.error(err)
+        setMeState({ ...meState, isLoggedIn: false })
+      })
+  }
+
+  function navbar() {
     if (document.location.pathname !== "/login" && document.location.pathname !== "/signup") {
       return (
-        <Navbar />
+        <Navbar
+          me={meState.me}
+          isLoggedIn={meState.isLoggedIn}
+          handleLogOut={handleLogOut}
+        />
       )
     }
   }
-  
+
   return (
 
-
-    
     <Router>
       <div className={classes.root}>
         <CssBaseline />
-       {navbar()}
-       
-        <main className={classes.content}>
-          <div className={classes.appBarSpacer} />
-          <Container className={classes.container}>
-            <Switch>
-              <Route exact path="/">
-                <Dashboard />
-              </Route>
-              <Route exact path="/About">
-                <About />
-              </Route>
-              <Route exact path="/signup">
-                <SignUp />
-              </Route>
-              <Route exact path="/login">
-                <Login />
-              </Route>
-              <Route path="/projects">
+        {navbar()}
+
+        <Switch>
+          <Route exact path="/signup">
+            <SignUp />
+          </Route>
+          <Route exact path="/login">
+            <Login />
+          </Route>
+          <Route exact path="/">
+            <main className={classes.content}>
+              <div className={classes.appBarSpacer} />
+                <Container className={classes.container}>
+                  <Dashboard />
+                </Container>
+            </main>
+          </Route>
+          <Route exact path="/About">
+            <main className={classes.content}>
+              <div className={classes.appBarSpacer} />
+                <Container className={classes.container}>
+                  <About />
+                </Container>
+            </main>
+          </Route>
+          <Route path="/projects">
+            <main className={classes.content}>
+              <div className={classes.appBarSpacer} />
+              <Container className={classes.container}>
                 <Projects />
-              </Route>
-              <Route path="/me">
+                </Container>
+            </main>
+          </Route>
+          <Route path="/me">
+            <main className={classes.content}>
+              <div className={classes.appBarSpacer} />
+              <Container className={classes.container}>
                 <Me />
-              </Route>
-              <Route path="/help">
+                </Container>
+            </main>
+          </Route>
+          <Route path="/help">
+            <main className={classes.content}>
+              <div className={classes.appBarSpacer} />
+              <Container className={classes.container}>
                 <Help />
-              </Route>
-              <Route path="/project">
-                <Project />
-              </Route>
-              <Route path="/projectIssue">
+              </Container>
+            </main>
+          </Route>
+          <Route path="/project">
+            <main className={classes.content}>
+              <div className={classes.appBarSpacer} />
+                <Container className={classes.container}>
+                  <Project />
+                </Container>
+            </main>
+          </Route>
+          <Route path="/projectIssue">
+            <main className={classes.content}>
+              <div className={classes.appBarSpacer} />
+              <Container className={classes.container}>
                 <ProjectIssue />
-              </Route>
-            </Switch>
-          </Container>
-        </main>
+              </Container>
+            </main>
+          </Route>
+        </Switch>
       </div>
     </Router>
-  );
+);
 }
 
 export default App;

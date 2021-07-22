@@ -74,15 +74,12 @@ export default function About() {
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justifyContent="center">
                 <Grid item>
-
                   <ContactModal
-                    open={openContact}
-                    handleClose={() => setContactOpen(false)}
+                    open={handleContactOpen}
+                    handleClose={() => handleClose}
                   />
-
                 </Grid>
                 <Grid item>
-
                 </Grid>
               </Grid>
             </div>

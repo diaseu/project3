@@ -1,5 +1,6 @@
 import './Dashboard.css';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -7,8 +8,39 @@ import ProjectIssue from '../../components/ProjectIssue'
 import CommunityIssue from '../../components/CommunityIssue'
 import ProjectCard from '../../components/ProjectCard'
 import Spacer from '../../components/Spacer'
+import axios from 'axios';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
+const useStyles = makeStyles({
+  projectcard: {
+    marginRight: 20,
+    marginBottom: 20,
+  },
+});
 
 const Dashboard = () => {
+  const classes = useStyles();
+
+  const [projectState, setProjectState] = useState([])
+
+  useEffect(() => {
+    // console.log('hello')
+    axios.get('/api/projects',{
+      params: {
+        _limit: 3
+      }
+    })
+      .then(data => {
+        console.log(data)
+        setProjectState(data.data)
+      })
+      .catch(err => console.log(err))
+  }, [])
 
   return(
     <>
@@ -19,25 +51,18 @@ const Dashboard = () => {
             My Projects
           </Typography>
         </Grid>
-        <Grid item xs={12} lg={2}>
-          <ProjectCard />
-        </Grid>
-        <Spacer x={2} y={1} />
-        <Grid item xs={12} lg={2}>
-          <ProjectCard />
-        </Grid>
-        <Spacer x={2} y={1} />
-        <Grid item xs={12} lg={2}>
-          <ProjectCard />
-        </Grid>
-        <Spacer x={2} y={1} />
-        <Grid item xs={12} lg={2}>
-          <ProjectCard />
-        </Grid>
-        <Spacer x={2} y={1} />
-        <Grid item xs={12} lg={2}>
-          <ProjectCard />
-        </Grid>
+        {projectState.map((projectData) => (
+          <Grid className={classes.projectcard} item xs={12} sm={5} lg={2}>
+            <Link to="/project">
+              <ProjectCard
+                projectData={projectData}
+                title={projectData.title}
+                description={projectData.description}
+                owner={projectData.owner.name}
+              />
+            </Link>
+          </Grid>
+        ))}
       </Grid>
       <Spacer y={4} />
       <Grid container>

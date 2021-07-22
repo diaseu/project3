@@ -4,11 +4,11 @@ const passport = require('passport')
 
 //get issue by id
 router.get('/issues/:id', passport.authenticate('jwt'), (req, res) => {
-  Issue.findById(req.params.id)
+  Issue.findById(req.params.id, {new: true})
     .populate('author')
     .populate({
       path: 'replies',
-      model: 'Reply'
+      model: 'Reply',
       populate: {
         path: 'author',
         model: 'User'
