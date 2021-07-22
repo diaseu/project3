@@ -171,7 +171,7 @@ const SetModal = props => {
         
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleAddIssue} onClick={addMembertoProject} color="primary" variant="contained">Add Member</Button>
+        <Button  color="primary" variant="contained">Add Member</Button>
       </DialogActions>
     </Dialog>
   )
