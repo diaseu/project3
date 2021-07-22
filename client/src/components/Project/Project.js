@@ -1,4 +1,5 @@
 import './Project.css';
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -14,8 +15,8 @@ import EditProjectModal from '../../components/EditProjectModal'
 import AddIssue from '../../components/AddIssue'
 import AddMember from '../../components/AddMember'
 import ProjectAPI from '../../utils/ProjectAPI'
-import axios from 'axios';
 import {
+  BrowserRouter as Router,
   Switch,
   Route,
   Link,
@@ -65,8 +66,10 @@ const useStyles = makeStyles({
   }, 
 });
 
-const Project = () => {
+const Project = props => {
   const classes = useStyles();
+
+  // const { id } = props.match.params
 
   // Modals
   const [open, setOpen] = useState(false);
@@ -104,35 +107,32 @@ const Project = () => {
   // Get Project Info
   const [projectState, setProjectState] = useState([])
 
-  const [status, setStatus] = useState({ isLoading: true });
-  const params = useParams();
-  console.log(params);
-
-  const { isLoading, project, err } = status;
-  console.log(status);
-
-  // useEffect(() => {
-  //   axios.get(`/api/project/${params.projectId}`)
-  //     .then(res => setStatus({ project: res.data }))
-  //     .catch(err => setStatus({ err: err }))
-  // }, [])
-
   useEffect(() => {
-    ProjectAPI.getById(`${params.projectId}`)
-      .then(res => {
-        console.log(res)
+    // same thing as 
+    // axios.get(`/api/projects/${id}`, {
+    //   headers: {
+    //     Authorization: `Bearer ${localStorage.getItem('token')}`
+    //   }
+    // }),
+    // ProjectAPI.getById({pid})
+    axios.get('/api/projects/'+props.match.params.id, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+      .then(data => {
+        console.log(data)
         // setProjectState(data.data.projects)
-        setStatus({ project: res.data })
       })
-      .catch(err => setStatus({ err: err }))
+      .catch(err => console.log(err))
   }, [])
 
-  return  isLoading ? <span>loading...</span> : err ? <h1>{err.message}</h1> : (
+  return(
     <>
       <Grid container>
         <Grid className={classes.columngrid} item xs={12} md={11}>
           <Typography className={classes.mb} variant="h3" component="h2">
-              {project.title}
+              {/* {props.projectState.title}  */}
           </Typography>
         </Grid>
         <Grid className={classes.columngrid} item xs={1}>
@@ -159,7 +159,7 @@ const Project = () => {
                 Project Lead <Chip
                   icon={<FaceIcon />}
                   clickable
-                  label={project.owner.name}
+                  label="Susan Doe"
                   variant="outlined"
                 />
               </span>
@@ -205,7 +205,7 @@ const Project = () => {
             <Card className={classes.columntest}>
               <CardContent>
                 <Typography variant="p" component="p">
-                 {project.description}
+                  Project Apollo Titus aims to redesign its website. The museum contains the world's largest collection of gantt charts created by project managers from around the world. The Museum has begun digitizing and cataloging each piece and would like to display them on their website, along with other pertinent Museum information and content. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad temporibus beatae quas pariatur, nemo nobis quis sit eaque neque qui, nihil eveniet praesentium sunt aspernatur eius omnis harum et placeat.
                 </Typography>
                 
               </CardContent>
