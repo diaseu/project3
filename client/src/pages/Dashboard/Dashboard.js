@@ -53,7 +53,7 @@ const Dashboard = () => {
         </Grid>
         {projectState.map((projectData) => (
           <Grid className={classes.projectcard} item xs={12} sm={5} lg={2}>
-            <Link to="/project">
+            <Link to={`/project/${projectData._id}`}>
               <ProjectCard
                 projectData={projectData}
                 title={projectData.title}

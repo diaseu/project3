@@ -14,11 +14,12 @@ import EditProjectModal from '../../components/EditProjectModal'
 import AddIssue from '../../components/AddIssue'
 import AddMember from '../../components/AddMember'
 import ProjectAPI from '../../utils/ProjectAPI'
+import axios from 'axios';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  useParams
 } from "react-router-dom";
 
 const useStyles = makeStyles({
@@ -72,7 +73,18 @@ const Project = () => {
   const [openEditProject, setEditProjectOpen] = useState(false);
   const [openAddIssue, setAddIssueOpen] = useState(false);
   const [openAddMember, setAddMemberOpen] = useState(false);
+  const  [status, setStatus] = useState({isLoading: true});
+  const params = useParams();
+  console.log(params);
 
+  useEffect(() => {
+    axios.get(`/api/${params.projectId}`)
+      .then(res => setStatus({project: res.data}))
+      .catch(err => setStatus({err: err}))
+  }, [])
+
+  const {isLoading, project, err} = status;
+  console.log(status);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -119,12 +131,12 @@ const Project = () => {
       .catch(err => console.log(err))
   }, [])
 
-  return(
+  return  isLoading ? <span>loading...</span> : err ? <h1>{err.message}</h1> : (
     <>
       <Grid container>
         <Grid className={classes.columngrid} item xs={12} md={11}>
           <Typography className={classes.mb} variant="h3" component="h2">
-              {projectState.title}
+              {project.title}
           </Typography>
         </Grid>
         <Grid className={classes.columngrid} item xs={1}>
@@ -197,7 +209,7 @@ const Project = () => {
             <Card className={classes.columntest}>
               <CardContent>
                 <Typography variant="p" component="p">
-                  Project Apollo Titus aims to redesign its website. The museum contains the world's largest collection of gantt charts created by project managers from around the world. The Museum has begun digitizing and cataloging each piece and would like to display them on their website, along with other pertinent Museum information and content. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad temporibus beatae quas pariatur, nemo nobis quis sit eaque neque qui, nihil eveniet praesentium sunt aspernatur eius omnis harum et placeat.
+                 {project.description}
                 </Typography>
                 
               </CardContent>
