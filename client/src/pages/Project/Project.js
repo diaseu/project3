@@ -1,5 +1,5 @@
 import './Project.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -13,6 +13,7 @@ import ProjectIssueModal from '../../components/ProjectIssueModal'
 import EditProjectModal from '../../components/EditProjectModal'
 import AddIssue from '../../components/AddIssue'
 import AddMember from '../../components/AddMember'
+import ProjectAPI from '../../utils/ProjectAPI'
 import {
   BrowserRouter as Router,
   Switch,
@@ -99,14 +100,31 @@ const Project = () => {
     console.info('You clicked the delete icon.');
   };
 
-  
+  // Get Project Info
+  const [projectState, setProjectState] = useState([])
+
+  useEffect(() => {
+    // same thing as 
+    // axios.get(`/api/projects/${id}`, {
+    //   headers: {
+    //     Authorization: `Bearer ${localStorage.getItem('token')}`
+    //   }
+    // }),
+
+    ProjectAPI.getById('how do I get an id here?')
+      .then(data => {
+        console.log(data)
+        setProjectState(data.data.projects)
+      })
+      .catch(err => console.log(err))
+  }, [])
 
   return(
     <>
       <Grid container>
         <Grid className={classes.columngrid} item xs={12} md={11}>
           <Typography className={classes.mb} variant="h3" component="h2">
-                Project: Apollo Titus
+              {projectState.title}
           </Typography>
         </Grid>
         <Grid className={classes.columngrid} item xs={1}>

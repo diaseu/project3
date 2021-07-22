@@ -52,6 +52,7 @@ const Projects = () => {
   useEffect(() => {
     UserAPI.me()
       .then(data => {
+        console.log(data)
         setProjectState(data.data.projects)
       })
       .catch(err => console.log(err))
@@ -66,7 +67,7 @@ const Projects = () => {
         {projectState.map((projectData) => (
           <Grid className={classes.projectcard} item xs={12} sm={4} lg={2}>
             {/* <Link to={`/projects/${id}`}> */}
-            <Link to='/project'>
+            <Link to={`/project/${projectData._id}`}>
             <ProjectCard 
               title={projectData.title}
               description={projectData.description}
