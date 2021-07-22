@@ -1,4 +1,4 @@
-import React, { useState, PureComponent } from 'react';
+import React, { useState, useEffect, PureComponent } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import PropTypes from "prop-types";
@@ -23,6 +23,14 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import Issue from '../../utils/IssueAPI'
+import ProjectAPI from '../../utils/ProjectAPI'
+import {
+  Switch,
+  Route,
+  Link,
+  useParams
+} from "react-router-dom";
 
 
 const useStyles = makeStyles({
@@ -119,28 +127,75 @@ const SetModal = props => {
   const classes = useStyles();
 
   // issueState
-  const [issueState, setIssueState] = useState({
-    title: '',
-    body: '',
-    status: 'Open',
-    priority: '',
-    issue: []
-  })
+  const [issueTitle, setIssueTitle] = useState("");
+  const [issueDescription, setIssueDescription] = useState('')
+  const [issuePriority, setIssuePriority] = useState("");
 
-  const handleInputChange = ({ target }) => {
-    setIssueState({ ...issueState, [target.name]: target.value })
+  const [status, setStatus] = useState({ isLoading: true });
+  const params = useParams();
+  console.log(params, 'these are params');
+
+  useEffect(() => {
+    ProjectAPI.getById(`${params.projectId}`)
+      .then(res => {
+        console.log(res, 'useEffect response')
+        // setProjectState(data.data.projects)
+        setStatus({ project: res.data })
+      })
+      .catch(err => setStatus({ err: err }))
+  }, [])
+
+
+  
+  function handleIssueTitle(e) {
+    console.log(e.target.value)
+    setIssueTitle(e.target.value)
   }
 
-  const handleAddIssue = event => {
-    event.preventDefault();
-    const issue = [...issueState.issue]
-    issue.push({
-      title: issueState.title,
-      body: issueState.body,
-      status: 'Open',
-      priority: issueState.priority
+  
+
+  function handleIssueDescription(e) {
+    console.log(e.target.value)
+    setIssueDescription(e.target.value)
+  }
+
+  function handleIssuePriority(e) {
+    console.log(e.target.value)
+    setIssuePriority(e.target.value)
+  }
+
+ 
+  function handleAddIssue(e) {
+    e.preventDefault();
+    
+    Issue.create({
+      title: issueTitle,
+      body: issueDescription,
+      priority: issuePriority,
+      isPublic: false,
+      status: 'open',
+      pid: params.projectId
     })
+    console.log('issue created')
   }
+
+  // function handleProjectSubmit(e) {
+  //   e.preventDefault();
+  //   axios.post('/api/projects', {
+  //     title: title,
+  //     description: description
+  //   },
+  //     {
+  //       headers: {
+  //         'Authorization': `Bearer ${localStorage.getItem('token')}`
+  //       }
+  //     }
+  //   )
+  //     // ProjectAPI.create()
+  //     .then(res => {
+  //       props.handleClose()
+  //     })
+  // }
 
   return (
     <Dialog maxWidth='sm' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
@@ -158,8 +213,7 @@ const SetModal = props => {
                       variant="outlined"
                       name='title'
                       fullWidth
-                      value={issueState.title}
-                      onChange={handleInputChange}
+                      onChange={handleIssueTitle}
                     />
                   </p>
                   <p>
@@ -171,8 +225,7 @@ const SetModal = props => {
                       multiline
                       rows={6}
                       fullWidth
-                      value={issueState.body}
-                      onChange={handleInputChange}
+                      onChange={handleIssueDescription}
                     />
                   </p>
                 </form>
@@ -185,8 +238,7 @@ const SetModal = props => {
                   labelId="priority-label"
                   id="priority"
                   defaultValue="Medium"
-                  value={issueState.issue.priority}
-                  onChange={handleInputChange}
+                  onChange={handleIssuePriority}
                   fullWidth
                 >
                   <MenuItem value="High">
@@ -205,7 +257,7 @@ const SetModal = props => {
 
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleAddIssue} onClick={props.handleClose} color="primary" variant="contained">
+        <Button onClick={handleAddIssue}  color="primary" variant="contained">
           Add Issue
         </Button>
       </DialogActions>
