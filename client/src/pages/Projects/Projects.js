@@ -52,7 +52,7 @@ const Projects = () => {
   useEffect(() => {
     UserAPI.me()
       .then(data => {
-        console.log(data)
+        // console.log(data)
         setProjectState(data.data.projects)
       })
       .catch(err => console.log(err))

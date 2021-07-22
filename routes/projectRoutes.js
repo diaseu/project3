@@ -15,9 +15,9 @@ router.get('/projects', (req, res) => {
     .catch(err => console.log(err))
 })
 
-//get project by id
-router.get(`/projects/:id`, passport.authenticate('jwt'), (req, res) => {
-  Project.findById(req.params.id)
+// get project by id
+router.get('/projects/:projectId', passport.authenticate('jwt'), (req, res) => {
+  Project.findById(req.params.projectId)
     .populate('owner')
     .populate({
       path: 'members',
@@ -41,8 +41,11 @@ router.get(`/projects/:id`, passport.authenticate('jwt'), (req, res) => {
         }
       ]
     })
-    .then(project => res.json(project))
-    .catch(err => console.log(err))
+    .then(project => {
+      if (project) res.status(200).json(project);
+      else res.status(404).json({ message: "404 Project not found!" })
+    })
+    .catch(err => res.status(500).json({ message: err.message }))
 })
 
 //create new project

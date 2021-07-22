@@ -220,10 +220,13 @@ const Navbar = ({ pages, setpageState, me, isLoggedIn, handleLogOut }) => {
       <List>
         <div>
           <ListItem button>
-            <ListItemIcon>
-              <LayersIcon />
-            </ListItemIcon>
-              <Link to="/"><ListItemText primary="Dashboard" /></Link>
+              
+                <ListItemIcon>
+                  <LayersIcon />
+                </ListItemIcon>
+              <Link to="/">
+                <ListItemText primary="Dashboard" />
+              </Link>
           </ListItem>
           <ListItem button>
             <ListItemIcon>
