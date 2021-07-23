@@ -85,7 +85,7 @@ function App() {
   const updateMe = () => {
     User.me()
       .then(({ data: me }) => {
-        console.log(me)
+        // console.log(me)
         setMeState({ me, isLoggedIn: true })
       })
       .catch(err => {
