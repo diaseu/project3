@@ -16,7 +16,7 @@ import Icon from '@material-ui/core/Icon';
 import FaceIcon from '@material-ui/icons/Face';
 import AddIcon from '@material-ui/icons/Add';
 import Spacer from '../Spacer'
-
+import ProjectAPI from '../../utils/ProjectAPI'
 
 const useStyles = makeStyles({
   root: {
@@ -91,6 +91,21 @@ const EditProjectModal = props => {
 
   const handleInputChange = ({ target }) => {
     setIssueState({ ...issueState, [target.name]: target.value })
+  }
+
+  function handleEditProject(e) {
+    // e.preventDefault();
+    ProjectAPI.update({
+      title: issueTitle,
+      body: issueDescription,
+      priority: issuePriority,
+      isPublic: false,
+      status: 'open',
+      pid: params.projectId
+    })
+    // console.log('issue created')
+    props.handleClose()
+    window.location.reload()
   }
 
   return (
