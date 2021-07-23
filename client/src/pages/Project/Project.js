@@ -68,12 +68,9 @@ const useStyles = makeStyles({
 const Project = () => {
   const classes = useStyles();
 
-  // Modals
+  // ====================== Modals ======================
+  // Modal: Open an issue 
   const [openIssue, setIssueOpen] = useState(false);
-  const [openEditProject, setEditProjectOpen] = useState(false);
-  const [openAddIssue, setAddIssueOpen] = useState(false);
-  const [openAddMember, setAddMemberOpen] = useState(false);
-
   const handleIssueOpen = _id => {
     let issues = status.project.issues
     issues = issues.map(issue => {
@@ -87,18 +84,25 @@ const Project = () => {
     setStatus({ project })
   }
 
+  //  Modal: Edit Project
+  const [openEditProject, setEditProjectOpen] = useState(false);
   const handleEditProjectOpen = () => {
     setEditProjectOpen(true);
   };
-  
+
+  // Modal: Add Issue
+  const [openAddIssue, setAddIssueOpen] = useState(false);
   const handleAddIssueOpen = () => {
     setAddIssueOpen(true);
   };
 
+  // Modal: Add Member
+  const [openAddMember, setAddMemberOpen] = useState(false);
   const handleAddMemberOpen = () => {
     setAddMemberOpen(true);
   };
   
+  // Modal: Close all Modals
   const handleClose = () => {
     setIssueOpen(false);
     setAddIssueOpen(false);
