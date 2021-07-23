@@ -24,7 +24,8 @@ export default function ContactModal() {
         Contact the ZAP team
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Contact</DialogTitle>
+        <DialogTitle id="form-dialog-title">Contact Us
+        </DialogTitle>
        <ContactForm></ContactForm>
         <DialogActions>
           
