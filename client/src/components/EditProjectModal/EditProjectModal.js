@@ -16,13 +16,13 @@ import Icon from '@material-ui/core/Icon';
 import FaceIcon from '@material-ui/icons/Face';
 import AddIcon from '@material-ui/icons/Add';
 import Spacer from '../Spacer'
+import ProjectAPI from '../../utils/ProjectAPI'
 import {
   Switch,
   Route,
   Link,
   useParams
 } from "react-router-dom";
-import Project from '../../utils/ProjectAPI'
 import axios from 'axios'
 
 
@@ -103,7 +103,7 @@ const EditProjectModal = props => {
   console.log(params, 'these are params');
 
   useEffect(() => {
-    Project.getById(`${params.projectId}`)
+    ProjectAPI.getById(`${params.projectId}`)
       .then(res => {
         console.log(res, 'useEffect response')
         // setProjectState(data.data.projects)
@@ -115,14 +115,14 @@ const EditProjectModal = props => {
 
 
   function handleProjectTitle(e) {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     setProjectTitle(e.target.value)
   }
 
 
 
   function handleProjectDescription(e) {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     setProjectDescription(e.target.value)
   }
 
@@ -130,8 +130,8 @@ const EditProjectModal = props => {
 
 
   function handleEditProject(e) {
-    e.preventDefault();
-    Project.update({
+    // e.preventDefault();
+    ProjectAPI.update({
       title: projectTitle,
       description: projectDescription
     },
@@ -140,33 +140,15 @@ const EditProjectModal = props => {
     console.log('project updated :)')
     console.log(projectTitle)
     console.log(projectDescription)
-    props.handleClose()
+    window.location.reload()
   }
 
   function handleDeleteProject(e) {
     e.preventDefault()
     let doomedProject=params.projectId
     console.log(doomedProject, 'this project is going to be deleted')
-    Project.delete(params.projectId)
-    props.handleclose()
+    ProjectAPI.delete(params.projectId)
     }
-
-  
-    
-  // function handleEditProject(e) {
-  //   // e.preventDefault();
-  //   ProjectAPI.update({
-  //     title: issueTitle,
-  //     body: issueDescription,
-  //     priority: issuePriority,
-  //     isPublic: false,
-  //     status: 'open',
-  //     pid: params.projectId
-  //   })
-  //   // console.log('issue created')
-  //   props.handleClose()
-  //   window.location.reload()
-  // }
 
   return (
     <Dialog maxWidth='sm' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
