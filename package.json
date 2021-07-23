@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/2017mike/project3#readme",
   "dependencies": {
+    "@material-ui/lab": "^4.0.0-alpha.60",
     "axios": "^0.21.1",
     "concurrently": "^6.2.0",
     "cors": "^2.8.5",

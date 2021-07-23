@@ -20,7 +20,9 @@ import TextField from '@material-ui/core/TextField';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import axios from 'axios';
-import ProjectAPI from '../../utils/ProjectAPI'
+import ProjectAPI from '../../utils/ProjectAPI.js'
+import UserAPI from '../../utils/UserAPI.js'
+
 
 const useStyles = makeStyles({
   root: {
@@ -111,31 +113,41 @@ const useStyles = makeStyles({
 });
 
 
-
 const SetModal = props => {
   const classes = useStyles();
 
-  // issueState
-  const [issueState, setIssueState] = useState({
-    title: '',
-    body: '',
-    priority: '',
-    issue: []
+  //autocomplete default value grabber
+  const [userState, setUserState] = useState({
+    users: [],
+    newUser: [],
+    username: ''
   })
 
-  const [userState, setUserState] = useState([])
-
   const handleInputChange = ({ target }) => {
-    setIssueState({ ...issueState, [target.name]: target.value })
+    console.log(target.name, target.value)
+    setUserState({ ...userState, [target.name]: target.value })
+  }
+
+  const handleAddMember = () => {
+    // get the user as obj
+    UserAPI.getOne(userState.username)
+      .then( ({ data: user }) => {
+        ProjectAPI.addMember(props.projectId, user)
+          .then(res => console.log(res))
+          .catch(err => console.log(err))
+      })
+      .catch(err => console.log(err))
   }
 
 
   useEffect(() => {
-    // console.log('hello')
-    axios.get('/api/users/all')
-      .then(data => {
-        // console.log(data)
-        setUserState(data.data) 
+    UserAPI.getAll()
+      .then(res => {
+        const users = [...userState.users]
+        res.data.forEach(user => {
+          users.push(user)
+        })
+        setUserState({ ...userState, users})
       })
       .catch(err => console.log(err))
   }, [])
@@ -152,7 +164,11 @@ const SetModal = props => {
                 freeSolo
                 id="add-member"
                 disableClearable
-                options={userState.map((option) => option.name)}
+                name="username"
+                onChange={(event, value) => { setUserState({ ...userState, username: value }) }}
+                onInputChange={(event, value) => { setUserState({ ...userState, username: value }) }}
+                value={userState.username}
+                options={userState.users.map((option) => option.username)}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -171,7 +187,7 @@ const SetModal = props => {
         
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleAddIssue} onClick={addMembertoProject} color="primary" variant="contained">Add Member</Button>
+        <Button onClick={handleAddMember} color="primary" variant="contained">Add Member</Button>
       </DialogActions>
     </Dialog>
   )

@@ -182,7 +182,8 @@ const Project = () => {
                 </Link>
                 <AddMember
                   open={openAddMember}
-                  handleClose={() => setAddMemberOpen(false)}
+                  handleClose={() => { setAddMemberOpen(false) }}
+                  projectId={params.projectId}
                 />
               </span>
             </Grid>
