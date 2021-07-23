@@ -152,12 +152,21 @@ const EditProjectModal = props => {
     }
 
   
-
-
-
-
     
-    
+  // function handleEditProject(e) {
+  //   // e.preventDefault();
+  //   ProjectAPI.update({
+  //     title: issueTitle,
+  //     body: issueDescription,
+  //     priority: issuePriority,
+  //     isPublic: false,
+  //     status: 'open',
+  //     pid: params.projectId
+  //   })
+  //   // console.log('issue created')
+  //   props.handleClose()
+  //   window.location.reload()
+  // }
 
   return (
     <Dialog maxWidth='sm' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
