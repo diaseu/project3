@@ -172,7 +172,7 @@ const SetModal = props => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label="Search Member to Add"
+                    label="Add Member by Username"
                     id="member"
                     margin="normal"
                     variant="outlined"

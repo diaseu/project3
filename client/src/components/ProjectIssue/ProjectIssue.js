@@ -56,7 +56,7 @@ const ProjectIssue = props => {
           <Grid item className={classes.center} xs={12}>
             <Icon className={classes.priority}>radio_button_unchecked</Icon>
             
-              {props.body}
+              {props.title}
             
           </Grid>
         </Grid>

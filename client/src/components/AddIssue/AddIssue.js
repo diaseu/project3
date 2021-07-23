@@ -133,7 +133,7 @@ const SetModal = props => {
   useEffect(() => {
     ProjectAPI.getById(`${params.projectId}`)
       .then(res => {
-        console.log(res, 'useEffect response')
+        // console.log(res, 'useEffect response')
         // setProjectState(data.data.projects)
         setStatus({ project: res.data })
       })
@@ -143,26 +143,25 @@ const SetModal = props => {
 
   
   function handleIssueTitle(e) {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     setIssueTitle(e.target.value)
   }
 
   
 
   function handleIssueDescription(e) {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     setIssueDescription(e.target.value)
   }
 
   function handleIssuePriority(e) {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     setIssuePriority(e.target.value)
   }
 
  
   function handleAddIssue(e) {
-    e.preventDefault();
-    
+    // e.preventDefault();
     Issue.create({
       title: issueTitle,
       body: issueDescription,
@@ -171,6 +170,7 @@ const SetModal = props => {
       status: 'open',
       pid: params.projectId
     })
+    // console.log('issue created')
     props.handleClose()
     window.location.reload()
   }
@@ -213,6 +213,7 @@ const SetModal = props => {
             <div className={classes.right}>
               <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel id="priority-label">Priority</InputLabel>
+                <br />
                 <Select
                   labelId="priority-label"
                   id="priority"

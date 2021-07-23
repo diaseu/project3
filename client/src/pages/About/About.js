@@ -14,7 +14,9 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import Dia from '../../images/Snapchat-2077905771_1.jpg'
 import Joon from '../../images/Joon2.jpeg'
 import Mike from '../../images/IMG_0003.PNG'
-import ContactModal from '../../components/ContactModal'
+// import ContactModal from '../../components/ContactModal'
+import ContactForm from '../../components/ContactForm'
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -37,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(4),
   },
   media: {
-    height: 140,
+    height: 145,
   },
   paper: {
     padding: theme.spacing(1)
@@ -73,10 +75,24 @@ export default function About() {
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justifyContent="center">
                 <Grid item>
-                  <ContactModal
-                    open={handleContactOpen}
-                    handleClose={() => handleClose}
-                  />
+
+                  <div>
+                    <Link onClick={handleContactOpen}>
+                      <Button 
+                        variant="outlined" 
+                        color="primary" 
+                        onClickAddIssue={() => setContactOpen(true)}
+                        >
+                        Contact the ZAP team
+                      </Button>
+                    </Link>
+                    <ContactForm 
+                      open={openContact}
+                      handleClose={() => setContactOpen(false)}
+                    />
+                    
+                  </div>
+
                 </Grid>
                 <Grid item>
                 </Grid>
@@ -97,19 +113,21 @@ export default function About() {
             justify="center"
             alignItems="center"
           >
-            <Grid item s={2}>
+            <Grid item xs={12} sm={6} md={3}>
               <Card className={classes.root}>
                 <CardActionArea>
-                  <CardContent>
-                    <img src={Dia} width="170" height="170" alt="" />
-                    <Typography gutterBottom variant="h5" component="h2">
+                  <CardContent align='center'>
+                    <img src={Dia} width="145" height="145" />
+                    <br />
+                    <br />
+                    <Typography gutterBottom variant="h7" component="h3" align='center'>
                       Diana Seung
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
                     </Typography>
                   </CardContent>
                 </CardActionArea>
-                <CardActions>
+                <CardActions style={{ justifyContent: 'center' }}>
                   <Button size="small" color="primary">
                     <Link href="https://www.linkedin.com/in/dianaseung/" target="_blank">
                       LinkedIn
@@ -124,22 +142,21 @@ export default function About() {
               </Card>
             </Grid>
             <br />
-            <Grid item s={2}>
+            <Grid item xs={12} sm={6} md={3}>
               <Card className={classes.root}>
                 <CardActionArea>
-
-                  <CardContent>
-                    <img src={Joon} width="170" height="170" alt="" />
-                    <Typography gutterBottom variant="h5" component="h2">
+                  <CardContent align='center'>
+                    <img src={Joon} width="145" height="145" />
+                    <br />
+                    <br />
+                    <Typography gutterBottom variant="h7" component="h3" align='center'>
                       Sle Ahn
                     </Typography>
-
                     <Typography variant="body2" color="textSecondary" component="p">
-
                     </Typography>
                   </CardContent>
                 </CardActionArea>
-                <CardActions>
+                <CardActions style={{ justifyContent: 'center' }}>
                   <Button size="small" color="primary">
                     <Link href="https://www.linkedin.com/in/sle-ahn" target="_blank">
                       LinkedIn
@@ -149,54 +166,44 @@ export default function About() {
                     <Link href="https://github.com/silentsonata92" target="_blank" >
                       GitHub
                     </Link>
-
                   </Button>
-
                 </CardActions>
               </Card>
             </Grid>
             <br />
 
-
-            <Grid item s={2}>
+            <Grid item xs={12} sm={6} md={3}>
               <Card className={classes.root}>
                 <CardActionArea>
-
-                  <CardContent>
-                    <img src={'https://i.imgur.com/AlYe5XY.jpeg'} width="170" height="170" alt="" />
-                    <Typography gutterBottom variant="h5" component="h2">
+                  <CardContent align='center'>
+                    <img src={'https://i.imgur.com/AlYe5XY.jpeg'} width="145" height="145" />
+                    <br />
+                    <br />
+                    <Typography gutterBottom variant="h7" component="h3" align='center'>
                       Jake Eckfeldt
                     </Typography>
-
                     <Typography variant="body2" color="textSecondary" component="p">
-
                     </Typography>
                   </CardContent>
                 </CardActionArea>
-                <CardActions>
-
+                <CardActions style={{ justifyContent: 'center' }}>
                   <Button size="small" color="primary">
                     <Link href="https://github.com/JEckfeldt" target="_blank" >
                       GitHub
                     </Link>
-
                   </Button>
-
                 </CardActions>
               </Card>
-
             </Grid>
             <br />
-
-            <Grid item s={2}>
+            <Grid item xs={12} sm={6} md={3}>
               <Card className={classes.root}>
                 <CardActionArea>
-
-
-
-                  <CardContent>
-                    <img src={Mike} width="170" height="170" alt="" />
-                    <Typography gutterBottom variant="h5" component="h2">
+                  <CardContent align='center'>
+                    <img src={Mike} width="145" height="145" align='center'/>
+                    <br />
+                    <br />
+                    <Typography gutterBottom variant="h7" component="h3" align='center'>
                       Michael Scharf
                     </Typography>
 
@@ -205,7 +212,7 @@ export default function About() {
                     </Typography>
                   </CardContent>
                 </CardActionArea>
-                <CardActions>
+                <CardActions style={{ justifyContent: 'center' }}>
                   <Button size="small" color="primary">
                     <Link href="https://www.linkedin.com/in/michael-scharf-398899111" target="_blank">
                       LinkedIn

@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import ProjectIssue from '../../components/ProjectIssue'
+import Spacer from '../../components/Spacer';
 
 
 const useStyles = makeStyles({
@@ -24,14 +25,14 @@ const Me = () => {
 
   return (
     <>
-      <h1 align="center">My Issues</h1>
+      <h1 align="left">My Issues</h1>
       <Grid container>
-        <Grid item xs={9}>
+        <Grid item xs={12} md={6} sm={6}>
           <Typography variant="h6" component="h2">
             Issues Reported By Me
           </Typography>
         </Grid>
-        <Grid item className={classes.right} xs={3}>
+        <Grid item className={classes.right} xs={12} md={6} sm={6}>
           <Button size="small" variant="contained" href="#sort-project">
             Sort by Project
           </Button>
@@ -40,6 +41,7 @@ const Me = () => {
           </Button>
         </Grid>
       </Grid>
+      <Spacer y={1} />
 
       <div>
         <Grid container>

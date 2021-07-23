@@ -83,8 +83,11 @@ router.put(`/projects/:id/addmember`, passport.authenticate('jwt'), (req, res) =
 
 //delete project, non public issues, and members
 router.delete(`/projects/:id`, passport.authenticate('jwt'), (req, res) => {
-  Project.findByIdAndDelete(req.params.id, {new: true})
-    .then(project => res.json(project))
+  Project.findByIdAndDelete(req.params.id)
+    .then(project => {
+      //go through members, remove the project from their projects
+      res.json(project)
+    })
     .catch(err => console.log(err))
 })
 

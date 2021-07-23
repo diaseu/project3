@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, PureComponent } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -16,6 +16,14 @@ import Icon from '@material-ui/core/Icon';
 import FaceIcon from '@material-ui/icons/Face';
 import AddIcon from '@material-ui/icons/Add';
 import Spacer from '../Spacer'
+import ProjectAPI from '../../utils/ProjectAPI'
+import {
+  Switch,
+  Route,
+  Link,
+  useParams
+} from "react-router-dom";
+import axios from 'axios'
 
 
 const useStyles = makeStyles({
@@ -79,19 +87,68 @@ const useStyles = makeStyles({
 });
 
 
+
+
+
 const EditProjectModal = props => {
+
   const classes = useStyles();
 
-  const [issueState, setIssueState] = useState({
-    title: '',
-    body: '',
-    priority: '',
-    issue: []
-  })
+  const [projectTitle, setProjectTitle] = useState("");
+  const [projectDescription, setProjectDescription] = useState('')
+  
 
-  const handleInputChange = ({ target }) => {
-    setIssueState({ ...issueState, [target.name]: target.value })
+  const [status, setStatus] = useState({ isLoading: true });
+  const params = useParams();
+  console.log(params, 'these are params');
+
+  useEffect(() => {
+    ProjectAPI.getById(`${params.projectId}`)
+      .then(res => {
+        console.log(res, 'useEffect response')
+        // setProjectState(data.data.projects)
+        setStatus({ project: res.data })
+      })
+      .catch(err => setStatus({ err: err }))
+  }, [])
+
+
+
+  function handleProjectTitle(e) {
+    // console.log(e.target.value)
+    setProjectTitle(e.target.value)
   }
+
+
+
+  function handleProjectDescription(e) {
+    // console.log(e.target.value)
+    setProjectDescription(e.target.value)
+  }
+
+  
+
+
+  function handleEditProject(e) {
+    // e.preventDefault();
+    ProjectAPI.update({
+      title: projectTitle,
+      description: projectDescription
+    },
+      params.projectId
+    )
+    console.log('project updated :)')
+    console.log(projectTitle)
+    console.log(projectDescription)
+    window.location.reload()
+  }
+
+  function handleDeleteProject(e) {
+    e.preventDefault()
+    let doomedProject=params.projectId
+    console.log(doomedProject, 'this project is going to be deleted')
+    ProjectAPI.delete(params.projectId)
+    }
 
   return (
     <Dialog maxWidth='sm' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
@@ -106,8 +163,8 @@ const EditProjectModal = props => {
                 variant="outlined"
                 name='title'
                 fullWidth
-                value={props.title}
-                onChange={handleInputChange}
+                placeholder={props.title}
+                onChange={handleProjectTitle}
               />
               <TextField
                 margin="dense"
@@ -115,8 +172,8 @@ const EditProjectModal = props => {
                 label="Description"
                 type="text"
                 variant="outlined"
-                value={props.description}
-                onChange={handleInputChange}
+                placeholder={props.description}
+                onChange={handleProjectDescription}
                 multiline
                 rows={6}
                 fullWidth
@@ -149,12 +206,6 @@ const EditProjectModal = props => {
               ))}
               <Spacer y={2} />
 
-
-          
-              
-
-
-
             </Grid>
           </Grid>
 
@@ -168,6 +219,7 @@ const EditProjectModal = props => {
               variant="contained"
               color="secondary"
               className={classes.ask}
+              onClick={handleDeleteProject}
             >
               Delete Project
             </Button>
@@ -176,7 +228,7 @@ const EditProjectModal = props => {
             <Button onClick={props.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={props.handleClose} color="primary" variant="contained">
+            <Button onClick={handleEditProject}  color="primary" variant="contained">
               Save
             </Button>
           </Grid>
