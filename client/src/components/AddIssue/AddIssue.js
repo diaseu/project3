@@ -127,9 +127,8 @@ const SetModal = props => {
   const [issueDescription, setIssueDescription] = useState('')
   const [issuePriority, setIssuePriority] = useState("");
 
-  const [status, setStatus] = useState({ isLoading: true });
-  const params = useParams();
-  // console.log(params, 'these are params');
+  const [status, setStatus] = useState({ isLoading: true })
+  const params = useParams()
 
   useEffect(() => {
     ProjectAPI.getById(`${params.projectId}`)
@@ -176,23 +175,6 @@ const SetModal = props => {
     window.location.reload()
   }
 
-  // function handleProjectSubmit(e) {
-  //   e.preventDefault();
-  //   axios.post('/api/projects', {
-  //     title: title,
-  //     description: description
-  //   },
-  //     {
-  //       headers: {
-  //         'Authorization': `Bearer ${localStorage.getItem('token')}`
-  //       }
-  //     }
-  //   )
-  //     // ProjectAPI.create()
-  //     .then(res => {
-  //       props.handleClose()
-  //     })
-  // }
 
   return (
     <Dialog maxWidth='sm' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
