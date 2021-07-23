@@ -1,0 +1,19 @@
+.root {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  height: 200px;
+  min-width: 175px;
+}
+
+.description {
+  font-size: 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ownerName {
+  overflow-x: auto;
+}

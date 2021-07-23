@@ -91,16 +91,15 @@ const useStyles = makeStyles({
 
 
 const EditProjectModal = props => {
-
   const classes = useStyles();
 
-  const [projectTitle, setProjectTitle] = useState("");
-  const [projectDescription, setProjectDescription] = useState('')
   
-
   const [status, setStatus] = useState({ isLoading: true });
   const params = useParams();
   console.log(params, 'these are params');
+  
+  const [projectTitle, setProjectTitle] = useState(props.title);
+  const [projectDescription, setProjectDescription] = useState(props.description)
 
   useEffect(() => {
     ProjectAPI.getById(`${params.projectId}`)
@@ -112,21 +111,15 @@ const EditProjectModal = props => {
       .catch(err => setStatus({ err: err }))
   }, [])
 
-
-
   function handleProjectTitle(e) {
     // console.log(e.target.value)
     setProjectTitle(e.target.value)
   }
 
-
-
   function handleProjectDescription(e) {
     // console.log(e.target.value)
     setProjectDescription(e.target.value)
   }
-
-  
 
 
   function handleEditProject(e) {
@@ -163,7 +156,7 @@ const EditProjectModal = props => {
                 variant="outlined"
                 name='title'
                 fullWidth
-                placeholder={props.title}
+                defaultValue={props.title}
                 onChange={handleProjectTitle}
               />
               <TextField
@@ -172,7 +165,7 @@ const EditProjectModal = props => {
                 label="Description"
                 type="text"
                 variant="outlined"
-                placeholder={props.description}
+                defaultValue={props.description}
                 onChange={handleProjectDescription}
                 multiline
                 rows={6}

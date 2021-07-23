@@ -76,6 +76,8 @@ router.put(`/projects/:id`, passport.authenticate('jwt'), (req, res) => {
 
 //update members for project
 router.put(`/projects/:id/addmember`, passport.authenticate('jwt'), (req, res) => {
+  console.log('update members for project', req.body)
+  // User.findByIdAndUpdate()
   Project.findByIdAndUpdate(req.params.id, { $addToSet: { members: req.body } }, {new: true})
     .then(project => res.json(project))
     .catch(err => console.log(err))

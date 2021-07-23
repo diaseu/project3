@@ -125,7 +125,7 @@ const SetModal = props => {
   // issueState
   const [issueTitle, setIssueTitle] = useState("");
   const [issueDescription, setIssueDescription] = useState('')
-  const [issuePriority, setIssuePriority] = useState("");
+  const [issuePriority, setIssuePriority] = useState('Medium');
 
   const [status, setStatus] = useState({ isLoading: true });
   const params = useParams();
@@ -168,7 +168,7 @@ const SetModal = props => {
       body: issueDescription,
       priority: issuePriority,
       isPublic: false,
-      status: 'open',
+      status: 'Open',
       pid: params.projectId
     })
     // console.log('issue created')

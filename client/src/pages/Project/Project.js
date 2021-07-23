@@ -123,13 +123,13 @@ const Project = () => {
   useEffect(() => {
     ProjectAPI.getById(params.projectId)
       .then(res => {
-        console.log(res.data)
         const project = res.data
         project.issues = res.data.issues.map(issue => ({
           ...issue,
           isOpen: false
         }))
         setStatus({ project })
+        // console.log('this is the project data', project)
       })
       .catch(err => setStatus({ err: err }))
   // eslint-disable-next-line
@@ -257,7 +257,7 @@ const Project = () => {
                   </Grid>
                 </Grid>
               
-                {project.issues.map((issueData) => (
+                {project.issues.filter(issue => issue.status === 'Open').map((issueData) => (
                   <>
                     <Link onClick={() => handleIssueOpen(issueData._id)}>
                       <Issue 
@@ -301,7 +301,26 @@ const Project = () => {
                   </Typography>
                 </Grid>
               </Grid>
-              <Issue />
+              
+                {project.issues.filter(issue => issue.status === 'In Progress').map((issueData) => (
+                  <>
+                    <Link onClick={() => handleIssueOpen(issueData._id)}>
+                      <Issue
+                        title={issueData.title}
+                      />
+                    </Link>
+                    <ProjectIssueModal
+                      key={issueData._id}
+                      open={issueData.isOpen}
+                      title={issueData.title}
+                      body={issueData.body}
+                      status={issueData.status}
+                      priority={issueData.priority}
+                      author={issueData.author.name}
+                      handleClose={() => handleIssueOpen(issueData._id)}
+                    />
+                  </>
+                ))}
   
               
             </CardContent>
@@ -319,7 +338,26 @@ const Project = () => {
                     </Typography>
                   </Grid>
                 </Grid>
-                <Issue />
+                
+                {project.issues.filter(issue => issue.status === 'Closed').map((issueData) => (
+                  <>
+                    <Link onClick={() => handleIssueOpen(issueData._id)}>
+                      <Issue
+                        title={issueData.title}
+                      />
+                    </Link>
+                    <ProjectIssueModal
+                      key={issueData._id}
+                      open={issueData.isOpen}
+                      title={issueData.title}
+                      body={issueData.body}
+                      status={issueData.status}
+                      priority={issueData.priority}
+                      author={issueData.author.name}
+                      handleClose={() => handleIssueOpen(issueData._id)}
+                    />
+                  </>
+                ))}
 
 
               </CardContent>

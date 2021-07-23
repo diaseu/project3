@@ -98,6 +98,7 @@ const SetModal = props => {
     // ProjectAPI.create()
     .then(res => {
       props.handleClose()
+      window.location.reload()
     }) 
   }
   

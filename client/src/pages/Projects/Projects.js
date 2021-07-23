@@ -44,6 +44,7 @@ const Projects = () => {
     UserAPI.me()
       .then(data => {
         setProjectState(data.data.projects)
+        console.log('this is the projects page', data)
       })
       .catch(err => console.log(err))
   }, [])
@@ -61,6 +62,7 @@ const Projects = () => {
             <ProjectCard 
               title={projectData.title}
               description={projectData.description}
+              owner={projectData.owner}
             />
           </Link>
           </Grid>
