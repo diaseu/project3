@@ -23,12 +23,13 @@ export default function ContactModal() {
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
         Contact the ZAP team
       </Button>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Contact</DialogTitle>
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" align='center'>
+        <DialogTitle id="form-dialog-title">Contact Us
+        </DialogTitle>
        <ContactForm></ContactForm>
-        <DialogActions>
+        {/* <DialogActions>
           
-        </DialogActions>
+        </DialogActions> */}
       </Dialog>
 
  

@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import ProjectIssue from '../../components/ProjectIssue'
+import Spacer from '../../components/Spacer';
 
 const useStyles = makeStyles({
   root: {
@@ -60,7 +61,7 @@ const Help = () => {
           </Button>
         </Grid>
       </Grid>
-
+      <Spacer y={1} />
       <div>
         <Grid container>
           <Grid item xs={12}>
