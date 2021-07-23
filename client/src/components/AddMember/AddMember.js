@@ -115,18 +115,6 @@ const useStyles = makeStyles({
 const SetModal = props => {
   const classes = useStyles();
 
-  // issueState
-  const [issueState, setIssueState] = useState({
-    title: '',
-    body: '',
-    priority: '',
-    issue: []
-  })
-
-  const handleInputChange = ({ target }) => {
-    setIssueState({ ...issueState, [target.name]: target.value })
-  }
-
 
   // Get all users for Autocomplete
   const [userState, setUserState] = useState([])
@@ -155,7 +143,7 @@ const SetModal = props => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label="Search Member to Add"
+                    label="Add Member by Username"
                     id="member"
                     margin="normal"
                     variant="outlined"
@@ -170,7 +158,7 @@ const SetModal = props => {
         
       </DialogContent>
       <DialogActions>
-        <Button onClick={addMembertoProject} color="primary" variant="contained">Add Member</Button>
+        <Button color="primary" variant="contained">Add Member</Button>
       </DialogActions>
     </Dialog>
   )

@@ -105,6 +105,9 @@ const useStyles = makeStyles({
   selectEmpty: {
     marginTop: 20,
   },
+  hidden: {
+    display: 'none'
+  }
 });
 
 
@@ -119,6 +122,9 @@ const ProjectCard = props => {
     issue: []
   })
 
+  console.log(props)
+
+  // For the Status dropdown
   const [openStatus, setStatusOpen] = useState(false);
 
   const handleInputChange = ({ target }) => {
@@ -133,15 +139,17 @@ const ProjectCard = props => {
     setStatusOpen(false);
   };
 
-  console.log(props)
-
   return (
     <Dialog maxWidth='lg' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title" className='dialogtitle'>{props.title}</DialogTitle>
+      <DialogTitle id="form-dialog-title" className='dialogtitle'>
+        {props.title}
+      </DialogTitle>
+
       <DialogContent>
         <DialogContentText>
           <Grid container>
             <Grid className={classes.issueleft} item xs={12} lg={9}>
+              
               <Typography className={classes.mb} variant="p" component="p">
                 {props.body}
               </Typography>
@@ -170,27 +178,6 @@ const ProjectCard = props => {
 
 
               <Typography className={classes.title} color="textSecondary" gutterBottom>
-                Assigned
-              </Typography>
-              <Chip
-                icon={<FaceIcon />}
-                clickable
-                label="Matt Bitt"
-                onDelete={props.handleDelete}
-                color="default"
-                variant="outlined"
-              />
-              <Chip
-                icon={<AddIcon />}
-                label="Add"
-                clickable
-                variant="outlined"
-              />
-              <Spacer y={2} />
-              <Spacer y={2} />
-
-
-              <Typography className={classes.title} color="textSecondary" gutterBottom>
                 Status
               </Typography>
               <Button
@@ -198,6 +185,7 @@ const ProjectCard = props => {
                 color="primary"
                 onClick={handleInputChange}
                 endIcon={<Icon>expand_more</Icon>}
+                onClick={handleStatusOpen}
               >
                 {props.status}
               </Button>
@@ -212,16 +200,16 @@ const ProjectCard = props => {
                   open={openStatus}
                   onClose={handleClose}
                   onOpen={handleStatusOpen}
-                  value={issueState.issue.status}
-                  onChange={handleInputChange}
+                  variant="filled"
+                  className={classes.hidden}
                 >
                   <MenuItem value="Open">
-                    <Icon className={classes.openstatus}>radio_button_unchecked</Icon> Open
+                     Open
                   </MenuItem>
                   <MenuItem value="In Progress">
-                    <Icon className={classes.ipstatus}>radio_button_unchecked</Icon> In Progress</MenuItem>
+                     In Progress</MenuItem>
                   <MenuItem value="Closed">
-                    <Icon className={classes.closedstatus}>radio_button_unchecked</Icon> Closed</MenuItem>
+                     Closed</MenuItem>
                 </Select>
               </FormControl>
               <Spacer y={2} />
