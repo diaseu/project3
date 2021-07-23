@@ -19,6 +19,9 @@ const useStyles = makeStyles({
     marginRight: 20,
     marginBottom: 20,
   },
+  right: {
+    textAlign: 'right',
+  }
 })
 
 const Dashboard = () => {
@@ -76,20 +79,21 @@ const Dashboard = () => {
       <Grid container>
         <Grid item xs={12} lg={8}>
           <Grid container>
-            <Grid item xs={12} lg={8}>
+            <Grid item xs={12} lg={8} md={6} sm={6}>
               <Typography variant="h6" component="h2">
                 Project Issues
               </Typography>
             </Grid>
-            <Grid item xs={12} lg={4}>
+            <Grid item className={classes.right} xs={12} lg={4} md={6} sm={6}>
               <Button size="small" variant="contained" href="#contained-buttons">
-                Only My Issues
+                My Issues
               </Button>
               <Button size="small" variant="contained" href="#contained-buttons">
                 Recently Updated
               </Button>
             </Grid>
           </Grid>
+          <Spacer y={1} />
 
           {issueState.map((issueData) => (
             <>

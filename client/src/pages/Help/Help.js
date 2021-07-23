@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import ProjectIssue from '../../components/ProjectIssue'
+import Spacer from '../../components/Spacer';
 
 const useStyles = makeStyles({
   root: {
@@ -33,6 +34,9 @@ const useStyles = makeStyles({
   },
   cardinfo: {
     
+  },
+  right: {
+    textAlign: 'right',
   }
 });
 
@@ -43,12 +47,12 @@ const Help = () => {
     <>
       <h1>Community Issues </h1>
       <Grid container>
-        <Grid item xs={9}>
+        <Grid item xs={12} md={6} lg={6} sm={6}>
           <Typography variant="h6" component="h2">
             Help Answer Others' Issues
           </Typography>
         </Grid>
-        <Grid item className={classes.right} xs={3}>
+        <Grid item className={classes.right} xs={12} md={6} lg={6} sm={6}>
           <Button size="small" variant="contained" href="#sort-project">
             Sort by Project
           </Button>
@@ -57,7 +61,7 @@ const Help = () => {
           </Button>
         </Grid>
       </Grid>
-
+      <Spacer y={1} />
       <div>
         <Grid container>
           <Grid item xs={12}>
