@@ -14,7 +14,9 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import Dia from '../../images/Snapchat-2077905771_1.jpg'
 import Joon from '../../images/Joon2.jpeg'
 import Mike from '../../images/IMG_0003.PNG'
-import ContactModal from '../../components/ContactModal'
+// import ContactModal from '../../components/ContactModal'
+import ContactForm from '../../components/ContactForm'
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -73,10 +75,24 @@ export default function About() {
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justifyContent="center">
                 <Grid item>
-                  <ContactModal
-                    open={handleContactOpen}
-                    handleClose={() => handleClose}
-                  />
+
+                  <div>
+                    <Link onClick={handleContactOpen}>
+                      <Button 
+                        variant="outlined" 
+                        color="primary" 
+                        onClickAddIssue={() => setContactOpen(true)}
+                        >
+                        Contact the ZAP team
+                      </Button>
+                    </Link>
+                    <ContactForm 
+                      open={openContact}
+                      handleClose={() => setContactOpen(false)}
+                    />
+                    
+                  </div>
+
                 </Grid>
                 <Grid item>
                 </Grid>

@@ -6,33 +6,31 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import ContactForm from '../../components/ContactForm'
-export default function ContactModal() {
-  const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+const ContactModal = (props) => {
+  const classes = useStyles();
 
   return (
-    <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Contact the ZAP team
-      </Button>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" align='center'>
-        <DialogTitle id="form-dialog-title">Contact Us
-        </DialogTitle>
-       <ContactForm></ContactForm>
-        {/* <DialogActions>
-          
-        </DialogActions> */}
-      </Dialog>
+    <Card className={classes.root}>
+      <CardContent>
+        <Grid
+          container
+          direction="row"
+          justifyContent="flex-start"
+          alignItems="flex-start"
+        >
+          <IssueDetail />
 
- 
-    </div>
-  );
+          <Grid item className={classes.center} xs={12}>
+            <Icon className={classes.priority}>radio_button_unchecked</Icon>
+
+            {props.title}
+
+          </Grid>
+        </Grid>
+      </CardContent>
+    </Card>
+  )
 }
+
+export default ContactModal
