@@ -60,20 +60,32 @@ const useStyles = makeStyles({
   columntest: {
     backgroundColor: '#ddd'
   }, 
+  allmembers: {
+    marginBottom: 12,
+  }
 });
 
 const Project = () => {
   const classes = useStyles();
 
   // Modals
-  const [open, setOpen] = useState(false);
+  const [openIssue, setIssueOpen] = useState(false);
   const [openEditProject, setEditProjectOpen] = useState(false);
   const [openAddIssue, setAddIssueOpen] = useState(false);
   const [openAddMember, setAddMemberOpen] = useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  const handleIssueOpen = _id => {
+    let issues = status.project.issues
+    issues = issues.map(issue => {
+      if (_id === issue._id) {
+        issue.isOpen = !issue.isOpen
+      }
+      return issue
+    })
+    const project = status.project
+    project.issues = issues
+    setStatus({ project })
+  }
 
   const handleEditProjectOpen = () => {
     setEditProjectOpen(true);
@@ -88,10 +100,11 @@ const Project = () => {
   };
   
   const handleClose = () => {
-    setOpen(false);
+    setIssueOpen(false);
     setAddIssueOpen(false);
     setAddMemberOpen(false);
     setEditProjectOpen(false)
+    
   };
 
   const handleDelete = () => {
@@ -106,8 +119,13 @@ const Project = () => {
   useEffect(() => {
     ProjectAPI.getById(params.projectId)
       .then(res => {
-        console.log(res)
-        setStatus({ project: res.data })
+        console.log(res.data)
+        const project = res.data
+        project.issues = res.data.issues.map(issue => ({
+          ...issue,
+          isOpen: false
+        }))
+        setStatus({ project })
       })
       .catch(err => setStatus({ err: err }))
   // eslint-disable-next-line
@@ -145,7 +163,7 @@ const Project = () => {
           </div>
         </Grid>
         <Grid className={classes.columngrid} item xs={12}>
-          <Grid container>
+          <Grid container className={classes.allmembers}>
             {/* Project Owner Chip */}
             <Grid item xs={12} md={3}>
               <span className={classes.title} color="textSecondary" gutterBottom>
@@ -183,6 +201,7 @@ const Project = () => {
                 <AddMember
                   open={openAddMember}
                   handleClose={() => setAddMemberOpen(false)}
+                  projectId={params.projectId}
                 />
               </span>
             </Grid>
@@ -236,32 +255,32 @@ const Project = () => {
               
                 {project.issues.map((issueData) => (
                   <>
-                    <Link onClick={handleClickOpen}>
+                    <Link onClick={() => handleIssueOpen(issueData._id)}>
                       <Issue 
-                        body={issueData.body}
+                        title={issueData.title}
                         />
                     </Link>
-                    <ProjectIssueModal 
-                      open={open}
+                    <ProjectIssueModal
+                      key={issueData._id} 
+                      open={issueData.isOpen}
                       title={issueData.title}
                       body={issueData.body}
-                      author={issueData.author.name}
-                      authorusername={issueData.author.username}
                       status={issueData.status}
                       priority={issueData.priority}
-                      handleClose={handleClose}
+                      author={issueData.author.name}
+                      handleClose={() => handleIssueOpen(issueData._id)}
                     />
                   </>
                 ))}
 
               
-                <Link onClick={handleClickOpen} i={1}>
+                {/* <Link onClick={handleIssueOpen} i={1}>
                   <Issue />
                 </Link>
                 <ProjectIssueModal 
-                  open={open}
+                  open={openIssue}
                   handleClose={handleClose}
-                />
+                /> */}
 
               </CardContent>
             </Card>

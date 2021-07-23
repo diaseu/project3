@@ -213,12 +213,6 @@ const EditProjectModal = props => {
               ))}
               <Spacer y={2} />
 
-
-          
-              
-
-
-
             </Grid>
           </Grid>
 
