@@ -140,6 +140,7 @@ const EditProjectModal = props => {
     console.log('project updated :)')
     console.log(projectTitle)
     console.log(projectDescription)
+    props.handleClose()
   }
 
   function handleDeleteProject(e) {
@@ -147,6 +148,7 @@ const EditProjectModal = props => {
     let doomedProject=params.projectId
     console.log(doomedProject, 'this project is going to be deleted')
     Project.delete(params.projectId)
+    props.handleclose()
     }
 
   
