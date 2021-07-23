@@ -46,12 +46,12 @@ const Help = () => {
     <>
       <h1>Community Issues </h1>
       <Grid container>
-        <Grid item xs={9}>
+        <Grid item xs={12} md={6} lg={6} sm={6}>
           <Typography variant="h6" component="h2">
             Help Answer Others' Issues
           </Typography>
         </Grid>
-        <Grid item className={classes.right} xs={3}>
+        <Grid item className={classes.right} xs={12} md={6} lg={6} sm={6}>
           <Button size="small" variant="contained" href="#sort-project">
             Sort by Project
           </Button>
