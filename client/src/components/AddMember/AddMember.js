@@ -123,18 +123,17 @@ const SetModal = props => {
     issue: []
   })
 
-  const [userState, setUserState] = useState([])
-
   const handleInputChange = ({ target }) => {
     setIssueState({ ...issueState, [target.name]: target.value })
   }
 
 
+  // Get all users for Autocomplete
+  const [userState, setUserState] = useState([])
+
   useEffect(() => {
-    // console.log('hello')
     axios.get('/api/users/all')
       .then(data => {
-        // console.log(data)
         setUserState(data.data) 
       })
       .catch(err => console.log(err))
@@ -152,7 +151,7 @@ const SetModal = props => {
                 freeSolo
                 id="add-member"
                 disableClearable
-                options={userState.map((option) => option.name)}
+                options={userState.map((option) => option.username)}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -171,7 +170,7 @@ const SetModal = props => {
         
       </DialogContent>
       <DialogActions>
-        <Button onClick=''color="primary" variant="contained">Add Member</Button>
+        <Button onClick={addMembertoProject} color="primary" variant="contained">Add Member</Button>
       </DialogActions>
     </Dialog>
   )
