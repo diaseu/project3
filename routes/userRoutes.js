@@ -4,7 +4,7 @@ const passport = require('passport')
 const jwt = require('jsonwebtoken')
 
 // get all users (figure out later another method for scalability)
-router.get('/users/all', (req, res) => {
+router.get('/users/all', passport.authenticate('jwt'), (req, res) => {
   User.find()
     .then(users => res.json(users))
     .catch(err => res.json(err))
