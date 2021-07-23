@@ -8,6 +8,7 @@ import Chip from '@material-ui/core/Chip';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
+
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
@@ -143,7 +144,6 @@ const EditProjectModal = props => {
     console.log(projectDescription)
   }
 
-<<<<<<< HEAD
   function handleDeleteProject(e) {
     e.preventDefault()
     let doomedProject=params.projectId
@@ -158,22 +158,6 @@ const EditProjectModal = props => {
 
     
     
-=======
-  function handleEditProject(e) {
-    // e.preventDefault();
-    ProjectAPI.update({
-      title: issueTitle,
-      body: issueDescription,
-      priority: issuePriority,
-      isPublic: false,
-      status: 'open',
-      pid: params.projectId
-    })
-    // console.log('issue created')
-    props.handleClose()
-    window.location.reload()
-  }
->>>>>>> a320644e63f5118b76e18cde105b23da807cfbff
 
   return (
     <Dialog maxWidth='sm' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
