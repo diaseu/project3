@@ -25,6 +25,7 @@ import {
 import Project from '../../utils/ProjectAPI'
 import axios from 'axios'
 
+import ProjectAPI from '../../utils/ProjectAPI'
 
 const useStyles = makeStyles({
   root: {
@@ -142,6 +143,7 @@ const EditProjectModal = props => {
     console.log(projectDescription)
   }
 
+<<<<<<< HEAD
   function handleDeleteProject(e) {
     e.preventDefault()
     let doomedProject=params.projectId
@@ -156,6 +158,22 @@ const EditProjectModal = props => {
 
     
     
+=======
+  function handleEditProject(e) {
+    // e.preventDefault();
+    ProjectAPI.update({
+      title: issueTitle,
+      body: issueDescription,
+      priority: issuePriority,
+      isPublic: false,
+      status: 'open',
+      pid: params.projectId
+    })
+    // console.log('issue created')
+    props.handleClose()
+    window.location.reload()
+  }
+>>>>>>> a320644e63f5118b76e18cde105b23da807cfbff
 
   return (
     <Dialog maxWidth='sm' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
