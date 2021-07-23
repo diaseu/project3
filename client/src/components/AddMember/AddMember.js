@@ -22,6 +22,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import axios from 'axios';
 import ProjectAPI from '../../utils/ProjectAPI'
 
+
 const useStyles = makeStyles({
   root: {
     minWidth: 175,
@@ -170,7 +171,7 @@ const SetModal = props => {
         
       </DialogContent>
       <DialogActions>
-        <Button onClick={addMembertoProject} color="primary" variant="contained">Add Member</Button>
+        <Button  color="primary" variant="contained">Add Member</Button>
       </DialogActions>
     </Dialog>
   )
