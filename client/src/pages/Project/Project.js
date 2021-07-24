@@ -75,6 +75,7 @@ const Project = () => {
   const [openIssue, setIssueOpen] = useState(false);
   const handleIssueOpen = _id => {
     let issues = status.project.issues
+    console.log(issues)
     issues = issues.map(issue => {
       if (_id === issue._id) {
         issue.isOpen = !issue.isOpen
@@ -135,7 +136,6 @@ const Project = () => {
           isOpen: false
         }))
         setStatus({ project })
-        // console.log('this is the project data', project)
       })
       .catch(err => setStatus({ err: err }))
   // eslint-disable-next-line
