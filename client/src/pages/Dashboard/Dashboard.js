@@ -133,6 +133,8 @@ const Dashboard = () => {
                   author={issueData.author.username}
                 />
               </Link>
+
+              {/* See Project Page for how to call ProjectIssueModals properly */}
               {/* <ProjectIssueModal 
                 id={issueData._id}
                 title={issueData.title}
