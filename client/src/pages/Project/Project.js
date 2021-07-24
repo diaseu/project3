@@ -14,7 +14,7 @@ import AddMember from '../../components/AddMember'
 import AddIssue from '../../components/AddIssue'
 import ProjectIssueModal from '../../components/ProjectIssueModal'
 import ProjectAPI from '../../utils/ProjectAPI'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+// import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import {
   Link,
   useParams
@@ -266,6 +266,7 @@ const Project = () => {
                         <Link onClick={() => handleIssueOpen(issueData._id)}>
                           <Issue
                             title={issueData.title}
+                            priority={issueData.priority}
                           />
                         </Link>
                         
@@ -274,7 +275,7 @@ const Project = () => {
                           open={issueData.isOpen}
                           title={issueData.title}
                           priority={issueData.priority}
-
+                          id={issueData._id}
                           body={issueData.body}
                           status={issueData.status}
                          

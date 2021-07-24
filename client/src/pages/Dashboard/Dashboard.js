@@ -70,6 +70,7 @@ const Dashboard = () => {
               <ProjectCard
                 title={projectData.title}
                 description={projectData.description}
+                author={projectData.owner.name}
               />
             </Link>
           </Grid>
@@ -104,6 +105,7 @@ const Dashboard = () => {
                   status={issueData.status}
                   priority={issueData.priority}
                   id={issueData._id}
+                  author={issueData.author.username}
                 />
               </Link>
               <ProjectIssueModal 

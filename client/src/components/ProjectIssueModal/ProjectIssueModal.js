@@ -128,7 +128,7 @@ const ProjectCard = props => {
   useEffect(() => {
     IssueAPI.getById(props.id)
       .then((res) => {
-        // console.log('this is our res line: 135', res);
+        console.log('this is our res line: 135', res);
         setReplies(res.data.replies)
       })
       .catch(e => console.error(e))

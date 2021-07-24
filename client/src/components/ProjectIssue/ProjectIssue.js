@@ -88,6 +88,8 @@ const obj = {
 
     , [])
 
+    console.log(props, 'this is props')
+
   return(
     
     <Card className={classes.root}>
@@ -106,6 +108,8 @@ const obj = {
             <Icon style={{ color: obj[props.priority] }} >radio_button_unchecked</Icon>
 
               {props.title}
+              
+              {props.author}
               
               
               
