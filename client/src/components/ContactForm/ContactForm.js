@@ -1,14 +1,12 @@
 import React from 'react';
-import { Grid, TextField, Button, Card, CardContent, Typography } from '@material-ui/core';
+import { Grid, TextField, Button, Typography } from '@material-ui/core';
 import emailjs from "emailjs-com";
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 const ContactForm = props => {
-
     function sendEmail(e) {
         e.preventDefault();
         emailjs.sendForm('service_8q9l0zs', 'contact_form', e.target, 'user_vZh74YVKSJ1YNAd3JfGIx')

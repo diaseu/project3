@@ -14,7 +14,7 @@ import AddMember from '../../components/AddMember'
 import AddIssue from '../../components/AddIssue'
 import ProjectIssueModal from '../../components/ProjectIssueModal'
 import ProjectAPI from '../../utils/ProjectAPI'
-import { DragDropContext } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import {
   Link,
   useParams
@@ -71,9 +71,11 @@ const Project = () => {
 
   // ====================== Modals ======================
   // Modal: Open an issue 
+  // eslint-disable-next-line
   const [openIssue, setIssueOpen] = useState(false);
   const handleIssueOpen = _id => {
     let issues = status.project.issues
+    console.log(issues)
     issues = issues.map(issue => {
       if (_id === issue._id) {
         issue.isOpen = !issue.isOpen
@@ -104,18 +106,22 @@ const Project = () => {
   };
   
   // Modal: Close all Modals
+  // eslint-disable-next-line
   const handleClose = () => {
     setIssueOpen(false);
     setAddIssueOpen(false);
     setAddMemberOpen(false);
     setEditProjectOpen(false)
-    
   };
 
   const handleDelete = () => {
     console.info('You clicked the delete icon.');
   };
 
+
+  
+
+  // ====================== API CALLS ======================
   // Get Project Info
   const [status, setStatus] = useState({ isLoading: true });
   const params = useParams();
@@ -130,7 +136,6 @@ const Project = () => {
           isOpen: false
         }))
         setStatus({ project })
-        // console.log('this is the project data', project)
       })
       .catch(err => setStatus({ err: err }))
   // eslint-disable-next-line
@@ -154,7 +159,6 @@ const Project = () => {
               label="Edit Project"
               variant="outlined"
               size='small'
-              onClickEditProject={() => setEditProjectOpen(true)}
             />
             </Link>
             <EditProjectModal 
@@ -180,7 +184,7 @@ const Project = () => {
               </span>
             </Grid>
             {/* Project Members Chips */}
-            <Grid itemxs={12} md={9}>
+            <Grid item xs={12} md={9}>
               <span className="members">Project Members 
                 {project.members.map((members) => (
                     <Chip
@@ -225,7 +229,6 @@ const Project = () => {
         </Grid>
       </Grid>
 
-    <DragDropContext>
       <Grid container>
         <Grid className={classes.right} item xs={12}>
           {/* Add Issue Chip */}
@@ -250,58 +253,44 @@ const Project = () => {
         {['Open', 'In Progress', 'Closed'].map(column => (
           <Grid className={classes.columngrid} item xs={12} lg={4}>
             <div className={classes.column}>
-              <Card className={classes.columntest}>
-                <CardContent>
-                  <Grid container>
-                    <Grid item xs={6}>
-                      <Typography className={classes.mb} variant="h5" component="h5">
-                        {column}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-
-                  {project.issues.filter(issue => issue.status === column).map((issueData) => {
-                  console.log(issueData, 'this is issuedata')
-                  return (
-                   <>
-                      <Link onClick={() => handleIssueOpen(issueData._id)}>
-                        <Issue
+              
+                <Card className={classes.columntest}>
+                  <CardContent>
+                    <Typography className={classes.mb} variant="h5" component="h5">
+                      {column}
+                    </Typography>
+                    
+                    {project.issues.filter(issue => issue.status === column).map((issueData) => (
+                      <>
+                        
+                        <Link onClick={() => handleIssueOpen(issueData._id)}>
+                          <Issue
+                            title={issueData.title}
+                          />
+                        </Link>
+                        
+                        <ProjectIssueModal
+                          key={issueData._id}
+                          open={issueData.isOpen}
                           title={issueData.title}
                           priority={issueData.priority}
 
+                          body={issueData.body}
+                          status={issueData.status}
+                         
+                          author={issueData.author.name}
+                          handleClose={() => handleIssueOpen(issueData._id)}
                         />
-                      </Link>
-                      <ProjectIssueModal
-                        key={issueData._id}
-                        id={issueData._id}
-                        open={issueData.isOpen}
-                        title={issueData.title}
-                        body={issueData.body}
-                        status={issueData.status}
-                        priority={issueData.priority}
-                        author={issueData.author.name}
-                        handleClose={() => handleIssueOpen(issueData._id)}
-                      />
-                    </>
-                  )})}
-
-
-                  {/* <Link onClick={handleIssueOpen} i={1}>
-                  <Issue />
-                </Link>
-                <ProjectIssueModal 
-                  open={openIssue}
-                  handleClose={handleClose}
-                /> */}
-
-                </CardContent>
-              </Card>
+                      </>
+                    ))}
+                  </CardContent>
+                </Card>
+              
             </div>
           </Grid>
         ))}
 
       </Grid>
-    </DragDropContext>
     </>
   )
 }

@@ -5,12 +5,10 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Chip from '@material-ui/core/Chip';
-import FaceIcon from '@material-ui/icons/Face';
 import Badge from '@material-ui/core/Badge';
 import Grid from '@material-ui/core/Grid';
+// eslint-disable-next-line
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
   Link

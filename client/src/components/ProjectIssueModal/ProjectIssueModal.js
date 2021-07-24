@@ -1,8 +1,6 @@
 import './ProjectIssueModal.css'
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
@@ -15,13 +13,10 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Icon from '@material-ui/core/Icon';
 import FaceIcon from '@material-ui/icons/Face';
-import AddIcon from '@material-ui/icons/Add';
 import Spacer from '../../components/Spacer'
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
 import ReplyAPI from '../../utils/ReplyAPI'
 import IssueAPI from '../../utils/IssueAPI'
 
@@ -128,17 +123,17 @@ const ProjectCard = props => {
   })
 
   const [replies, setReplies] = useState([]);
-  console.log(props, 'this is props')
+  // console.log(props, 'this is props')
 
   useEffect(() => {
     IssueAPI.getById(props.id)
       .then((res) => {
-        console.log('this is our res line: 135', res);
+        // console.log('this is our res line: 135', res);
         setReplies(res.data.replies)
       })
       .catch(e => console.error(e))
-  }
-
+    }
+    // eslint-disable-next-line
     , [])
 
 
@@ -160,7 +155,7 @@ const ProjectCard = props => {
   const [issueReply, setIssueReply] = useState("");
 
   function handleIssueReply(e) {
-    console.log(e.target.value, 'issue reply')
+    // console.log(e.target.value, 'issue reply')
     setIssueReply(e.target.value)
   }
 
@@ -221,15 +216,15 @@ const ProjectCard = props => {
               <Typography className={classes.title} color="textSecondary" gutterBottom>
                 Status
               </Typography>
-              <Button
+              {/* <Button
                 variant="contained"
                 color="primary"
-                onClick={handleInputChange}
+                onChange={handleInputChange}
                 endIcon={<Icon>expand_more</Icon>}
                 onClick={handleStatusOpen}
               >
                 {props.status}
-              </Button>
+              </Button> */}
               <p><FormControl className={classes.formControl}>
                 <Select
                   id="status"
@@ -262,7 +257,6 @@ const ProjectCard = props => {
               <FormControl className={classes.formControl}>
                 <Select
                   id="priority"
-                  defaultValue="Medium"
                   defaultValue={props.priority}
                   onChange={handleInputChange}
                   fullWidth
