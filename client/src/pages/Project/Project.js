@@ -260,8 +260,10 @@ const Project = () => {
                     </Grid>
                   </Grid>
 
-                  {project.issues.filter(issue => issue.status === column).map((issueData) => (
-                    <>
+                  {project.issues.filter(issue => issue.status === column).map((issueData) => {
+                  console.log(issueData, 'this is issuedata')
+                  return (
+                   <>
                       <Link onClick={() => handleIssueOpen(issueData._id)}>
                         <Issue
                           title={issueData.title}
@@ -269,6 +271,7 @@ const Project = () => {
                       </Link>
                       <ProjectIssueModal
                         key={issueData._id}
+                        id={issueData._id}
                         open={issueData.isOpen}
                         title={issueData.title}
                         body={issueData.body}
@@ -278,7 +281,7 @@ const Project = () => {
                         handleClose={() => handleIssueOpen(issueData._id)}
                       />
                     </>
-                  ))}
+                  )})}
 
 
                   {/* <Link onClick={handleIssueOpen} i={1}>
