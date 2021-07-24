@@ -93,7 +93,7 @@ const Dashboard = () => {
                 key={projectData._id}
                 title={projectData.title}
                 description={projectData.description}
-                owner={projectData.owner.name}
+                author={projectData.owner.name}
               />
             </Link>
           </Grid>
@@ -130,6 +130,7 @@ const Dashboard = () => {
                   status={issueData.status}
                   priority={issueData.priority}
                   id={issueData._id}
+                  author={issueData.author.username}
                 />
               </Link>
               {/* <ProjectIssueModal 

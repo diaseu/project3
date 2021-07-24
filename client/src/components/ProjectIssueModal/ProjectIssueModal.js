@@ -124,9 +124,21 @@ const ProjectCard = props => {
     issue: []
   })
 
-  
-  
-  
+  const [replies, setReplies] = useState([]);
+  // console.log(props, 'this is props')
+
+  useEffect(() => {
+    IssueAPI.getById(props.id)
+      .then((res) => {
+        console.log('this is our res line: 135', res);
+        setReplies(res.data.replies)
+      })
+      .catch(e => console.error(e))
+    }
+    // eslint-disable-next-line
+    , [])
+
+
   // For the Status dropdown
   const [openStatus, setStatusOpen] = useState(false);
   
@@ -142,8 +154,7 @@ const ProjectCard = props => {
     setStatusOpen(false);
   };
   
-  // Reply
-  const [replies, setReplies] = useState([]);
+  
   // console.log(props, 'this is props')
 
   const [issueReply, setIssueReply] = useState("");

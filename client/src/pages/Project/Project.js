@@ -14,7 +14,7 @@ import AddMember from '../../components/AddMember'
 import AddIssue from '../../components/AddIssue'
 import ProjectIssueModal from '../../components/ProjectIssueModal'
 import ProjectAPI from '../../utils/ProjectAPI'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+// import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import {
   Link,
   useParams
