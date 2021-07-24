@@ -14,6 +14,7 @@ import AddMember from '../../components/AddMember'
 import AddIssue from '../../components/AddIssue'
 import ProjectIssueModal from '../../components/ProjectIssueModal'
 import ProjectAPI from '../../utils/ProjectAPI'
+import { DragDropContext } from 'react-beautiful-dnd';
 import {
   Link,
   useParams
@@ -224,6 +225,7 @@ const Project = () => {
         </Grid>
       </Grid>
 
+    <DragDropContext>
       <Grid container>
         <Grid className={classes.right} item xs={12}>
           {/* Add Issue Chip */}
@@ -245,40 +247,41 @@ const Project = () => {
         </Grid>
 
         {/* Open Issues column */}
-        <Grid className={classes.columngrid} item xs={12} lg={4}>
-          <div className={classes.column}>
-            <Card className={classes.columntest}>
-              <CardContent>
-                <Grid container>
-                  <Grid item xs={6}>
-                    <Typography className={classes.mb} variant="h5" component="h5">
-                      Open
-                    </Typography>
+        {['Open', 'In Progress', 'Closed'].map(column => (
+          <Grid className={classes.columngrid} item xs={12} lg={4}>
+            <div className={classes.column}>
+              <Card className={classes.columntest}>
+                <CardContent>
+                  <Grid container>
+                    <Grid item xs={6}>
+                      <Typography className={classes.mb} variant="h5" component="h5">
+                        {column}
+                      </Typography>
+                    </Grid>
                   </Grid>
-                </Grid>
-              
-                {project.issues.filter(issue => issue.status === 'Open').map((issueData) => (
-                  <>
-                    <Link onClick={() => handleIssueOpen(issueData._id)}>
-                      <Issue 
-                        title={issueData.title}
-                        />
-                    </Link>
-                    <ProjectIssueModal
-                      key={issueData._id} 
-                      open={issueData.isOpen}
-                      title={issueData.title}
-                      body={issueData.body}
-                      status={issueData.status}
-                      priority={issueData.priority}
-                      author={issueData.author.name}
-                      handleClose={() => handleIssueOpen(issueData._id)}
-                    />
-                  </>
-                ))}
 
-              
-                {/* <Link onClick={handleIssueOpen} i={1}>
+                  {project.issues.filter(issue => issue.status === column).map((issueData) => (
+                    <>
+                      <Link onClick={() => handleIssueOpen(issueData._id)}>
+                        <Issue
+                          title={issueData.title}
+                        />
+                      </Link>
+                      <ProjectIssueModal
+                        key={issueData._id}
+                        open={issueData.isOpen}
+                        title={issueData.title}
+                        body={issueData.body}
+                        status={issueData.status}
+                        priority={issueData.priority}
+                        author={issueData.author.name}
+                        handleClose={() => handleIssueOpen(issueData._id)}
+                      />
+                    </>
+                  ))}
+
+
+                  {/* <Link onClick={handleIssueOpen} i={1}>
                   <Issue />
                 </Link>
                 <ProjectIssueModal 
@@ -286,85 +289,14 @@ const Project = () => {
                   handleClose={handleClose}
                 /> */}
 
-              </CardContent>
-            </Card>
-          </div>
-        </Grid>
-        <Grid className={classes.columngrid} item xs={12} lg={4}>
-          <div className={classes.column}>
-            <Card className={classes.columntest}>
-            <CardContent>
-              <Grid container>
-                <Grid item xs={6}>
-                  <Typography className={classes.mb} variant="h5" component="h5">
-                    In Progress
-                  </Typography>
-                </Grid>
-              </Grid>
-              
-                {project.issues.filter(issue => issue.status === 'In Progress').map((issueData) => (
-                  <>
-                    <Link onClick={() => handleIssueOpen(issueData._id)}>
-                      <Issue
-                        title={issueData.title}
-                      />
-                    </Link>
-                    <ProjectIssueModal
-                      key={issueData._id}
-                      open={issueData.isOpen}
-                      title={issueData.title}
-                      body={issueData.body}
-                      status={issueData.status}
-                      priority={issueData.priority}
-                      author={issueData.author.name}
-                      handleClose={() => handleIssueOpen(issueData._id)}
-                    />
-                  </>
-                ))}
-  
-              
-            </CardContent>
-          </Card>
-          </div>
-        </Grid>
-        <Grid className={classes.columngrid} item xs={12} lg={4}>
-          <div className={classes.column}>
-            <Card className={classes.columntest}>
-              <CardContent>
-                <Grid container>
-                  <Grid item xs={6}>
-                    <Typography className={classes.mb} variant="h5" component="h5">
-                      Closed
-                    </Typography>
-                  </Grid>
-                </Grid>
-                
-                {project.issues.filter(issue => issue.status === 'Closed').map((issueData) => (
-                  <>
-                    <Link onClick={() => handleIssueOpen(issueData._id)}>
-                      <Issue
-                        title={issueData.title}
-                      />
-                    </Link>
-                    <ProjectIssueModal
-                      key={issueData._id}
-                      open={issueData.isOpen}
-                      title={issueData.title}
-                      body={issueData.body}
-                      status={issueData.status}
-                      priority={issueData.priority}
-                      author={issueData.author.name}
-                      handleClose={() => handleIssueOpen(issueData._id)}
-                    />
-                  </>
-                ))}
+                </CardContent>
+              </Card>
+            </div>
+          </Grid>
+        ))}
 
-
-              </CardContent>
-            </Card>
-          </div>
-        </Grid>
       </Grid>
+    </DragDropContext>
     </>
   )
 }
