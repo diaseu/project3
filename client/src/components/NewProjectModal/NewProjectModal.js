@@ -66,13 +66,13 @@ const SetModal = props => {
   }
 
   return (
-    <Dialog maxWidth='sm' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="newproject-title">
+    <Dialog maxWidth='sm' fullWidth open={props.open} onClose={props.handleClose} aria-labelledby="newproject-title">
       <DialogTitle id="newproject-title">New Project</DialogTitle>
       <DialogContent>
         <DialogContentText>
           <Grid container>
             <Grid className={classes.issueleft} item xs={12}>
-              <Typography className={classes.mb} variant="p" component="p">
+              <Typography className={classes.mb}>
                 <form onSubmit={(e) => handleProjectSubmit(e)}>
                   <p>
                     <TextField

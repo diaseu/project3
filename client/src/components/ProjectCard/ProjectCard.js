@@ -35,7 +35,7 @@ const ProjectCard = props => {
   return (
     <Card className="root">
       <CardContent>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
+        <Typography className={classes.title} color="textSecondary">
           Project
         </Typography>
         <Typography variant="h6" component="h2">
