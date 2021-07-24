@@ -20,11 +20,11 @@ const ContactForm = props => {
     }
 
     return (
-        <Dialog maxWidth='sm' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title" align='center'>
+        <Dialog maxWidth='sm' fullWidth open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title" align='center'>
             <DialogTitle id="form-dialog-title">Contact Us</DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    <Typography variant="body2" color="textSecondary" component="p" gutterBottom>
+                    <Typography variant="body2" color="textSecondary" component="p">
                         Fill out the contact form and our team will get back to you within 24-48 hours.
                     </Typography>
                     {/* Contact Form */}

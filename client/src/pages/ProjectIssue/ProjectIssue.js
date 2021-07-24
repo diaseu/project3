@@ -143,7 +143,7 @@ const Project = () => {
           <Grid container>
             {/* Project Owner Chip */}
             <Grid item xs={12} md={3}>
-              <span className={classes.title} color="textSecondary" gutterBottom>
+              <span className={classes.title} color="textSecondary">
                 Project Lead <Chip
                   icon={<FaceIcon />}
                   label={project.owner.name}
@@ -177,7 +177,6 @@ const Project = () => {
                     className={classes.addbtn}
                     label="Add Member"
                     variant="outlined"
-                    onClickAddMember={() => setAddMemberOpen(true)}
                   />
                 </Link>
                 <AddMember
@@ -192,7 +191,7 @@ const Project = () => {
           <div className={classes.column}>
             <Card className={classes.columntest}>
               <CardContent>
-                <Typography variant="p" component="p">
+                <Typography>
                  {project.description}
                 </Typography>
               </CardContent>
@@ -212,7 +211,6 @@ const Project = () => {
               label="Add Issue"
               // variant="outlined"
               color="primary"
-              onClickAddIssue={() => setAddIssueOpen(true)}
             />
           </Link>
           <AddIssue

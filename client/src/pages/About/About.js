@@ -65,7 +65,7 @@ export default function About() {
         {/* Hero unit */}
         <div className={classes.heroContent}>
           <Container maxWidth="sm">
-            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+            <Typography component="h1" variant="h2" align="center" color="textPrimary">
               About <span className={classes.brand}>ZAP</span>
             </Typography>
             <Typography variant="h6" align="left" color="textSecondary" paragraph>
@@ -80,7 +80,6 @@ export default function About() {
                       <Button 
                         variant="outlined" 
                         color="primary" 
-                        onClickAddIssue={() => setContactOpen(true)}
                         >
                         Contact the ZAP team
                       </Button>
@@ -119,7 +118,7 @@ export default function About() {
                     <img src={Dia} width="145" height="145" alt="" />
                     <br />
                     <br />
-                    <Typography gutterBottom variant="h7" component="h3" align='center'>
+                    <Typography variant="h7" component="h3" align='center'>
                       Diana Seung
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
@@ -148,7 +147,7 @@ export default function About() {
                     <img src={Joon} width="145" height="145" alt="" />
                     <br />
                     <br />
-                    <Typography gutterBottom variant="h7" component="h3" align='center'>
+                    <Typography variant="h7" component="h3" align='center'>
                       Sle Ahn
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
@@ -178,7 +177,7 @@ export default function About() {
                     <img src={'https://i.imgur.com/AlYe5XY.jpeg'} width="145" height="145" alt="" />
                     <br />
                     <br />
-                    <Typography gutterBottom variant="h7" component="h3" align='center'>
+                    <Typography variant="h7" component="h3" align='center'>
                       Jake Eckfeldt
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
@@ -202,7 +201,7 @@ export default function About() {
                     <img src={Mike} width="145" height="145" align='center' alt="" />
                     <br />
                     <br />
-                    <Typography gutterBottom variant="h7" component="h3" align='center'>
+                    <Typography variant="h7" component="h3" align='center'>
                       Michael Scharf
                     </Typography>
 

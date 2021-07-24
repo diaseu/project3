@@ -68,14 +68,18 @@ const useStyles = makeStyles({
 
 const Project = () => {
   const classes = useStyles();
-
+  
   // ====================== Modals ======================
   // Modal: Open an issue 
   // eslint-disable-next-line
   const [openIssue, setIssueOpen] = useState(false);
+  const [status, setStatus] = useState({ isLoading: true });
+  const params = useParams();
+  const { isLoading, project, err } = status;
+
   const handleIssueOpen = _id => {
     let issues = status.project.issues
-    console.log(issues)
+
     issues = issues.map(issue => {
       if (_id === issue._id) {
         issue.isOpen = !issue.isOpen
@@ -118,14 +122,8 @@ const Project = () => {
     console.info('You clicked the delete icon.');
   };
 
-
-  
-
   // ====================== API CALLS ======================
   // Get Project Info
-  const [status, setStatus] = useState({ isLoading: true });
-  const params = useParams();
-  const { isLoading, project, err } = status;
 
   useEffect(() => {
     ProjectAPI.getById(params.projectId)
@@ -175,7 +173,7 @@ const Project = () => {
           <Grid container className={classes.allmembers}>
             {/* Project Owner Chip */}
             <Grid item xs={12} md={3}>
-              <span className={classes.title} color="textSecondary" gutterBottom>
+              <span className={classes.title} color="textSecondary">
                 Project Lead <Chip
                   icon={<FaceIcon />}
                   label={project.owner.name}
@@ -188,6 +186,7 @@ const Project = () => {
               <span className="members">Project Members 
                 {project.members.map((members) => (
                     <Chip
+                      key={members.id}
                       icon={<FaceIcon />}
                       clickable
                       label={members.name}
@@ -204,7 +203,6 @@ const Project = () => {
                     className={classes.addbtn}
                     label="Add Member"
                     variant="outlined"
-                    onClickAddMember={() => setAddMemberOpen(true)}
                   />
                 </Link>
                 <AddMember
@@ -220,7 +218,7 @@ const Project = () => {
           <div className={classes.column}>
             <Card className={classes.columntest}>
               <CardContent>
-                <Typography variant="p" component="p">
+                <Typography>
                  {project.description}
                 </Typography>
               </CardContent>
@@ -240,7 +238,6 @@ const Project = () => {
               label="Add Issue"
               // variant="outlined"
               color="primary"
-              onClickAddIssue={() => setAddIssueOpen(true)}
             />
           </Link>
           <AddIssue
@@ -251,7 +248,7 @@ const Project = () => {
 
         {/* Open Issues column */}
         {['Open', 'In Progress', 'Closed'].map(column => (
-          <Grid className={classes.columngrid} item xs={12} lg={4}>
+          <Grid key={column} className={classes.columngrid} item xs={12} lg={4}>
             <div className={classes.column}>
               
                 <Card className={classes.columntest}>
@@ -271,6 +268,7 @@ const Project = () => {
                         
                         <ProjectIssueModal
                           key={issueData._id}
+                          id={issueData._id}
                           open={issueData.isOpen}
                           title={issueData.title}
                           body={issueData.body}

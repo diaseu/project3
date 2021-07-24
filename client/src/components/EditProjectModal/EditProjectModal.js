@@ -140,7 +140,7 @@ const EditProjectModal = props => {
     }
 
   return (
-    <Dialog maxWidth='sm' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
+    <Dialog maxWidth='sm' fullWidth open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">Edit Project</DialogTitle>
       <DialogContent>
         <DialogContentText>
@@ -171,7 +171,7 @@ const EditProjectModal = props => {
               <Spacer y={2} />
             </Grid>
             <Grid className={classes.issueright} item xs={12} lg={3}>
-              <Typography className={classes.title} color="textSecondary" gutterBottom>
+              <Typography className={classes.title} color="textSecondary">
                 Project Lead
               </Typography>
               <Chip
@@ -182,11 +182,12 @@ const EditProjectModal = props => {
               <Spacer y={2} />
 
 
-              <Typography className={classes.title} color="textSecondary" gutterBottom>
+              <Typography className={classes.title} color="textSecondary">
                 Project Members
               </Typography>
               {props.members.map((members) => (
                 <Chip
+                  key={members.id}
                   icon={<FaceIcon />}
                   label={members.name}
                   color="default"

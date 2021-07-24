@@ -47,12 +47,16 @@ const Dashboard = () => {
   useEffect(() => {
     UserAPI.me()
       .then(data => {
-        // console.log(data)
         setProjectState(data.data.projects)
         setIssueState(data.data.issues)
       })
       .catch(err => console.log(err))
   }, [])
+
+  
+
+  console.log('Dashboard Project ID is', projectState)
+  console.log('Dashboard Project ID data type is', typeof(projectState[0]))
 
   return(
     <>
@@ -63,17 +67,21 @@ const Dashboard = () => {
             My Projects
           </Typography>
         </Grid>
+
         {projectState.map((projectData) => (
           <Grid className={classes.projectcard} item xs={12} sm={4} lg={2}>
             {/* <Link to={`/projects/${id}`}> */}
             <Link to={`/project/${projectData._id}`}>
               <ProjectCard
+                key={projectData._id}
                 title={projectData.title}
                 description={projectData.description}
+                owner={projectData.owner.name}
               />
             </Link>
           </Grid>
         ))}
+        
       </Grid>
       <Spacer y={4} />
       <Grid container>
@@ -99,6 +107,7 @@ const Dashboard = () => {
             <>
               <Link onClick={handleClickOpen}>
                 <ProjectIssue
+                  key={issueData.id}
                   title={issueData.title}
                   body={issueData.body}
                   status  ={issueData.status  }

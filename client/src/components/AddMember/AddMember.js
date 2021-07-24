@@ -146,7 +146,7 @@ const SetModal = props => {
   }, [])
 
   return (
-    <Dialog maxWidth='sm' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
+    <Dialog maxWidth='sm' fullWidth open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">Add Member to Project</DialogTitle>
       <DialogContent>
         <DialogContentText>
@@ -165,6 +165,7 @@ const SetModal = props => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
+                    key={params.id}
                     label="Add Member by Username"
                     id="member"
                     margin="normal"
