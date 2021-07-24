@@ -63,7 +63,7 @@ const ProjectIssue = props => {
       })
       .catch(e => console.error(e))
   }
-
+  // eslint-disable-next-line
     , [])
 
   return (
