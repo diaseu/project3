@@ -1,3 +1,4 @@
+
 import './Project.css';
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
@@ -19,6 +20,8 @@ import {
   Link,
   useParams
 } from "react-router-dom";
+
+// let mongoose = require('mongoose')
 
 const useStyles = makeStyles({
   root: {
@@ -259,7 +262,6 @@ const Project = () => {
                     
                     {project.issues.filter(issue => issue.status === column).map((issueData) => (
                       <>
-                        
                         <Link onClick={() => handleIssueOpen(issueData._id)}>
                           <Issue
                             title={issueData.title}

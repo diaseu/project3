@@ -34,7 +34,7 @@ const Issue = props => {
   const classes = useStyles();
 
   const obj = {
-    Medium: "yellow",
+    Medium: "#e3b912",
     High: "red",
     Low: "blue"
   }
