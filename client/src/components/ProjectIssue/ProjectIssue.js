@@ -24,13 +24,29 @@ const useStyles = makeStyles({
     fontSize: 11,
     textAlign: 'right',
   },
-  priority: {
+  priorityLow: {
+    fontSize: 12,
+    textAlign: 'center',
+    marginRight: 10,
+    color: 'blue',
+    fontWeight: '800'
+  },
+  priorityMedium: {
+    fontSize: 12,
+    textAlign: 'center',
+    marginRight: 10,
+    color: 'yellow',
+    fontWeight: '800'
+  },
+  priorityHigh: {
     fontSize: 12,
     textAlign: 'center',
     marginRight: 10,
     color: 'red',
     fontWeight: '800'
   },
+
+
   center: {
     flexDirection: "column",
     justifyContent: "center",
@@ -39,10 +55,19 @@ const useStyles = makeStyles({
 });
 
 
+
+
 const ProjectIssue = props => {
   const classes = useStyles();
 
+  function priorityFunction() {
+    console.log(props.priority, 'this is the props')
+  }
+
+  
+
   return(
+    
     <Card className={classes.root}>
       <CardContent>
         <Grid
@@ -50,6 +75,7 @@ const ProjectIssue = props => {
           direction="row"
           justifyContent="flex-start"
           alignItems="flex-start"
+          
         >
           <IssueDetail />
           
@@ -57,11 +83,14 @@ const ProjectIssue = props => {
             <Icon className={classes.priority}>radio_button_unchecked</Icon>
             
               {props.title}
+
+              {props.priority}
             
           </Grid>
         </Grid>
       </CardContent>
     </Card>
+   
   )
 }
 

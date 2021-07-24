@@ -22,6 +22,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import ReplyAPI from '../../utils/ReplyAPI'
 
 const useStyles = makeStyles({
   root: {
@@ -139,6 +140,25 @@ const ProjectCard = props => {
     setStatusOpen(false);
   };
 
+  const [issueReply, setIssueReply] = useState("");
+
+  function handleIssueReply(e) {
+    console.log(e.target.value, 'issue reply')
+    setIssueReply(e.target.value)
+  }
+
+  function submitIssueReply(e) {
+    ReplyAPI.create({
+      issueReply
+    })
+  }
+
+  
+
+
+
+
+
   return (
     <Dialog maxWidth='lg' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title" className='dialogtitle'>
@@ -160,8 +180,9 @@ const ProjectCard = props => {
                 label="Comment"
                 type="comment"
                 fullWidth
+                onChange={handleIssueReply}
               />
-              <Button color="primary" variant="contained">Submit</Button>
+              <Button color="primary" variant="contained" onClick={submitIssueReply}>Submit</Button>
               <Spacer y={4} />
             </Grid>
             <Grid className={classes.issueright} item xs={12} lg={3}>
