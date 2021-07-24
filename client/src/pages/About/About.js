@@ -14,10 +14,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import Dia from '../../images/Snapchat-2077905771_1.jpg'
 import Joon from '../../images/Joon2.jpeg'
 import Mike from '../../images/IMG_0003.PNG'
-// import ContactModal from '../../components/ContactModal'
 import ContactForm from '../../components/ContactForm'
-
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,12 +46,14 @@ const useStyles = makeStyles((theme) => ({
 export default function About() {
   const classes = useStyles();
 
+  // Modal: Open Contact Form
   const [openContact, setContactOpen] = useState(false);
   
   const handleContactOpen = () => {
     setContactOpen(true);
   };
   
+  // eslint-disable-next-line
   const handleClose = () => {
     setContactOpen(false)
   };
@@ -117,7 +116,7 @@ export default function About() {
               <Card className={classes.root}>
                 <CardActionArea>
                   <CardContent align='center'>
-                    <img src={Dia} width="145" height="145" />
+                    <img src={Dia} width="145" height="145" alt="" />
                     <br />
                     <br />
                     <Typography gutterBottom variant="h7" component="h3" align='center'>
@@ -146,7 +145,7 @@ export default function About() {
               <Card className={classes.root}>
                 <CardActionArea>
                   <CardContent align='center'>
-                    <img src={Joon} width="145" height="145" />
+                    <img src={Joon} width="145" height="145" alt="" />
                     <br />
                     <br />
                     <Typography gutterBottom variant="h7" component="h3" align='center'>
@@ -176,7 +175,7 @@ export default function About() {
               <Card className={classes.root}>
                 <CardActionArea>
                   <CardContent align='center'>
-                    <img src={'https://i.imgur.com/AlYe5XY.jpeg'} width="145" height="145" />
+                    <img src={'https://i.imgur.com/AlYe5XY.jpeg'} width="145" height="145" alt="" />
                     <br />
                     <br />
                     <Typography gutterBottom variant="h7" component="h3" align='center'>
@@ -200,7 +199,7 @@ export default function About() {
               <Card className={classes.root}>
                 <CardActionArea>
                   <CardContent align='center'>
-                    <img src={Mike} width="145" height="145" align='center'/>
+                    <img src={Mike} width="145" height="145" align='center' alt="" />
                     <br />
                     <br />
                     <Typography gutterBottom variant="h7" component="h3" align='center'>

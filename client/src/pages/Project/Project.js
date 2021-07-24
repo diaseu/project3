@@ -71,6 +71,7 @@ const Project = () => {
 
   // ====================== Modals ======================
   // Modal: Open an issue 
+  // eslint-disable-next-line
   const [openIssue, setIssueOpen] = useState(false);
   const handleIssueOpen = _id => {
     let issues = status.project.issues
@@ -104,12 +105,12 @@ const Project = () => {
   };
   
   // Modal: Close all Modals
+  // eslint-disable-next-line
   const handleClose = () => {
     setIssueOpen(false);
     setAddIssueOpen(false);
     setAddMemberOpen(false);
     setEditProjectOpen(false)
-    
   };
 
   const handleDelete = () => {
@@ -158,7 +159,6 @@ const Project = () => {
               label="Edit Project"
               variant="outlined"
               size='small'
-              onClickEditProject={() => setEditProjectOpen(true)}
             />
             </Link>
             <EditProjectModal 
@@ -184,7 +184,7 @@ const Project = () => {
               </span>
             </Grid>
             {/* Project Members Chips */}
-            <Grid itemxs={12} md={9}>
+            <Grid item xs={12} md={9}>
               <span className="members">Project Members 
                 {project.members.map((members) => (
                     <Chip

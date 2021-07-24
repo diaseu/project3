@@ -23,9 +23,8 @@ import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 import Button from '@material-ui/core/Button';
-
+// eslint-disable-next-line
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
   Link
@@ -140,6 +139,7 @@ const Navbar = ({ pages, setpageState, me, isLoggedIn, handleLogOut }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
+  // eslint-disable-next-line
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -152,10 +152,12 @@ const Navbar = ({ pages, setpageState, me, isLoggedIn, handleLogOut }) => {
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
+  // eslint-disable-next-line
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
+  // eslint-disable-next-line
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };

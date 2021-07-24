@@ -27,7 +27,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/zap_db', {
     await db.Issue.deleteMany({})
 
     const users = await db.User.collection.insertMany(UserSeed)
-    console.log(users)
+    // console.log(users)
 
     const ProjectSeed = [
       {

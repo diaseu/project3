@@ -1,7 +1,5 @@
-import React, { useState, useEffect, PureComponent } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
@@ -12,9 +10,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Icon from '@material-ui/core/Icon';
 import FaceIcon from '@material-ui/icons/Face';
-import AddIcon from '@material-ui/icons/Add';
 import Spacer from '../Spacer'
 import ProjectAPI from '../../utils/ProjectAPI'
 import {
@@ -23,7 +19,6 @@ import {
   Link,
   useParams
 } from "react-router-dom";
-import axios from 'axios'
 
 
 const useStyles = makeStyles({
@@ -96,7 +91,7 @@ const EditProjectModal = props => {
   
   const [status, setStatus] = useState({ isLoading: true });
   const params = useParams();
-  console.log(params, 'these are params');
+  // console.log(params, 'these are params');
   
   const [projectTitle, setProjectTitle] = useState(props.title);
   const [projectDescription, setProjectDescription] = useState(props.description)
@@ -104,11 +99,12 @@ const EditProjectModal = props => {
   useEffect(() => {
     ProjectAPI.getById(`${params.projectId}`)
       .then(res => {
-        console.log(res, 'useEffect response')
+        // console.log(res, 'useEffect response')
         // setProjectState(data.data.projects)
         setStatus({ project: res.data })
       })
       .catch(err => setStatus({ err: err }))
+    // eslint-disable-next-line
   }, [])
 
   function handleProjectTitle(e) {
@@ -130,16 +126,16 @@ const EditProjectModal = props => {
     },
       params.projectId
     )
-    console.log('project updated :)')
-    console.log(projectTitle)
-    console.log(projectDescription)
+    // console.log('project updated :)')
+    // console.log(projectTitle)
+    // console.log(projectDescription)
     window.location.reload()
   }
 
   function handleDeleteProject(e) {
     e.preventDefault()
-    let doomedProject=params.projectId
-    console.log(doomedProject, 'this project is going to be deleted')
+    let doomedProject = params.projectId
+    // console.log(doomedProject, 'this project is going to be deleted')
     ProjectAPI.delete(params.projectId)
     }
 

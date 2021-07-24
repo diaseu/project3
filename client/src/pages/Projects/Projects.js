@@ -44,7 +44,7 @@ const Projects = () => {
     UserAPI.me()
       .then(data => {
         setProjectState(data.data.projects)
-        console.log('this is the projects page', data)
+        // console.log('this is the projects page', data)
       })
       .catch(err => console.log(err))
   }, [])

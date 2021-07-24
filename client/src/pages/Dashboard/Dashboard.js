@@ -47,7 +47,7 @@ const Dashboard = () => {
   useEffect(() => {
     UserAPI.me()
       .then(data => {
-        console.log(data)
+        // console.log(data)
         setProjectState(data.data.projects)
         setIssueState(data.data.issues)
       })

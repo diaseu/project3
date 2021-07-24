@@ -5,6 +5,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Icon from '@material-ui/core/Icon';
 import IssueDetail from '../IssueDetail'
+// eslint-disable-next-line
 import {
   Route,
   Link
@@ -61,7 +62,7 @@ const ProjectIssue = props => {
   const classes = useStyles();
 
   function priorityFunction() {
-    console.log(props.priority, 'this is the props')
+    // console.log(props.priority, 'this is the props')
   }
 
   

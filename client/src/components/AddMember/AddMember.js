@@ -1,29 +1,16 @@
-import React, { useState, useEffect, PureComponent } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import PropTypes from "prop-types";
-import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Chip from '@material-ui/core/Chip';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
-import FaceIcon from '@material-ui/icons/Face';
-import SearchIcon from '@material-ui/icons/Search';
-import Spacer from '../Spacer'
 import TextField from '@material-ui/core/TextField';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import axios from 'axios';
 import ProjectAPI from '../../utils/ProjectAPI.js'
 import UserAPI from '../../utils/UserAPI.js'
-
-
 
 const useStyles = makeStyles({
   root: {
@@ -125,7 +112,7 @@ const SetModal = props => {
   })
 
   const handleInputChange = ({ target }) => {
-    console.log(target.name, target.value)
+    // console.log(target.name, target.value)
     setUserState({ ...userState, [target.name]: target.value })
   }
 
@@ -155,6 +142,7 @@ const SetModal = props => {
         setUserState({ ...userState, users})
       })
       .catch(err => console.log(err))
+      // eslint-disable-next-line
   }, [])
 
   return (

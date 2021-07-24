@@ -30,7 +30,7 @@ router.post('/users/login', (req, res) => {
 // get current user
 router.get('/users/me', passport.authenticate('jwt'), (req, res) => {
   res.json(req.user)
-  console.log(req.user)
+  // console.log(req.user)
 })
 
 router.get('/users/:username', passport.authenticate('jwt'), (req, res) => {

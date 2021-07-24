@@ -1,31 +1,16 @@
 import axios from 'axios'
-import PropTypes from "prop-types";
-import React, { useState, PureComponent } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Chip from '@material-ui/core/Chip';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
-import FaceIcon from '@material-ui/icons/Face';
-import AddIcon from '@material-ui/icons/Add';
-import Spacer from '../Spacer'
-import ProjectAPI from '../../utils/ProjectAPI'
-
+// import ProjectAPI from '../../utils/ProjectAPI'
 
 
 const useStyles = makeStyles({
@@ -62,27 +47,6 @@ const SetModal = props => {
     setDescription(e.target.value)
   }
 
-
-  // issueState
-  // const [projectState, setProjectState] = useState({
-  //   title: '',
-  //   description: '',
-  // })
-
-  // const handleInputChange = ({ target }) => {
-  //   setProjectState({ ...projectState, [target.name]: target.value })
-  // }
-
-  // const handleNewProjectModal = event => {
-  //   event.preventDefault();
-  //   const project = [...projectState.project]
-  //   project.push({
-  //     title: projectState.title,
-  //     description: projectState.description,
-  //   })
-  // }
-
-
   function handleProjectSubmit(e) {
     e.preventDefault();
     axios.post('/api/projects', {
@@ -95,17 +59,15 @@ const SetModal = props => {
         }
       }
     )
-    // ProjectAPI.create()
     .then(res => {
       props.handleClose()
       window.location.reload()
     }) 
   }
-  
 
   return (
-    <Dialog maxWidth='sm' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">New Project</DialogTitle>
+    <Dialog maxWidth='sm' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="newproject-title">
+      <DialogTitle id="newproject-title">New Project</DialogTitle>
       <DialogContent>
         <DialogContentText>
           <Grid container>
@@ -147,8 +109,6 @@ const SetModal = props => {
           color="primary"
           className={classes.submit} 
           onClick={(e) => handleProjectSubmit(e)} 
-          color="primary" 
-          variant="contained" 
           type="submit">
           Create Project
         </Button>

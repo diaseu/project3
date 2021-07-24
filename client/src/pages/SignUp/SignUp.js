@@ -62,22 +62,22 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
 
 function handleName(e) {
-  console.log(e.target.value)
+  // console.log(e.target.value)
   setName(e.target.value)
 }
 
   function handleUsername(e) {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     setUsername(e.target.value)
   }
 
   function handleEmail(e) {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     setEmail(e.target.value)
   }
 
   function handlePassword(e) {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     setPassword(e.target.value)
   }
 
