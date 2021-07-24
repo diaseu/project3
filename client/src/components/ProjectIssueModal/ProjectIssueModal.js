@@ -154,8 +154,7 @@ const ProjectCard = props => {
     setStatusOpen(false);
   };
   
-  // Reply
-  const [replies, setReplies] = useState([]);
+  
   // console.log(props, 'this is props')
 
   const [issueReply, setIssueReply] = useState("");
