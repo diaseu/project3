@@ -39,7 +39,7 @@ const CommunityIssue = () => {
   return(
     <Card className={classes.root}>
       <CardContent>
-        <Typography variant="body2" component="p">
+        <Typography variant="body2" component={'span'}>
           How to fix missing dependency warning when using useEffect React Hook?
         </Typography>
         <Grid container>

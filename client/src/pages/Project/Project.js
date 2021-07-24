@@ -270,14 +270,12 @@ const Project = () => {
                         <ProjectIssueModal
                           key={issueData._id}
                           id={issueData._id}
-                          open={issueData.isOpen}
                           title={issueData.title}
-                          priority={issueData.priority}
-                          id={issueData._id}
                           body={issueData.body}
                           status={issueData.status}
-                         
+                          priority={issueData.priority}
                           author={issueData.author.name}
+                          open={issueData.isOpen}
                           handleClose={() => handleIssueOpen(issueData._id)}
                         />
                       </>
