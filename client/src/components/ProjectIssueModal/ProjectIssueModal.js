@@ -1,5 +1,5 @@
 import './ProjectIssueModal.css'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -22,6 +22,9 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import ReplyAPI from '../../utils/ReplyAPI'
+import IssueAPI from '../../utils/IssueAPI'
+
 
 const useStyles = makeStyles({
   root: {
@@ -111,6 +114,8 @@ const useStyles = makeStyles({
 });
 
 
+
+
 const ProjectCard = props => {
   const classes = useStyles();
 
@@ -121,6 +126,20 @@ const ProjectCard = props => {
     priority: '',
     issue: []
   })
+
+  const [replies, setReplies] = useState([]);
+  console.log(props, 'this is props')
+
+  useEffect(() => {
+    IssueAPI.getById(props.id)
+      .then((res) => {
+        console.log('this is our res line: 135', res);
+        setReplies(res.data.replies)
+      })
+      .catch(e => console.error(e))
+  }
+
+    , [])
 
 
   // For the Status dropdown
@@ -138,6 +157,28 @@ const ProjectCard = props => {
     setStatusOpen(false);
   };
 
+  const [issueReply, setIssueReply] = useState("");
+
+  function handleIssueReply(e) {
+    console.log(e.target.value, 'issue reply')
+    setIssueReply(e.target.value)
+  }
+
+  function submitIssueReply(e) {
+    ReplyAPI.create({
+      text: issueReply,
+      pid: props.id
+    })
+  }
+
+
+
+
+
+
+
+
+
   return (
     <Dialog maxWidth='lg' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title" className='dialogtitle'>
@@ -148,7 +189,7 @@ const ProjectCard = props => {
         <DialogContentText>
           <Grid container>
             <Grid className={classes.issueleft} item xs={12} lg={9}>
-              
+
               <Typography className={classes.mb} variant="p" component="p">
                 {props.body}
               </Typography>
@@ -159,8 +200,9 @@ const ProjectCard = props => {
                 label="Comment"
                 type="comment"
                 fullWidth
+                onChange={handleIssueReply}
               />
-              <Button color="primary" variant="contained">Submit</Button>
+              <Button color="primary" variant="contained" onClick={submitIssueReply}>Submit</Button>
               <Spacer y={4} />
             </Grid>
             <Grid className={classes.issueright} item xs={12} lg={3}>
@@ -209,7 +251,7 @@ const ProjectCard = props => {
                     Closed</MenuItem>
                 </Select>
               </FormControl></p>
-              
+
               <Spacer y={2} />
 
 
@@ -235,7 +277,16 @@ const ProjectCard = props => {
                 </Select>
               </FormControl>
               <Spacer y={4} />
+              {
+                replies && replies.map((index, key) => {
+                  return (
+                    <div key={key}>
+                      <p>{index.text}</p>
+                    </div>
 
+                  )
+                })
+              }
 
               <Typography className={classes.title} color="textSecondary" gutterBottom>
                 Ask the Community
