@@ -134,10 +134,14 @@ const SetModal = props => {
     UserAPI.getOne(userState.username)
       .then( ({ data: user }) => {
         ProjectAPI.addMember(props.projectId, user)
-          .then(res => console.log(res))
+          .then(res => {
+            console.log(res)
+            window.location.reload()
+          })
           .catch(err => console.log(err))
-      })
-      .catch(err => console.log(err))
+          
+        })
+        .catch(err => console.log(err))
   }
 
 

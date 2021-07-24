@@ -123,7 +123,6 @@ const ProjectCard = props => {
     issue: []
   })
 
-  console.log(props)
 
   // For the Status dropdown
   const [openStatus, setStatusOpen] = useState(false);
@@ -210,29 +209,28 @@ const ProjectCard = props => {
               >
                 {props.status}
               </Button>
-
-              <FormControl className={classes.formControl}>
+              <p><FormControl className={classes.formControl}>
                 <Select
                   id="status"
-                  defaultValue="Open"
-                  value={issueState.issue.status}
+                  defaultValue={props.status}
                   onChange={handleInputChange}
                   fullWidth
                   open={openStatus}
                   onClose={handleClose}
                   onOpen={handleStatusOpen}
                   variant="filled"
-                  className={classes.hidden}
+                // className={classes.hidden}
                 >
                   <MenuItem value="Open">
-                     Open
+                    Open
                   </MenuItem>
                   <MenuItem value="In Progress">
-                     In Progress</MenuItem>
+                    In Progress</MenuItem>
                   <MenuItem value="Closed">
-                     Closed</MenuItem>
+                    Closed</MenuItem>
                 </Select>
-              </FormControl>
+              </FormControl></p>
+              
               <Spacer y={2} />
 
 
@@ -244,7 +242,7 @@ const ProjectCard = props => {
                 <Select
                   id="priority"
                   defaultValue="Medium"
-                  value={issueState.issue.priority}
+                  defaultValue={props.priority}
                   onChange={handleInputChange}
                   fullWidth
                 >
