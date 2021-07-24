@@ -132,7 +132,7 @@ const Dashboard = () => {
                   id={issueData._id}
                 />
               </Link>
-              <ProjectIssueModal 
+              {/* <ProjectIssueModal 
                 id={issueData._id}
                 title={issueData.title}
                 body={issueData.body}
@@ -142,7 +142,7 @@ const Dashboard = () => {
                 priority={issueData.priority}
                 open={open}
                 handleClose={handleClose}
-              />
+              /> */}
             </>
           ))}
           
