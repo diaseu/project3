@@ -20,7 +20,7 @@ import Select from '@material-ui/core/Select';
 import ReplyAPI from '../../utils/ReplyAPI'
 import IssueAPI from '../../utils/IssueAPI'
 
-var mongoose = require('mongoose')
+let mongoose = require('mongoose')
 
 
 const useStyles = makeStyles({
@@ -125,12 +125,11 @@ const ProjectCard = props => {
   })
 
   const [replies, setReplies] = useState([]);
-  // console.log(props, 'this is props')
 
   useEffect(() => {
     IssueAPI.getById(props.id)
       .then((res) => {
-        console.log('this is our res line: 135', res);
+        // console.log('this is useEffect in ProjectIssueModal: 135', res);
         setReplies(res.data.replies)
       })
       .catch(e => console.error(e))
@@ -155,12 +154,12 @@ const ProjectCard = props => {
   };
   
   
-  // console.log(props, 'this is props')
+  // console.log('this is props in ProjectIssueModal', props)
 
   const [issueReply, setIssueReply] = useState("");
 
   function handleIssueReply(e) {
-    // console.log(e.target.value, 'issue reply')
+    // console.log(e.target.value, 'issue reply in ProjectIssueModal')
     setIssueReply(e.target.value)
   }
 
@@ -174,11 +173,11 @@ const ProjectCard = props => {
 
 
   // Update Issue
-  // console.log('this should be props.key in ProjectIssueModal', props.id)
-
-  let id = mongoose.Types.ObjectId(props.id)
-
+  // console.log('this should be props.id in ProjectIssueModal', props.id)
   // console.log('this is id from ProjectIssueModal', typeof(id))
+  // let id = mongoose.Types.ObjectId(props.id)
+
+
 
 
   // priority
@@ -195,7 +194,7 @@ const ProjectCard = props => {
   }
 
   const handleUpdateIssue = () => {
-    IssueAPI.update(id, {
+    IssueAPI.update(props.id, {
       status: 'Closed',
       priority: 'Low'
     })

@@ -42,6 +42,7 @@ const Dashboard = () => {
 
   // Open Modal Individually
   const [status, setStatus] = useState({ isLoading: true });
+  const [openIssue, setIssueOpen] = useState(false);
   const { isLoading, project, err } = status;
 
   const handleIssueOpen = _id => {
@@ -65,9 +66,11 @@ const Dashboard = () => {
 
   useEffect(() => {
     UserAPI.me()
-      .then(data => {
-        setProjectState(data.data.projects)
-        setIssueState(data.data.issues)
+      .then(res => {
+        console.log('this is data.data.issues in Dashboard', res.data.issues)
+        setProjectState(res.data.projects)
+        setIssueState(res.data.issues)
+        console.log('issueState in Dashboard', issueState)
       })
       .catch(err => console.log(err))
     // eslint-disable-next-line
@@ -120,32 +123,29 @@ const Dashboard = () => {
           </Grid>
           <Spacer y={1} />
 
-          {issueState.map((issueData) => (
+          {issueState.filter(issue => issue.status === 'Open').map((issueData) => (
             <>
-              <Link onClick={handleClickOpen}>
+              <Link onClick={() => handleIssueOpen(issueData._id)}>
                 <ProjectIssue
                   key={issueData.id}
-                  title={issueData.title}
-                  body={issueData.body}
-                  status={issueData.status}
-                  priority={issueData.priority}
                   id={issueData._id}
-                  author={issueData.author.username}
+                  title={issueData.title}
+                  priority={issueData.priority}
+                  author={issueData.author}
                 />
               </Link>
 
               {/* See Project Page for how to call ProjectIssueModals properly */}
-              {/* <ProjectIssueModal 
+              <ProjectIssueModal 
                 id={issueData._id}
                 title={issueData.title}
                 body={issueData.body}
-                author={issueData.author.name}
+                author={issueData.author}
                 // authorusername={issueData.author.username}
-                status={issueData.status}
                 priority={issueData.priority}
                 open={open}
                 handleClose={handleClose}
-              /> */}
+              />
             </>
           ))}
           

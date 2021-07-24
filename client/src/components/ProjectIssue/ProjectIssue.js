@@ -76,7 +76,9 @@ const ProjectIssue = props => {
           justifyContent="flex-start"
           alignItems="flex-start"
         >
-          <IssueDetail />
+          <IssueDetail 
+            author={props.author}
+          />
 
           <Grid item className={classes.center} xs={12}>
             <Icon className={classes.priority} style={{ color: obj[props.priority] }} >radio_button_unchecked</Icon>
