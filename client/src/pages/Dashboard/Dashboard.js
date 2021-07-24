@@ -47,7 +47,7 @@ const Dashboard = () => {
   useEffect(() => {
     UserAPI.me()
       .then(data => {
-        console.log(data)
+        // console.log(data)
         setProjectState(data.data.projects)
         setIssueState(data.data.issues)
       })
@@ -101,8 +101,9 @@ const Dashboard = () => {
                 <ProjectIssue
                   title={issueData.title}
                   body={issueData.body}
-                  status  ={issueData.status  }
+                  status={issueData.status}
                   priority={issueData.priority}
+                  id={issueData._id}
                 />
               </Link>
               <ProjectIssueModal 

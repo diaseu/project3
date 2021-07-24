@@ -267,6 +267,8 @@ const Project = () => {
                       <Link onClick={() => handleIssueOpen(issueData._id)}>
                         <Issue
                           title={issueData.title}
+                          priority={issueData.priority}
+
                         />
                       </Link>
                       <ProjectIssueModal
