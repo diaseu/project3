@@ -59,8 +59,10 @@ const Projects = () => {
             {/* <Link to={`/projects/${id}`}> */}
             <Link to={`/project/${projectData._id}`}>
             <ProjectCard 
+              key={projectData._id}
               title={projectData.title}
               description={projectData.description}
+              owner={projectData.owner.name}
             />
           </Link>
           </Grid>
@@ -70,7 +72,6 @@ const Projects = () => {
           <Link onClick={handleNewProjectModalOpen}>
             <MoreCard
               clickable
-              onClickAddIssue={() => setNewProjectModalOpen(true)}
             />
           </Link>
           <NewProjectModal

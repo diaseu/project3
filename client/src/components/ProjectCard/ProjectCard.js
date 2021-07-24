@@ -1,3 +1,4 @@
+import './ProjectCard.css'
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -32,20 +33,22 @@ const ProjectCard = props => {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
+    <Card className="root">
       <CardContent>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
+        <Typography className={classes.title} color="textSecondary">
           Project
         </Typography>
         <Typography variant="h6" component="h2">
           {props.title}
         </Typography>
-        <Typography className={classes.pos} color="textSecondary">
+        <Typography className="description" color="textSecondary">
           {props.description}
         </Typography>
         <Chip
           icon={<FaceIcon />}
-          label={props.owner}
+          size='small'
+          className='ownerName'
+          label={props.author}
         />
       </CardContent>
       {/* <CardActions>

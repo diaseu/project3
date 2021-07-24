@@ -1,14 +1,12 @@
 import React from 'react';
-import { Grid, TextField, Button, Card, CardContent, Typography } from '@material-ui/core';
+import { Grid, TextField, Button, Typography } from '@material-ui/core';
 import emailjs from "emailjs-com";
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 const ContactForm = props => {
-
     function sendEmail(e) {
         e.preventDefault();
         emailjs.sendForm('service_8q9l0zs', 'contact_form', e.target, 'user_vZh74YVKSJ1YNAd3JfGIx')
@@ -22,11 +20,11 @@ const ContactForm = props => {
     }
 
     return (
-        <Dialog maxWidth='sm' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title" align='center'>
+        <Dialog maxWidth='sm' fullWidth open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title" align='center'>
             <DialogTitle id="form-dialog-title">Contact Us</DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    <Typography variant="body2" color="textSecondary" component="p" gutterBottom>
+                    <Typography variant="body2" color="textSecondary" component="p">
                         Fill out the contact form and our team will get back to you within 24-48 hours.
                     </Typography>
                     {/* Contact Form */}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, PureComponent } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -9,20 +9,15 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
-import FaceIcon from '@material-ui/icons/Face';
-import AddIcon from '@material-ui/icons/Add';
-import Spacer from '../Spacer'
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import Issue from '../../utils/IssueAPI'
 import ProjectAPI from '../../utils/ProjectAPI'
+// eslint-disable-next-line
 import {
-  Switch,
   Route,
   Link,
   useParams
@@ -125,8 +120,9 @@ const SetModal = props => {
   // issueState
   const [issueTitle, setIssueTitle] = useState("");
   const [issueDescription, setIssueDescription] = useState('')
-  const [issuePriority, setIssuePriority] = useState("");
+  const [issuePriority, setIssuePriority] = useState('Medium');
 
+  // eslint-disable-next-line
   const [status, setStatus] = useState({ isLoading: true })
   const params = useParams()
 
@@ -138,16 +134,13 @@ const SetModal = props => {
         setStatus({ project: res.data })
       })
       .catch(err => setStatus({ err: err }))
+      // eslint-disable-next-line
   }, [])
-
-
   
   function handleIssueTitle(e) {
     // console.log(e.target.value)
     setIssueTitle(e.target.value)
   }
-
-  
 
   function handleIssueDescription(e) {
     // console.log(e.target.value)
@@ -167,7 +160,7 @@ const SetModal = props => {
       body: issueDescription,
       priority: issuePriority,
       isPublic: false,
-      status: 'open',
+      status: 'Open',
       pid: params.projectId
     })
     // console.log('issue created')
@@ -177,13 +170,13 @@ const SetModal = props => {
 
 
   return (
-    <Dialog maxWidth='sm' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
+    <Dialog maxWidth='sm' fullWidth open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">Add Issue</DialogTitle>
       <DialogContent>
         <DialogContentText>
           <Grid container>
             <Grid className={classes.issueleft} item xs={12}>
-              <Typography className={classes.mb} variant="p" component="p">
+              <Typography className={classes.mb}>
                 <form>
                   <p>
                     <TextField

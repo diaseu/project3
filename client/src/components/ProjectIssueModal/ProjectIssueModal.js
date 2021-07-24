@@ -1,8 +1,6 @@
 import './ProjectIssueModal.css'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
@@ -15,13 +13,15 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Icon from '@material-ui/core/Icon';
 import FaceIcon from '@material-ui/icons/Face';
-import AddIcon from '@material-ui/icons/Add';
 import Spacer from '../../components/Spacer'
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
+import ReplyAPI from '../../utils/ReplyAPI'
+import IssueAPI from '../../utils/IssueAPI'
+
+var mongoose = require('mongoose')
+
 
 const useStyles = makeStyles({
   root: {
@@ -111,6 +111,8 @@ const useStyles = makeStyles({
 });
 
 
+
+
 const ProjectCard = props => {
   const classes = useStyles();
 
@@ -122,25 +124,103 @@ const ProjectCard = props => {
     issue: []
   })
 
-  console.log(props)
+  const [replies, setReplies] = useState([]);
+  // console.log(props, 'this is props')
+
+  useEffect(() => {
+    IssueAPI.getById(props.id)
+      .then((res) => {
+        console.log('this is our res line: 135', res);
+        setReplies(res.data.replies)
+      })
+      .catch(e => console.error(e))
+    }
+    // eslint-disable-next-line
+    , [])
+
 
   // For the Status dropdown
   const [openStatus, setStatusOpen] = useState(false);
-
+  
   const handleInputChange = ({ target }) => {
     setIssueState({ ...issueState, [target.name]: target.value })
   }
-
+  
   const handleStatusOpen = () => {
     setStatusOpen(true);
   };
-
+  
   const handleClose = () => {
     setStatusOpen(false);
   };
+  
+  // Reply
+  const [replies, setReplies] = useState([]);
+  // console.log(props, 'this is props')
+
+  const [issueReply, setIssueReply] = useState("");
+
+  function handleIssueReply(e) {
+    // console.log(e.target.value, 'issue reply')
+    setIssueReply(e.target.value)
+  }
+
+  function submitIssueReply(e) {
+    ReplyAPI.create({
+      text: issueReply,
+      pid: props.id
+    })
+  }
+
+
+
+  // Update Issue
+  // console.log('this should be props.key in ProjectIssueModal', props.id)
+
+  let id = mongoose.Types.ObjectId(props.id)
+
+  // console.log('this is id from ProjectIssueModal', typeof(id))
+
+
+  // priority
+  const [issuePriority, setIssuePriority] = useState(props.priority);
+  const handlePriorityChange = ({ target }) => {
+    setIssuePriority({ ...issuePriority, [target.name]: target.value })
+  }
+
+  const [issueStatus, setIssueStatus] = useState(props.status);
+
+  function handleIssuePriority(e) {
+    // console.log(e.target.value)
+    setIssuePriority(e.target.value)
+  }
+
+  const handleUpdateIssue = () => {
+    IssueAPI.update(id, {
+      status: 'In Progress',
+      priority: 'Medium'
+    })
+      .then(res => {
+        console.log('issue allegedly updated', res)
+      })
+      .catch(err => console.log('Problem in the ProjectIssueModal', err))
+    // window.location.reload()
+  }
+
+  useEffect(() => {
+    IssueAPI.getById(props.id)
+      .then((res) => {
+        // console.log('this is our res line: 135', res);
+        setReplies(res.data.replies)
+      })
+      .catch(e => console.error(e))
+  }
+    // eslint-disable-next-line
+    , [])
+
 
   return (
-    <Dialog maxWidth='lg' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
+    <Dialog maxWidth='lg' fullWidth open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title" className='dialogtitle'>
         {props.title}
       </DialogTitle>
@@ -149,8 +229,8 @@ const ProjectCard = props => {
         <DialogContentText>
           <Grid container>
             <Grid className={classes.issueleft} item xs={12} lg={9}>
-              
-              <Typography className={classes.mb} variant="p" component="p">
+
+              <Typography className={classes.mb}>
                 {props.body}
               </Typography>
 
@@ -160,12 +240,13 @@ const ProjectCard = props => {
                 label="Comment"
                 type="comment"
                 fullWidth
+                onChange={handleIssueReply}
               />
-              <Button color="primary" variant="contained">Submit</Button>
+              <Button color="primary" variant="contained" onClick={submitIssueReply}>Submit</Button>
               <Spacer y={4} />
             </Grid>
             <Grid className={classes.issueright} item xs={12} lg={3}>
-              <Typography className={classes.title} color="textSecondary" gutterBottom>
+              <Typography className={classes.title} color="textSecondary">
                 Posted by
               </Typography>
               <Chip
@@ -177,53 +258,51 @@ const ProjectCard = props => {
               <Spacer y={2} />
 
 
-              <Typography className={classes.title} color="textSecondary" gutterBottom>
+              <Typography className={classes.title} color="textSecondary">
                 Status
               </Typography>
-              <Button
+              {/* <Button
                 variant="contained"
                 color="primary"
-                onClick={handleInputChange}
+                onChange={handleInputChange}
                 endIcon={<Icon>expand_more</Icon>}
                 onClick={handleStatusOpen}
               >
                 {props.status}
-              </Button>
-
-              <FormControl className={classes.formControl}>
+              </Button> */}
+              <p><FormControl className={classes.formControl}>
                 <Select
                   id="status"
-                  defaultValue="Open"
-                  value={issueState.issue.status}
+                  defaultValue={props.status}
                   onChange={handleInputChange}
                   fullWidth
                   open={openStatus}
                   onClose={handleClose}
                   onOpen={handleStatusOpen}
                   variant="filled"
-                  className={classes.hidden}
+                // className={classes.hidden}
                 >
                   <MenuItem value="Open">
-                     Open
+                    Open
                   </MenuItem>
                   <MenuItem value="In Progress">
-                     In Progress</MenuItem>
+                    In Progress</MenuItem>
                   <MenuItem value="Closed">
-                     Closed</MenuItem>
+                    Closed</MenuItem>
                 </Select>
-              </FormControl>
+              </FormControl></p>
+
               <Spacer y={2} />
 
 
-              <Typography color="textSecondary" gutterBottom>
+              <Typography color="textSecondary">
                 Priority
               </Typography>
 
               <FormControl className={classes.formControl}>
                 <Select
                   id="priority"
-                  defaultValue="Medium"
-                  value={issueState.issue.priority}
+                  defaultValue={props.priority}
                   onChange={handleInputChange}
                   fullWidth
                 >
@@ -237,9 +316,18 @@ const ProjectCard = props => {
                 </Select>
               </FormControl>
               <Spacer y={4} />
+              {
+                replies && replies.map((index, key) => {
+                  return (
+                    <div key={key}>
+                      <p>{index.text}</p>
+                    </div>
 
+                  )
+                })
+              }
 
-              <Typography className={classes.title} color="textSecondary" gutterBottom>
+              <Typography className={classes.title} color="textSecondary">
                 Ask the Community
               </Typography>
               <Button
@@ -260,7 +348,7 @@ const ProjectCard = props => {
         <Button onClick={props.handleClose} color="primary">
           Cancel
         </Button>
-        <Button onClick={props.handleClose} color="primary">
+        <Button onClick={handleUpdateIssue} color="primary">
           Save
         </Button>
       </DialogActions>

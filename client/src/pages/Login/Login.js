@@ -71,12 +71,12 @@ export default function Login() {
   const [password, setPassword] = useState('');
 
   function handlePassword(e) {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     setPassword(e.target.value)
   }
 
   function handleUsername(e) {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     setUsername(e.target.value)
   }
 

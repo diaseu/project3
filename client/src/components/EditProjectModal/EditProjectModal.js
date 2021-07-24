@@ -1,7 +1,5 @@
-import React, { useState, useEffect, PureComponent } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
@@ -13,9 +11,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Icon from '@material-ui/core/Icon';
 import FaceIcon from '@material-ui/icons/Face';
-import AddIcon from '@material-ui/icons/Add';
 import Spacer from '../Spacer'
 import ProjectAPI from '../../utils/ProjectAPI'
 import {
@@ -24,7 +20,6 @@ import {
   Link,
   useParams
 } from "react-router-dom";
-import axios from 'axios'
 
 <<<<<<< HEAD
 import ProjectAPI from '../../utils/ProjectAPI'
@@ -96,42 +91,36 @@ const useStyles = makeStyles({
 
 
 const EditProjectModal = props => {
-
   const classes = useStyles();
 
-  const [projectTitle, setProjectTitle] = useState("");
-  const [projectDescription, setProjectDescription] = useState('')
   
-
   const [status, setStatus] = useState({ isLoading: true });
   const params = useParams();
-  console.log(params, 'these are params');
+  // console.log(params, 'these are params');
+  
+  const [projectTitle, setProjectTitle] = useState(props.title);
+  const [projectDescription, setProjectDescription] = useState(props.description)
 
   useEffect(() => {
     ProjectAPI.getById(`${params.projectId}`)
       .then(res => {
-        console.log(res, 'useEffect response')
+        // console.log(res, 'useEffect response')
         // setProjectState(data.data.projects)
         setStatus({ project: res.data })
       })
       .catch(err => setStatus({ err: err }))
+    // eslint-disable-next-line
   }, [])
-
-
 
   function handleProjectTitle(e) {
     // console.log(e.target.value)
     setProjectTitle(e.target.value)
   }
 
-
-
   function handleProjectDescription(e) {
     // console.log(e.target.value)
     setProjectDescription(e.target.value)
   }
-
-  
 
 
   function handleEditProject(e) {
@@ -142,21 +131,21 @@ const EditProjectModal = props => {
     },
       params.projectId
     )
-    console.log('project updated :)')
-    console.log(projectTitle)
-    console.log(projectDescription)
+    // console.log('project updated :)')
+    // console.log(projectTitle)
+    // console.log(projectDescription)
     window.location.reload()
   }
 
   function handleDeleteProject(e) {
     e.preventDefault()
-    let doomedProject=params.projectId
-    console.log(doomedProject, 'this project is going to be deleted')
+    let doomedProject = params.projectId
+    // console.log(doomedProject, 'this project is going to be deleted')
     ProjectAPI.delete(params.projectId)
     }
 
   return (
-    <Dialog maxWidth='sm' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
+    <Dialog maxWidth='sm' fullWidth open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">Edit Project</DialogTitle>
       <DialogContent>
         <DialogContentText>
@@ -168,7 +157,7 @@ const EditProjectModal = props => {
                 variant="outlined"
                 name='title'
                 fullWidth
-                placeholder={props.title}
+                defaultValue={props.title}
                 onChange={handleProjectTitle}
               />
               <TextField
@@ -177,7 +166,7 @@ const EditProjectModal = props => {
                 label="Description"
                 type="text"
                 variant="outlined"
-                placeholder={props.description}
+                defaultValue={props.description}
                 onChange={handleProjectDescription}
                 multiline
                 rows={6}
@@ -187,7 +176,7 @@ const EditProjectModal = props => {
               <Spacer y={2} />
             </Grid>
             <Grid className={classes.issueright} item xs={12} lg={3}>
-              <Typography className={classes.title} color="textSecondary" gutterBottom>
+              <Typography className={classes.title} color="textSecondary">
                 Project Lead
               </Typography>
               <Chip
@@ -198,11 +187,12 @@ const EditProjectModal = props => {
               <Spacer y={2} />
 
 
-              <Typography className={classes.title} color="textSecondary" gutterBottom>
+              <Typography className={classes.title} color="textSecondary">
                 Project Members
               </Typography>
               {props.members.map((members) => (
                 <Chip
+                  key={members.id}
                   icon={<FaceIcon />}
                   label={members.name}
                   color="default"

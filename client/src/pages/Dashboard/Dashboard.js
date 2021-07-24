@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import ProjectIssue from '../../components/ProjectIssue'
-import CommunityIssue from '../../components/CommunityIssue'
+import CommunityIssueCard from '../../components/CommunityIssueCard'
 import ProjectCard from '../../components/ProjectCard'
 import ProjectIssueModal from '../../components/ProjectIssueModal'
 import Spacer from '../../components/Spacer'
@@ -47,12 +47,16 @@ const Dashboard = () => {
   useEffect(() => {
     UserAPI.me()
       .then(data => {
-        console.log(data)
         setProjectState(data.data.projects)
         setIssueState(data.data.issues)
       })
       .catch(err => console.log(err))
   }, [])
+
+  
+
+  console.log('Dashboard Project ID is', projectState)
+  console.log('Dashboard Project ID data type is', typeof(projectState[0]))
 
   return(
     <>
@@ -63,17 +67,21 @@ const Dashboard = () => {
             My Projects
           </Typography>
         </Grid>
+
         {projectState.map((projectData) => (
           <Grid className={classes.projectcard} item xs={12} sm={4} lg={2}>
             {/* <Link to={`/projects/${id}`}> */}
             <Link to={`/project/${projectData._id}`}>
               <ProjectCard
+                key={projectData._id}
                 title={projectData.title}
                 description={projectData.description}
+                author={projectData.owner.name}
               />
             </Link>
           </Grid>
         ))}
+        
       </Grid>
       <Spacer y={4} />
       <Grid container>
@@ -99,10 +107,13 @@ const Dashboard = () => {
             <>
               <Link onClick={handleClickOpen}>
                 <ProjectIssue
+                  key={issueData.id}
                   title={issueData.title}
                   body={issueData.body}
-                  status  ={issueData.status  }
+                  status={issueData.status}
                   priority={issueData.priority}
+                  id={issueData._id}
+                  author={issueData.author.username}
                 />
               </Link>
               <ProjectIssueModal 
@@ -134,15 +145,15 @@ const Dashboard = () => {
           <Typography variant="h6" component="h2">
             Help Answer Others' Issues
           </Typography>
-          <CommunityIssue />
+          <CommunityIssueCard />
           <Spacer y={1} />
-          <CommunityIssue />
+          <CommunityIssueCard />
           <Spacer y={1} />
-          <CommunityIssue />
+          <CommunityIssueCard />
           <Spacer y={1} />
-          <CommunityIssue />
+          <CommunityIssueCard />
           <Spacer y={1} />
-          <CommunityIssue />
+          <CommunityIssueCard />
 
         </Grid>
       </Grid>

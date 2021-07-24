@@ -80,8 +80,10 @@ function App() {
 
   useEffect(() => {
     getMe()
+    // eslint-disable-next-line
   }, [])
 
+  // eslint-disable-next-line
   const updateMe = () => {
     User.me()
       .then(({ data: me }) => {
