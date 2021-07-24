@@ -10,6 +10,7 @@ import ProjectCard from '../../components/ProjectCard'
 import ProjectIssueModal from '../../components/ProjectIssueModal'
 import Spacer from '../../components/Spacer'
 import UserAPI from '../../utils/UserAPI'
+// eslint-disable-next-line
 import {
   Link
 } from "react-router-dom";
@@ -39,6 +40,24 @@ const Dashboard = () => {
     setOpen(false);
   };
 
+  // Open Modal Individually
+  const [status, setStatus] = useState({ isLoading: true });
+  const { isLoading, project, err } = status;
+
+  const handleIssueOpen = _id => {
+    let issues = status.project.issues
+
+    issues = issues.map(issue => {
+      if (_id === issue._id) {
+        issue.isOpen = !issue.isOpen
+      }
+      return issue
+    })
+    const project = status.project
+    project.issues = issues
+    setStatus({ project })
+  }
+
   // Get Info
 
   const [projectState, setProjectState] = useState([])
@@ -51,12 +70,10 @@ const Dashboard = () => {
         setIssueState(data.data.issues)
       })
       .catch(err => console.log(err))
+    // eslint-disable-next-line
   }, [])
 
-  
 
-  console.log('Dashboard Project ID is', projectState)
-  console.log('Dashboard Project ID data type is', typeof(projectState[0]))
 
   return(
     <>
@@ -116,27 +133,18 @@ const Dashboard = () => {
                 />
               </Link>
               <ProjectIssueModal 
-                      open={open}
-                      title={issueData.title}
-                      body={issueData.body}
-                      author={issueData.author.name}
-                      authorusername={issueData.author.username}
-                      status={issueData.status}
-                      priority={issueData.priority}
-                      handleClose={handleClose}
-                    />
+                id={issueData._id}
+                title={issueData.title}
+                body={issueData.body}
+                author={issueData.author.name}
+                // authorusername={issueData.author.username}
+                status={issueData.status}
+                priority={issueData.priority}
+                open={open}
+                handleClose={handleClose}
+              />
             </>
           ))}
-
-          <ProjectIssue />
-          <Spacer y={1} />
-          <ProjectIssue />
-          <Spacer y={1} />
-          <ProjectIssue />
-          <Spacer y={1} />
-          <ProjectIssue />
-          <Spacer y={1} />
-          <ProjectIssue />
           
         </Grid>
         <Spacer x={2} />
@@ -146,13 +154,7 @@ const Dashboard = () => {
           </Typography>
           <CommunityIssueCard />
           <Spacer y={1} />
-          <CommunityIssueCard />
-          <Spacer y={1} />
-          <CommunityIssueCard />
-          <Spacer y={1} />
-          <CommunityIssueCard />
-          <Spacer y={1} />
-          <CommunityIssueCard />
+          
 
         </Grid>
       </Grid>

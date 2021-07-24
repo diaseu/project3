@@ -5,17 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary">
-      {'♥ Made by '}
-      <Link color="inherit" href="https://www.github.com/diaseu/">
-        Dia Seu
-      </Link>{' '}
-      {new Date().getFullYear()}
-    </Typography>
-  );
-}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,7 +33,6 @@ const Footer = () => {
       <footer className={classes.footer}>
         <Container maxWidth="sm">
           <Typography variant="body1">My sticky footer can be found here.</Typography>
-          <Copyright />
         </Container>
       </footer>
     </div>

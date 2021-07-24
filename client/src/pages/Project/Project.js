@@ -263,20 +263,19 @@ const Project = () => {
                         <Link onClick={() => handleIssueOpen(issueData._id)}>
                           <Issue
                             title={issueData.title}
+                            priority={issueData.priority}
                           />
                         </Link>
                         
                         <ProjectIssueModal
                           key={issueData._id}
                           id={issueData._id}
-                          open={issueData.isOpen}
                           title={issueData.title}
-                          priority={issueData.priority}
-
                           body={issueData.body}
                           status={issueData.status}
-                         
+                          priority={issueData.priority}
                           author={issueData.author.name}
+                          open={issueData.isOpen}
                           handleClose={() => handleIssueOpen(issueData._id)}
                         />
                       </>

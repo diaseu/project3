@@ -121,7 +121,7 @@ export default function About() {
                     <Typography variant="h7" component="h3" align='center'>
                       Diana Seung
                     </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
+                    <Typography variant="body2" color="textSecondary" component={'span'}>
                     </Typography>
                   </CardContent>
                 </CardActionArea>
@@ -150,7 +150,7 @@ export default function About() {
                     <Typography variant="h7" component="h3" align='center'>
                       Sle Ahn
                     </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
+                    <Typography variant="body2" color="textSecondary" component={'span'}>
                     </Typography>
                   </CardContent>
                 </CardActionArea>
@@ -180,7 +180,7 @@ export default function About() {
                     <Typography variant="h7" component="h3" align='center'>
                       Jake Eckfeldt
                     </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
+                    <Typography variant="body2" color="textSecondary" component={'span'}>
                     </Typography>
                   </CardContent>
                 </CardActionArea>
@@ -205,7 +205,7 @@ export default function About() {
                       Michael Scharf
                     </Typography>
 
-                    <Typography variant="body2" color="textSecondary" component="p">
+                    <Typography variant="body2" color="textSecondary" component={'span'}>
 
                     </Typography>
                   </CardContent>

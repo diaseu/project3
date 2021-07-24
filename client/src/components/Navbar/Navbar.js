@@ -251,25 +251,25 @@ const Navbar = ({ pages, setpageState, me, isLoggedIn, handleLogOut }) => {
             <ListItemIcon>
               <DashboardIcon />
             </ListItemIcon>
-              <Link to="/projects"><ListItemText primary="View My Projects" /></Link>
+              <ListItemText primary="View My Projects" />
           </ListItem>
             <ListItem button component={Link} to='/me'>
             <ListItemIcon>
               <BarChartIcon />
             </ListItemIcon>
-              <Link to="/me"><ListItemText primary="Reported By Me" /></Link>
+              <ListItemText primary="Reported By Me" />
           </ListItem>
             <ListItem button component={Link} to='/help'>
             <ListItemIcon>
               <PeopleIcon />
             </ListItemIcon>
-              <Link to="/help"><ListItemText primary="Community Issues" /></Link>
+              <ListItemText primary="Community Issues" />
           </ListItem>
             <ListItem button component={Link} to='/about'>
               <ListItemIcon>
                 <EmojiPeopleIcon />
               </ListItemIcon>
-              <Link to="/about"><ListItemText primary="About" /></Link>
+              <ListItemText primary="About" />
             </ListItem>
         </div>
       </List>
