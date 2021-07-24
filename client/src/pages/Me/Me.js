@@ -46,19 +46,7 @@ const Me = () => {
       <div>
         <Grid container>
           <Grid item xs={12}>
-            <ProjectIssue />
-          </Grid>
-
-          <Grid item xs={12}>
-            <ProjectIssue />
-          </Grid>
-
-          <Grid item xs={12}>
-            <ProjectIssue />
-          </Grid>
-
-          <Grid item xs={12}>
-            <ProjectIssue />
+            <h1>Put Project Issues Here</h1>
           </Grid>
 
         </Grid>     

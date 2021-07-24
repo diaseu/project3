@@ -11,9 +11,6 @@ import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import Dia from '../../images/Snapchat-2077905771_1.jpg'
-import Joon from '../../images/Joon2.jpeg'
-import Mike from '../../images/IMG_0003.PNG'
 import ContactForm from '../../components/ContactForm'
 
 const useStyles = makeStyles((theme) => ({
@@ -115,7 +112,7 @@ export default function About() {
               <Card className={classes.root}>
                 <CardActionArea>
                   <CardContent align='center'>
-                    <img src={Dia} width="145" height="145" alt="" />
+                    <img src={'https://i.imgur.com/uRDhPgJ.jpeg'} width="145" height="145" alt="" />
                     <br />
                     <br />
                     <Typography variant="h7" component="h3" align='center'>
@@ -144,7 +141,7 @@ export default function About() {
               <Card className={classes.root}>
                 <CardActionArea>
                   <CardContent align='center'>
-                    <img src={Joon} width="145" height="145" alt="" />
+                    <img src={'https://i.imgur.com/M7kQZ7q.jpeg'} width="145" height="145" alt="" />
                     <br />
                     <br />
                     <Typography variant="h7" component="h3" align='center'>
@@ -198,7 +195,7 @@ export default function About() {
               <Card className={classes.root}>
                 <CardActionArea>
                   <CardContent align='center'>
-                    <img src={Mike} width="145" height="145" align='center' alt="" />
+                    <img src={'https://i.imgur.com/ZsTfgsV.png'} width="145" height="145" align='center' alt="" />
                     <br />
                     <br />
                     <Typography variant="h7" component="h3" align='center'>

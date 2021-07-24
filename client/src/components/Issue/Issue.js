@@ -39,7 +39,7 @@ const Issue = props => {
     Low: "blue"
   }
 
-  console.log(props,'this is props')
+  // console.log('this is props in Issues', props)
 
   return(
     <Card className={classes.root}>

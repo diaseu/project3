@@ -45,19 +45,19 @@ const Dashboard = () => {
   const [openIssue, setIssueOpen] = useState(false);
   const { isLoading, project, err } = status;
 
-  const handleIssueOpen = _id => {
-    let issues = status.project.issues
+  // const handleIssueOpen = _id => {
+  //   let issues = status.project.issues
 
-    issues = issues.map(issue => {
-      if (_id === issue._id) {
-        issue.isOpen = !issue.isOpen
-      }
-      return issue
-    })
-    const project = status.project
-    project.issues = issues
-    setStatus({ project })
-  }
+  //   issues = issues.map(issue => {
+  //     if (_id === issue._id) {
+  //       issue.isOpen = !issue.isOpen
+  //     }
+  //     return issue
+  //   })
+  //   const project = status.project
+  //   project.issues = issues
+  //   setStatus({ project })
+  // }
 
   // Get Info
 
@@ -123,7 +123,7 @@ const Dashboard = () => {
           </Grid>
           <Spacer y={1} />
 
-          {issueState.filter(issue => issue.status === 'Open').map((issueData) => (
+          {/* {issueState.filter(issue => issue.status === 'Open').map((issueData) => (
             <>
               <Link onClick={() => handleIssueOpen(issueData._id)}>
                 <ProjectIssue
@@ -135,7 +135,7 @@ const Dashboard = () => {
                 />
               </Link>
 
-              {/* See Project Page for how to call ProjectIssueModals properly */}
+              See Project Page for how to call ProjectIssueModals properly
               <ProjectIssueModal 
                 id={issueData._id}
                 title={issueData.title}
@@ -147,7 +147,7 @@ const Dashboard = () => {
                 handleClose={handleClose}
               />
             </>
-          ))}
+          ))} */}
           
         </Grid>
         <Spacer x={2} />
