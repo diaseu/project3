@@ -271,9 +271,11 @@ const Project = () => {
                           id={issueData._id}
                           open={issueData.isOpen}
                           title={issueData.title}
+                          priority={issueData.priority}
+
                           body={issueData.body}
                           status={issueData.status}
-                          priority={issueData.priority}
+                         
                           author={issueData.author.name}
                           handleClose={() => handleIssueOpen(issueData._id)}
                         />

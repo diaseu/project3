@@ -110,8 +110,9 @@ const Dashboard = () => {
                   key={issueData.id}
                   title={issueData.title}
                   body={issueData.body}
-                  status  ={issueData.status  }
+                  status={issueData.status}
                   priority={issueData.priority}
+                  id={issueData._id}
                 />
               </Link>
               <ProjectIssueModal 

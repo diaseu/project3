@@ -34,6 +34,14 @@ const useStyles = makeStyles({
 const Issue = props => {
   const classes = useStyles();
 
+  const obj = {
+    Medium: "yellow",
+    High: "red",
+    Low: "blue"
+  }
+
+  console.log(props,'this is props')
+
   return(
     <Card className={classes.root}>
       <CardContent>
@@ -45,8 +53,8 @@ const Issue = props => {
         >
 
           <Grid item className={classes.issue} xs={12}>
-            <Icon className={classes.priority}>radio_button_unchecked</Icon>
-
+            <Icon style={{ color: obj[props.priority] }}>radio_button_unchecked</Icon>
+          
             {props.title}
 
           </Grid>
