@@ -65,19 +65,7 @@ const Help = () => {
       <div>
         <Grid container>
           <Grid item xs={12}>
-            <ProjectIssue />
-          </Grid>
-
-          <Grid item xs={12}>
-            <ProjectIssue />
-          </Grid>
-
-          <Grid item xs={12}>
-            <ProjectIssue />
-          </Grid>
-
-          <Grid item xs={12}>
-            <ProjectIssue />
+            <h1>Put Community Issues Here</h1>
           </Grid>
 
         </Grid>
