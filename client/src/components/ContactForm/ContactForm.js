@@ -24,7 +24,7 @@ const ContactForm = props => {
             <DialogTitle id="form-dialog-title">Contact Us</DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    <Typography variant="body2" color="textSecondary" component="p">
+                    <Typography variant="body2" color="textSecondary" component={'span'}>
                         Fill out the contact form and our team will get back to you within 24-48 hours.
                     </Typography>
                     {/* Contact Form */}

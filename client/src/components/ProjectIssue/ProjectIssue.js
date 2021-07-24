@@ -27,28 +27,12 @@ const useStyles = makeStyles({
     fontSize: 11,
     textAlign: 'right',
   },
-  Low: {
-    fontSize: 12,
+  priority: {
+    fontSize: 13,
     textAlign: 'center',
     marginRight: 10,
-    color: 'blue',
     fontWeight: '800'
   },
-  Medium: {
-    fontSize: 12,
-    textAlign: 'center',
-    marginRight: 10,
-    color: 'yellow',
-    fontWeight: '800'
-  },
-  High: {
-    fontSize: 12,
-    textAlign: 'center',
-    marginRight: 10,
-    color: 'red',
-    fontWeight: '800'
-  },
-
   center: {
     flexDirection: "column",
     justifyContent: "center",
@@ -56,30 +40,24 @@ const useStyles = makeStyles({
   },
 });
 
-
-
-
-
-
-
-
 const ProjectIssue = props => {
   const classes = useStyles();
 
-  
-const [priorities, setPriorities] = useState([]);
+  const [priorities, setPriorities] = useState([]);
 
- 
-const obj = {
-  Medium: "yellow",
-  High: "red",
-  Low: "blue"
-}
+  const obj = {
+    Medium: "yellow",
+    High: "red",
+    Low: "blue"
+  }
 
   useEffect(() => {
+    // console.clear();
+    // console.log(props)
+    // console.log(props.id);
     IssueAPI.getById(`${props.id}`)
       .then((res) => {
-        console.log('this is our useEffect', res);
+        // console.log('this is our useEffect', res);
         setPriorities(props.priority)
         // if res.data.priority = 'High'
       })
@@ -88,10 +66,8 @@ const obj = {
 
     , [])
 
-    console.log(props, 'this is props')
+  return (
 
-  return(
-    
     <Card className={classes.root}>
       <CardContent>
         <Grid
@@ -99,26 +75,19 @@ const obj = {
           direction="row"
           justifyContent="flex-start"
           alignItems="flex-start"
-          
         >
           <IssueDetail />
-          
-          <Grid item className={classes.center} xs={12}>
-          
-            <Icon style={{ color: obj[props.priority] }} >radio_button_unchecked</Icon>
 
-              {props.title}
-              
-              {props.author}
-              
-              
-              
-            
+          <Grid item className={classes.center} xs={12}>
+            <Icon className={classes.priority} style={{ color: obj[props.priority] }} >radio_button_unchecked</Icon>
+
+            {props.title}
+
           </Grid>
         </Grid>
       </CardContent>
     </Card>
-   
+
   )
 }
 

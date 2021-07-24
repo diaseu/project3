@@ -196,11 +196,11 @@ const ProjectCard = props => {
 
   const handleUpdateIssue = () => {
     IssueAPI.update(id, {
-      status: 'In Progress',
-      priority: 'Medium'
+      status: 'Closed',
+      priority: 'Low'
     })
       .then(res => {
-        console.log('issue allegedly updated', res)
+        console.log('issue allegedly updated - ProjectIssueModal', res)
       })
       .catch(err => console.log('Problem in the ProjectIssueModal', err))
     // window.location.reload()

@@ -22,10 +22,9 @@ const useStyles = makeStyles({
     
   },
   priority: {
-    fontSize: 12,
+    fontSize: 13,
     textAlign: 'center',
     marginRight: 10,
-    color: 'red',
     fontWeight: '800'
   },
 });
@@ -53,7 +52,7 @@ const Issue = props => {
         >
 
           <Grid item className={classes.issue} xs={12}>
-            <Icon style={{ color: obj[props.priority] }}>radio_button_unchecked</Icon>
+            <Icon className={classes.priority} style={{ color: obj[props.priority] }}>radio_button_unchecked</Icon>
           
             {props.title}
 
