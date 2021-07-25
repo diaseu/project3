@@ -115,7 +115,7 @@ const Dashboard = () => {
                 key={projectData._id}
                 title={projectData.title}
                 description={projectData.description}
-                author={projectData.owner.name}
+                owner={projectData.owner.name}
               />
             </Link>
           </Grid>

@@ -3,6 +3,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import FaceIcon from '@material-ui/icons/Face';
@@ -44,16 +45,16 @@ const ProjectCard = props => {
         <Typography className="description" color="textSecondary">
           {props.description}
         </Typography>
+        
+      </CardContent>
+      <CardActions>
         <Chip
           icon={<FaceIcon />}
           size='small'
           className='ownerName'
-          label={props.author}
+          label={props.owner}
         />
-      </CardContent>
-      {/* <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions> */}
+      </CardActions>
     </Card>
   )
 }

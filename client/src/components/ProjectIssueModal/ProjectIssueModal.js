@@ -17,6 +17,7 @@ import Spacer from '../../components/Spacer'
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Card from '@material-ui/core/Card';
 import ReplyAPI from '../../utils/ReplyAPI'
 import IssueAPI from '../../utils/IssueAPI'
 
@@ -107,6 +108,12 @@ const useStyles = makeStyles({
   },
   hidden: {
     display: 'none'
+  },
+  comments: {
+    backgroundColor: 'rgba(0,0,0,0.1)',
+    marginBottom: 12,
+    paddingLeft: 12,
+    paddingRight: 12,
   }
 });
 
@@ -170,14 +177,10 @@ const ProjectCard = props => {
     })
   }
 
-
-
   // Update Issue
   // console.log('this should be props.id in ProjectIssueModal', props.id)
   // console.log('this is id from ProjectIssueModal', typeof(id))
   // let id = mongoose.Types.ObjectId(props.id)
-
-
 
 
   // priority
@@ -212,9 +215,9 @@ const ProjectCard = props => {
         setReplies(res.data.replies)
       })
       .catch(e => console.error(e))
-  }
+      }
     // eslint-disable-next-line
-    , [])
+  , [])
 
 
   return (
@@ -242,6 +245,21 @@ const ProjectCard = props => {
               />
               <Button color="primary" variant="contained" onClick={submitIssueReply}>Submit</Button>
               <Spacer y={4} />
+
+              
+                {
+                  replies && replies.map((index, key) => {
+                    return (
+                      <Card className={classes.comments}>
+                        <div key={key}>
+                          <p>{index.text}</p>
+                        </div>
+                      </Card>
+                    )
+                  })
+                }
+              
+
             </Grid>
             <Grid className={classes.issueright} item xs={12} lg={3}>
               <Typography className={classes.title} color="textSecondary">
@@ -314,16 +332,7 @@ const ProjectCard = props => {
                 </Select>
               </FormControl>
               <Spacer y={4} />
-              {
-                replies && replies.map((index, key) => {
-                  return (
-                    <div key={key}>
-                      <p>{index.text}</p>
-                    </div>
-
-                  )
-                })
-              }
+              
 
               <Typography className={classes.title} color="textSecondary">
                 Ask the Community

@@ -30,16 +30,34 @@ router.post('/issues', passport.authenticate('jwt'), (req, res) => {
     author: req.user._id
   })
     .then(issue => {
-      User.findByIdAndUpdate(req.user._id, { $push: { issues: issue._id } })
-        .then(() => {
-          Project.findByIdAndUpdate(req.body.pid, { $push: { issues: issue._id } })
-            .then(() => res.sendStatus(200))
-            .catch(err => console.log(err))
+      Project.findByIdAndUpdate(req.body.pid, { $push: { issues: issue._id } })
+        .then(data => {
+          console.log('data.members', data.members)
+          let members = data.members
+          for (const member of members) {
+            User.findByIdAndUpdate(member, { $push: { issues: issue._id } })
+              .then(() => console.log('Issue added to each member of the project!'))
+              .catch(err => console.log(err))
+          }
         })
         .catch(err => console.log(err))
     })
+
+
+    // original code to add only issues made by me to user's issues
+      // User.findByIdAndUpdate(req.user._id, { $push: { issues: issue._id } })
+      //   .then(() => {
+      //     Project.findByIdAndUpdate(req.body.pid, { $push: { issues: issue._id } })
+      //       .then(() => res.sendStatus(200))
+      //       .catch(err => console.log(err))
+      //   })
+      //   .catch(err => console.log(err))
+    // })
     .catch(err => console.log(err))
 })
+
+
+// Issue.create -> Project.findByIDAndUpdate to add issue to the project -> Project.findById( get members -> for each member User.findByIdAndUpdate (req.user._id, { $push: { issues: issue._id } }))
 
 //update issue
 router.put(`/issues/:id`, passport.authenticate('jwt'), (req, res) => {
