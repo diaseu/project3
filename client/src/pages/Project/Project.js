@@ -94,6 +94,22 @@ const Project = () => {
     setStatus({ project })
   }
 
+  const [archived, setArchived] = useState({ isLoading: true });
+
+  const handleIssueArchive = _id => {
+    let issues = status.project.issues
+
+    issues = issues.map(issue => {
+      if (_id === issue._id) {
+        issue.isArchived = !issue.isArchived
+      }
+      return issue
+    })
+    const project = status.project
+    project.issues = issues
+    setArchived({ project })
+  }
+
   //  Modal: Edit Project
   const [openEditProject, setEditProjectOpen] = useState(false);
   const handleEditProjectOpen = () => {
@@ -134,7 +150,8 @@ const Project = () => {
         const project = res.data
         project.issues = res.data.issues.map(issue => ({
           ...issue,
-          isOpen: false
+          isOpen: false,
+          isArchived: false
         }))
         setStatus({ project })
       })
