@@ -46,9 +46,9 @@ const ProjectIssue = props => {
   const [priorities, setPriorities] = useState([]);
 
   const obj = {
-    Medium: "yellow",
+    Medium: "#f79d0c",
     High: "red",
-    Low: "blue"
+    Low: "#14a7fc"
   }
 
   useEffect(() => {
