@@ -23,9 +23,6 @@ import IssueAPI from '../../utils/IssueAPI'
 import List from '@material-ui/core/List';
 import Paper from '@material-ui/core/Paper';
 
-let mongoose = require('mongoose')
-
-
 const useStyles = makeStyles({
   root: {
     minWidth: 175,
@@ -138,7 +135,6 @@ const ProjectCard = props => {
   useEffect(() => {
     IssueAPI.getById(props.id)
       .then((res) => {
-        // console.log('this is useEffect in ProjectIssueModal: 135', res);
         setReplies(res.data.replies)
       })
       .catch(e => console.error(e))
@@ -161,14 +157,10 @@ const ProjectCard = props => {
   const handleClose = () => {
     setStatusOpen(false);
   };
-  
-  
-  // console.log('this is props in ProjectIssueModal', props)
 
   const [issueReply, setIssueReply] = useState("");
 
   function handleIssueReply(e) {
-    // console.log(e.target.value, 'issue reply in ProjectIssueModal')
     setIssueReply(e.target.value)
   }
 
@@ -179,12 +171,6 @@ const ProjectCard = props => {
     })
   }
 
-  // Update Issue
-  // console.log('this should be props.id in ProjectIssueModal', props.id)
-  // console.log('this is id from ProjectIssueModal', typeof(id))
-  // let id = mongoose.Types.ObjectId(props.id)
-
-
   // priority
   const [issuePriority, setIssuePriority] = useState(props.priority);
   const handlePriorityChange = ({ target }) => {
@@ -194,7 +180,6 @@ const ProjectCard = props => {
   const [issueStatus, setIssueStatus] = useState(props.status);
 
   function handleIssuePriority(e) {
-    // console.log(e.target.value)
     setIssuePriority(e.target.value)
   }
 
@@ -213,7 +198,6 @@ const ProjectCard = props => {
   useEffect(() => {
     IssueAPI.getById(props.id)
       .then((res) => {
-        // console.log('this is our res line: 135', res);
         setReplies(res.data.replies)
       })
       .catch(e => console.error(e))
