@@ -139,7 +139,17 @@ const EditProjectModal = props => {
     let doomedProject = params.projectId
     // console.log(doomedProject, 'this project is going to be deleted')
     ProjectAPI.delete(params.projectId)
+    window.location = '/'
     }
+  const [open, setOpen] = React.useState (false);
+
+  const handleClickOpen = () =>{
+    setOpen (true)
+  }
+
+  const handleClose = () =>{
+    setOpen (false)
+  }
 
   return (
     <Dialog maxWidth='sm' fullWidth open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
@@ -211,10 +221,31 @@ const EditProjectModal = props => {
               variant="contained"
               color="secondary"
               className={classes.ask}
-              onClick={handleDeleteProject}
+              onClick={handleClickOpen}
             >
               Delete
             </Button>
+            <Dialog
+              open={open}
+              onClose={props.handleClose}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">{"Do You Wish To Delete?"}</DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                  Warning! Once you delete, there is no coming back.
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                  Disagree
+                </Button>
+                <Button onClick={handleDeleteProject} color="primary" autoFocus>
+                  Agree
+                </Button>
+              </DialogActions>
+            </Dialog>
           </Grid>
           <Grid item xs={12} md={5}>&nbsp;</Grid>
           <Grid item xs={12} md={2} className={classes.right}>
