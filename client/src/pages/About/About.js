@@ -77,7 +77,7 @@ export default function About() {
         <Container maxWidth="lg">
             <Card className={classes.herocontent}>
             <Typography component="h1" variant="h2" align="center" className={classes.title} color="textPrimary">
-              About  <img src="https://i.imgur.com/Q0IAOwI.png" alt="" className={classes.zapbrand} />
+              About  <img src="https://i.imgur.com/Q0IAOwI.png" alt="" style={{ maxHeight: '5vh' }} />
             </Typography>
             <Typography variant="body1" align="left" color="textSecondary" paragraph>
               Zap is an app created to combine the project management and bug tracking aspects of app development. You can ask for help both within your group or ask the community. Our goal is to streamline the process of app development by giving you one place to manage projects and ask any and all questions related to development. Let's get Zapping!
