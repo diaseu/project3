@@ -211,6 +211,7 @@ const ProjectCard = props => {
     // console.log(e.target.value, 'this is target')
   }
  
+  
   const handleIssuePublic = () => {
     setIssuePublic(true)
     IssueAPI.update(props.id, {
@@ -382,8 +383,7 @@ const handleDeleteOpen = () => {
                 color="secondary"
                 className={classes.ask}
                 endIcon={<Icon>expand_more</Icon>}
-                
-                onClick={handleIssuePublic}
+                onClick={handleClickOpen}
               >
                 Ask the Community
               </Button>
@@ -403,7 +403,7 @@ const handleDeleteOpen = () => {
                   <Button onClick={handleClose} color="primary">
                     Disagree
                   </Button>
-                  <Button onClick={handleRefresh} color="primary" autoFocus>
+                  <Button onClick={handleIssuePublic} color="primary" autoFocus>
                     Agree
                   </Button>
                 </DialogActions>
