@@ -2,6 +2,14 @@ const router = require('express').Router()
 const { Issue, Reply, Project, User } = require('../models')
 const passport = require('passport')
 
+// get all issues that has isPublic is true
+router.get('/issues/public', (req, res) => {
+  Project.find({})
+    .populate('author')
+    .then(issues => res.json(issues))
+    .catch(err => console.log(err))
+})
+
 //get issue by id
 router.get('/issues/:id', passport.authenticate('jwt'), (req, res) => {
   Issue.findById(req.params.id, {new: true})
@@ -42,18 +50,36 @@ router.post('/issues', passport.authenticate('jwt'), (req, res) => {
     isPublic: req.body.isPublic,
     status: req.body.status,
     priority: req.body.priority,
+    pid: req.body.pid,
     //expected pid here (req.body.pid)
     author: req.user._id
   })
     .then(issue => {
-      User.findByIdAndUpdate(req.user._id, { $push: { issues: issue._id } })
-        .then(() => {
-          Project.findByIdAndUpdate(req.body.pid, { $push: { issues: issue._id } })
-            .then(() => res.sendStatus(200))
-            .catch(err => console.log(err))
+      // note: this method only works to add to the poster too because
+      // atm, by default, the project owner is also a Member
+      Project.findByIdAndUpdate(req.body.pid, { $push: { issues: issue._id } })
+        .then(data => {
+          console.log('data.members', data.members)
+          let members = data.members
+          for (const member of members) {
+            User.findByIdAndUpdate(member, { $push: { issues: issue._id } })
+              .then(() => console.log('Issue added to each member of the project!'))
+              .catch(err => console.log(err))
+          }
         })
         .catch(err => console.log(err))
     })
+
+
+    // original code to add only issues made by me to user's issues
+      // User.findByIdAndUpdate(req.user._id, { $push: { issues: issue._id } })
+      //   .then(() => {
+      //     Project.findByIdAndUpdate(req.body.pid, { $push: { issues: issue._id } })
+      //       .then(() => res.sendStatus(200))
+      //       .catch(err => console.log(err))
+      //   })
+      //   .catch(err => console.log(err))
+    // })
     .catch(err => console.log(err))
 })
 

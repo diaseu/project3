@@ -1,8 +1,6 @@
 import './ProjectIssueModal.css'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
@@ -15,13 +13,15 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Icon from '@material-ui/core/Icon';
 import FaceIcon from '@material-ui/icons/Face';
-import AddIcon from '@material-ui/icons/Add';
 import Spacer from '../../components/Spacer'
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
+import Card from '@material-ui/core/Card';
+import ReplyAPI from '../../utils/ReplyAPI'
+import IssueAPI from '../../utils/IssueAPI'
+import List from '@material-ui/core/List';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles({
   root: {
@@ -107,12 +107,26 @@ const useStyles = makeStyles({
   },
   hidden: {
     display: 'none'
+  },
+  comments: {
+    backgroundColor: 'rgba(0,0,0,0.1)',
+    marginBottom: 12,
+    paddingLeft: 12,
+    paddingRight: 12,
+    paddingTop: 8,
+    paddingBottom: 8,
   }
 });
 
 
+
+
 const ProjectCard = props => {
   const classes = useStyles();
+
+
+  // console.log('this is props in ProjectIssueModal', props)
+
 
   const [issueState, setIssueState] = useState({
     title: '',
@@ -122,25 +136,127 @@ const ProjectCard = props => {
     issue: []
   })
 
-  console.log(props)
 
   // For the Status dropdown
-  const [openStatus, setStatusOpen] = useState(false);
-
+  const [openStatus, setStatusOpen] = useState(false); 
+  
   const handleInputChange = ({ target }) => {
     setIssueState({ ...issueState, [target.name]: target.value })
+  }
+  
+  const [open, setOpen] = useState(false);
+
+  const [deleteConfirm, setDeleteConfirm] = useState(false)
+ 
+  const handleClickOpen = () => {
+    setOpen(true)
   }
 
   const handleStatusOpen = () => {
     setStatusOpen(true);
   };
 
+
+  
   const handleClose = () => {
     setStatusOpen(false);
+    setOpen(false)
+    setDeleteConfirm(false)
   };
 
+  const [issueReply, setIssueReply] = useState("");
+
+  function handleIssueReply(e) {
+    setIssueReply(e.target.value)
+  }
+
+  function submitIssueReply(e) {
+    ReplyAPI.create({
+      text: issueReply,
+      pid: props.id
+    })
+    window.location.reload()
+  }
+
+  
+  const [issueStatus, setIssueStatus] = useState(props.status);
+
+  // priority
+  const [issuePriority, setIssuePriority] = useState(props.priority);
+  // const handlePriorityChange = ({ target }) => {
+  //   setIssuePriority({ ...issuePriority, [target.name]: target.value })
+  // }
+
+  
+  function handleIssuePriority(e) {
+    setIssuePriority(e.target.value)
+    
+  }
+  
+  function handleIssueStatus(e) {
+    setIssueStatus(e.target.value)
+    // console.log(e.target.value, 'this is target')
+  }
+  
+  
+const handlePublicTrue = () => {
+  setIssuePublic(true)
+  console.clear();
+  console.log('this is the issuePublic before update', issuePublic)
+}
+
+  const [issuePublic, setIssuePublic] = useState(true);
+
+  const handleGoPublic = () => {
+    IssueAPI.update(props.id, {
+      isPublic: issuePublic
+    })
+      .then(res => {
+        console.clear();
+        console.log('status priority updated - ProjectIssueModal', res)
+        handleClose()
+      })
+      .catch(err => console.log('Problem in the ProjectIssueModal', err))
+    // window.location.reload()
+    
+  }
+
+
+  const handleUpdateIssue = () => {
+    IssueAPI.update(props.id, {
+      status: issueStatus,
+      priority: issuePriority
+    })
+      .then(res => {
+        console.log('status priority updated - ProjectIssueModal', res)
+      })
+      .catch(err => console.log('Problem in the ProjectIssueModal', err))
+    window.location.reload()
+  }
+
+  const [replies, setReplies] = useState([]);
+    
+    useEffect(() => {
+      IssueAPI.getById(props.id)
+      .then((res) => {
+        setReplies(res.data.replies)
+        console.log('check out replies', res.data.replies)
+      })
+      .catch(e => console.error(e))
+      }
+    // eslint-disable-next-line
+  , [])
+
+  const handleRefresh= () =>{
+    window.location.reload()
+  }
+ 
+const handleDeleteOpen = () => {
+  setDeleteConfirm(true)
+}
+
   return (
-    <Dialog maxWidth='lg' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
+    <Dialog maxWidth='lg' fullWidth open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title" className='dialogtitle'>
         {props.title}
       </DialogTitle>
@@ -149,8 +265,8 @@ const ProjectCard = props => {
         <DialogContentText>
           <Grid container>
             <Grid className={classes.issueleft} item xs={12} lg={9}>
-              
-              <Typography className={classes.mb} variant="p" component="p">
+
+              <Typography className={classes.mb}>
                 {props.body}
               </Typography>
 
@@ -160,12 +276,30 @@ const ProjectCard = props => {
                 label="Comment"
                 type="comment"
                 fullWidth
+                onChange={handleIssueReply}
               />
-              <Button color="primary" variant="contained">Submit</Button>
+              <Button color="primary" variant="contained" onClick={submitIssueReply}>Submit</Button>
               <Spacer y={4} />
+              <Paper style={{ maxHeight: 200, overflow: 'auto', boxShadow: 'none'}}>
+                <List >
+              {
+                replies && replies.map((index, key) => {
+                  return (
+                    <div key={key}>
+                      <Card className={classes.comments}>
+                      {index.author.name}: {index.text}
+                      </Card>
+                    </div>
+                  )
+                })
+              }              
+
+                </List>
+              </Paper>
             </Grid>
             <Grid className={classes.issueright} item xs={12} lg={3}>
-              <Typography className={classes.title} color="textSecondary" gutterBottom>
+              <Spacer y={1}/>
+              <Typography className={classes.title} color="textSecondary">
                 Posted by
               </Typography>
               <Chip
@@ -177,56 +311,54 @@ const ProjectCard = props => {
               <Spacer y={2} />
 
 
-              <Typography className={classes.title} color="textSecondary" gutterBottom>
+              <Typography className={classes.title} color="textSecondary">
                 Status
               </Typography>
-              <Button
+              {/* <Button
                 variant="contained"
                 color="primary"
-                onClick={handleInputChange}
+                onChange={handleInputChange}
                 endIcon={<Icon>expand_more</Icon>}
                 onClick={handleStatusOpen}
               >
                 {props.status}
-              </Button>
-
-              <FormControl className={classes.formControl}>
+              </Button> */}
+              <p><FormControl className={classes.formControl}>
                 <Select
                   id="status"
-                  defaultValue="Open"
-                  value={issueState.issue.status}
-                  onChange={handleInputChange}
+                  defaultValue={props.status}
+                  onChange={handleIssueStatus}
                   fullWidth
                   open={openStatus}
                   onClose={handleClose}
                   onOpen={handleStatusOpen}
-                  variant="filled"
-                  className={classes.hidden}
+                // className={classes.hidden}
                 >
                   <MenuItem value="Open">
-                     Open
+                    Open
                   </MenuItem>
                   <MenuItem value="In Progress">
-                     In Progress</MenuItem>
+                    In Progress</MenuItem>
                   <MenuItem value="Closed">
-                     Closed</MenuItem>
+                    Closed</MenuItem>
                 </Select>
-              </FormControl>
+              </FormControl></p>
+
               <Spacer y={2} />
 
 
-              <Typography color="textSecondary" gutterBottom>
+              <Typography color="textSecondary">
                 Priority
               </Typography>
 
               <FormControl className={classes.formControl}>
                 <Select
                   id="priority"
-                  defaultValue="Medium"
-                  value={issueState.issue.priority}
-                  onChange={handleInputChange}
+                  defaultValue={props.priority}
+                  onChange={handleIssuePriority}
                   fullWidth
-                >
+                > 
+
                   <MenuItem value="High">
                     <Icon className={classes.highpriority}>radio_button_unchecked</Icon> High
                   </MenuItem>
@@ -235,32 +367,74 @@ const ProjectCard = props => {
                   <MenuItem value="Low">
                     <Icon className={classes.lowpriority}>radio_button_unchecked</Icon> Low</MenuItem>
                 </Select>
+               
               </FormControl>
               <Spacer y={4} />
-
-
-              <Typography className={classes.title} color="textSecondary" gutterBottom>
+              <Typography className={classes.title} color="textSecondary">
                 Ask the Community
               </Typography>
               <Button
                 variant="contained"
                 color="secondary"
                 className={classes.ask}
-                endIcon={<Icon>expand_more</Icon>}
+                onClick={handleClickOpen}
               >
                 Ask the Community
               </Button>
+              <Dialog
+                open={open}
+                onClose={props.handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">{"Are You Sure You Want To Ask The Community"}</DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    Once you confirm, this issue will be public in the community-issues page.
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose} color="primary">
+                    Keep Private
+                  </Button>
+                  <Button onClick={handleGoPublic} color="primary" variant="contained" autoFocus>
+                    Go Public
+                  </Button>
+                </DialogActions>
+              </Dialog>
             </Grid>
           </Grid>
-
         </DialogContentText>
-
       </DialogContent>
       <DialogActions>
+        <Button onClick={handleDeleteOpen} color="primary">
+          Delete
+        </Button>
+        <Dialog
+          open={deleteConfirm}
+          onClose={props.handleClose}
+          aria-labelledby="delete"
+          aria-describedby="delete"
+        >
+          <DialogTitle id="delete">{"Do You Wish To Delete?"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="delete">
+              Once you delete, this issue will be permanently deleted.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Disagree
+            </Button>
+            <Button onClick={handleRefresh} color="primary" autoFocus>
+              Agree
+            </Button>
+          </DialogActions>
+        </Dialog>
         <Button onClick={props.handleClose} color="primary">
           Cancel
         </Button>
-        <Button onClick={props.handleClose} color="primary">
+        <Button onClick={handleUpdateIssue} color="primary">
           Save
         </Button>
       </DialogActions>

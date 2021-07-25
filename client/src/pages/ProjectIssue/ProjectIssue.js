@@ -14,6 +14,7 @@ import EditProjectModal from '../../components/EditProjectModal'
 import AddIssue from '../../components/AddIssue'
 import AddMember from '../../components/AddMember'
 import ProjectAPI from '../../utils/ProjectAPI'
+// eslint-disable-next-line
 import {
   Link,
   useParams
@@ -37,7 +38,6 @@ const useStyles = makeStyles({
     borderLeft: '1px solid #ccc',
   },
   members: {
-    // paddingLeft: 20,
     borderLeft: '1px solid #fff',
   },
   issuerightchip: {
@@ -106,7 +106,7 @@ const Project = () => {
   useEffect(() => {
     ProjectAPI.getById(`${params.projectId}`)
       .then(res => {
-        console.log(res)
+        // console.log(res)
         setStatus({ project: res.data })
       })
       .catch(err => setStatus({ err: err }))
@@ -131,7 +131,6 @@ const Project = () => {
               label="Edit Project"
               variant="outlined"
               size='small'
-              onClickEditProject={() => setEditProjectOpen(true)}
             />
             </Link>
             <EditProjectModal 
@@ -144,7 +143,7 @@ const Project = () => {
           <Grid container>
             {/* Project Owner Chip */}
             <Grid item xs={12} md={3}>
-              <span className={classes.title} color="textSecondary" gutterBottom>
+              <span className={classes.title} color="textSecondary">
                 Project Lead <Chip
                   icon={<FaceIcon />}
                   label={project.owner.name}
@@ -153,7 +152,7 @@ const Project = () => {
               </span>
             </Grid>
             {/* Project Members Chips */}
-            <Grid itemxs={12} md={9}>
+            <Grid item xs={12} md={9}>
               <span className="members">Project Members <Chip
                 icon={<FaceIcon />}
                 clickable
@@ -178,7 +177,6 @@ const Project = () => {
                     className={classes.addbtn}
                     label="Add Member"
                     variant="outlined"
-                    onClickAddMember={() => setAddMemberOpen(true)}
                   />
                 </Link>
                 <AddMember
@@ -193,7 +191,7 @@ const Project = () => {
           <div className={classes.column}>
             <Card className={classes.columntest}>
               <CardContent>
-                <Typography variant="p" component="p">
+                <Typography>
                  {project.description}
                 </Typography>
               </CardContent>
@@ -213,7 +211,6 @@ const Project = () => {
               label="Add Issue"
               // variant="outlined"
               color="primary"
-              onClickAddIssue={() => setAddIssueOpen(true)}
             />
           </Link>
           <AddIssue

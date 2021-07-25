@@ -7,6 +7,10 @@ const Issue = new Schema({
   isPublic: Boolean,
   status: String,
   priority: String,
+  pid: {
+    type: Schema.Types.ObjectId,
+    ref: 'Project'
+  },
   author: {
     type: Schema.Types.ObjectId,
     ref: 'User'
@@ -15,6 +19,6 @@ const Issue = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Reply'
   }]
-})
+}, { timestamps: true })
 
 module.exports = model('Issue', Issue)

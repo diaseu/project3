@@ -1,13 +1,13 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
 import FaceIcon from '@material-ui/icons/Face';
-import Spacer from '../Spacer'
+// eslint-disable-next-line
+import {
+  Link
+} from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -23,7 +23,7 @@ const useStyles = makeStyles({
     fontSize: 12,
   },
   pos: {
-    marginBottom: 12,
+    marginBottom: 15,
   },
   secondary: {
     fontSize: 11,
@@ -32,21 +32,30 @@ const useStyles = makeStyles({
 });
 
 
-const IssueDetail = () => {
+const IssueDetail = props => {
   const classes = useStyles();
 
   return(
     <>
-      <Grid item xs={9}>
+      <Grid item xs={6} md={9}>
         <Typography className={classes.pos} color="textSecondary">
-          <Chip label="Apollo Titus" size="small" component="a" href="/project" clickable />
+          <Link to={`/project/${props.pid}`}>
+            <Chip 
+              label={'Project '+props.project} 
+              size="small" 
+              component="a" 
+              clickable 
+              />
+            </Link>
         </Typography>
       </Grid>
-      <Grid item xs={3}>
+      <Grid item xs={6} md={3}>
         <Typography className={classes.secondary} color="textSecondary">
           posted by <Chip
-            label="Jake Doe"
+            // icon={<FaceIcon />}
+            label={props.author}
             variant="outlined"
+            size="small"
           />
         </Typography>
       </Grid>

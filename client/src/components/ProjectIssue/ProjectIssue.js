@@ -1,34 +1,43 @@
-import React from 'react';
+import './ProjectIssue.css'
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Icon from '@material-ui/core/Icon';
 import IssueDetail from '../IssueDetail'
+import IssueAPI from '../../utils/IssueAPI'
+// eslint-disable-next-line
 import {
   Route,
-  Link
+  Link,
+  useParams
 } from "react-router-dom";
+
 
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
     marginBottom: 12,
+    borderLeft: '3px solid #cccccc',
+    paddingBottom: 6,
   },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
+  projectissue: {
+    paddingTop: 10,
+    color: '#ccc',
+  },
+  title: {
+    fontWeight: 500,
+    fontSize:  15 ,
   },
   secondary: {
     fontSize: 11,
     textAlign: 'right',
   },
   priority: {
-    fontSize: 12,
+    fontSize: 13,
     textAlign: 'center',
     marginRight: 10,
-    color: 'red',
     fontWeight: '800'
   },
   center: {
@@ -36,32 +45,52 @@ const useStyles = makeStyles({
     justifyContent: "center",
     verticalAlign: 'center',
   },
+  body: {
+    fontSize: 11,
+    color: 'rgba(0,0,0,0.3)',
+    marginLeft: 12,
+  },
+  gray: {
+    color: ''
+  }
 });
-
 
 const ProjectIssue = props => {
   const classes = useStyles();
 
-  return(
-    <Card className={classes.root}>
-      <CardContent>
+  const obj = {
+    Medium: "#f79d0c",
+    High: "red",
+    Low: "#14a7fc"
+  }
+
+  return (
+
+    <Card className={classes.root} style={{ borderColor: obj[props.priority] }}>
+      <CardContent className={classes.projectissue}>
         <Grid
           container
           direction="row"
           justifyContent="flex-start"
           alignItems="flex-start"
+          className="issuecard"
         >
-          <IssueDetail />
-          
-          <Grid item className={classes.center} xs={12}>
-            <Icon className={classes.priority}>radio_button_unchecked</Icon>
-            
-              {props.title}
-            
+          <IssueDetail 
+            author={props.author}
+            project={props.project.title}
+            pid={props.project._id}
+          />
+
+          <Grid item className="title" xs={12}>
+            <Icon className={classes.priority} style={{ color: obj[props.priority] }} >radio_button_unchecked</Icon>
+
+            {props.title} <i className="body">{props.body}</i>
+
           </Grid>
         </Grid>
       </CardContent>
     </Card>
+
   )
 }
 

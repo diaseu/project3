@@ -12,7 +12,7 @@ const Issue = {
       Authorization: `Bearer ${localStorage.getItem('token')}`
     }
   }),
-  update: issue => axios.put('/api/issues', issue, {
+  update: (id, issue) => axios.put(`/api/issues/${id}`, issue, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`
     }

@@ -80,12 +80,14 @@ function App() {
 
   useEffect(() => {
     getMe()
+    // eslint-disable-next-line
   }, [])
 
+  // eslint-disable-next-line
   const updateMe = () => {
     User.me()
       .then(({ data: me }) => {
-        // console.log(me)
+        console.log('this is me from App.js', me)
         setMeState({ me, isLoggedIn: true })
       })
       .catch(err => {

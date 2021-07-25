@@ -44,6 +44,7 @@ const Projects = () => {
     UserAPI.me()
       .then(data => {
         setProjectState(data.data.projects)
+        console.log('this is projectState in Projects.js', projectState)
       })
       .catch(err => console.log(err))
   }, [])
@@ -59,8 +60,10 @@ const Projects = () => {
             {/* <Link to={`/projects/${id}`}> */}
             <Link to={`/project/${projectData._id}`}>
             <ProjectCard 
+              key={projectData._id}
               title={projectData.title}
               description={projectData.description}
+              owner={projectData.owner.username}
             />
           </Link>
           </Grid>
@@ -70,7 +73,6 @@ const Projects = () => {
           <Link onClick={handleNewProjectModalOpen}>
             <MoreCard
               clickable
-              onClickAddIssue={() => setNewProjectModalOpen(true)}
             />
           </Link>
           <NewProjectModal

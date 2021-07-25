@@ -1,3 +1,4 @@
+import './SignUp.css'
 import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -29,27 +30,30 @@ const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
     backgroundImage: 'url(https://cdn.pixabay.com/photo/2016/06/13/22/12/flash-1455285_1280.jpg)',
-    padding: '0!important',
-    margin: '0!important',
+    backgroundSize: '100%',
     width: '100%'
   },
   paper: {
-    marginTop: theme.spacing(1),
+    margin: theme.spacing(2, 4),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(1),
+    borderColor: 'rgba(20, 167, 252, 0.8)'
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    backgroundColor: 'rgba(20, 167, 252, 0.8)',
   },
+  center: {
+    textAlign: 'center',
+  }
 }));
 
 
@@ -62,22 +66,22 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
 
 function handleName(e) {
-  console.log(e.target.value)
+  // console.log(e.target.value)
   setName(e.target.value)
 }
 
   function handleUsername(e) {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     setUsername(e.target.value)
   }
 
   function handleEmail(e) {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     setEmail(e.target.value)
   }
 
   function handlePassword(e) {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     setPassword(e.target.value)
   }
 
@@ -101,23 +105,19 @@ function handleName(e) {
 
   
   return (
-    
-    <Grid container component="main" className={classes.root} align="center" justify="center" alignItems="center">
-      <CssBaseline />
-      <Grid item xs={12} sm={6} md={4} component={Paper} elevation={6} square >
+    <Grid container component="main" className="login" align="center" justify="center" alignItems="center">
+      
+      <Grid item xs={10} sm={8} md={4} component={Paper} elevation={6} square >
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
+        <img src="https://i.imgur.com/Q0IAOwI.png" alt="" className={classes.avatar} style={{ maxHeight: '5vh' }} />
         <Typography component="h1" variant="h5">
-          Sign up
+          Register
         </Typography>
         <form className={classes.form} noValidate onSubmit={(e) => handleSubmit(e)}>
-            <Grid container spacing={2} align="center" justify="center" alignItems="center">
             
-            <Grid item xs={10} sm={10}>
               <TextField
                 variant="outlined"
+                margin="normal"
                 required
                 fullWidth
                 id="name"
@@ -126,10 +126,9 @@ function handleName(e) {
                 autoComplete="name"
                 onChange = {(e) => handleName(e)}
               />
-            </Grid>
-            <Grid item xs={10} sm={10}>
               <TextField
                 variant="outlined"
+                margin="normal"
                 required
                 fullWidth
                 id="userName"
@@ -138,10 +137,9 @@ function handleName(e) {
                 autoComplete="username"
                 onChange={(e) => handleUsername(e)}
               />
-            </Grid>
-            <Grid item xs={10}>
               <TextField
                 variant="outlined"
+                margin="normal"
                 required
                 fullWidth
                 id="email"
@@ -150,10 +148,9 @@ function handleName(e) {
                 autoComplete="email"
                 onChange={(e) => handleEmail(e)}
               />
-            </Grid>
-            <Grid item xs={10}>
               <TextField
                 variant="outlined"
+                margin="normal"
                 required
                 fullWidth
                 name="password"
@@ -163,31 +160,30 @@ function handleName(e) {
                 autoComplete="current-password"
                 onChange={(e) => handlePassword(e)}
               />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign Up
-          </Button>
-          <Grid container justifyContent="flex-center">
-            <Grid item>
+
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Register
+            </Button>
+
+            <Grid item className={classes.center}>
               <Link href="/login" variant="body2">
                   Already have an account? Sign in‎‏‎ ‎‏‎
               </Link>
             </Grid>
-          </Grid>
-        </form>
-      </div>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
+
+            <Box mt={5}>
+              <Copyright />
+            </Box>
+          </form>
+        </div>
       </Grid>
-      </Grid>
+    </Grid>
  
   );
 }

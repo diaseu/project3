@@ -24,8 +24,28 @@ passport.use(new JwtStrategy({
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: process.env.SECRET
 }, ({ id }, cb) => User.findById(id)
-  .populate('projects')
-  .populate('issues')
+  .populate({
+    path: 'projects',
+    model: 'Project',
+    populate: {
+      path: 'owner',
+      model: 'User',
+    }
+  })  
+  .populate({
+    path: 'issues',
+    mode: 'Issue',
+    populate: [{
+      path: 'author',
+      model: 'User',
+      select: 'name'
+    },
+    {
+      path: 'pid',
+      model: 'Project',
+      select: 'title'
+    }]
+  })
   .then(user => cb(null, user))
   .catch(err => cb(err))))
 

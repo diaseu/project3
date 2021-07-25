@@ -1,3 +1,4 @@
+
 import './Project.css';
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,10 +15,13 @@ import AddMember from '../../components/AddMember'
 import AddIssue from '../../components/AddIssue'
 import ProjectIssueModal from '../../components/ProjectIssueModal'
 import ProjectAPI from '../../utils/ProjectAPI'
+// import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import {
   Link,
   useParams
 } from "react-router-dom";
+
+// let mongoose = require('mongoose')
 
 const useStyles = makeStyles({
   root: {
@@ -67,12 +71,18 @@ const useStyles = makeStyles({
 
 const Project = () => {
   const classes = useStyles();
-
+  
   // ====================== Modals ======================
   // Modal: Open an issue 
+  // eslint-disable-next-line
   const [openIssue, setIssueOpen] = useState(false);
+  const [status, setStatus] = useState({ isLoading: true });
+  const params = useParams();
+  const { isLoading, project, err } = status;
+
   const handleIssueOpen = _id => {
     let issues = status.project.issues
+
     issues = issues.map(issue => {
       if (_id === issue._id) {
         issue.isOpen = !issue.isOpen
@@ -82,6 +92,22 @@ const Project = () => {
     const project = status.project
     project.issues = issues
     setStatus({ project })
+  }
+
+  const [archived, setArchived] = useState({ isLoading: true });
+
+  const handleIssueArchive = _id => {
+    let issues = status.project.issues
+
+    issues = issues.map(issue => {
+      if (_id === issue._id) {
+        issue.isArchived = !issue.isArchived
+      }
+      return issue
+    })
+    const project = status.project
+    project.issues = issues
+    setArchived({ project })
   }
 
   //  Modal: Edit Project
@@ -103,31 +129,29 @@ const Project = () => {
   };
   
   // Modal: Close all Modals
+  // eslint-disable-next-line
   const handleClose = () => {
     setIssueOpen(false);
     setAddIssueOpen(false);
     setAddMemberOpen(false);
     setEditProjectOpen(false)
-    
   };
 
   const handleDelete = () => {
     console.info('You clicked the delete icon.');
   };
 
+  // ====================== API CALLS ======================
   // Get Project Info
-  const [status, setStatus] = useState({ isLoading: true });
-  const params = useParams();
-  const { isLoading, project, err } = status;
 
   useEffect(() => {
     ProjectAPI.getById(params.projectId)
       .then(res => {
-        console.log(res.data)
         const project = res.data
         project.issues = res.data.issues.map(issue => ({
           ...issue,
-          isOpen: false
+          isOpen: false,
+          isArchived: false
         }))
         setStatus({ project })
       })
@@ -153,7 +177,6 @@ const Project = () => {
               label="Edit Project"
               variant="outlined"
               size='small'
-              onClickEditProject={() => setEditProjectOpen(true)}
             />
             </Link>
             <EditProjectModal 
@@ -170,7 +193,7 @@ const Project = () => {
           <Grid container className={classes.allmembers}>
             {/* Project Owner Chip */}
             <Grid item xs={12} md={3}>
-              <span className={classes.title} color="textSecondary" gutterBottom>
+              <span className={classes.title} color="textSecondary">
                 Project Lead <Chip
                   icon={<FaceIcon />}
                   label={project.owner.name}
@@ -179,10 +202,11 @@ const Project = () => {
               </span>
             </Grid>
             {/* Project Members Chips */}
-            <Grid itemxs={12} md={9}>
+            <Grid item xs={12} md={9}>
               <span className="members">Project Members 
                 {project.members.map((members) => (
                     <Chip
+                      key={members.id}
                       icon={<FaceIcon />}
                       clickable
                       label={members.name}
@@ -199,7 +223,6 @@ const Project = () => {
                     className={classes.addbtn}
                     label="Add Member"
                     variant="outlined"
-                    onClickAddMember={() => setAddMemberOpen(true)}
                   />
                 </Link>
                 <AddMember
@@ -215,7 +238,7 @@ const Project = () => {
           <div className={classes.column}>
             <Card className={classes.columntest}>
               <CardContent>
-                <Typography variant="p" component="p">
+                <Typography>
                  {project.description}
                 </Typography>
               </CardContent>
@@ -235,7 +258,6 @@ const Project = () => {
               label="Add Issue"
               // variant="outlined"
               color="primary"
-              onClickAddIssue={() => setAddIssueOpen(true)}
             />
           </Link>
           <AddIssue
@@ -245,87 +267,46 @@ const Project = () => {
         </Grid>
 
         {/* Open Issues column */}
-        <Grid className={classes.columngrid} item xs={12} lg={4}>
-          <div className={classes.column}>
-            <Card className={classes.columntest}>
-              <CardContent>
-                <Grid container>
-                  <Grid item xs={6}>
-                    <Typography className={classes.mb} variant="h5" component="h5">
-                      Open
-                    </Typography>
-                  </Grid>
-                </Grid>
+        {['Open', 'In Progress', 'Closed'].map(column => (
+          <Grid key={column} className={classes.columngrid} item xs={12} lg={4}>
+            <div className={classes.column}>
               
-                {project.issues.map((issueData) => (
-                  <>
-                    <Link onClick={() => handleIssueOpen(issueData._id)}>
-                      <Issue 
-                        title={issueData.title}
+                <Card className={classes.columntest}>
+                  <CardContent>
+                    <Typography className={classes.mb} variant="h5" component="h5">
+                      {column}
+                    </Typography>
+                    
+                    {project.issues.filter(issue => issue.status === column).map((issueData) => (
+                      <>
+                        <Link onClick={() => handleIssueOpen(issueData._id)}>
+                          <Issue
+                            title={issueData.title}
+                            body={issueData.body}
+                            priority={issueData.priority}
+                          />
+                        </Link>
+                        
+                        <ProjectIssueModal
+                          key={issueData._id}
+                          id={issueData._id}
+                          title={issueData.title}
+                          body={issueData.body}
+                          status={issueData.status}
+                          priority={issueData.priority}
+                          author={issueData.author.name}
+                          open={issueData.isOpen}
+                          handleClose={() => handleIssueOpen(issueData._id)}
                         />
-                    </Link>
-                    <ProjectIssueModal
-                      key={issueData._id} 
-                      open={issueData.isOpen}
-                      title={issueData.title}
-                      body={issueData.body}
-                      status={issueData.status}
-                      priority={issueData.priority}
-                      author={issueData.author.name}
-                      handleClose={() => handleIssueOpen(issueData._id)}
-                    />
-                  </>
-                ))}
-
+                      </>
+                    ))}
+                  </CardContent>
+                </Card>
               
-                {/* <Link onClick={handleIssueOpen} i={1}>
-                  <Issue />
-                </Link>
-                <ProjectIssueModal 
-                  open={openIssue}
-                  handleClose={handleClose}
-                /> */}
+            </div>
+          </Grid>
+        ))}
 
-              </CardContent>
-            </Card>
-          </div>
-        </Grid>
-        <Grid className={classes.columngrid} item xs={12} lg={4}>
-          <div className={classes.column}>
-            <Card className={classes.columntest}>
-            <CardContent>
-              <Grid container>
-                <Grid item xs={6}>
-                  <Typography className={classes.mb} variant="h5" component="h5">
-                    In Progress
-                  </Typography>
-                </Grid>
-              </Grid>
-              <Issue />
-  
-              
-            </CardContent>
-          </Card>
-          </div>
-        </Grid>
-        <Grid className={classes.columngrid} item xs={12} lg={4}>
-          <div className={classes.column}>
-            <Card className={classes.columntest}>
-              <CardContent>
-                <Grid container>
-                  <Grid item xs={6}>
-                    <Typography className={classes.mb} variant="h5" component="h5">
-                      Closed
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Issue />
-
-
-              </CardContent>
-            </Card>
-          </div>
-        </Grid>
       </Grid>
     </>
   )

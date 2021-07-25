@@ -11,17 +11,11 @@ import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import Dia from '../../images/Snapchat-2077905771_1.jpg'
-import Joon from '../../images/Joon2.jpeg'
-import Mike from '../../images/IMG_0003.PNG'
-// import ContactModal from '../../components/ContactModal'
 import ContactForm from '../../components/ContactForm'
-
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 275,
+    // maxWidth: 275,
   },
   icon: {
     marginRight: theme.spacing(2),
@@ -31,30 +25,46 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: 'Days One',
     fontSize: '64px'
   },
-  heroContent: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6),
+  title: {
+    marginBottom: '6vh',
+    marginTop: '4vh',
+  },
+  herocontent: {
+    padding: theme.spacing(4, 35, 6),
+    marginRight: '2vh',
   },
   heroButtons: {
-    marginTop: theme.spacing(4),
+    marginTop: '7vh',
   },
   media: {
     height: 145,
   },
-  paper: {
-    padding: theme.spacing(1)
+  profile: {
+    borderRadius: 120,
+    marginBottom: 12,
+  },
+  zapbrand: {
+    maxHeight: '5vh',
+  },
+  padright: {
+    marginRight: '2vh',
+  },
+  team: {
+    marginRight: '2vh',
   }
 }));
 
 export default function About() {
   const classes = useStyles();
 
+  // Modal: Open Contact Form
   const [openContact, setContactOpen] = useState(false);
   
   const handleContactOpen = () => {
     setContactOpen(true);
   };
   
+  // eslint-disable-next-line
   const handleClose = () => {
     setContactOpen(false)
   };
@@ -64,42 +74,37 @@ export default function About() {
       <CssBaseline />
       <main>
         {/* Hero unit */}
-        <div className={classes.heroContent}>
-          <Container maxWidth="sm">
-            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-              About <span className={classes.brand}>ZAP</span>
+        <Container maxWidth="lg">
+            <Card className={classes.herocontent}>
+            <Typography component="h1" variant="h2" align="center" className={classes.title} color="textPrimary">
+              About  <img src="https://i.imgur.com/Q0IAOwI.png" alt="" style={{ maxHeight: '5vh' }} />
             </Typography>
-            <Typography variant="h6" align="left" color="textSecondary" paragraph>
+            <Typography variant="body1" align="left" color="textSecondary" paragraph>
               Zap is an app created to combine the project management and bug tracking aspects of app development. You can ask for help both within your group or ask the community. Our goal is to streamline the process of app development by giving you one place to manage projects and ask any and all questions related to development. Let's get Zapping!
             </Typography>
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justifyContent="center">
                 <Grid item>
 
-                  <div>
-                    <Link onClick={handleContactOpen}>
-                      <Button 
-                        variant="outlined" 
-                        color="primary" 
-                        onClickAddIssue={() => setContactOpen(true)}
-                        >
-                        Contact the ZAP team
-                      </Button>
-                    </Link>
-                    <ContactForm 
-                      open={openContact}
-                      handleClose={() => setContactOpen(false)}
-                    />
-                    
-                  </div>
+                  <Link onClick={handleContactOpen}>
+                    <Button 
+                      variant="outlined" 
+                      color="primary" 
+                      >
+                      Contact the ZAP team
+                    </Button>
+                  </Link>
+                  <ContactForm 
+                    open={openContact}
+                    handleClose={() => setContactOpen(false)}
+                  />
 
-                </Grid>
-                <Grid item>
                 </Grid>
               </Grid>
             </div>
+            </Card>
           </Container>
-        </div>
+
         {/* End hero unit */}
         <Box m={3.2} />
 
@@ -113,119 +118,56 @@ export default function About() {
             justify="center"
             alignItems="center"
           >
-            <Grid item xs={12} sm={6} md={3}>
-              <Card className={classes.root}>
-                <CardActionArea>
-                  <CardContent align='center'>
-                    <img src={Dia} width="145" height="145" />
-                    <br />
-                    <br />
-                    <Typography gutterBottom variant="h7" component="h3" align='center'>
-                      Diana Seung
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-                <CardActions style={{ justifyContent: 'center' }}>
-                  <Button size="small" color="primary">
-                    <Link href="https://www.linkedin.com/in/dianaseung/" target="_blank">
-                      LinkedIn
-                    </Link>
-                  </Button>
-                  <Button size="small" color="primary">
-                    <Link href="https://github.com/diaseu" >
-                      GitHub
-                    </Link>
-                  </Button>
-                </CardActions>
-              </Card>
-            </Grid>
-            <br />
-            <Grid item xs={12} sm={6} md={3}>
-              <Card className={classes.root}>
-                <CardActionArea>
-                  <CardContent align='center'>
-                    <img src={Joon} width="145" height="145" />
-                    <br />
-                    <br />
-                    <Typography gutterBottom variant="h7" component="h3" align='center'>
-                      Sle Ahn
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-                <CardActions style={{ justifyContent: 'center' }}>
-                  <Button size="small" color="primary">
-                    <Link href="https://www.linkedin.com/in/sle-ahn" target="_blank">
-                      LinkedIn
-                    </Link>
-                  </Button>
-                  <Button size="small" color="primary">
-                    <Link href="https://github.com/silentsonata92" target="_blank" >
-                      GitHub
-                    </Link>
-                  </Button>
-                </CardActions>
-              </Card>
-            </Grid>
-            <br />
 
-            <Grid item xs={12} sm={6} md={3}>
-              <Card className={classes.root}>
-                <CardActionArea>
-                  <CardContent align='center'>
-                    <img src={'https://i.imgur.com/AlYe5XY.jpeg'} width="145" height="145" />
-                    <br />
-                    <br />
-                    <Typography gutterBottom variant="h7" component="h3" align='center'>
-                      Jake Eckfeldt
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-                <CardActions style={{ justifyContent: 'center' }}>
-                  <Button size="small" color="primary">
-                    <Link href="https://github.com/JEckfeldt" target="_blank" >
-                      GitHub
-                    </Link>
-                  </Button>
-                </CardActions>
-              </Card>
-            </Grid>
-            <br />
-            <Grid item xs={12} sm={6} md={3}>
-              <Card className={classes.root}>
-                <CardActionArea>
-                  <CardContent align='center'>
-                    <img src={Mike} width="145" height="145" align='center'/>
-                    <br />
-                    <br />
-                    <Typography gutterBottom variant="h7" component="h3" align='center'>
-                      Michael Scharf
-                    </Typography>
+            {[{ 
+              name: 'Dia Seung', 
+              url: 'https://i.imgur.com/uRDhPgJ.jpeg', 
+              github: 'diaseu', 
+              linkedin: 'dianaseung'
+            }, {
+              name: 'Michael Scharf',
+              url: 'https://i.imgur.com/ZsTfgsV.png',
+              github: '2017mike',
+              linkedin: 'michael-scharf-398899111'
+            }, {
+              name: 'Sle Ahn',
+              url: 'https://i.imgur.com/M7kQZ7q.jpeg',
+              github: 'silentsonata92',
+              linkedin: 'sle-ahn'
+            }, {
+              name: 'Jake Eckfeldt',
+              url: 'https://i.imgur.com/pju3WaK.png',
+              github: 'JEckfeldt',
+              linkedin: 'JEckfeldt'
+            }].map(column => (
+              <>
 
-                    <Typography variant="body2" color="textSecondary" component="p">
+                <Grid item xs={12} sm={6} md={3}>
+                  <Card className={classes.team}>
+                    <CardContent align='center'>
+                      <img src={column.url} width="165" height="165" alt="" className={classes.profile} />
 
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-                <CardActions style={{ justifyContent: 'center' }}>
-                  <Button size="small" color="primary">
-                    <Link href="https://www.linkedin.com/in/michael-scharf-398899111" target="_blank">
-                      LinkedIn
-                    </Link>
-                  </Button>
-                  <Button size="small" color="primary">
-                    <Link href="https://github.com/2017mike" target="_blank">
-                      GitHub
-                    </Link>
-                  </Button>
-                </CardActions>
-              </Card>
-            </Grid>
+                      <Typography variant="h6" component="h3" align='center'>
+                        {column.name}
+                      </Typography>
+                      <Typography variant="body2" color="textSecondary" component={'span'}>
+                      </Typography>
+                      <Button size="small" color="primary">
+                        <Link href="https://www.linkedin.com/in/dianaseung/" target="_blank">
+                          LinkedIn
+                        </Link>
+                      </Button>
+                      <Button size="small" color="primary">
+                        <Link href="https://github.com/diaseu" target="_blank" >
+                          GitHub
+                        </Link>
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              </>
+            ))}
+
           </Grid>
         </Container>
       </main>

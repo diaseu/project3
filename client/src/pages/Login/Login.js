@@ -1,3 +1,4 @@
+import './Login.css'
 import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -52,7 +53,6 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -60,7 +60,11 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    backgroundColor: 'rgba(20, 167, 252, 0.8)'
   },
+  center: {
+    textAlign: 'center',
+  }
 }));
 
 export default function Login() {
@@ -71,12 +75,12 @@ export default function Login() {
   const [password, setPassword] = useState('');
 
   function handlePassword(e) {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     setPassword(e.target.value)
   }
 
   function handleUsername(e) {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     setUsername(e.target.value)
   }
 
@@ -98,17 +102,13 @@ export default function Login() {
   }
 
   return (
-    <Grid container component="main" className={classes.root} align="center" justify="center" alignItems="center">
+    <Grid container component="main" className="login" align="center" justify="center" alignItems="center">
 
-      
-      {/* <Grid item xs={false} sm={4} md={7} className={classes.image} /> */}
-      <Grid item xs={12} sm={6} md={4} component={Paper} elevation={6} square >
+      <Grid item xs={10} sm={8} md={4} component={Paper} elevation={6} square >
         <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
+          <img src="https://i.imgur.com/Q0IAOwI.png" alt="" className={classes.avatar} style={{ maxHeight: '5vh' }} />
           <Typography component="h1" variant="h5">
-            Sign in
+            Log in
           </Typography>
           <form className={classes.form} noValidate onSubmit={(e) => handleLogin(e)}>
             
@@ -121,7 +121,6 @@ export default function Login() {
               label="username"
               name="username"
               autoComplete="username"
-              autoFocus
               onChange={(e) => handleUsername(e)}
             />
             <TextField
@@ -146,30 +145,22 @@ export default function Login() {
               variant="contained"
               color="primary"
               className={classes.submit}
-
             >
-              Sign In
+              Log In
             </Button>
-            <Grid container>
-              <Grid item xs>
-                {/* <Link href="#" variant="body2">
-                  Forgot password?
-                </Link> */}
-              </Grid>
-              <Grid item>
+
+              <Grid item className={classes.center}>
                 <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
-            </Grid>
+
             <Box mt={5}>
               <Copyright />
             </Box>
           </form>
         </div>
       </Grid>
-
-     
 
     </Grid>
   );

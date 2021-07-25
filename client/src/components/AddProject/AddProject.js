@@ -80,7 +80,7 @@ const SetModal = props => {
   // })
 
   return (
-    <Dialog maxWidth='sm' fullWidth='true' open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
+    <Dialog maxWidth='sm' fullWidth open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">Add Project</DialogTitle>
       <DialogContent>
         <DialogContentText>

@@ -4,6 +4,7 @@ const passport = require('passport')
 
 //get all projects
 // passport.authenticate('jwt'), 
+// this might be useful for admin account :P
 router.get('/projects', (req, res) => {
   Project.find({})
     .populate('owner')
@@ -76,7 +77,10 @@ router.put(`/projects/:id`, passport.authenticate('jwt'), (req, res) => {
 
 //update members for project
 router.put(`/projects/:id/addmember`, passport.authenticate('jwt'), (req, res) => {
-  Project.findByIdAndUpdate(req.params.id, { $addToSet: { members: req.body } }, {new: true})
+  // console.log('update members for project', req.body._id)
+  User.findByIdAndUpdate(req.body._id, { $addToSet: { projects: req.params.id } })
+    .then(() => Project.findByIdAndUpdate(req.params.id, { $addToSet: { members: req.body } }, { new: true })
+  )
     .then(project => res.json(project))
     .catch(err => console.log(err))
 })
