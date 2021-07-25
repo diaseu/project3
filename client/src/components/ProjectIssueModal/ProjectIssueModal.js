@@ -17,11 +17,11 @@ import Spacer from '../../components/Spacer'
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Card from '@material-ui/core/Card';
 import ReplyAPI from '../../utils/ReplyAPI'
 import IssueAPI from '../../utils/IssueAPI'
-
-let mongoose = require('mongoose')
-
+import List from '@material-ui/core/List';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles({
   root: {
@@ -107,6 +107,12 @@ const useStyles = makeStyles({
   },
   hidden: {
     display: 'none'
+  },
+  comments: {
+    backgroundColor: 'rgba(0,0,0,0.1)',
+    marginBottom: 12,
+    paddingLeft: 12,
+    paddingRight: 12,
   }
 });
 
@@ -129,7 +135,6 @@ const ProjectCard = props => {
   useEffect(() => {
     IssueAPI.getById(props.id)
       .then((res) => {
-        // console.log('this is useEffect in ProjectIssueModal: 135', res);
         setReplies(res.data.replies)
       })
       .catch(e => console.error(e))
@@ -152,14 +157,10 @@ const ProjectCard = props => {
   const handleClose = () => {
     setStatusOpen(false);
   };
-  
-  
-  // console.log('this is props in ProjectIssueModal', props)
 
   const [issueReply, setIssueReply] = useState("");
 
   function handleIssueReply(e) {
-    // console.log(e.target.value, 'issue reply in ProjectIssueModal')
     setIssueReply(e.target.value)
   }
 
@@ -170,16 +171,6 @@ const ProjectCard = props => {
     })
   }
 
-
-
-  // Update Issue
-  // console.log('this should be props.id in ProjectIssueModal', props.id)
-  // console.log('this is id from ProjectIssueModal', typeof(id))
-  // let id = mongoose.Types.ObjectId(props.id)
-
-
-
-
   // priority
   const [issuePriority, setIssuePriority] = useState(props.priority);
   const handlePriorityChange = ({ target }) => {
@@ -189,7 +180,6 @@ const ProjectCard = props => {
   const [issueStatus, setIssueStatus] = useState(props.status);
 
   function handleIssuePriority(e) {
-    // console.log(e.target.value)
     setIssuePriority(e.target.value)
   }
 
@@ -208,13 +198,12 @@ const ProjectCard = props => {
   useEffect(() => {
     IssueAPI.getById(props.id)
       .then((res) => {
-        // console.log('this is our res line: 135', res);
         setReplies(res.data.replies)
       })
       .catch(e => console.error(e))
-  }
+      }
     // eslint-disable-next-line
-    , [])
+  , [])
 
 
   return (
@@ -242,8 +231,22 @@ const ProjectCard = props => {
               />
               <Button color="primary" variant="contained" onClick={submitIssueReply}>Submit</Button>
               <Spacer y={4} />
+              <Paper style={{ maxHeight: 200, overflow: 'auto', boxShadow: 'none'}}>
+                <List >
+              {
+                replies && replies.map((index, key) => {
+                  return (
+                    <div key={key}>
+                      <p>&nbsp; {props.author}: {index.text}</p>
+                    </div>
+                  )
+                })
+              }
+                </List>
+              </Paper>
             </Grid>
             <Grid className={classes.issueright} item xs={12} lg={3}>
+              <Spacer y={1}/>
               <Typography className={classes.title} color="textSecondary">
                 Posted by
               </Typography>
@@ -277,7 +280,6 @@ const ProjectCard = props => {
                   open={openStatus}
                   onClose={handleClose}
                   onOpen={handleStatusOpen}
-                  variant="filled"
                 // className={classes.hidden}
                 >
                   <MenuItem value="Open">
@@ -314,17 +316,6 @@ const ProjectCard = props => {
                 </Select>
               </FormControl>
               <Spacer y={4} />
-              {
-                replies && replies.map((index, key) => {
-                  return (
-                    <div key={key}>
-                      <p>{index.text}</p>
-                    </div>
-
-                  )
-                })
-              }
-
               <Typography className={classes.title} color="textSecondary">
                 Ask the Community
               </Typography>
@@ -343,6 +334,9 @@ const ProjectCard = props => {
 
       </DialogContent>
       <DialogActions>
+        <Button onClick='' color="primary">
+          Delete
+        </Button>
         <Button onClick={props.handleClose} color="primary">
           Cancel
         </Button>

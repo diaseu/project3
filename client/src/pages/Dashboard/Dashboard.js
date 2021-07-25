@@ -116,7 +116,7 @@ const Dashboard = () => {
                 key={projectData._id}
                 title={projectData.title}
                 description={projectData.description}
-                owner={projectData.owner.username}
+                owner={projectData.owner.name}
               />
             </Link>
           </Grid>
@@ -143,7 +143,7 @@ const Dashboard = () => {
           </Grid>
           <Spacer y={1} />
 
-          {issueState.filter(issue => issue.status === 'Open').slice(0, 5).map((issueData) => (
+          {issueState.filter(issue => issue.status === 'Open').slice(0, 10).map((issueData) => (
             <>
               <Link onClick={() => handleIssueOpen(issueData._id)}>
                 <ProjectIssue

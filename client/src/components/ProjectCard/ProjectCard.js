@@ -3,9 +3,11 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import FaceIcon from '@material-ui/icons/Face';
+import Spacer from '../Spacer';
 
 const useStyles = makeStyles({
   root: {
@@ -35,25 +37,27 @@ const ProjectCard = props => {
   return (
     <Card className="root">
       <CardContent>
-        <Typography className={classes.title} color="textSecondary">
+        <Typography color="textSecondary" align='center' variant="h6">
           Project
         </Typography>
-        <Typography variant="h6" component="h2">
+        <Typography variant="h3" component="h2" align='center'>
           {props.title}
         </Typography>
-        <Typography className="description" color="textSecondary">
+        
+        <Typography className="description" color="textSecondary" variant="h6" component="h2" align='center'>
           {props.description}
         </Typography>
+        
+      </CardContent>
+      <CardActions>
+        <Spacer y={2}/>
         <Chip
           icon={<FaceIcon />}
           size='small'
           className='ownerName'
           label={props.owner}
         />
-      </CardContent>
-      {/* <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions> */}
+      </CardActions>
     </Card>
   )
 }

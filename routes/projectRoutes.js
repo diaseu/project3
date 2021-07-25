@@ -4,6 +4,7 @@ const passport = require('passport')
 
 //get all projects
 // passport.authenticate('jwt'), 
+// this might be useful for admin account :P
 router.get('/projects', (req, res) => {
   Project.find({})
     .populate('owner')

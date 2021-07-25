@@ -1,6 +1,6 @@
 .root {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   flex-wrap: wrap;
   height: 200px;
   min-width: 175px;
