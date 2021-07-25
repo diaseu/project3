@@ -32,7 +32,14 @@ passport.use(new JwtStrategy({
       model: 'User',
     }
   })  
-  .populate('issues')
+  .populate({
+    path: 'issues',
+    mode: 'Issue',
+    populate: {
+      path: 'author',
+      model: 'User',
+    }
+  })
   .then(user => cb(null, user))
   .catch(err => cb(err))))
 
