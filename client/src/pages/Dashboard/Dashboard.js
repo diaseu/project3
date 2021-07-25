@@ -92,10 +92,11 @@ const Dashboard = () => {
   const [projectState, setProjectState] = useState([])
   const [issueState, setIssueState] = useState([])
 
-  // console.log('issueState', issueState)
+  const [myid, setMyId] = useState('');
 
 
   useEffect(() => {
+    
     UserAPI.me()
       .then(res => {
         console.log('this is res in Dashboard', res)
@@ -105,18 +106,18 @@ const Dashboard = () => {
           isOpen: false,
           openCommunity: false
         }))
-        // console.log('this is project.issues in Dashboard', project.issues)
         setStatus({ project })
         setCommunityIssue({ project })
-        // let issues = Object.values(status.issues)
-        console.log('this is res.data in Dashboard', res.data)
-        // console.log('this is res.data.issues in Dashboard', res.data.issues)
-        console.log('this is res.data.issues._id.timestamp in Dashboard', res.data.issues)
         setProjectState(res.data.projects)
         setIssueState(res.data.issues)
-        console.log(res.data.projects, 'this is projectstate')
+        setMyId(res.data._id)
+        // console.log('this is project.issues in Dashboard', project.issues)
+        // console.log('this is res.data in Dashboard', res.data)
+        // console.log('this is res.data.issues in Dashboard', res.data.issues)
+        // console.log('this is res.data.issues._id.timestamp in Dashboard', res.data.issues)
+        // console.log(res.data.projects, 'this is projectstate')
         // console.log('projectState in Dashboard', projectState)
-        // console.log('issueState in Dashboard', issueState)
+        console.log('issueState in Dashboard', issueState)
       })
       .catch(err => console.log(err))
     // eslint-disable-next-line
@@ -151,7 +152,9 @@ const Dashboard = () => {
       <Spacer y={4} />
       <Grid container>
         <Grid item xs={12} lg={8}>
+
           <Grid container>
+          {/* Project Issues */}
             <Grid item xs={12} lg={8} md={6} sm={6}>
               <Typography variant="h6" component="h2">
                 Project Issues
@@ -175,9 +178,10 @@ const Dashboard = () => {
                   key={issueData.id}
                   id={issueData._id}
                   title={issueData.title}
+                  body={issueData.body}
                   priority={issueData.priority}
                   author={issueData.author.name}
-                  project={issueData.pid.title}
+                  project={issueData.pid}
                   // date={issueData._id.getTimestamp}
                 />
               </Link>
@@ -187,7 +191,7 @@ const Dashboard = () => {
                 id={issueData._id}
                 title={issueData.title}
                 body={issueData.body}
-                owner={issueData.author.name}
+                author={issueData.author.name}
                 status={issueData.status}
                 // authorusername={issueData.author.username}
                 priority={issueData.priority}
@@ -199,24 +203,27 @@ const Dashboard = () => {
           
         </Grid>
         <Spacer x={2} />
-        <Grid item xs={12} lg={3}>
+
+        {/* Community Issues */}
+        <Grid item xs={12} lg={3} md={3} sm={3}>
           <Typography variant="h6" component="h2">
             Help Answer Others' Issues
           </Typography>
 
-          {issueState.filter(issue => issue.isPublic == true && issue.status === 'Open').slice(0, 8).map((issueData) => (
+          {issueState.filter(issue => issue.isPublic == true && issue.status === 'Open' && issue.author._id !== myid).slice(0, 8).map((issueData) => (
             <>
               <Link onClick={() => handleCommunityIssueOpen(issueData._id)}>
                 <CommunityIssueCard
                   key={issueData.id}
                   id={issueData._id}
                   title={issueData.title}
+                  status={issueData.status}
+                  date={issueData.createdAt}
                   author={issueData.author.name}
                   replycount={issueData.replies.length}
                 />
               </Link>
 
-              {/* See Project Page for how to call ProjectIssueModals properly */}
               <CommunityIssueModal
                 id={issueData._id}
                 title={issueData.title}

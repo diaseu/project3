@@ -37,10 +37,10 @@ const ProjectCard = props => {
   return (
     <Card className="root">
       <CardContent>
-        <Typography color="textSecondary" align="center">
+        <Typography color="textSecondary">
           Project
         </Typography>
-        <Typography variant="h4" align="center">
+        <Typography variant="h4">
           {props.title}
         </Typography>
         
@@ -51,10 +51,11 @@ const ProjectCard = props => {
         <Spacer y={2}/>
         
         <Chip
-          icon={<FaceIcon />}
+          // icon={<FaceIcon />}
+          label={props.owner}
+          variant="outlined"
           size='small'
           className='ownerName'
-          label={props.owner}
         />
 
       </CardActions>

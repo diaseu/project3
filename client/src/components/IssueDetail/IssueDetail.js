@@ -3,6 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
+import FaceIcon from '@material-ui/icons/Face';
+// eslint-disable-next-line
+import {
+  Link
+} from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -18,7 +23,7 @@ const useStyles = makeStyles({
     fontSize: 12,
   },
   pos: {
-    marginBottom: 12,
+    marginBottom: 15,
   },
   secondary: {
     fontSize: 11,
@@ -32,16 +37,25 @@ const IssueDetail = props => {
 
   return(
     <>
-      <Grid item xs={9}>
+      <Grid item xs={6} md={9}>
         <Typography className={classes.pos} color="textSecondary">
-          <Chip label={props.project} size="small" component="a" href="/project" clickable />
+          <Link to={`/project/${props.pid}`}>
+            <Chip 
+              label={'Project '+props.project} 
+              size="small" 
+              component="a" 
+              clickable 
+              />
+            </Link>
         </Typography>
       </Grid>
-      <Grid item xs={3}>
+      <Grid item xs={6} md={3}>
         <Typography className={classes.secondary} color="textSecondary">
           posted by <Chip
+            // icon={<FaceIcon />}
             label={props.author}
             variant="outlined"
+            size="small"
           />
         </Typography>
       </Grid>

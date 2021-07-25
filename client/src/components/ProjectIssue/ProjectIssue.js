@@ -1,3 +1,4 @@
+import './ProjectIssue.css'
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -18,11 +19,16 @@ const useStyles = makeStyles({
   root: {
     flexGrow: 1,
     marginBottom: 12,
+    borderLeft: '3px solid #cccccc',
+    paddingBottom: 6,
   },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
+  projectissue: {
+    paddingTop: 10,
+    color: '#ccc',
+  },
+  title: {
+    fontWeight: 500,
+    fontSize:  15 ,
   },
   secondary: {
     fontSize: 11,
@@ -39,6 +45,14 @@ const useStyles = makeStyles({
     justifyContent: "center",
     verticalAlign: 'center',
   },
+  body: {
+    fontSize: 11,
+    color: 'rgba(0,0,0,0.3)',
+    marginLeft: 12,
+  },
+  gray: {
+    color: ''
+  }
 });
 
 const ProjectIssue = props => {
@@ -52,23 +66,25 @@ const ProjectIssue = props => {
 
   return (
 
-    <Card className={classes.root}>
-      <CardContent>
+    <Card className={classes.root} style={{ borderColor: obj[props.priority] }}>
+      <CardContent className={classes.projectissue}>
         <Grid
           container
           direction="row"
           justifyContent="flex-start"
           alignItems="flex-start"
+          className="issuecard"
         >
           <IssueDetail 
             author={props.author}
-            project={props.project}
+            project={props.project.title}
+            pid={props.project._id}
           />
 
-          <Grid item className={classes.center} xs={12}>
+          <Grid item className="title" xs={12}>
             <Icon className={classes.priority} style={{ color: obj[props.priority] }} >radio_button_unchecked</Icon>
 
-            {props.title}
+            {props.title} <i className="body">{props.body}</i>
 
           </Grid>
         </Grid>

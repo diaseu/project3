@@ -125,7 +125,7 @@ const ProjectCard = props => {
   const classes = useStyles();
 
 
-  // console.log(props, 'this is props in my props')
+  // console.log('this is props in ProjectIssueModal', props)
 
 
   const [issueState, setIssueState] = useState({
@@ -135,18 +135,6 @@ const ProjectCard = props => {
     priority: '',
     issue: []
   })
-
-  const [replies, setReplies] = useState([]);
-
-  useEffect(() => {
-    IssueAPI.getById(props.id)
-      .then((res) => {
-        setReplies(res.data.replies)
-      })
-      .catch(e => console.error(e))
-    }
-    // eslint-disable-next-line
-    , [])
 
 
   // For the Status dropdown
@@ -199,54 +187,60 @@ const ProjectCard = props => {
   //   setIssuePriority({ ...issuePriority, [target.name]: target.value })
   // }
 
-  const [issuePublic, setIssuePublic] = useState(false);
-
+  
   function handleIssuePriority(e) {
     setIssuePriority(e.target.value)
     
   }
-
+  
   function handleIssueStatus(e) {
     setIssueStatus(e.target.value)
     // console.log(e.target.value, 'this is target')
   }
- 
   
-  const handleIssuePublic = () => {
-    setIssuePublic(true)
+  
+const handlePublicTrue = () => {
+  setIssuePublic(true)
+  console.clear();
+  console.log('this is the issuePublic before update', issuePublic)
+}
+
+  const [issuePublic, setIssuePublic] = useState(true);
+
+  const handleGoPublic = () => {
     IssueAPI.update(props.id, {
-      status: issueStatus,
-      priority: issuePriority,
       isPublic: issuePublic
     })
       .then(res => {
-        console.log('issue allegedly updated - ProjectIssueModal', res)
-        window.location.reload()
+        console.clear();
+        console.log('status priority updated - ProjectIssueModal', res)
+        handleClose()
       })
       .catch(err => console.log('Problem in the ProjectIssueModal', err))
     // window.location.reload()
+    
   }
-  
-
 
 
   const handleUpdateIssue = () => {
     IssueAPI.update(props.id, {
       status: issueStatus,
-      priority: issuePriority,
-      isPublic: issuePublic
+      priority: issuePriority
     })
       .then(res => {
-        console.log('issue allegedly updated - ProjectIssueModal', res)
+        console.log('status priority updated - ProjectIssueModal', res)
       })
       .catch(err => console.log('Problem in the ProjectIssueModal', err))
     window.location.reload()
   }
 
-  useEffect(() => {
-    IssueAPI.getById(props.id)
+  const [replies, setReplies] = useState([]);
+    
+    useEffect(() => {
+      IssueAPI.getById(props.id)
       .then((res) => {
         setReplies(res.data.replies)
+        console.log('check out replies', res.data.replies)
       })
       .catch(e => console.error(e))
       }
@@ -293,12 +287,13 @@ const handleDeleteOpen = () => {
                   return (
                     <div key={key}>
                       <Card className={classes.comments}>
-                      {props.author}: {index.text}
+                      {index.author.name}: {index.text}
                       </Card>
                     </div>
                   )
                 })
-              }
+              }              
+
                 </List>
               </Paper>
             </Grid>
@@ -382,7 +377,6 @@ const handleDeleteOpen = () => {
                 variant="contained"
                 color="secondary"
                 className={classes.ask}
-                endIcon={<Icon>expand_more</Icon>}
                 onClick={handleClickOpen}
               >
                 Ask the Community
@@ -401,10 +395,10 @@ const handleDeleteOpen = () => {
                 </DialogContent>
                 <DialogActions>
                   <Button onClick={handleClose} color="primary">
-                    Disagree
+                    Keep Private
                   </Button>
-                  <Button onClick={handleIssuePublic} color="primary" autoFocus>
-                    Agree
+                  <Button onClick={handleGoPublic} color="primary" variant="contained" autoFocus>
+                    Go Public
                   </Button>
                 </DialogActions>
               </Dialog>

@@ -177,6 +177,7 @@ const Me = () => {
                     priority={issueData.priority}
                     author={issueData.author.name}
                     project={issueData.pid.title}
+                    body={issueData.body}
                   />
                 </Link>
 

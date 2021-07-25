@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbar: {
     paddingRight: 24, // keep right padding when drawer closed
+    backgroundColor: 'rgba(20, 167, 252, 0.8)'
   },
   toolbarIcon: {
     display: 'flex',
@@ -193,7 +194,7 @@ const Navbar = ({ pages, setpageState, me, isLoggedIn, handleLogOut }) => {
           <MenuIcon />
         </IconButton>
         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-          Zap
+            <img src="https://i.imgur.com/rv1W2ML.png" alt="" className="brandicon" />
         </Typography>
           <div className={classes.sectionDesktop}>
             {

@@ -239,7 +239,7 @@ const CommunityIssueModal = props => {
                       return (
                         <div key={key}>
                           <Card className={classes.comments}>
-                            {props.author}: {index.text}
+                            {index.author.name}: {index.text}
                           </Card>
                         </div>
                       )

@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
 import Grid from '@material-ui/core/Grid';
+import ChatIcon from '@material-ui/icons/Chat';
 // eslint-disable-next-line
 import {
   Switch,
@@ -18,15 +19,17 @@ const useStyles = makeStyles({
   root: {
     flexGrow: 1,
     marginBottom: 12,
+    borderLeft: '3px solid #cccccc',
+    paddingBottom: 6,
   },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
+  title: {
+    fontWeight: 500,
+    fontSize: 15,
   },
   secondary: {
     fontSize: 11,
-    textAlign: 'right',
+    color: 'rgba(0,0,0,0.5)',
+    display: 'block',
   },
   priority: {
     fontSize: 13,
@@ -39,28 +42,40 @@ const useStyles = makeStyles({
     justifyContent: "center",
     verticalAlign: 'center',
   },
+  answer: {
+    textAlign: 'right',
+  }
 });
 
+const obj = {
+  Open: "#719974",
+  Closed: "#f79d0c",
+}
 
 const CommunityIssue = props => {
   const classes = useStyles();
 
+  let formatdate = new Date(props.date)
+  let timestamp = formatdate.toLocaleString('en-US', { timeZone: 'PST' })
+  // console.log('date in Community Issue Card', timestamp)
+
   return(
-    <Card className={classes.root}>
+    <Card className={classes.root} style={{ borderColor: obj[props.status] }}>
       <CardContent>
-        <Typography variant="body2" component={'span'}>
-          {props.title}
-        </Typography>
         <Grid container>
           <Grid item xs={8}>
+            <Typography variant="body2" component={'span'} className={classes.title}>
+              {props.title}
+            </Typography>
             <span className={classes.secondary} color="textSecondary">
-              asked on 7/16/21 @ 1:15 PM</span>
+              asked on {timestamp}</span>
           </Grid>
           <Grid className={classes.answer} item xs={4}>
             <Badge badgeContent={props.replycount} color="secondary">
-              <Button size="small" variant="contained" color="primary" href="#contained-buttons">
-                Answer
-              </Button>
+              {/* <Button size="small" variant="outlined" color="primary" href="#contained-buttons">
+                {props.replycount}
+              </Button> */}
+              <ChatIcon style={{ color: 'rgba(0,0,0,0.5)' }}/>
             </Badge>
           </Grid>
         </Grid>
