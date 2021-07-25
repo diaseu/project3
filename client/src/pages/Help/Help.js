@@ -122,7 +122,7 @@ const Help = () => {
         <Grid container>
           <Grid item xs={12} lg={12} md={12} sm={12}>
 
-            {issueState.filter(issue => issue.isPublic === true && issue.author._id !== myid).slice(0, 8).map((issueData) => (
+            {issueState.filter(issue => issue.isPublic === true ).slice(0, 8).map((issueData) => (
               <>
                 <Link onClick={() => handleCommunityIssueOpen(issueData._id)}>
                   <CommunityIssueCard
@@ -140,7 +140,7 @@ const Help = () => {
                   id={issueData._id}
                   title={issueData.title}
                   body={issueData.body}
-                  author={issueData.author.name}
+                  author={issueData.author.username}
                   open={issueData.openCommunity}
                   handleClose={() => handleCommunityIssueOpen(issueData._id)}
                 />

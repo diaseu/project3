@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Login() {
+const Login = () =>{
   const classes = useStyles();
 
   
@@ -165,4 +165,6 @@ export default function Login() {
     </Grid>
   );
 }
+
+export default Login
 

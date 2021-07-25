@@ -262,7 +262,7 @@ const CommunityIssueModal = props => {
               <Spacer y={2} />
 
 
-              <Typography className={classes.title} color="textSecondary">
+              {/* <Typography className={classes.title} color="textSecondary">
                 Mark as Solved
               </Typography>
               <Button
@@ -272,7 +272,7 @@ const CommunityIssueModal = props => {
                 endIcon={<Icon>expand_more</Icon>}
               >
                 Mark as Solved
-              </Button>
+              </Button> */}
             </Grid>
           </Grid>
 
@@ -280,12 +280,12 @@ const CommunityIssueModal = props => {
 
       </DialogContent>
       <DialogActions>
-        <Button onClick={props.handleClose} color="primary">
+        {/* <Button onClick={props.handleClose} color="primary">
           Cancel
         </Button>
         <Button onClick={handleUpdateIssue} color="primary">
           Save
-        </Button>
+        </Button> */}
       </DialogActions>
     </Dialog>
   )
