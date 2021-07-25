@@ -146,18 +146,28 @@ const ProjectCard = props => {
 
 
   // For the Status dropdown
-  const [openStatus, setStatusOpen] = useState(false);
+  const [openStatus, setStatusOpen] = useState(false); 
   
   const handleInputChange = ({ target }) => {
     setIssueState({ ...issueState, [target.name]: target.value })
   }
   
+  const [open, setOpen] = useState(false);
+
+  const [deleteConfirm, setDeleteConfirm] = useState(false)
+ 
+  const handleClickOpen = () => {
+    setOpen(true)
+  }
+
   const handleStatusOpen = () => {
     setStatusOpen(true);
   };
   
   const handleClose = () => {
     setStatusOpen(false);
+    setOpen(false)
+    setDeleteConfirm(false)
   };
 
   const [issueReply, setIssueReply] = useState("");
@@ -183,6 +193,7 @@ const ProjectCard = props => {
 
   function handleIssuePriority(e) {
     setIssuePriority(e.target.value)
+    
   }
 
   const handleUpdateIssue = () => {
@@ -192,6 +203,7 @@ const ProjectCard = props => {
     })
       .then(res => {
         console.log('issue allegedly updated - ProjectIssueModal', res)
+        window.location.reload()
       })
       .catch(err => console.log('Problem in the ProjectIssueModal', err))
     // window.location.reload()
@@ -207,6 +219,13 @@ const ProjectCard = props => {
     // eslint-disable-next-line
   , [])
 
+  const handleRefresh= () =>{
+    window.location.reload()
+  }
+ 
+const handleDeleteOpen = () => {
+  setDeleteConfirm(true)
+}
 
   return (
     <Dialog maxWidth='lg' fullWidth open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
@@ -328,19 +347,60 @@ const ProjectCard = props => {
                 color="secondary"
                 className={classes.ask}
                 endIcon={<Icon>expand_more</Icon>}
+                onClick={handleClickOpen}
               >
                 Ask the Community
               </Button>
+              <Dialog
+                open={open}
+                onClose={props.handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">{"Are You Sure You Want To Ask The Community"}</DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    Once you confirm, this issue will be public in the community-issues page.
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose} color="primary">
+                    Disagree
+                  </Button>
+                  <Button onClick={handleRefresh} color="primary" autoFocus>
+                    Agree
+                  </Button>
+                </DialogActions>
+              </Dialog>
             </Grid>
           </Grid>
-
         </DialogContentText>
-
       </DialogContent>
       <DialogActions>
-        <Button onClick='' color="primary">
+        <Button onClick={handleDeleteOpen} color="primary">
           Delete
         </Button>
+        <Dialog
+          open={deleteConfirm}
+          onClose={props.handleClose}
+          aria-labelledby="delete"
+          aria-describedby="delete"
+        >
+          <DialogTitle id="delete">{"Do You Wish To Delete?"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="delete">
+              Once you delete, this issue will be permanently deleted.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Disagree
+            </Button>
+            <Button onClick={handleRefresh} color="primary" autoFocus>
+              Agree
+            </Button>
+          </DialogActions>
+        </Dialog>
         <Button onClick={props.handleClose} color="primary">
           Cancel
         </Button>
