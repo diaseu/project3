@@ -27,7 +27,7 @@ router.get('/issues/:id', passport.authenticate('jwt'), (req, res) => {
 })
 
 //get all issues
-router.get('/issues/', passport.authenticate('jwt'), (req, res) => {
+router.get('/issues', passport.authenticate('jwt'), (req, res) => {
   Issue.find({})
     .populate('author')
     .populate({
@@ -69,17 +69,6 @@ router.post('/issues', passport.authenticate('jwt'), (req, res) => {
         })
         .catch(err => console.log(err))
     })
-
-
-    // original code to add only issues made by me to user's issues
-      // User.findByIdAndUpdate(req.user._id, { $push: { issues: issue._id } })
-      //   .then(() => {
-      //     Project.findByIdAndUpdate(req.body.pid, { $push: { issues: issue._id } })
-      //       .then(() => res.sendStatus(200))
-      //       .catch(err => console.log(err))
-      //   })
-      //   .catch(err => console.log(err))
-    // })
     .catch(err => console.log(err))
 })
 

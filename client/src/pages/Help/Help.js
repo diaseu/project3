@@ -11,7 +11,7 @@ import CommunityIssueModal from '../../components/CommunityIssueModal'
 import ProjectCard from '../../components/ProjectCard'
 import ProjectIssueModal from '../../components/ProjectIssueModal'
 import UserAPI from '../../utils/UserAPI'
-// eslint-disable-next-line
+import IssueAPI from '../../utils/IssueAPI'
 import {
   Link
 } from "react-router-dom";
@@ -81,6 +81,12 @@ const Help = () => {
   const [myid, setMyId] = useState('');
 
   useEffect(() => {
+    IssueAPI.getAll()
+      .then( ({ data: issues}) => {
+        setIssueState(issues)
+        console.log(issueState)
+      })
+      .catch(err => console.log(err ))
 
     UserAPI.me()
       .then(res => {
@@ -92,7 +98,7 @@ const Help = () => {
           openCommunity: false
         }))
         setCommunityIssue({ project })
-        setIssueState(res.data.issues)
+        // setIssueState(res.data.issues)
         setMyId(res.data._id)
       })
       .catch(err => console.log(err))
