@@ -102,27 +102,27 @@ const Me = () => {
 
 
 
-  const [status, setStatus] = useState(false);
+  // const [status, setStatus] = useState(false);
   const [myid, setMyId] = useState('');
-  const [issueState, setIssueState] = useState([])
+  // const [issueState, setIssueState] = useState([])
 
-  const handleIssueOpen = _id => {
-    // console.log('this is plain status', status)
-    let issues = status.project.issues
+  // const handleIssueOpen = _id => {
+  //   // console.log('this is plain status', status)
+  //   let issues = status.project.issues
 
-    // console.log('this is issues set to status', issues)
-    issues = issues.map(issue => {
-      if (_id === issue._id) {
-        issue.isOpen = !issue.isOpen
-      }
-      return issue
-    })
+  //   // console.log('this is issues set to status', issues)
+  //   issues = issues.map(issue => {
+  //     if (_id === issue._id) {
+  //       issue.isOpen = !issue.isOpen
+  //     }
+  //     return issue
+  //   })
 
-    // console.log('what happens when i click handleIssueOpen', { status })
-    const project = status.project
-    project.issues = issues
-    setStatus({ project })
-  }
+  //   // console.log('what happens when i click handleIssueOpen', { status })
+  //   const project = status.project
+  //   project.issues = issues
+  //   setStatus({ project })
+  // }
 
   useEffect(() => {
     UserAPI.me()

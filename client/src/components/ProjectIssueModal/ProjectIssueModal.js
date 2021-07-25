@@ -124,6 +124,10 @@ const useStyles = makeStyles({
 const ProjectCard = props => {
   const classes = useStyles();
 
+
+  // console.log(props, 'this is props in my props')
+
+
   const [issueState, setIssueState] = useState({
     title: '',
     body: '',
@@ -155,6 +159,8 @@ const ProjectCard = props => {
   const handleStatusOpen = () => {
     setStatusOpen(true);
   };
+
+
   
   const handleClose = () => {
     setStatusOpen(false);
@@ -171,30 +177,57 @@ const ProjectCard = props => {
       text: issueReply,
       pid: props.id
     })
+    window.location.reload()
   }
+
+  
+  const [issueStatus, setIssueStatus] = useState(props.status);
 
   // priority
   const [issuePriority, setIssuePriority] = useState(props.priority);
-  const handlePriorityChange = ({ target }) => {
-    setIssuePriority({ ...issuePriority, [target.name]: target.value })
-  }
+  // const handlePriorityChange = ({ target }) => {
+  //   setIssuePriority({ ...issuePriority, [target.name]: target.value })
+  // }
 
-  const [issueStatus, setIssueStatus] = useState(props.status);
+  const [issuePublic, setIssuePublic] = useState(false);
 
   function handleIssuePriority(e) {
     setIssuePriority(e.target.value)
   }
 
-  const handleUpdateIssue = () => {
+  function handleIssueStatus(e) {
+    setIssueStatus(e.target.value)
+    // console.log(e.target.value, 'this is target')
+  }
+ 
+  const handleIssuePublic = () => {
+    setIssuePublic(true)
     IssueAPI.update(props.id, {
-      status: 'Closed',
-      priority: 'Low'
+      status: issueStatus,
+      priority: issuePriority,
+      isPublic: issuePublic
     })
       .then(res => {
         console.log('issue allegedly updated - ProjectIssueModal', res)
       })
       .catch(err => console.log('Problem in the ProjectIssueModal', err))
     // window.location.reload()
+  }
+  
+
+
+
+  const handleUpdateIssue = () => {
+    IssueAPI.update(props.id, {
+      status: issueStatus,
+      priority: issuePriority,
+      isPublic: issuePublic
+    })
+      .then(res => {
+        console.log('issue allegedly updated - ProjectIssueModal', res)
+      })
+      .catch(err => console.log('Problem in the ProjectIssueModal', err))
+    window.location.reload()
   }
 
   useEffect(() => {
@@ -279,7 +312,7 @@ const ProjectCard = props => {
                 <Select
                   id="status"
                   defaultValue={props.status}
-                  onChange={handleInputChange}
+                  onChange={handleIssueStatus}
                   fullWidth
                   open={openStatus}
                   onClose={handleClose}
@@ -307,9 +340,10 @@ const ProjectCard = props => {
                 <Select
                   id="priority"
                   defaultValue={props.priority}
-                  onChange={handleInputChange}
+                  onChange={handleIssuePriority}
                   fullWidth
-                >
+                > 
+
                   <MenuItem value="High">
                     <Icon className={classes.highpriority}>radio_button_unchecked</Icon> High
                   </MenuItem>
@@ -318,6 +352,7 @@ const ProjectCard = props => {
                   <MenuItem value="Low">
                     <Icon className={classes.lowpriority}>radio_button_unchecked</Icon> Low</MenuItem>
                 </Select>
+               
               </FormControl>
               <Spacer y={4} />
               <Typography className={classes.title} color="textSecondary">
@@ -328,6 +363,8 @@ const ProjectCard = props => {
                 color="secondary"
                 className={classes.ask}
                 endIcon={<Icon>expand_more</Icon>}
+                
+                onClick={handleIssuePublic}
               >
                 Ask the Community
               </Button>
