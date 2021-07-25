@@ -1,4 +1,5 @@
 .root {
+  position: relative;
   display: flex;
   justify-content: left;
   flex-wrap: wrap;
@@ -8,11 +9,18 @@
 }
 
 .description {
-  font-size: 10px;
+  position: absolute;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chip {
+  position: absolute;
+  bottom: 5%;
+  left: 1%;
 }
 
 .ownerName {
