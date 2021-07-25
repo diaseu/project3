@@ -44,11 +44,9 @@ const ProjectCard = props => {
           {props.title}
         </Typography>
         
-        <Typography className="description" color="textSecondary" variant="h6" component="h2" align='center'>
+        <Typography className="description" color="textSecondary" variant="subtitle1" component="h2" align='center'>
           {props.description}
         </Typography>
-        
-      </CardContent>
       <CardActions>
         <Spacer y={2}/>
         <Chip
@@ -58,6 +56,7 @@ const ProjectCard = props => {
           label={props.owner}
         />
       </CardActions>
+      </CardContent>
     </Card>
   )
 }
