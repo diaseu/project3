@@ -142,7 +142,7 @@ const Dashboard = () => {
           </Grid>
           <Spacer y={1} />
 
-          {issueState.filter(issue => issue.status === 'Open').slice(0, 10).map((issueData) => (
+          {issueState.filter(issue => issue.status === 'Open').slice(0, 8).map((issueData) => (
             <>
               <Link onClick={() => handleIssueOpen(issueData._id)}>
                 <ProjectIssue
