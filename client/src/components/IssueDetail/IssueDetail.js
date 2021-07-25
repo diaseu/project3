@@ -41,7 +41,7 @@ const IssueDetail = props => {
         <Typography className={classes.pos} color="textSecondary">
           <Link to={`/project/${props.pid}`}>
             <Chip 
-              label={'Project '+props.project} 
+              label={props.project} 
               size="small" 
               component="a" 
               clickable 

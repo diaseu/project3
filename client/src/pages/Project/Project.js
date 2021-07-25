@@ -62,7 +62,7 @@ const useStyles = makeStyles({
     marginBottom: 20,
   },
   columntest: {
-    backgroundColor: '#ddd'
+    backgroundColor: '#ffffff'
   }, 
   allmembers: {
     marginBottom: 12,
