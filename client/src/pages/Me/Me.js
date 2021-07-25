@@ -49,7 +49,7 @@ const Me = () => {
     // console.log('this is plain status', status)
     let issues = status.project.issues
 
-    console.log('this is issues set to status', issues)
+    // console.log('this is issues set to status', issues)
     issues = issues.map(issue => {
       if (_id === issue._id) {
         issue.isOpen = !issue.isOpen

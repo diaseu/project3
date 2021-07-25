@@ -54,13 +54,11 @@ const Help = () => {
 
   const [issueState, setIssueState] = useState([])
   
-
   const [communityissue, setCommunityIssue] = useState(false);
-  const handleCommunityIssueOpen = _id => {
-    // console.log('this is plain communityissue', communityissue)
-    let issues = communityissue.project.issues
 
-    // console.log('this is issues set to communityissue', issues)
+  const handleCommunityIssueOpen = _id => {
+    let issues = issueState
+
     issues = issues.map(issue => {
       if (_id === issue._id) {
         issue.openCommunity = !issue.openCommunity
@@ -68,7 +66,6 @@ const Help = () => {
       return issue
     })
 
-    // console.log('what happens when i click handleIssueOpen', { communityissue })
     const project = communityissue.project
     project.issues = issues
     setCommunityIssue({ project })
@@ -83,22 +80,27 @@ const Help = () => {
   useEffect(() => {
     IssueAPI.getAll()
       .then( ({ data: issues}) => {
+        issues.map(issue => ({
+          ...issue,
+          isOpen: false,
+          openCommunity: false
+        }))
         setIssueState(issues)
-        console.log(issueState)
+        // console.log(issueState)
       })
       .catch(err => console.log(err ))
 
     UserAPI.me()
       .then(res => {
-        console.log('this is res in Dashboard', res)
+        // console.log('this is res in Dashboard', res)
         const project = res.data
-        project.issues = res.data.issues.map(issues => ({
-          ...issues,
-          isOpen: false,
-          openCommunity: false
-        }))
+        // project.issues = res.data.issues.map(issues => ({
+        //   ...issues,
+        //   isOpen: false,
+        //   openCommunity: false
+        // }))
+        // // console.log(project)
         setCommunityIssue({ project })
-        // setIssueState(res.data.issues)
         setMyId(res.data._id)
       })
       .catch(err => console.log(err))
