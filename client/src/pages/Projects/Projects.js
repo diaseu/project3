@@ -63,7 +63,7 @@ const Projects = () => {
               key={projectData._id}
               title={projectData.title}
               description={projectData.description}
-              owner={projectData.owner.name}
+              owner={projectData.owner.username}
             />
           </Link>
           </Grid>

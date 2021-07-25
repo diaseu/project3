@@ -114,6 +114,7 @@ const Dashboard = () => {
         console.log('this is res.data.issues._id.timestamp in Dashboard', res.data.issues)
         setProjectState(res.data.projects)
         setIssueState(res.data.issues)
+        console.log(res.data.projects, 'this is projectstate')
         // console.log('projectState in Dashboard', projectState)
         // console.log('issueState in Dashboard', issueState)
       })
@@ -186,7 +187,7 @@ const Dashboard = () => {
                 id={issueData._id}
                 title={issueData.title}
                 body={issueData.body}
-                author={issueData.author.name}
+                owner={issueData.author.name}
                 status={issueData.status}
                 // authorusername={issueData.author.username}
                 priority={issueData.priority}

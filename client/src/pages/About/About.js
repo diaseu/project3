@@ -129,7 +129,7 @@ export default function About() {
                     </Link>
                   </Button>
                   <Button size="small" color="primary">
-                    <Link href="https://github.com/diaseu" >
+                    <Link href="https://github.com/diaseu" target="_blank" >
                       GitHub
                     </Link>
                   </Button>

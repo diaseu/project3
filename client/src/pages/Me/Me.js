@@ -27,12 +27,23 @@ const useStyles = makeStyles({
   }
 });
 
-const Me = () => {
-  const classes = useStyles();
 
+
+const Me = () => {
+
+  const classes = useStyles();
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+
+
+  // Open Modal Individually
+  // status = Modal status if open or closed
   const [status, setStatus] = useState(false);
-  const [myid, setMyId] = useState('');
-  const [issueState, setIssueState] = useState([])
+  const [openIssue, setIssueOpen] = useState(false);
 
   const handleIssueOpen = _id => {
     // console.log('this is plain status', status)
@@ -51,6 +62,67 @@ const Me = () => {
     project.issues = issues
     setStatus({ project })
   }
+
+  const handleClose = () => {
+    setOpen(false);
+    setStatus(false)
+  };
+
+  // Get Info
+
+
+  const [projectState, setProjectState] = useState([])
+  const [issueState, setIssueState] = useState([])
+
+  // console.log('issueState', issueState)
+
+
+  useEffect(() => {
+    UserAPI.me()
+      .then(res => {
+        const project = res.data
+        project.issues = res.data.issues.map(issues => ({
+          ...issues,
+          isOpen: false
+        }))
+        // console.log('this is project.issues in Dashboard', project.issues)
+        setStatus({ project })
+        // let issues = Object.values(status.issues)
+        // console.log('this is res.data in Dashboard', res.data)
+        // console.log('this is res.data.issues in Dashboard', res.data.issues)
+        setProjectState(res.data.projects)
+        setIssueState(res.data.issues)
+        // console.log('projectState in Dashboard', projectState)
+        // console.log('issueState in Dashboard', issueState)
+      })
+      .catch(err => console.log(err))
+    // eslint-disable-next-line
+  }, [])
+
+
+
+
+  // const [status, setStatus] = useState(false);
+  const [myid, setMyId] = useState('');
+  // const [issueState, setIssueState] = useState([])
+
+  // const handleIssueOpen = _id => {
+  //   // console.log('this is plain status', status)
+  //   let issues = status.project.issues
+
+  //   // console.log('this is issues set to status', issues)
+  //   issues = issues.map(issue => {
+  //     if (_id === issue._id) {
+  //       issue.isOpen = !issue.isOpen
+  //     }
+  //     return issue
+  //   })
+
+  //   // console.log('what happens when i click handleIssueOpen', { status })
+  //   const project = status.project
+  //   project.issues = issues
+  //   setStatus({ project })
+  // }
 
   useEffect(() => {
     UserAPI.me()
