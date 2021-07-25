@@ -36,7 +36,7 @@ const Issue = props => {
   const obj = {
     Medium: "#e3b912",
     High: "red",
-    Low: "blue"
+    Low: "#14a7fc"
   }
 
   // console.log('this is props in Issues', props)

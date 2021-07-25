@@ -21,10 +21,6 @@ import {
   useParams
 } from "react-router-dom";
 
-<<<<<<< HEAD
-import ProjectAPI from '../../utils/ProjectAPI'
-=======
->>>>>>> 65a6442215cc4a56fcf589cfcd37d6b8e65accad
 
 const useStyles = makeStyles({
   root: {
