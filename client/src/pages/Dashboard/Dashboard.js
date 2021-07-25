@@ -89,6 +89,7 @@ const Dashboard = () => {
 
   const [projectState, setProjectState] = useState([])
   const [issueState, setIssueState] = useState([])
+  const [projectIssueState, setProjectIssueState] = useState([])
 
   const [myid, setMyId] = useState('');
 
@@ -117,6 +118,7 @@ const Dashboard = () => {
         }))
         setStatus({ project })
         setCommunityIssue({ project })
+        setProjectIssueState(project.issues)
         setProjectState(res.data.projects)
         setMyId(res.data._id)
       })
@@ -172,7 +174,7 @@ const Dashboard = () => {
           </Grid>
           <Spacer y={1} />
 
-          {issueState.filter(issue => issue.status === 'Open').slice(0, 8).map(issueData => (
+          {projectIssueState.filter(issue => issue.status === 'Open').slice(0, 8).map(issueData => (
             <>
               <Link onClick={() => handleIssueOpen(issueData._id)}>
                 <ProjectIssue
