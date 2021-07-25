@@ -17,15 +17,11 @@
   text-overflow: ellipsis;
 }
 
-.chip {
-  position: absolute;
-  bottom: 5%;
-  left: 1%;
-}
-
 .ownerName {
   overflow-x: auto;
   position: absolute;
+  bottom: 5%;
+  left: 1%;
   bottom: 1vh;
   left: 1vh;
 }
