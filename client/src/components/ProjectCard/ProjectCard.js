@@ -44,7 +44,7 @@ const ProjectCard = props => {
           {props.title}
         </Typography>
         
-      <Typography color="textSecondary" className="description">
+      <Typography color="textSecondary" variant="body2" className="description">
           {props.description}
         </Typography>
       <CardActions>
