@@ -20,6 +20,7 @@ const useStyles = makeStyles({
   root: {
     minWidth: 275,
     paddingBottom: 0,
+    margin: 7,
   },
   secondary: {
     fontSize: 11,

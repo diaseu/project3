@@ -16,6 +16,11 @@ const Issue = {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`
     }
+  }),
+  getAll: () => axios.get('/api/issues', {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    }
   })
 }
 

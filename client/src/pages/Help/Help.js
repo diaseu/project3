@@ -1,11 +1,12 @@
 import './Help.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import ProjectIssue from '../../components/ProjectIssue'
+import CommunityIssue from '../../components/CommunityIssue'
 import Spacer from '../../components/Spacer';
+import IssueAPI from '../../utils/IssueAPI'
 
 const useStyles = makeStyles({
   root: {
@@ -43,6 +44,12 @@ const useStyles = makeStyles({
 const Help = () => {
   const classes = useStyles();
 
+  useEffect(() => {
+    IssueAPI.getAll()
+      .then(issues => console.log(issues))
+      .catch(err => console.log(err))
+  }, [])
+
   return (
     <>
       <h1>Community Issues </h1>
@@ -53,31 +60,25 @@ const Help = () => {
           </Typography>
         </Grid>
         <Grid item className={classes.right} xs={12} md={6} lg={6} sm={6}>
-          <Button size="small" variant="contained" href="#sort-project">
-            Sort by Project
-          </Button>
-          <Button size="small" variant="contained" href="#sort-project">
-            Sort by Recent
-          </Button>
         </Grid>
       </Grid>
       <Spacer y={1} />
       <div>
         <Grid container>
           <Grid item xs={12}>
-            <ProjectIssue />
+            <CommunityIssue />
           </Grid>
 
           <Grid item xs={12}>
-            <ProjectIssue />
+            <CommunityIssue />
           </Grid>
 
           <Grid item xs={12}>
-            <ProjectIssue />
+            <CommunityIssue />
           </Grid>
 
           <Grid item xs={12}>
-            <ProjectIssue />
+            <CommunityIssue />
           </Grid>
 
         </Grid>

@@ -18,6 +18,22 @@ router.get('/issues/:id', passport.authenticate('jwt'), (req, res) => {
     .catch(err => console.log(err))
 })
 
+//get all issues
+router.get('/issues/', passport.authenticate('jwt'), (req, res) => {
+  Issue.find({})
+    .populate('author')
+    .populate({
+      path: 'replies',
+      model: 'Reply',
+      populate: {
+        path: 'author',
+        model: 'User'
+      }
+    })
+    .then(issues => res.json(issues))
+    .catch(err => console.log(err))
+})
+
 //create new issue (needs project id)
 router.post('/issues', passport.authenticate('jwt'), (req, res) => {
   Issue.create({
