@@ -20,6 +20,8 @@ import Select from '@material-ui/core/Select';
 import Card from '@material-ui/core/Card';
 import ReplyAPI from '../../utils/ReplyAPI'
 import IssueAPI from '../../utils/IssueAPI'
+import List from '@material-ui/core/List';
+import Paper from '@material-ui/core/Paper';
 
 let mongoose = require('mongoose')
 
@@ -245,23 +247,22 @@ const ProjectCard = props => {
               />
               <Button color="primary" variant="contained" onClick={submitIssueReply}>Submit</Button>
               <Spacer y={4} />
-
-              
-                {
-                  replies && replies.map((index, key) => {
-                    return (
-                      <Card className={classes.comments}>
-                        <div key={key}>
-                          <p>{index.text}</p>
-                        </div>
-                      </Card>
-                    )
-                  })
-                }
-              
-
+              <Paper style={{ maxHeight: 200, overflow: 'auto', boxShadow: 'none'}}>
+                <List >
+              {
+                replies && replies.map((index, key) => {
+                  return (
+                    <div key={key}>
+                      <p>&nbsp; {props.author}: {index.text}</p>
+                    </div>
+                  )
+                })
+              }
+                </List>
+              </Paper>
             </Grid>
             <Grid className={classes.issueright} item xs={12} lg={3}>
+              <Spacer y={1}/>
               <Typography className={classes.title} color="textSecondary">
                 Posted by
               </Typography>
@@ -295,7 +296,6 @@ const ProjectCard = props => {
                   open={openStatus}
                   onClose={handleClose}
                   onOpen={handleStatusOpen}
-                  variant="filled"
                 // className={classes.hidden}
                 >
                   <MenuItem value="Open">
@@ -332,8 +332,6 @@ const ProjectCard = props => {
                 </Select>
               </FormControl>
               <Spacer y={4} />
-              
-
               <Typography className={classes.title} color="textSecondary">
                 Ask the Community
               </Typography>
@@ -352,6 +350,9 @@ const ProjectCard = props => {
 
       </DialogContent>
       <DialogActions>
+        <Button onClick='' color="primary">
+          Delete
+        </Button>
         <Button onClick={props.handleClose} color="primary">
           Cancel
         </Button>
