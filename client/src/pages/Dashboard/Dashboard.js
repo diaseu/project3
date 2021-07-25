@@ -11,6 +11,7 @@ import ProjectCard from '../../components/ProjectCard'
 import ProjectIssueModal from '../../components/ProjectIssueModal'
 import Spacer from '../../components/Spacer'
 import UserAPI from '../../utils/UserAPI'
+import IssueAPI from '../../utils/IssueAPI'
 // eslint-disable-next-line
 import {
   Link
@@ -63,10 +64,8 @@ const Dashboard = () => {
 
   const [communityissue, setCommunityIssue] = useState(false);
   const handleCommunityIssueOpen = _id => {
-    // console.log('this is plain communityissue', communityissue)
-    let issues = communityissue.project.issues
+    let issues = issueState
 
-    // console.log('this is issues set to communityissue', issues)
     issues = issues.map(issue => {
       if (_id === issue._id) {
         issue.openCommunity = !issue.openCommunity
@@ -74,7 +73,6 @@ const Dashboard = () => {
       return issue
     })
 
-    // console.log('what happens when i click handleIssueOpen', { communityissue })
     const project = communityissue.project
     project.issues = issues
     setCommunityIssue({ project })
@@ -96,6 +94,17 @@ const Dashboard = () => {
 
 
   useEffect(() => {
+    IssueAPI.getAll()
+      .then(({ data: issues }) => {
+        issues.map(issue => ({
+          ...issue,
+          isOpen: false,
+          openCommunity: false
+        }))
+        console.log(issues)
+        setIssueState(issues)
+      })
+      .catch(err => console.log(err))
     
     UserAPI.me()
       .then(res => {
@@ -109,15 +118,7 @@ const Dashboard = () => {
         setStatus({ project })
         setCommunityIssue({ project })
         setProjectState(res.data.projects)
-        setIssueState(res.data.issues)
         setMyId(res.data._id)
-        // console.log('this is project.issues in Dashboard', project.issues)
-        // console.log('this is res.data in Dashboard', res.data)
-        // console.log('this is res.data.issues in Dashboard', res.data.issues)
-        // console.log('this is res.data.issues._id.timestamp in Dashboard', res.data.issues)
-        // console.log(res.data.projects, 'this is projectstate')
-        // console.log('projectState in Dashboard', projectState)
-        console.log('issueState in Dashboard', issueState)
       })
       .catch(err => console.log(err))
     // eslint-disable-next-line
@@ -171,7 +172,7 @@ const Dashboard = () => {
           </Grid>
           <Spacer y={1} />
 
-          {issueState.filter(issue => issue.status === 'Open').slice(0, 8).map((issueData) => (
+          {issueState.filter(issue => issue.status === 'Open').slice(0, 8).map(issueData => (
             <>
               <Link onClick={() => handleIssueOpen(issueData._id)}>
                 <ProjectIssue
@@ -210,7 +211,7 @@ const Dashboard = () => {
             Help Answer Others' Issues
           </Typography>
 
-          {issueState.filter(issue => issue.isPublic == true && issue.status === 'Open' && issue.author._id !== myid).slice(0, 8).map((issueData) => (
+          {issueState.filter(issue => issue.isPublic === true && issue.status !== 'Closed' && issue.author._id !== myid).slice(0, 8).map(issueData => (
             <>
               <Link onClick={() => handleCommunityIssueOpen(issueData._id)}>
                 <CommunityIssueCard

@@ -77,6 +77,7 @@ const Help = () => {
 
   const [myid, setMyId] = useState('');
 
+  //displays all comm issues
   useEffect(() => {
     IssueAPI.getAll()
       .then( ({ data: issues}) => {
@@ -86,25 +87,16 @@ const Help = () => {
           openCommunity: false
         }))
         setIssueState(issues)
-        // console.log(issueState)
       })
       .catch(err => console.log(err ))
-
+  //used for opening an issue modal
     UserAPI.me()
       .then(res => {
-        // console.log('this is res in Dashboard', res)
         const project = res.data
-        // project.issues = res.data.issues.map(issues => ({
-        //   ...issues,
-        //   isOpen: false,
-        //   openCommunity: false
-        // }))
-        // // console.log(project)
         setCommunityIssue({ project })
         setMyId(res.data._id)
       })
       .catch(err => console.log(err))
-    // eslint-disable-next-line
   }, [])
 
   return (
