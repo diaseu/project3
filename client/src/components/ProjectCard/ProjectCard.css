@@ -4,6 +4,7 @@
   flex-wrap: wrap;
   height: 200px;
   min-width: 175px;
+  position: relative;
 }
 
 .description {
@@ -16,4 +17,7 @@
 
 .ownerName {
   overflow-x: auto;
+  position: absolute;
+  bottom: 1vh;
+  left: 1vh;
 }

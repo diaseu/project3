@@ -16,29 +16,40 @@ import {
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 275,
-    paddingBottom: 0,
+    flexGrow: 1,
+    marginBottom: 12,
+  },
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
   },
   secondary: {
     fontSize: 11,
+    textAlign: 'right',
   },
-  title: {
-    fontSize: 12,
+  priority: {
+    fontSize: 13,
+    textAlign: 'center',
+    marginRight: 10,
+    fontWeight: '800'
   },
-  answer: {
-    textAlign: 'right'
+  center: {
+    flexDirection: "column",
+    justifyContent: "center",
+    verticalAlign: 'center',
   },
 });
 
 
-const CommunityIssue = () => {
+const CommunityIssue = props => {
   const classes = useStyles();
 
   return(
     <Card className={classes.root}>
       <CardContent>
         <Typography variant="body2" component={'span'}>
-          How to fix missing dependency warning when using useEffect React Hook?
+          {props.title}
         </Typography>
         <Grid container>
           <Grid item xs={8}>
@@ -46,7 +57,7 @@ const CommunityIssue = () => {
               asked on 7/16/21 @ 1:15 PM</span>
           </Grid>
           <Grid className={classes.answer} item xs={4}>
-            <Badge badgeContent={4} color="secondary">
+            <Badge badgeContent={props.replycount} color="secondary">
               <Button size="small" variant="contained" color="primary" href="#contained-buttons">
                 Answer
               </Button>

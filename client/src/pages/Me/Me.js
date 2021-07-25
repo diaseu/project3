@@ -55,7 +55,7 @@ const Me = () => {
   useEffect(() => {
     UserAPI.me()
       .then(res => {
-        console.log('this is res', res.data)
+        // console.log('this is res', res.data)
         // my id is res.data._id
         const project = res.data
         project.issues = res.data.issues.map(issues => ({
@@ -65,8 +65,8 @@ const Me = () => {
         setStatus({ project })
         setIssueState(res.data.issues)
         setMyId(res.data._id)
-        console.log('issueState', issueState)
-        console.log('this should be my id ->', myid)
+        // console.log('issueState', issueState)
+        // console.log('this should be my id ->', myid)
       })
       .catch(err => console.log(err))
     // eslint-disable-next-line
@@ -104,6 +104,7 @@ const Me = () => {
                     title={issueData.title}
                     priority={issueData.priority}
                     author={issueData.author.name}
+                    project={issueData.pid.title}
                   />
                 </Link>
 

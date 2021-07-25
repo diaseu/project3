@@ -34,7 +34,7 @@ const IssueDetail = props => {
     <>
       <Grid item xs={9}>
         <Typography className={classes.pos} color="textSecondary">
-          <Chip label="Apollo Titus" size="small" component="a" href="/project" clickable />
+          <Chip label={props.project} size="small" component="a" href="/project" clickable />
         </Typography>
       </Grid>
       <Grid item xs={3}>

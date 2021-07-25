@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import ProjectIssue from '../../components/ProjectIssue'
 import CommunityIssueCard from '../../components/CommunityIssueCard'
+import CommunityIssueModal from '../../components/CommunityIssueModal'
 import ProjectCard from '../../components/ProjectCard'
 import ProjectIssueModal from '../../components/ProjectIssueModal'
 import Spacer from '../../components/Spacer'
@@ -60,9 +61,29 @@ const Dashboard = () => {
     setStatus({ project })
   }
 
+  const [communityissue, setCommunityIssue] = useState(false);
+  const handleCommunityIssueOpen = _id => {
+    // console.log('this is plain communityissue', communityissue)
+    let issues = communityissue.project.issues
+
+    // console.log('this is issues set to communityissue', issues)
+    issues = issues.map(issue => {
+      if (_id === issue._id) {
+        issue.openCommunity = !issue.openCommunity
+      }
+      return issue
+    })
+
+    // console.log('what happens when i click handleIssueOpen', { communityissue })
+    const project = communityissue.project
+    project.issues = issues
+    setCommunityIssue({ project })
+  }
+
   const handleClose = () => {
     setOpen(false);
     setStatus(false)
+    setCommunityIssue(false)
   };
 
   // Get Info
@@ -77,16 +98,20 @@ const Dashboard = () => {
   useEffect(() => {
     UserAPI.me()
       .then(res => {
+        console.log('this is res in Dashboard', res)
         const project = res.data
         project.issues = res.data.issues.map(issues => ({
           ...issues,
-          isOpen: false
+          isOpen: false,
+          openCommunity: false
         }))
         // console.log('this is project.issues in Dashboard', project.issues)
         setStatus({ project })
+        setCommunityIssue({ project })
         // let issues = Object.values(status.issues)
-        // console.log('this is res.data in Dashboard', res.data)
+        console.log('this is res.data in Dashboard', res.data)
         // console.log('this is res.data.issues in Dashboard', res.data.issues)
+        console.log('this is res.data.issues._id.timestamp in Dashboard', res.data.issues)
         setProjectState(res.data.projects)
         setIssueState(res.data.issues)
         // console.log('projectState in Dashboard', projectState)
@@ -151,6 +176,8 @@ const Dashboard = () => {
                   title={issueData.title}
                   priority={issueData.priority}
                   author={issueData.author.name}
+                  project={issueData.pid.title}
+                  // date={issueData._id.getTimestamp}
                 />
               </Link>
 
@@ -175,7 +202,31 @@ const Dashboard = () => {
           <Typography variant="h6" component="h2">
             Help Answer Others' Issues
           </Typography>
-          <CommunityIssueCard />
+
+          {issueState.filter(issue => issue.isPublic == true && issue.status === 'Open').slice(0, 8).map((issueData) => (
+            <>
+              <Link onClick={() => handleCommunityIssueOpen(issueData._id)}>
+                <CommunityIssueCard
+                  key={issueData.id}
+                  id={issueData._id}
+                  title={issueData.title}
+                  author={issueData.author.name}
+                  replycount={issueData.replies.length}
+                />
+              </Link>
+
+              {/* See Project Page for how to call ProjectIssueModals properly */}
+              <CommunityIssueModal
+                id={issueData._id}
+                title={issueData.title}
+                body={issueData.body}
+                author={issueData.author.name}
+                open={issueData.openCommunity}
+                handleClose={() => handleCommunityIssueOpen(issueData._id)}
+              />
+            </>
+          ))}
+
           <Spacer y={1} />
           
 

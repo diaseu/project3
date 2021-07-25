@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Icon from '@material-ui/core/Icon';
 import IssueDetail from '../IssueDetail'
 import IssueAPI from '../../utils/IssueAPI'
+// eslint-disable-next-line
 import {
   Route,
   Link,
@@ -43,28 +44,11 @@ const useStyles = makeStyles({
 const ProjectIssue = props => {
   const classes = useStyles();
 
-  const [priorities, setPriorities] = useState([]);
-
   const obj = {
     Medium: "#f79d0c",
     High: "red",
     Low: "#14a7fc"
   }
-
-  useEffect(() => {
-    // console.clear();
-    // console.log(props)
-    // console.log(props.id);
-    IssueAPI.getById(`${props.id}`)
-      .then((res) => {
-        // console.log('this is our useEffect', res);
-        setPriorities(props.priority)
-        // if res.data.priority = 'High'
-      })
-      .catch(e => console.error(e))
-  }
-  // eslint-disable-next-line
-    , [])
 
   return (
 
@@ -78,6 +62,7 @@ const ProjectIssue = props => {
         >
           <IssueDetail 
             author={props.author}
+            project={props.project}
           />
 
           <Grid item className={classes.center} xs={12}>

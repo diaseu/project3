@@ -37,14 +37,14 @@ const ProjectCard = props => {
   return (
     <Card className="root">
       <CardContent>
-        <Typography color="textSecondary" align='center' variant="h6">
+        <Typography color="textSecondary" align="center">
           Project
         </Typography>
-        <Typography variant="h3" component="h2" align='center'>
+        <Typography variant="h4" align="center">
           {props.title}
         </Typography>
         
-        <Typography className="description" color="textSecondary" variant="h6" component="h2" align='center'>
+        <Typography variant="body1" className="description">
           {props.description}
         </Typography>
         
@@ -57,6 +57,7 @@ const ProjectCard = props => {
           className='ownerName'
           label={props.owner}
         />
+        
       </CardActions>
     </Card>
   )
