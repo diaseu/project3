@@ -1,11 +1,15 @@
 import './Me.css';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import ProjectIssue from '../../components/ProjectIssue'
 import Spacer from '../../components/Spacer';
+import UserAPI from'../../utils/UserAPI'
+import { Link}  from "react-router-dom";
+import ProjectCard from '../../components/ProjectCard'
+
 
 
 const useStyles = makeStyles({
@@ -20,8 +24,27 @@ const useStyles = makeStyles({
   }
 });
 
+
+
 const Me = () => {
   const classes = useStyles();
+
+  const [issueState, setIssueState] = useState([])
+
+  useEffect(() => {
+    UserAPI.me()
+      .then(data => {
+        
+        console.log(data, 'this is data')
+        setIssueState(data.data.issues)
+
+      })
+      
+      .catch(err => console.log(err))
+  }, [])
+
+
+
 
   return (
     <>
@@ -47,6 +70,31 @@ const Me = () => {
         <Grid container>
           <Grid item xs={12}>
             <h1>Put Project Issues Here</h1>
+            {issueState.map((issueData) => (
+              <Grid  item xs={12} sm={4} lg={2}>
+                {/* <Link to={`/projects/${id}`}> */}
+                <Link>
+                  <ProjectCard
+                    key={issueData.title}
+                    title={issueData.title}
+                    
+                  />
+                </Link>
+              </Grid>
+            ))}
+
+        
+
+           
+               
+
+         
+
+
+
+
+
+
           </Grid>
 
         </Grid>     
