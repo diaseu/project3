@@ -13,7 +13,7 @@ const useStyles = makeStyles({
   root: {
     minWidth: 175,
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'left',
     flexWrap: 'wrap',
     height: 200,
   },
@@ -37,24 +37,27 @@ const ProjectCard = props => {
   return (
     <Card className="root">
       <CardContent>
-        <Typography color="textSecondary" align='center' variant="h6">
+        <Typography color="textSecondary" >
           Project
         </Typography>
-        <Typography variant="h3" component="h2" align='center'>
+        <Typography >
           {props.title}
         </Typography>
         
-        <Typography className="description" color="textSecondary" variant="subtitle1" component="h2" align='center'>
+        <Typography className="description" color="textSecondary"  >
           {props.description}
         </Typography>
       <CardActions>
         <Spacer y={2}/>
+        <div className= 'chip'>
         <Chip
           icon={<FaceIcon />}
           size='small'
           className='ownerName'
           label={props.owner}
         />
+        </div>
+
       </CardActions>
       </CardContent>
     </Card>
