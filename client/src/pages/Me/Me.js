@@ -9,6 +9,7 @@ import Spacer from '../../components/Spacer';
 import UserAPI from'../../utils/UserAPI'
 import { Link}  from "react-router-dom";
 import ProjectCard from '../../components/ProjectCard'
+import ProjectIssueModal from '../../components/ProjectIssueModal'
 
 
 
@@ -27,20 +28,73 @@ const useStyles = makeStyles({
 
 
 const Me = () => {
-  const classes = useStyles();
 
+  const classes = useStyles();
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+
+
+  // Open Modal Individually
+  // status = Modal status if open or closed
+  const [status, setStatus] = useState(false);
+  const [openIssue, setIssueOpen] = useState(false);
+
+  const handleIssueOpen = _id => {
+    // console.log('this is plain status', status)
+    let issues = status.project.issues
+
+    // console.log('this is issues set to status', issues)
+    issues = issues.map(issue => {
+      if (_id === issue._id) {
+        issue.isOpen = !issue.isOpen
+      }
+      return issue
+    })
+
+    // console.log('what happens when i click handleIssueOpen', { status })
+    const project = status.project
+    project.issues = issues
+    setStatus({ project })
+  }
+
+  const handleClose = () => {
+    setOpen(false);
+    setStatus(false)
+  };
+
+  // Get Info
+
+
+  const [projectState, setProjectState] = useState([])
   const [issueState, setIssueState] = useState([])
+
+  // console.log('issueState', issueState)
+
 
   useEffect(() => {
     UserAPI.me()
-      .then(data => {
-        
-        console.log(data, 'this is data')
-        setIssueState(data.data.issues)
-
+      .then(res => {
+        const project = res.data
+        project.issues = res.data.issues.map(issues => ({
+          ...issues,
+          isOpen: false
+        }))
+        // console.log('this is project.issues in Dashboard', project.issues)
+        setStatus({ project })
+        // let issues = Object.values(status.issues)
+        // console.log('this is res.data in Dashboard', res.data)
+        // console.log('this is res.data.issues in Dashboard', res.data.issues)
+        setProjectState(res.data.projects)
+        setIssueState(res.data.issues)
+        // console.log('projectState in Dashboard', projectState)
+        // console.log('issueState in Dashboard', issueState)
       })
-      
       .catch(err => console.log(err))
+    // eslint-disable-next-line
   }, [])
 
 
@@ -69,19 +123,35 @@ const Me = () => {
       <div>
         <Grid container>
           <Grid item xs={12}>
-            <h1>Put Project Issues Here</h1>
-            {issueState.map((issueData) => (
-              <Grid  item xs={12} sm={4} lg={2}>
-                {/* <Link to={`/projects/${id}`}> */}
-                <Link>
-                  <ProjectCard
-                    key={issueData.title}
+            
+            {issueState.filter(issue => issue.status === 'Open').slice(0, 5).map((issueData) => (
+              <>
+                <Link onClick={() => handleIssueOpen(issueData._id)}>
+                  <ProjectIssue
+                    key={issueData.id}
+                    id={issueData._id}
                     title={issueData.title}
-                    
+                    priority={issueData.priority}
+                    author={issueData.author.name}
                   />
                 </Link>
-              </Grid>
+
+                {/* See Project Page for how to call ProjectIssueModals properly */}
+                <ProjectIssueModal
+                  id={issueData._id}
+                  title={issueData.title}
+                  body={issueData.body}
+                  author={issueData.author.name}
+                  status={issueData.status}
+                  // authorusername={issueData.author.username}
+                  priority={issueData.priority}
+                  open={issueData.isOpen}
+                  handleClose={() => handleIssueOpen(issueData._id)}
+                />
+              </>
             ))}
+
+           
 
         
 

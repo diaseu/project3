@@ -44,6 +44,7 @@ const Projects = () => {
     UserAPI.me()
       .then(data => {
         setProjectState(data.data.projects)
+        console.log(data.data.projects, 'this is our data')
       })
       .catch(err => console.log(err))
   }, [])
@@ -62,7 +63,7 @@ const Projects = () => {
               key={projectData._id}
               title={projectData.title}
               description={projectData.description}
-              owner={projectData.owner.name}
+              owner={projectData.owner.username}
             />
           </Link>
           </Grid>

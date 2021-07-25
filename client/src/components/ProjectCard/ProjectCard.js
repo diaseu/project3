@@ -48,7 +48,7 @@ const ProjectCard = props => {
           icon={<FaceIcon />}
           size='small'
           className='ownerName'
-          label={props.author}
+          label={props.owner}
         />
       </CardContent>
       {/* <CardActions>
