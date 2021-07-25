@@ -27,7 +27,7 @@ const useStyles = makeStyles({
 });
 
 
-const IssueDetail = () => {
+const IssueDetail = props => {
   const classes = useStyles();
 
   return(
@@ -40,7 +40,7 @@ const IssueDetail = () => {
       <Grid item xs={3}>
         <Typography className={classes.secondary} color="textSecondary">
           posted by <Chip
-            label="Jake Doe"
+            label={props.author}
             variant="outlined"
           />
         </Typography>

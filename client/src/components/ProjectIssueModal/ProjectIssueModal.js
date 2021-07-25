@@ -113,6 +113,8 @@ const useStyles = makeStyles({
     marginBottom: 12,
     paddingLeft: 12,
     paddingRight: 12,
+    paddingTop: 8,
+    paddingBottom: 8,
   }
 });
 
@@ -237,7 +239,9 @@ const ProjectCard = props => {
                 replies && replies.map((index, key) => {
                   return (
                     <div key={key}>
-                      <p>&nbsp; {props.author}: {index.text}</p>
+                      <Card className={classes.comments}>
+                      {props.author}: {index.text}
+                      </Card>
                     </div>
                   )
                 })
