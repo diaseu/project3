@@ -87,6 +87,7 @@ const Me = () => {
           isOpen: false
         }))
         setStatus({ project })
+        res.data.issues.reverse()
         setIssueState(res.data.issues)
         setMyId(res.data._id)
       })
@@ -96,21 +97,6 @@ const Me = () => {
   return (
     <>
       <h1 align="left">My Issues</h1>
-      <Grid container>
-        <Grid item xs={12} md={6} sm={6}>
-          <Typography variant="h6" component="h2">
-            Issues Reported By Me
-          </Typography>
-        </Grid>
-        <Grid item className={classes.right} xs={12} md={6} sm={6}>
-          <Button size="small" variant="contained" href="#sort-project">
-            Sort by Project
-          </Button>
-          <Button size="small" variant="contained" href="#sort-project">
-            Sort by Recent
-          </Button>
-        </Grid>
-      </Grid>
       <Spacer y={1} />
 
       <div>

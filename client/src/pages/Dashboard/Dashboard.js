@@ -12,6 +12,7 @@ import ProjectIssueModal from '../../components/ProjectIssueModal'
 import Spacer from '../../components/Spacer'
 import UserAPI from '../../utils/UserAPI'
 import IssueAPI from '../../utils/IssueAPI'
+import Box from '@material-ui/core/Box';
 // eslint-disable-next-line
 import {
   Link
@@ -19,8 +20,7 @@ import {
 
 const useStyles = makeStyles({
   projectcard: {
-    marginRight: 20,
-    marginBottom: 20,
+    padding: 10,
   },
   right: {
     textAlign: 'right',
@@ -102,11 +102,12 @@ const Dashboard = () => {
           isOpen: false,
           openCommunity: false
         }))
+        issues.reverse()
         console.log(issues)
         setIssueState(issues)
       })
       .catch(err => console.log(err))
-    
+    //gets the users info including their issues
     UserAPI.me()
       .then(res => {
         console.log('this is res in Dashboard', res)
@@ -116,6 +117,7 @@ const Dashboard = () => {
           isOpen: false,
           openCommunity: false
         }))
+        project.issues.reverse()
         setStatus({ project })
         setCommunityIssue({ project })
         setProjectIssueState(project.issues)
@@ -123,7 +125,6 @@ const Dashboard = () => {
         setMyId(res.data._id)
       })
       .catch(err => console.log(err))
-    // eslint-disable-next-line
   }, [])
 
 
@@ -137,8 +138,8 @@ const Dashboard = () => {
           </Typography>
         </Grid>
 
-        {projectState.slice(0, 5).map((projectData) => (
-          <Grid className={classes.projectcard} item xs={12} sm={4} lg={2}>
+        {projectState.slice(0, 3).map((projectData) => (
+          <Grid className={classes.projectcard} item xs={12} sm={4} lg={3}>
             {/* <Link to={`/projects/${id}`}> */}
             <Link to={`/project/${projectData._id}`}>
               <ProjectCard
@@ -154,7 +155,7 @@ const Dashboard = () => {
       </Grid>
       <Spacer y={4} />
       <Grid container>
-        <Grid item xs={12} lg={8}>
+        <Grid item xs={12} lg={8} md={7} sm={7}>
 
           <Grid container>
           {/* Project Issues */}
@@ -162,14 +163,6 @@ const Dashboard = () => {
               <Typography variant="h6" component="h2">
                 Project Issues
               </Typography>
-            </Grid>
-            <Grid item className={classes.right} xs={12} lg={4} md={6} sm={6}>
-              <Button size="small" variant="contained" href="#contained-buttons">
-                My Issues
-              </Button>
-              <Button size="small" variant="contained" href="#contained-buttons">
-                Recently Updated
-              </Button>
             </Grid>
           </Grid>
           <Spacer y={1} />
@@ -205,10 +198,9 @@ const Dashboard = () => {
           ))}
           
         </Grid>
-        <Spacer x={2} />
-
+        <Box m={2}/>
         {/* Community Issues */}
-        <Grid item xs={12} lg={3} md={3} sm={3}>
+        <Grid item xs={12} lg={3} md={4} sm={4}>
           <Typography variant="h6" component="h2">
             Help Answer Others' Issues
           </Typography>
