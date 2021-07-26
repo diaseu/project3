@@ -199,6 +199,7 @@ const ProjectModal = props => {
   }
 
   const handleDeleteIssue = () => {
+    console.log(props.id, 'this is issue id')
     IssueAPI.delete(props.id)
       .then(res => console.log(res))
       .catch(err => console.log(err))
