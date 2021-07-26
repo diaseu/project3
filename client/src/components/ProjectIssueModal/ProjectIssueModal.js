@@ -123,6 +123,7 @@ const useStyles = makeStyles({
 
 const ProjectCard = props => {
   const classes = useStyles();
+  
 
 
   // console.log('this is props in ProjectIssueModal', props)
@@ -255,6 +256,9 @@ const handleDeleteOpen = () => {
   setDeleteConfirm(true)
 }
 
+  const formatdate = new Date(props.date)
+  const timestamp = formatdate.toLocaleString('en-US', { timeZone: 'PST' })
+
   return (
     <Dialog maxWidth='lg' fullWidth open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title" className='dialogtitle'>
@@ -283,17 +287,16 @@ const handleDeleteOpen = () => {
               <Paper style={{ maxHeight: 200, overflow: 'auto', boxShadow: 'none'}}>
                 <List >
               {
-                replies && replies.map((index, key) => {
+                replies && replies.map((props, key) => {
                   return (
                     <div key={key}>
                       <Card className={classes.comments}>
-                      {index.author.name}: {index.text}
+                      {props.author.name} {timestamp}: {props.text}
                       </Card>
                     </div>
                   )
                 })
               }              
-
                 </List>
               </Paper>
             </Grid>
