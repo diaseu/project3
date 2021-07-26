@@ -174,6 +174,7 @@ const SetModal = props => {
       status: 'Open',
       pid: params.projectId
     })
+    window.location.reload()
     // console.log('issue created')
     props.handleClose()
     // window.location.reload()
