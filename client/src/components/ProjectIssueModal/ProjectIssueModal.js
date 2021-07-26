@@ -181,7 +181,6 @@ const ProjectCard = props => {
 
   
   const [issueStatus, setIssueStatus] = useState(props.status)
-  const [issueDescription, setIssueDescription] = useState('')
   const [issuePriority, setIssuePriority] = useState(props.priority)
 
   
@@ -194,13 +193,19 @@ const ProjectCard = props => {
     setIssueStatus(e.target.value)
     // console.log(e.target.value, 'this is target')
   }
+
+  const handleDeleteIssue = () => {
+    IssueAPI.delete(props.id)
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
+  }
   
   
-const handlePublicTrue = () => {
+  const handlePublicTrue = () => {
   setIssuePublic(true)
   console.clear();
   console.log('this is the issuePublic before update', issuePublic)
-}
+  }
 
   const [issuePublic, setIssuePublic] = useState(true);
 
@@ -422,7 +427,7 @@ const handleDeleteOpen = () => {
             <Button onClick={handleClose} color="primary">
               Disagree
             </Button>
-            <Button onClick={handleRefresh} color="primary" autoFocus>
+            <Button onClick={handleDeleteIssue} color="primary" autoFocus>
               Agree
             </Button>
           </DialogActions>
