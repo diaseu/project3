@@ -51,4 +51,22 @@ router.get('/users/:username', passport.authenticate('jwt'), (req, res) => {
     .catch(err => console.log(err))
 })
 
+router.get('/users/:id', passport.authenticate('jwt'), (req, res) => {
+  User.findById(req.params.id)
+    .populate({
+      path: 'projects',
+      model: 'Project',
+      populate: {
+        path: 'issues',
+        model: 'Issue',
+        populate: {
+          path: 'author',
+          model: 'User'
+        }
+      }
+    })
+    .then(user => res.json(user))
+    .catch(err => console.log(err))
+})
+
 module.exports = router

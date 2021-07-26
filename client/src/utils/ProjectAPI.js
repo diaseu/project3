@@ -26,7 +26,15 @@ const Project = {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`
     }
+  }),
+  removeMember:(id, member) => axios.put(`/api/projects/${id}/removemember`, member, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    }
   })
+
+
+  
 }
 
 export default Project
