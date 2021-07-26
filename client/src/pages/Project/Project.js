@@ -15,11 +15,14 @@ import AddMember from '../../components/AddMember'
 import AddIssue from '../../components/AddIssue'
 import ProjectIssueModal from '../../components/ProjectIssueModal'
 import ProjectAPI from '../../utils/ProjectAPI'
+import UserAPI from '../../utils/UserAPI'
 // import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import {
   Link,
   useParams
 } from "react-router-dom";
+
+import axios from 'axios'
 
 // let mongoose = require('mongoose')
 
@@ -77,6 +80,7 @@ const Project = () => {
   // eslint-disable-next-line
   const [openIssue, setIssueOpen] = useState(false);
   const [status, setStatus] = useState({ isLoading: true });
+  const [members, setMembers] = useState([])
   const params = useParams();
   const { isLoading, project, err } = status;
 
@@ -116,6 +120,47 @@ const Project = () => {
     setEditProjectOpen(true);
   };
 
+
+
+  const [doomedMember, setDoomedMember] = useState('')
+
+  const handleDelete = (e) => {
+    console.log(e.target.parentNode.parentNode.id, 'user id to be deleted')
+    let member=e.target.parentNode.parentNode.id
+    
+    let id = project._id
+    console.log(id, 'this is the project id')
+    
+    // UserAPI.getOneById(member) 
+    //   .then(user  => {
+    //     console.log(user, 'this is user')
+        ProjectAPI.removeMember(id, {_id: member})
+          .then((res) => {
+           console.log(res)
+          })
+          .catch(err => console.error(err))
+            
+      // }) 
+
+    
+  }
+
+
+
+  // addMember: (id, member) => axios.put(`/api/projects/${id}/addMember`, member, {
+  //   headers: {
+  //     Authorization: `Bearer ${localStorage.getItem('token')}`
+  //   }
+  // })
+  
+
+
+  
+  
+
+
+  
+
   // Modal: Add Issue
   const [openAddIssue, setAddIssueOpen] = useState(false);
   const handleAddIssueOpen = () => {
@@ -137,9 +182,9 @@ const Project = () => {
     setEditProjectOpen(false)
   };
 
-  const handleDelete = () => {
-    console.info('You clicked the delete icon.');
-  };
+  
+
+  
 
   // ====================== API CALLS ======================
   // Get Project Info
@@ -147,6 +192,8 @@ const Project = () => {
   useEffect(() => {
     ProjectAPI.getById(params.projectId)
       .then(res => {
+        console.clear()
+        console.log(res.data)
         const project = res.data
         project.issues = res.data.issues.map(issue => ({
           ...issue,
@@ -154,6 +201,9 @@ const Project = () => {
           isArchived: false
         }))
         setStatus({ project })
+        setMembers(res.data.members)
+        
+        
       })
       .catch(err => setStatus({ err: err }))
   // eslint-disable-next-line
@@ -202,18 +252,22 @@ const Project = () => {
               </span>
             </Grid>
             {/* Project Members Chips */}
+
+            
             <Grid item xs={12} md={9}>
               <span className="members">Project Members 
-                {project.members.map((members) => (
+                {members.map((members) => (
+                  <span id={members._id}>
                     <Chip
-                      key={members.id}
+                      key={members._id}
                       icon={<FaceIcon />}
                       clickable
-                      label={members.name}
                       onDelete={handleDelete}
                       color="default"
                       variant="outlined"
+                      label={members.name}
                     />
+                    </span>
                 ))}
                 {/* Add Member Chip */}
                 <Link onClick={handleAddMemberOpen}>

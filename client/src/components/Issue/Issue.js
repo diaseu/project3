@@ -39,7 +39,7 @@ const Issue = props => {
     Low: "#14a7fc"
   }
 
-  console.log('this is props in Issues', props)
+  // console.log('this is props in Issues', props)
 
   return(
     <Card className={classes.root}>

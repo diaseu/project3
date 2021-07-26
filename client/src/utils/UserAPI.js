@@ -27,6 +27,11 @@ const User = {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`
     }
+  }),
+  getOneById: id => axios.get(`/api/users/${id}`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    }
   })
 }
 
