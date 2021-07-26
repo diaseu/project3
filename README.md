@@ -24,6 +24,15 @@
 ### Zap is an app created to combine the project management and bug tracking aspects of app development. You can ask for help both within your group or ask the community. Our goal is to streamline the process of app development by giving you one place to manage projects and ask any and all questions related to development. Let's get Zapping!
 ---
 ## Screenshots
+<img src='./client/src/images/Zap login.png' width= '800px'>
+<img src='./client/src/images/Zap register.png' width= '800px'>
+<img src='./client/src/images/Zap dash.png' width= '800px'>
+<img src='./client/src/images/Zap project.png' width= '800px'>
+<img src='./client/src/images/Zap my issues.png' width= '800px'>
+<img src='./client/src/images/Zap view my projects.png' width= '800px'>
+<img src='./client/src/images/Zap community.png' width= '800px'>
+<img src='./client/src/images/Zap about.png' width= '800px'>
+
 ---
 ## Installation
 ### For installation, it works on all operating systems and uses javascript and jsx-react. If cloning, please use "npm i" in the terminal. In addition, please use mongodb compass.
