@@ -53,7 +53,16 @@ const Projects = () => {
     <>
     <h1>View My Projects</h1>
       <Grid container>
-        <Grid item xs={12} lg={12}>
+        <Grid className={classes.projectcard} item xs={12} sm={4} lg={2}>
+          <Link onClick={handleNewProjectModalOpen}>
+            <MoreCard
+              clickable
+            />
+          </Link>
+          <NewProjectModal
+            open={openNewProjectModal}
+            handleClose={() => setNewProjectModalOpen(false)}
+          />
         </Grid>
         {projectState.map((projectData) => (
           <Grid className={classes.projectcard} item xs={12} sm={4} lg={2}>
@@ -69,17 +78,7 @@ const Projects = () => {
           </Grid>
         ))}
         
-        <Grid className={classes.projectcard} item xs={12} sm={4} lg={2}>
-          <Link onClick={handleNewProjectModalOpen}>
-            <MoreCard
-              clickable
-            />
-          </Link>
-          <NewProjectModal
-            open={openNewProjectModal}
-            handleClose={() => setNewProjectModalOpen(false)}
-          />
-        </Grid>
+        
       </Grid>
     </>
   )
