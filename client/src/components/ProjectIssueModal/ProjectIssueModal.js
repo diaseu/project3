@@ -256,9 +256,6 @@ const handleDeleteOpen = () => {
   setDeleteConfirm(true)
 }
 
-  const formatdate = new Date(props.date)
-  const timestamp = formatdate.toLocaleString('en-US', { timeZone: 'PST' })
-
   return (
     <Dialog maxWidth='lg' fullWidth open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title" className='dialogtitle'>
@@ -291,7 +288,7 @@ const handleDeleteOpen = () => {
                   return (
                     <div key={key}>
                       <Card className={classes.comments}>
-                      {props.author.name} {timestamp}: {props.text}
+                      {props.author.name} {props.createdAt}: {props.text}
                       </Card>
                     </div>
                   )

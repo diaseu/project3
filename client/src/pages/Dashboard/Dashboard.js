@@ -190,7 +190,6 @@ const Dashboard = () => {
                 status={issueData.status}
                 // authorusername={issueData.author.username}
                 priority={issueData.priority}
-                date={issueData.createdAt}
                 open={issueData.isOpen}
                 handleClose={() => handleIssueOpen(issueData._id)}
               />
