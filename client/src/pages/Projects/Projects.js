@@ -24,8 +24,7 @@ const useStyles = makeStyles({
     marginBottom: 40,
   },
   projectcard: {
-    marginRight: 20,
-    marginBottom: 20,
+    padding: 4,
   },
 });
 

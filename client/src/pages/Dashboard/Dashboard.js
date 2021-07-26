@@ -19,8 +19,7 @@ import {
 
 const useStyles = makeStyles({
   projectcard: {
-    marginRight: 20,
-    marginBottom: 20,
+    padding: 10,
   },
   right: {
     textAlign: 'right',
@@ -137,8 +136,8 @@ const Dashboard = () => {
           </Typography>
         </Grid>
 
-        {projectState.slice(0, 5).map((projectData) => (
-          <Grid className={classes.projectcard} item xs={12} sm={4} lg={2}>
+        {projectState.slice(0, 3).map((projectData) => (
+          <Grid className={classes.projectcard} item xs={12} sm={4} lg={3}>
             {/* <Link to={`/projects/${id}`}> */}
             <Link to={`/project/${projectData._id}`}>
               <ProjectCard
@@ -162,14 +161,6 @@ const Dashboard = () => {
               <Typography variant="h6" component="h2">
                 Project Issues
               </Typography>
-            </Grid>
-            <Grid item className={classes.right} xs={12} lg={4} md={6} sm={6}>
-              <Button size="small" variant="contained" href="#contained-buttons">
-                My Issues
-              </Button>
-              <Button size="small" variant="contained" href="#contained-buttons">
-                Recently Updated
-              </Button>
             </Grid>
           </Grid>
           <Spacer y={1} />
@@ -208,7 +199,7 @@ const Dashboard = () => {
         <Spacer x={2} />
 
         {/* Community Issues */}
-        <Grid item xs={12} lg={3} md={3} sm={3}>
+        <Grid item xs={12} lg={3} md={4} sm={5}>
           <Typography variant="h6" component="h2">
             Help Answer Others' Issues
           </Typography>
