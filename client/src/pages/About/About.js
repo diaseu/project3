@@ -20,18 +20,18 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
   },
-  brand: {
-    textTransform: 'uppercase',
-    fontFamily: 'Days One',
-    fontSize: '64px'
-  },
+ 
   title: {
-    marginBottom: '6vh',
     marginTop: '4vh',
   },
+  brand:{
+    marginBottom: '4vh',
+    marginTop: '2vh',
+  },
+
   herocontent: {
-    padding: theme.spacing(4, 35, 6),
-    marginRight: '2vh',
+    padding: theme.spacing(4),
+    // marginRight: '2vh',
   },
   heroButtons: {
     marginTop: '7vh',
@@ -49,9 +49,7 @@ const useStyles = makeStyles((theme) => ({
   padright: {
     marginRight: '2vh',
   },
-  team: {
-    marginRight: '2vh',
-  }
+ 
 }));
 
 export default function About() {
@@ -76,8 +74,11 @@ export default function About() {
         {/* Hero unit */}
         <Container maxWidth="lg">
             <Card className={classes.herocontent}>
-            <Typography component="h1" variant="h2" align="center" className={classes.title} color="textPrimary">
-              About  <img src="https://i.imgur.com/Q0IAOwI.png" alt="" style={{ maxHeight: '5vh' }} />
+            <Typography component="h1" variant="h2" align = 'center'className={classes.title} color="textPrimary">
+              About
+            </Typography>
+            <Typography component="h1" variant="h2" align = 'center'className={classes.brand} color="textPrimary">
+            <img src="https://i.imgur.com/Q0IAOwI.png" alt="brand" style={{ maxHeight: '4vh' }} />
             </Typography>
             <Typography variant="body1" align="left" color="textSecondary" paragraph>
               Zap is an app created to combine the project management and bug tracking aspects of app development. You can ask for help both within your group or ask the community. Our goal is to streamline the process of app development by giving you one place to manage projects and ask any and all questions related to development. Let's get Zapping!
@@ -145,9 +146,9 @@ export default function About() {
                 <Grid item xs={12} sm={6} md={3}>
                   <Card className={classes.team}>
                     <CardContent align='center'>
-                      <img src={column.url} width="165" height="165" alt="" className={classes.profile} />
+                      <img src={column.url} width="135" height="135" alt="" className={classes.profile} />
 
-                      <Typography variant="h6" component="h3" align='center'>
+                      <Typography variant="h7" component="h3" align='center'>
                         {column.name}
                       </Typography>
                       <Typography variant="body2" color="textSecondary" component={'span'}>
