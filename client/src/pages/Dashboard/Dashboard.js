@@ -102,11 +102,12 @@ const Dashboard = () => {
           isOpen: false,
           openCommunity: false
         }))
+        issues.reverse()
         console.log(issues)
         setIssueState(issues)
       })
       .catch(err => console.log(err))
-    
+    //gets the users info including their issues
     UserAPI.me()
       .then(res => {
         console.log('this is res in Dashboard', res)
@@ -116,6 +117,7 @@ const Dashboard = () => {
           isOpen: false,
           openCommunity: false
         }))
+        project.issues.reverse()
         setStatus({ project })
         setCommunityIssue({ project })
         setProjectIssueState(project.issues)
@@ -123,7 +125,6 @@ const Dashboard = () => {
         setMyId(res.data._id)
       })
       .catch(err => console.log(err))
-    // eslint-disable-next-line
   }, [])
 
 

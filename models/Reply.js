@@ -13,6 +13,4 @@ const Reply = new Schema({
   }
 )
 
-
-
 module.exports = model('Reply', Reply)
