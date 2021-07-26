@@ -12,6 +12,7 @@ import ProjectIssueModal from '../../components/ProjectIssueModal'
 import Spacer from '../../components/Spacer'
 import UserAPI from '../../utils/UserAPI'
 import IssueAPI from '../../utils/IssueAPI'
+import Box from '@material-ui/core/Box';
 // eslint-disable-next-line
 import {
   Link
@@ -153,7 +154,7 @@ const Dashboard = () => {
       </Grid>
       <Spacer y={4} />
       <Grid container>
-        <Grid item xs={12} lg={8}>
+        <Grid item xs={12} lg={8} md={7} sm={7}>
 
           <Grid container>
           {/* Project Issues */}
@@ -196,10 +197,9 @@ const Dashboard = () => {
           ))}
           
         </Grid>
-        <Spacer x={2} />
-
+        <Box m={2}/>
         {/* Community Issues */}
-        <Grid item xs={12} lg={3} md={4} sm={5}>
+        <Grid item xs={12} lg={3} md={4} sm={4}>
           <Typography variant="h6" component="h2">
             Help Answer Others' Issues
           </Typography>
