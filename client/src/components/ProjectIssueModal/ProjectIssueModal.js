@@ -135,6 +135,7 @@ const useStyles = makeStyles({
 
 const ProjectCard = props => {
   const classes = useStyles();
+  
 
 
   // console.log('this is props in ProjectIssueModal', props)
@@ -338,17 +339,16 @@ const obj = {
               <Paper style={{ maxHeight: 200, overflow: 'auto', boxShadow: 'none'}}>
                 <List >
               {
-                replies && replies.map((index, key) => {
+                replies && replies.map((props, key) => {
                   return (
                     <div key={key}>
                       <Card className={classes.comments}>
-                      {index.author.name}: {index.text}
+                      {props.author.name} {props.createdAt}: {props.text}
                       </Card>
                     </div>
                   )
                 })
               }              
-
                 </List>
               </Paper>
             </Grid>

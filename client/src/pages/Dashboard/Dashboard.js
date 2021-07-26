@@ -159,7 +159,7 @@ const Dashboard = () => {
 
           <Grid container>
           {/* Project Issues */}
-            <Grid item xs={12} lg={8} md={6} sm={6}>
+            <Grid item xs={12} lg={8} md={7} sm={7}>
               <Typography variant="h6" component="h2">
                 Project Issues
               </Typography>
@@ -206,7 +206,7 @@ const Dashboard = () => {
           <Typography variant="h6" component="h2">
             Help Answer Others' Issues
           </Typography>
-
+          <Spacer y={1} />
           {issueState.filter(issue => issue.isPublic === true && issue.status !== 'Closed' && issue.author._id !== myid).slice(0, 8).map(issueData => (
             <>
               <Link onClick={() => handleCommunityIssueOpen(issueData._id)}>
