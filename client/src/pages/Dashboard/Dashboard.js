@@ -138,7 +138,7 @@ const Dashboard = () => {
         </Grid>
 
         {projectState.slice(0, 5).map((projectData) => (
-          <Grid className={classes.projectcard} item xs={12} sm={4} lg={2}>
+          <Grid className={classes.projectcard} item xs={12} sm={4} md={4} lg={2}>
             {/* <Link to={`/projects/${id}`}> */}
             <Link to={`/project/${projectData._id}`}>
               <ProjectCard
@@ -183,6 +183,7 @@ const Dashboard = () => {
                   title={issueData.title}
                   body={issueData.body}
                   priority={issueData.priority}
+                  date={issueData.createdAt}
                   author={issueData.author.name}
                   project={issueData.pid}
                   // date={issueData._id.getTimestamp}
@@ -196,6 +197,7 @@ const Dashboard = () => {
                 body={issueData.body}
                 author={issueData.author.name}
                 status={issueData.status}
+                date={issueData.createdAt}
                 // authorusername={issueData.author.username}
                 priority={issueData.priority}
                 open={issueData.isOpen}
@@ -231,6 +233,7 @@ const Dashboard = () => {
                 id={issueData._id}
                 title={issueData.title}
                 body={issueData.body}
+                status={issueData.status}
                 author={issueData.author.name}
                 open={issueData.openCommunity}
                 handleClose={() => handleCommunityIssueOpen(issueData._id)}

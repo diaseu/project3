@@ -1,10 +1,12 @@
 import './ProjectIssue.css'
 import React, { useEffect, useState } from 'react';
+// ====================== Material UI cores ======================
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Icon from '@material-ui/core/Icon';
+// ====================== API Calls ======================
 import IssueDetail from '../IssueDetail'
 import IssueAPI from '../../utils/IssueAPI'
 // eslint-disable-next-line
@@ -13,6 +15,9 @@ import {
   Link,
   useParams
 } from "react-router-dom";
+// ====================== RTF Draft WYSIWYG Editor ======================
+import { stateToHTML } from 'draft-js-export-html';
+import { convertFromRaw } from 'draft-js'
 
 
 const useStyles = makeStyles({
@@ -64,6 +69,15 @@ const ProjectIssue = props => {
     Low: "#14a7fc"
   }
 
+  const convertFromJSONToHTML = (text) => {
+    try {
+      return { __html: stateToHTML(convertFromRaw(text)) }
+    } catch (exp) {
+      console.log(exp)
+      return { __html: 'Error' }
+    }
+  }
+
   return (
 
     <Card className={classes.root} style={{ borderColor: obj[props.priority] }}>
@@ -84,7 +98,8 @@ const ProjectIssue = props => {
           <Grid item className="title" xs={12}>
             <Icon className={classes.priority} style={{ color: obj[props.priority] }} >radio_button_unchecked</Icon>
 
-            {props.title} <i className="body">{props.body}</i>
+            {props.title} <i className="body"><div dangerouslySetInnerHTML={convertFromJSONToHTML(props.body)}> </div></i>
+            
 
           </Grid>
         </Grid>

@@ -1,5 +1,6 @@
 import './ProjectIssueModal.css'
 import React, { useState, useEffect } from 'react';
+// ====================== Material UI cores ======================
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -11,17 +12,25 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Icon from '@material-ui/core/Icon';
-import FaceIcon from '@material-ui/icons/Face';
-import Spacer from '../../components/Spacer'
 import MenuItem from '@material-ui/core/MenuItem';
+import Icon from '@material-ui/core/Icon';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Card from '@material-ui/core/Card';
-import ReplyAPI from '../../utils/ReplyAPI'
-import IssueAPI from '../../utils/IssueAPI'
 import List from '@material-ui/core/List';
 import Paper from '@material-ui/core/Paper';
+// ====================== Material UI icons ======================
+import FaceIcon from '@material-ui/icons/Face';
+import CheckIcon from '@material-ui/icons/Check';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import CloseIcon from '@material-ui/icons/Close';
+// ====================== API Calls ======================
+import Spacer from '../../components/Spacer'
+import ReplyAPI from '../../utils/ReplyAPI'
+import IssueAPI from '../../utils/IssueAPI'
+// ====================== RTF Draft WYSIWYG Editor ======================
+import { stateToHTML } from 'draft-js-export-html';
+import { convertFromRaw } from 'draft-js'
 
 const useStyles = makeStyles({
   root: {
@@ -115,6 +124,9 @@ const useStyles = makeStyles({
     paddingRight: 12,
     paddingTop: 8,
     paddingBottom: 8,
+  },
+  right: {
+    textAlign: 'right',
   }
 });
 
@@ -255,10 +267,55 @@ const handleDeleteOpen = () => {
   setDeleteConfirm(true)
 }
 
+let formatdate = new Date(props.date)
+let timestamp = formatdate.toLocaleString('en-US', { timeZone: 'PST' })
+
+const obj = {
+  Open: "#719974",
+  InProgress: "#f79d0c",
+  Closed: "red"
+}
+
+
+  const convertFromJSONToHTML = (text) => {
+    try {
+      return { __html: stateToHTML(convertFromRaw(text)) }
+    } catch (exp) {
+      console.log(exp)
+      return { __html: 'Error' }
+    }
+  }
+
   return (
     <Dialog maxWidth='lg' fullWidth open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title" className='dialogtitle'>
-        {props.title}
+      <DialogTitle id="form-dialog-title" className='dialogtitle' style={{ borderColor: obj[props.status] }}>
+
+        <Grid container>
+          <Grid item xs={12} md={6} lg={6} className={classes.issueleft}>
+            {props.title}
+            <Spacer y={1} />
+            <Typography className={classes.title} color="textSecondary">
+              Posted by <Chip
+                // icon={<FaceIcon />}
+                size='small'
+                label={props.author}
+                variant="outlined"
+              /> on {timestamp}
+            </Typography>
+          </Grid>
+          <Grid item xs={12} md={6} lg={6} className={classes.right}>
+            <Chip
+              label={props.status}
+              // icon={{ icon: statusicon[props.status] }}
+              size='small'
+              variant="outlined"
+              className={classes.status}
+              color={{ color: obj[props.status] }}
+            />
+
+          </Grid>
+        </Grid>
+
       </DialogTitle>
 
       <DialogContent>
@@ -266,9 +323,7 @@ const handleDeleteOpen = () => {
           <Grid container>
             <Grid className={classes.issueleft} item xs={12} lg={9}>
 
-              <Typography className={classes.mb}>
-                {props.body}
-              </Typography>
+              <div dangerouslySetInnerHTML={convertFromJSONToHTML(props.body)}> </div>
 
               <TextField
                 margin="dense"
@@ -299,16 +354,6 @@ const handleDeleteOpen = () => {
             </Grid>
             <Grid className={classes.issueright} item xs={12} lg={3}>
               <Spacer y={1}/>
-              <Typography className={classes.title} color="textSecondary">
-                Posted by
-              </Typography>
-              <Chip
-                icon={<FaceIcon />}
-                clickable
-                label={props.author}
-                variant="outlined"
-              />
-              <Spacer y={2} />
 
 
               <Typography className={classes.title} color="textSecondary">
@@ -337,7 +382,7 @@ const handleDeleteOpen = () => {
                   <MenuItem value="Open">
                     Open
                   </MenuItem>
-                  <MenuItem value="In Progress">
+                  <MenuItem value="InProgress">
                     In Progress</MenuItem>
                   <MenuItem value="Closed">
                     Closed</MenuItem>

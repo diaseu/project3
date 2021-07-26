@@ -35,7 +35,7 @@ const ProjectCard = props => {
   const classes = useStyles();
 
   return (
-    <Card className="root">
+    <Card className="projectcard">
       <CardContent>
         <Typography color="textSecondary">
           Project

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+// ====================== Material UI cores ======================
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -14,6 +15,7 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+// ====================== API Calls ======================
 import Issue from '../../utils/IssueAPI'
 import ProjectAPI from '../../utils/ProjectAPI'
 // eslint-disable-next-line
@@ -22,6 +24,11 @@ import {
   Link,
   useParams
 } from "react-router-dom";
+// ====================== RTF Draft WYSIWYG Editor ======================
+import { Editor } from 'react-draft-wysiwyg';
+import { EditorState, convertToRaw } from 'draft-js';
+import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { stateToHTML } from 'draft-js-export-html'
 
 
 const useStyles = makeStyles({
@@ -119,7 +126,7 @@ const SetModal = props => {
 
   // issueState
   const [issueTitle, setIssueTitle] = useState("");
-  const [issueDescription, setIssueDescription] = useState('')
+  const [issueDescription, setIssueDescription] = useState(EditorState.createEmpty())
   const [issuePriority, setIssuePriority] = useState('Medium');
 
   // eslint-disable-next-line
@@ -157,7 +164,7 @@ const SetModal = props => {
     // e.preventDefault();
     Issue.create({
       title: issueTitle,
-      body: issueDescription,
+      body: convertToRaw(issueDescription.getCurrentContent()),
       priority: issuePriority,
       isPublic: false,
       status: 'Open',
@@ -200,6 +207,22 @@ const SetModal = props => {
                       onChange={handleIssueDescription}
                     />
                   </p>
+
+                  <Editor 
+                    editorState={issueDescription}
+                    wrapperClassName="wrapper-class"
+                    editorClassName="editor-class"
+                    toolbarClassName="toolbar-class"
+                    wrapperStyle={{ border: "2px solid green", marginBottom: "20px" }}
+                    editorStyle={{ height: "300px", padding: "10px" }}
+                    toolbar={{
+                      inline: { inDropdown: true },
+                      list: { inDropdown: true },
+                      textAlign: { inDropdown: true },
+                      link: { inDropdown: true } }}
+                    onEditorStateChange={editorState => setIssueDescription(editorState)}
+                  />
+
                 </form>
               </Typography>
 

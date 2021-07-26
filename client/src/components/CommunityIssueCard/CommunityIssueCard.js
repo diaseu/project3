@@ -1,5 +1,6 @@
 import './CommunityIssueCard.css';
 import React from 'react';
+// ====================== Material UI cores ======================
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -7,7 +8,9 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
 import Grid from '@material-ui/core/Grid';
+// ====================== Material UI icons ======================
 import ChatIcon from '@material-ui/icons/Chat';
+// ====================== API Calls ======================
 // eslint-disable-next-line
 import {
   Switch,
@@ -49,7 +52,8 @@ const useStyles = makeStyles({
 
 const obj = {
   Open: "#719974",
-  Closed: "#f79d0c",
+  InProgress: "#f79d0c",
+  Closed: "red"
 }
 
 const CommunityIssue = props => {

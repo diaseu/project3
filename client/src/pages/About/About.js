@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 12,
   },
   zapbrand: {
-    maxHeight: '5vh',
+    maxHeight: '5vw',
   },
   padright: {
     marginRight: '2vh',
@@ -74,10 +74,10 @@ export default function About() {
         {/* Hero unit */}
         <Container maxWidth="lg">
             <Card className={classes.herocontent}>
-            <Typography component="h1" variant="h2" align = 'center'className={classes.title} color="textPrimary">
+            <Typography component="h1" variant="h2" align='center' className={classes.title} color="textPrimary">
               About
             </Typography>
-            <Typography component="h1" variant="h2" align = 'center'className={classes.brand} color="textPrimary">
+            <Typography component="h1" variant="h2" align='center' className={classes.brand} color="textPrimary">
             <img src="https://i.imgur.com/Q0IAOwI.png" alt="brand" style={{ maxHeight: '4vh' }} />
             </Typography>
             <Typography variant="body1" align="left" color="textSecondary" paragraph>
