@@ -160,6 +160,7 @@ const Help = () => {
 
                 <CommunityIssueModal
                   id={issueData._id}
+                  date={issueData.createdAt}
                   title={issueData.title}
                   body={issueData.body}
                   author={issueData.author.username}

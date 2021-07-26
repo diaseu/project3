@@ -202,6 +202,7 @@ const ProjectModal = props => {
     console.log(props.id, 'this is issue id')
     IssueAPI.delete(props.id)
       .then(res => console.log(res))
+      window.location.reload()
       .catch(err => console.log(err))
   }
   
