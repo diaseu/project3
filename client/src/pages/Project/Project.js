@@ -157,21 +157,6 @@ const Project = () => {
   }
 
 
-
-  // addMember: (id, member) => axios.put(`/api/projects/${id}/addMember`, member, {
-  //   headers: {
-  //     Authorization: `Bearer ${localStorage.getItem('token')}`
-  //   }
-  // })
-  
-
-
-  
-  
-
-
-  
-
   // Modal: Add Issue
   const [openAddIssue, setAddIssueOpen] = useState(false);
   const handleAddIssueOpen = () => {
@@ -282,6 +267,7 @@ const Project = () => {
             <Grid item xs={12} md={9}>
               <span className="members">Project Members 
                 {project.members.slice(1).map((members) => (
+                  <span id={members._id}>
                     <Chip
                       key={members.id}
                       // icon={<FaceIcon />}
