@@ -137,6 +137,7 @@ const Project = () => {
         ProjectAPI.removeMember(id, {_id: member})
           .then((res) => {
            console.log(res)
+           window.location.reload()
           })
           .catch(err => console.error(err))
             
