@@ -87,6 +87,7 @@ const Me = () => {
           isOpen: false
         }))
         setStatus({ project })
+        res.data.issues.reverse()
         setIssueState(res.data.issues)
         setMyId(res.data._id)
       })
