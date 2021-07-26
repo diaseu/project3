@@ -26,7 +26,7 @@
 ## Screenshots
 <img src='./client/src/images/Zap login.png' width= '800px'>
 <img src='./client/src/images/Zap register.png' width= '800px'>
-<img src='./client/src/images/Zap dash.png' width= '800px'>
+<img src='./client/src/images/Zap Dash.png' width= '800px'>
 <img src='./client/src/images/Zap project.png' width= '800px'>
 <img src='./client/src/images/Zap my issues.png' width= '800px'>
 <img src='./client/src/images/Zap view my projects.png' width= '800px'>
