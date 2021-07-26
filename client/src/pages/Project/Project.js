@@ -15,11 +15,14 @@ import AddMember from '../../components/AddMember'
 import AddIssue from '../../components/AddIssue'
 import ProjectIssueModal from '../../components/ProjectIssueModal'
 import ProjectAPI from '../../utils/ProjectAPI'
+import UserAPI from '../../utils/UserAPI'
 // import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import {
   Link,
   useParams
 } from "react-router-dom";
+
+import axios from 'axios'
 
 // let mongoose = require('mongoose')
 
@@ -30,7 +33,10 @@ const useStyles = makeStyles({
   title: {
     fontSize: 14,
   },
-  mb: {
+  projecthead: {
+    marginTop: 40,
+  },
+  projecttitle: {
     marginBottom: 20,
   },
   issueleft: {
@@ -62,10 +68,17 @@ const useStyles = makeStyles({
     marginBottom: 20,
   },
   columntest: {
-    backgroundColor: '#ffffff'
+    backgroundColor: '#ffffff',
+    borderLeft: '3px solid #cccccc',
   }, 
   allmembers: {
     marginBottom: 12,
+  },
+  memberschip: {
+    marginLeft: 6,
+  },
+  addbtn: {
+    marginLeft: 6,
   }
 });
 
@@ -77,6 +90,7 @@ const Project = () => {
   // eslint-disable-next-line
   const [openIssue, setIssueOpen] = useState(false);
   const [status, setStatus] = useState({ isLoading: true });
+  const [members, setMembers] = useState([])
   const params = useParams();
   const { isLoading, project, err } = status;
 
@@ -116,6 +130,33 @@ const Project = () => {
     setEditProjectOpen(true);
   };
 
+
+
+  const [doomedMember, setDoomedMember] = useState('')
+
+  const handleDelete = (e) => {
+    console.log(e.target.parentNode.parentNode.id, 'user id to be deleted')
+    let member=e.target.parentNode.parentNode.id
+    
+    let id = project._id
+    console.log(id, 'this is the project id')
+    
+    // UserAPI.getOneById(member) 
+    //   .then(user  => {
+    //     console.log(user, 'this is user')
+        ProjectAPI.removeMember(id, {_id: member})
+          .then((res) => {
+           console.log(res)
+           window.location.reload()
+          })
+          .catch(err => console.error(err))
+            
+      // }) 
+
+    
+  }
+
+
   // Modal: Add Issue
   const [openAddIssue, setAddIssueOpen] = useState(false);
   const handleAddIssueOpen = () => {
@@ -137,9 +178,15 @@ const Project = () => {
     setEditProjectOpen(false)
   };
 
-  const handleDelete = () => {
-    console.info('You clicked the delete icon.');
-  };
+  
+
+  
+
+  const obj = {
+    Medium: "#f79d0c",
+    High: "red",
+    Low: "#14a7fc"
+  }
 
   // ====================== API CALLS ======================
   // Get Project Info
@@ -147,6 +194,7 @@ const Project = () => {
   useEffect(() => {
     ProjectAPI.getById(params.projectId)
       .then(res => {
+        console.clear()
         console.log(res.data)
         const project = res.data
         project.issues = res.data.issues.map(issue => ({
@@ -155,6 +203,9 @@ const Project = () => {
           isArchived: false
         }))
         setStatus({ project })
+        setMembers(res.data.members)
+        
+        
       })
       .catch(err => setStatus({ err: err }))
   // eslint-disable-next-line
@@ -162,12 +213,16 @@ const Project = () => {
 
   return  isLoading ? <span>loading...</span> : err ? <h1>{err.message}</h1> : (
     <>
-      <Grid container>
+      {/* Project Header */}
+      <Grid container className={classes.projecthead}>
+        
         {/* Project Title */}
-        <Grid className={classes.columngrid} item xs={12} md={11}>
-          <Typography className={classes.mb} variant="h3" component="h2">
+        <Grid item xs={12} md={11}>
+          
+          <Typography className={classes.projecttitle} variant="h3" component="h2">
               {project.title}
           </Typography>
+          
         </Grid>
         {/* Edit Project Button */}
         <Grid className={classes.columngrid} item xs={1}>
@@ -190,31 +245,41 @@ const Project = () => {
             />
           </div>
         </Grid>
+        
+        </Grid>
+      {/* Project owner/member info bar */}
+      <Grid container>
         <Grid className={classes.columngrid} item xs={12}>
           <Grid container className={classes.allmembers}>
             {/* Project Owner Chip */}
             <Grid item xs={12} md={3}>
               <span className={classes.title} color="textSecondary">
                 Project Lead <Chip
-                  icon={<FaceIcon />}
+                  // icon={<FaceIcon />}
                   label={project.owner.name}
                   variant="outlined"
                 />
               </span>
             </Grid>
             {/* Project Members Chips */}
+
+            
             <Grid item xs={12} md={9}>
               <span className="members">Project Members 
-                {project.members.map((members) => (
+                {project.members.slice(1).map((members) => (
+                  <span id={members._id}>
                     <Chip
                       key={members.id}
-                      icon={<FaceIcon />}
+                      // icon={<FaceIcon />}
                       clickable
                       label={members.name}
+                      className={classes.memberschip}
                       onDelete={handleDelete}
                       color="default"
                       variant="outlined"
+                      label={members.name}
                     />
+                    </span>
                 ))}
                 {/* Add Member Chip */}
                 <Link onClick={handleAddMemberOpen}>
@@ -248,6 +313,7 @@ const Project = () => {
         </Grid>
       </Grid>
 
+      {/* Add Issue Chip + Open/IP/Closedcolumns */}
       <Grid container>
         <Grid className={classes.right} item xs={12}>
           {/* Add Issue Chip */}
@@ -272,7 +338,7 @@ const Project = () => {
           <Grid key={column} className={classes.columngrid} item xs={12} lg={4}>
             <div className={classes.column}>
               
-                <Card className={classes.columntest}>
+              <Card className={classes.columntest} style={{ borderColor: obj[column] }}>
                   <CardContent>
                     <Typography className={classes.mb} variant="h5" component="h5">
                       {column}

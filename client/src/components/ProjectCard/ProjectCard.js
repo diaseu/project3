@@ -33,7 +33,7 @@ const ProjectCard = props => {
   const classes = useStyles();
 
   return (
-    <Card className="root">
+    <Card className="projectcard">
       <CardContent>
         <Typography color="textSecondary">
           Project
@@ -49,7 +49,7 @@ const ProjectCard = props => {
         <Spacer y={2}/>
         
         <Chip
-          // icon={<FaceIcon />}
+          icon={<FaceIcon />}
           label={props.owner}
           variant="outlined"
           size='small'

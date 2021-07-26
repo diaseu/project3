@@ -1,4 +1,5 @@
 .dialogtitle {
   font-family: 'Josefin Sans', sans-serif;
   font-size: 2rem;
+  border-top: 5px solid rgba(0,0,0,0.5);
 }

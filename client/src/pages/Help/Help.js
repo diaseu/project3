@@ -41,8 +41,9 @@ const useStyles = makeStyles({
   ccicon: {
     marginRight: 40,
   },
-  cardinfo: {
-    
+  column: {
+    paddingRight: 12,
+
   },
   right: {
     textAlign: 'right',
@@ -105,18 +106,45 @@ const Help = () => {
     <>
       <h1>Community Issues </h1>
       <Grid container>
-        <Grid item xs={12} md={6} lg={6} sm={6}>
+        <Grid item xs={12} lg={9} md={9} sm={12} className={classes.column}>
           <Typography variant="h6" component="h2">
             Help Answer Others' Issues
           </Typography>
-        </Grid>
-      </Grid>
-      <Spacer y={1} />
-      <div>
-        <Grid container>
-          <Grid item xs={12} lg={12} md={12} sm={12}>
+          {issueState.filter(issue => issue.isPublic === true && issue.status === 'Open' ).slice(0, 8).map((issueData) => (
+            <>
+              <Link onClick={() => handleCommunityIssueOpen(issueData._id)}>
+                <CommunityIssueCard
+                  key={issueData.id}
+                  id={issueData._id}
+                  title={issueData.title}
+                  status={issueData.status}
+                  date={issueData.createdAt}
+                  author={issueData.author.name}
+                  replycount={issueData.replies.length}
+                />
+              </Link>
 
-            {issueState.filter(issue => issue.isPublic === true ).slice(0, 8).map((issueData) => (
+              <CommunityIssueModal
+                id={issueData._id}
+                date={issueData.createdAt}
+                title={issueData.title}
+                body={issueData.body}
+                author={issueData.author.username}
+                status={issueData.status}
+                open={issueData.openCommunity}
+                handleClose={() => handleCommunityIssueOpen(issueData._id)}
+              />
+            </>
+          ))}
+
+        </Grid>
+
+        <Grid item xs={12} sm={12} md={3} lg={3} className={classes.column}>
+
+          <Typography variant="h6" component="h2">
+            Recently Solved Issues
+          </Typography>
+            {issueState.filter(issue => issue.isPublic === true && issue.status === 'Closed').slice(0, 8).map((issueData) => (
               <>
                 <Link onClick={() => handleCommunityIssueOpen(issueData._id)}>
                   <CommunityIssueCard
@@ -135,19 +163,17 @@ const Help = () => {
                   title={issueData.title}
                   body={issueData.body}
                   author={issueData.author.username}
+                  status={issueData.status}
                   open={issueData.openCommunity}
                   handleClose={() => handleCommunityIssueOpen(issueData._id)}
                 />
               </>
             ))}
 
-            <Spacer y={1} />
-
-
           </Grid>
 
         </Grid>
-      </div>
+   
     </>
   )
 }

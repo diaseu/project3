@@ -138,7 +138,7 @@ const Me = () => {
                     priority={issueData.priority}
                     author={issueData.author.name}
                     project={issueData.pid}
-                    body={issueData.body}
+                    body={issueData.body.blocks[0].text}
                   />
                 </Link>
 
