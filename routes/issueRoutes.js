@@ -79,5 +79,11 @@ router.put(`/issues/:id`, passport.authenticate('jwt'), (req, res) => {
     .catch(err => console.log(err))
 })
 
+router.delete(`/issues/:id`, passport.authenticate('jwt'), (req, res) => {
+  Issue.findByIdAndDelete(req.params.id)
+    .then(issue => res.json(issue))
+    .catch(err => console.log(err))
+})
+
 
 module.exports = router

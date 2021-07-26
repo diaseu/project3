@@ -57,6 +57,7 @@ const Help = () => {
   
   const [communityissue, setCommunityIssue] = useState(false);
 
+
   const handleCommunityIssueOpen = _id => {
     let issues = issueState
 

@@ -183,14 +183,9 @@ const ProjectModal = props => {
     window.location.reload()
   }
 
-
-  const [issueStatus, setIssueStatus] = useState(props.status);
-
-  // priority
-  const [issuePriority, setIssuePriority] = useState(props.priority);
-  // const handlePriorityChange = ({ target }) => {
-  //   setIssuePriority({ ...issuePriority, [target.name]: target.value })
-  // }
+  
+  const [issueStatus, setIssueStatus] = useState(props.status)
+  const [issuePriority, setIssuePriority] = useState(props.priority)
 
 
   function handleIssuePriority(e) {
@@ -203,11 +198,17 @@ const ProjectModal = props => {
     // console.log(e.target.value, 'this is target')
   }
 
-
+  const handleDeleteIssue = () => {
+    IssueAPI.delete(props.id)
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
+  }
+  
+  
   const handlePublicTrue = () => {
-    setIssuePublic(true)
-    console.clear();
-    console.log('this is the issuePublic before update', issuePublic)
+  setIssuePublic(true)
+  console.clear();
+  console.log('this is the issuePublic before update', issuePublic)
   }
 
   const [issuePublic, setIssuePublic] = useState(true);
@@ -439,7 +440,7 @@ const ProjectModal = props => {
             <Button onClick={handleClose} color="primary">
               Disagree
             </Button>
-            <Button onClick={handleRefresh} color="primary" autoFocus>
+            <Button onClick={handleDeleteIssue} color="primary" autoFocus>
               Agree
             </Button>
           </DialogActions>

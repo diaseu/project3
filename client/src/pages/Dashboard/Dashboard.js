@@ -117,6 +117,7 @@ const Dashboard = () => {
           isOpen: false,
           openCommunity: false
         }))
+        project.projects.reverse()
         project.issues.reverse()
         setStatus({ project })
         setCommunityIssue({ project })
