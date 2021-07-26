@@ -27,6 +27,9 @@ import IssueAPI from '../../utils/IssueAPI'
 // ====================== RTF Draft WYSIWYG Editor ======================
 import { stateToHTML } from 'draft-js-export-html';
 import { convertFromRaw } from 'draft-js'
+import { Editor } from 'react-draft-wysiwyg';
+import { EditorState, convertToRaw } from 'draft-js';
+import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 const useStyles = makeStyles({
   root: {
@@ -270,9 +273,15 @@ const ProjectModal = props => {
     }
   }
 
+  const obj = {
+    Medium: "#f79d0c",
+    High: "red",
+    Low: "#14a7fc"
+  }
+
   return (
     <Dialog maxWidth='lg' fullWidth open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title" className='dialogtitle'>
+      <DialogTitle id="form-dialog-title" className='dialogtitle' style={{ borderColor: obj[props.priority] }}>
         {props.title}
       </DialogTitle>
 
