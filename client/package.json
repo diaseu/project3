@@ -2,7 +2,7 @@
   "name": "zap-client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001",
+  
   "dependencies": {
     "@material-ui/core": "^4.12.1",
     "@material-ui/icons": "^4.11.2",
@@ -29,6 +29,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": {"target":"http://localhost:3001", "secure": false},
   "eslintConfig": {
     "extends": [
       "react-app",
