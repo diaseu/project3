@@ -216,6 +216,7 @@ const handlePublicTrue = () => {
         console.clear();
         console.log('status priority updated - ProjectIssueModal', res)
         handleClose()
+        window.location = '/help'
       })
       .catch(err => console.log('Problem in the ProjectIssueModal', err))
     // window.location.reload()
