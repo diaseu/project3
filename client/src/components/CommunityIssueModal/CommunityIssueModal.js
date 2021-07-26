@@ -170,6 +170,7 @@ const CommunityIssueModal = props => {
       text: issueReply,
       pid: props.id
     })
+    window.location.reload()
   }
 
   // priority
@@ -239,7 +240,7 @@ const CommunityIssueModal = props => {
                       return (
                         <div key={key}>
                           <Card className={classes.comments}>
-                            {index.author.name}: {index.text}
+                            {index.author.username}: {index.text}
                           </Card>
                         </div>
                       )
