@@ -68,11 +68,20 @@ const Me = () => {
     setStatus(false)
   };
 
-  // Get Info
 
+  const handleFilterOpen = () => {
+    // console.log('filter time')
+    const openIssues = issueState.filter(issue => issue.status === 'Open')
+    setCurrentIssueState(openIssues)
+  }
+
+  const handleShowAll = () => {
+    setCurrentIssueState(issueState)
+  }
 
   const [projectState, setProjectState] = useState([])
   const [issueState, setIssueState] = useState([])
+  const [currentIssueState, setCurrentIssueState] = useState([])
 
   const [myid, setMyId] = useState('');
 
@@ -89,6 +98,7 @@ const Me = () => {
         setStatus({ project })
         res.data.issues.reverse()
         setIssueState(res.data.issues)
+        setCurrentIssueState(res.data.issues)
         setMyId(res.data._id)
       })
       .catch(err => console.log(err))
@@ -97,12 +107,28 @@ const Me = () => {
   return (
     <>
       <h1 align="left">My Issues</h1>
-      <Spacer y={1} />
+      <Grid container>
+        <Grid item xs={12} md={6} lg={6} sm={6}>
+        </Grid>
+        <Grid item className={classes.right} xs={12} md={6} lg={6} sm={6}>
+          <Button size="small" variant="contained"
+            onClick={handleFilterOpen}
+          >
+            Show Open Only
+          </Button>
+          <Button size="small" variant="contained"
+            onClick={handleShowAll}
+          >
+            Show All
+          </Button>
+        </Grid>
+      </Grid>
 
+      <Spacer y={1} />
       <div>
         <Grid container>
           <Grid item xs={12}>
-            {issueState.filter(issue => issue.author._id === myid).map((issueData) => (
+            {currentIssueState.filter(issue => issue.author._id === myid).map((issueData) => (
               <>
                 <Link onClick={() => handleIssueOpen(issueData._id)}>
                   <ProjectIssue

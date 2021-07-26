@@ -180,13 +180,9 @@ const ProjectCard = props => {
   }
 
   
-  const [issueStatus, setIssueStatus] = useState(props.status);
-
-  // priority
-  const [issuePriority, setIssuePriority] = useState(props.priority);
-  // const handlePriorityChange = ({ target }) => {
-  //   setIssuePriority({ ...issuePriority, [target.name]: target.value })
-  // }
+  const [issueStatus, setIssueStatus] = useState(props.status)
+  const [issueDescription, setIssueDescription] = useState('')
+  const [issuePriority, setIssuePriority] = useState(props.priority)
 
   
   function handleIssuePriority(e) {
@@ -266,7 +262,7 @@ const handleDeleteOpen = () => {
         <DialogContentText>
           <Grid container>
             <Grid className={classes.issueleft} item xs={12} lg={9}>
-
+              {/* description body */}
               <Typography className={classes.mb}>
                 {props.body}
               </Typography>
