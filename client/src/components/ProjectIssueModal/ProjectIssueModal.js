@@ -188,7 +188,7 @@ const ProjectCard = props => {
     setIssuePriority(e.target.value)
     
   }
-  
+
   function handleIssueStatus(e) {
     setIssueStatus(e.target.value)
     // console.log(e.target.value, 'this is target')
@@ -208,6 +208,8 @@ const ProjectCard = props => {
   }
 
   const [issuePublic, setIssuePublic] = useState(true);
+  const [showEditTitle, setShowEditTitle] = useState(false)
+  const [showEditDesc, setShowEditDesc] = useState(false)
 
   const handleGoPublic = () => {
     IssueAPI.update(props.id, {
@@ -253,15 +255,29 @@ const ProjectCard = props => {
     window.location.reload()
   }
  
-const handleDeleteOpen = () => {
-  setDeleteConfirm(true)
-}
+  const handleDeleteOpen = () => {
+    setDeleteConfirm(true)
+  }
+
+  const handleEditIssue = () => {
+    setShowEditTitle(true)
+    setShowEditDesc(true)
+  }
 
   return (
     <Dialog maxWidth='lg' fullWidth open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title" className='dialogtitle'>
         {props.title}
+        {/* edit title shows here */}
+        {!showEditTitle ? null : <TextField
+          id="title"
+          label="Title"
+          variant="outlined"
+          name='title'
+          fullWidth
+        />}
       </DialogTitle>
+
 
       <DialogContent>
         <DialogContentText>
@@ -270,6 +286,16 @@ const handleDeleteOpen = () => {
               {/* description body */}
               <Typography className={classes.mb}>
                 {props.body}
+                {/* edit desc goes here */}
+                {!showEditDesc ? null : <TextField
+                  id="outlined-basic"
+                  label="Description"
+                  variant="outlined"
+                  name='body'
+                  multiline
+                  rows={6}
+                  fullWidth
+                />}
               </Typography>
 
               <TextField
@@ -434,6 +460,9 @@ const handleDeleteOpen = () => {
         </Dialog>
         <Button onClick={props.handleClose} color="primary">
           Cancel
+        </Button>
+        <Button onClick={handleEditIssue} color="primary">
+          Edit
         </Button>
         <Button onClick={handleUpdateIssue} color="primary">
           Save
