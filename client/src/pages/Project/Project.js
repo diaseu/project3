@@ -147,6 +147,7 @@ const Project = () => {
   useEffect(() => {
     ProjectAPI.getById(params.projectId)
       .then(res => {
+        console.log(res.data)
         const project = res.data
         project.issues = res.data.issues.map(issue => ({
           ...issue,

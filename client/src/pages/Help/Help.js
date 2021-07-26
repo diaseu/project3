@@ -87,6 +87,7 @@ const Help = () => {
           isOpen: false,
           openCommunity: false
         }))
+        issues.reverse()
         setIssueState(issues)
       })
       .catch(err => console.log(err ))

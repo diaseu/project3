@@ -22,9 +22,7 @@ const useStyles = makeStyles({
     margin: '0 2px',
     transform: 'scale(0.8)',
   },
-  title: {
-    fontSize: 12,
-  },
+  
   pos: {
     fontSize: 13,
     marginBottom: 12,
@@ -40,7 +38,7 @@ const ProjectCard = props => {
         <Typography color="textSecondary">
           Project
         </Typography>
-        <Typography variant="h4">
+        <Typography variant="h5" className='title' style={{ maxWidth: 200 }}>
           {props.title}
         </Typography>
         
