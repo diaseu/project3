@@ -3,7 +3,10 @@ const { model, Schema } = require('mongoose')
 //see author, see replies
 const Issue = new Schema({
   title: String,
-  body: String,
+  body: {
+    type: Object,
+    required: true
+  },
   isPublic: Boolean,
   status: String,
   priority: String,
@@ -19,6 +22,6 @@ const Issue = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Reply'
   }]
-}, { timestamps: true })
+}, { timestamps: true, minimize: false })
 
 module.exports = model('Issue', Issue)

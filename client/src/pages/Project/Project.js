@@ -21,6 +21,7 @@ import {
   useParams
 } from "react-router-dom";
 
+
 // let mongoose = require('mongoose')
 
 const useStyles = makeStyles({
@@ -30,7 +31,10 @@ const useStyles = makeStyles({
   title: {
     fontSize: 14,
   },
-  mb: {
+  projecthead: {
+    marginTop: 40,
+  },
+  projecttitle: {
     marginBottom: 20,
   },
   issueleft: {
@@ -62,10 +66,17 @@ const useStyles = makeStyles({
     marginBottom: 20,
   },
   columntest: {
-    backgroundColor: '#ffffff'
+    backgroundColor: '#ffffff',
+    borderLeft: '3px solid #cccccc',
   }, 
   allmembers: {
     marginBottom: 12,
+  },
+  memberschip: {
+    marginLeft: 6,
+  },
+  addbtn: {
+    marginLeft: 6,
   }
 });
 
@@ -141,6 +152,12 @@ const Project = () => {
     console.info('You clicked the delete icon.');
   };
 
+  const obj = {
+    Medium: "#f79d0c",
+    High: "red",
+    Low: "#14a7fc"
+  }
+
   // ====================== API CALLS ======================
   // Get Project Info
 
@@ -162,12 +179,16 @@ const Project = () => {
 
   return  isLoading ? <span>loading...</span> : err ? <h1>{err.message}</h1> : (
     <>
-      <Grid container>
+      {/* Project Header */}
+      <Grid container className={classes.projecthead}>
+        
         {/* Project Title */}
-        <Grid className={classes.columngrid} item xs={12} md={11}>
-          <Typography className={classes.mb} variant="h3" component="h2">
+        <Grid item xs={12} md={11}>
+          
+          <Typography className={classes.projecttitle} variant="h3" component="h2">
               {project.title}
           </Typography>
+          
         </Grid>
         {/* Edit Project Button */}
         <Grid className={classes.columngrid} item xs={1}>
@@ -190,13 +211,17 @@ const Project = () => {
             />
           </div>
         </Grid>
+        
+        </Grid>
+      {/* Project owner/member info bar */}
+      <Grid container>
         <Grid className={classes.columngrid} item xs={12}>
           <Grid container className={classes.allmembers}>
             {/* Project Owner Chip */}
             <Grid item xs={12} md={3}>
               <span className={classes.title} color="textSecondary">
                 Project Lead <Chip
-                  icon={<FaceIcon />}
+                  // icon={<FaceIcon />}
                   label={project.owner.name}
                   variant="outlined"
                 />
@@ -205,12 +230,13 @@ const Project = () => {
             {/* Project Members Chips */}
             <Grid item xs={12} md={9}>
               <span className="members">Project Members 
-                {project.members.map((members) => (
+                {project.members.slice(1).map((members) => (
                     <Chip
                       key={members.id}
-                      icon={<FaceIcon />}
+                      // icon={<FaceIcon />}
                       clickable
                       label={members.name}
+                      className={classes.memberschip}
                       onDelete={handleDelete}
                       color="default"
                       variant="outlined"
@@ -248,6 +274,7 @@ const Project = () => {
         </Grid>
       </Grid>
 
+      {/* Add Issue Chip + Open/IP/Closedcolumns */}
       <Grid container>
         <Grid className={classes.right} item xs={12}>
           {/* Add Issue Chip */}
@@ -272,7 +299,7 @@ const Project = () => {
           <Grid key={column} className={classes.columngrid} item xs={12} lg={4}>
             <div className={classes.column}>
               
-                <Card className={classes.columntest}>
+              <Card className={classes.columntest} style={{ borderColor: obj[column] }}>
                   <CardContent>
                     <Typography className={classes.mb} variant="h5" component="h5">
                       {column}

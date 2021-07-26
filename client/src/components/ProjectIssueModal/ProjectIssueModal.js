@@ -12,20 +12,16 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
 import Icon from '@material-ui/core/Icon';
+import List from '@material-ui/core/List';
+import Paper from '@material-ui/core/Paper';
+import FaceIcon from '@material-ui/icons/Face';
+import Spacer from '../../components/Spacer'
+import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Card from '@material-ui/core/Card';
-import List from '@material-ui/core/List';
-import Paper from '@material-ui/core/Paper';
-// ====================== Material UI icons ======================
-import FaceIcon from '@material-ui/icons/Face';
-import CheckIcon from '@material-ui/icons/Check';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import CloseIcon from '@material-ui/icons/Close';
 // ====================== API Calls ======================
-import Spacer from '../../components/Spacer'
 import ReplyAPI from '../../utils/ReplyAPI'
 import IssueAPI from '../../utils/IssueAPI'
 // ====================== RTF Draft WYSIWYG Editor ======================
@@ -124,18 +120,14 @@ const useStyles = makeStyles({
     paddingRight: 12,
     paddingTop: 8,
     paddingBottom: 8,
-  },
-  right: {
-    textAlign: 'right',
   }
 });
 
 
 
 
-const ProjectCard = props => {
+const ProjectModal = props => {
   const classes = useStyles();
-  
 
 
   // console.log('this is props in ProjectIssueModal', props)
@@ -151,16 +143,16 @@ const ProjectCard = props => {
 
 
   // For the Status dropdown
-  const [openStatus, setStatusOpen] = useState(false); 
-  
+  const [openStatus, setStatusOpen] = useState(false);
+
   const handleInputChange = ({ target }) => {
     setIssueState({ ...issueState, [target.name]: target.value })
   }
-  
+
   const [open, setOpen] = useState(false);
 
   const [deleteConfirm, setDeleteConfirm] = useState(false)
- 
+
   const handleClickOpen = () => {
     setOpen(true)
   }
@@ -170,7 +162,7 @@ const ProjectCard = props => {
   };
 
 
-  
+
   const handleClose = () => {
     setStatusOpen(false);
     setOpen(false)
@@ -191,7 +183,7 @@ const ProjectCard = props => {
     window.location.reload()
   }
 
-  
+
   const [issueStatus, setIssueStatus] = useState(props.status);
 
   // priority
@@ -200,23 +192,23 @@ const ProjectCard = props => {
   //   setIssuePriority({ ...issuePriority, [target.name]: target.value })
   // }
 
-  
+
   function handleIssuePriority(e) {
     setIssuePriority(e.target.value)
-    
+
   }
-  
+
   function handleIssueStatus(e) {
     setIssueStatus(e.target.value)
     // console.log(e.target.value, 'this is target')
   }
-  
-  
-const handlePublicTrue = () => {
-  setIssuePublic(true)
-  console.clear();
-  console.log('this is the issuePublic before update', issuePublic)
-}
+
+
+  const handlePublicTrue = () => {
+    setIssuePublic(true)
+    console.clear();
+    console.log('this is the issuePublic before update', issuePublic)
+  }
 
   const [issuePublic, setIssuePublic] = useState(true);
 
@@ -231,7 +223,7 @@ const handlePublicTrue = () => {
       })
       .catch(err => console.log('Problem in the ProjectIssueModal', err))
     // window.location.reload()
-    
+
   }
 
 
@@ -248,35 +240,25 @@ const handlePublicTrue = () => {
   }
 
   const [replies, setReplies] = useState([]);
-    
-    useEffect(() => {
-      IssueAPI.getById(props.id)
+
+  useEffect(() => {
+    IssueAPI.getById(props.id)
       .then((res) => {
         setReplies(res.data.replies)
         console.log('check out replies', res.data.replies)
       })
       .catch(e => console.error(e))
-      }
+  }
     // eslint-disable-next-line
-  , [])
+    , [])
 
-  const handleRefresh= () =>{
+  const handleRefresh = () => {
     window.location.reload()
   }
- 
-const handleDeleteOpen = () => {
-  setDeleteConfirm(true)
-}
 
-let formatdate = new Date(props.date)
-let timestamp = formatdate.toLocaleString('en-US', { timeZone: 'PST' })
-
-const obj = {
-  Open: "#719974",
-  InProgress: "#f79d0c",
-  Closed: "red"
-}
-
+  const handleDeleteOpen = () => {
+    setDeleteConfirm(true)
+  }
 
   const convertFromJSONToHTML = (text) => {
     try {
@@ -289,34 +271,8 @@ const obj = {
 
   return (
     <Dialog maxWidth='lg' fullWidth open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title" className='dialogtitle' style={{ borderColor: obj[props.status] }}>
-
-        <Grid container>
-          <Grid item xs={12} md={6} lg={6} className={classes.issueleft}>
-            {props.title}
-            <Spacer y={1} />
-            <Typography className={classes.title} color="textSecondary">
-              Posted by <Chip
-                // icon={<FaceIcon />}
-                size='small'
-                label={props.author}
-                variant="outlined"
-              /> on {timestamp}
-            </Typography>
-          </Grid>
-          <Grid item xs={12} md={6} lg={6} className={classes.right}>
-            <Chip
-              label={props.status}
-              // icon={{ icon: statusicon[props.status] }}
-              size='small'
-              variant="outlined"
-              className={classes.status}
-              color={{ color: obj[props.status] }}
-            />
-
-          </Grid>
-        </Grid>
-
+      <DialogTitle id="form-dialog-title" className='dialogtitle'>
+        {props.title}
       </DialogTitle>
 
       <DialogContent>
@@ -324,7 +280,7 @@ const obj = {
           <Grid container>
             <Grid className={classes.issueleft} item xs={12} lg={9}>
 
-              <div dangerouslySetInnerHTML={convertFromJSONToHTML(props.body)}> </div>
+              <div dangerouslySetInnerHTML={convertFromJSONToHTML(props.body)} />
 
               <TextField
                 margin="dense"
@@ -336,24 +292,35 @@ const obj = {
               />
               <Button color="primary" variant="contained" onClick={submitIssueReply}>Submit</Button>
               <Spacer y={4} />
-              <Paper style={{ maxHeight: 200, overflow: 'auto', boxShadow: 'none'}}>
+              <Paper style={{ maxHeight: 200, overflow: 'auto', boxShadow: 'none' }}>
                 <List >
-              {
-                replies && replies.map((props, key) => {
-                  return (
-                    <div key={key}>
-                      <Card className={classes.comments}>
-                      {props.author.name} {props.createdAt}: {props.text}
-                      </Card>
-                    </div>
-                  )
-                })
-              }              
+                  {
+                    replies && replies.map((index, key) => {
+                      return (
+                        <div key={key}>
+                          <Card className={classes.comments}>
+                            {index.author.name}: {index.text}
+                          </Card>
+                        </div>
+                      )
+                    })
+                  }
+
                 </List>
               </Paper>
             </Grid>
             <Grid className={classes.issueright} item xs={12} lg={3}>
-              <Spacer y={1}/>
+              <Spacer y={1} />
+              <Typography className={classes.title} color="textSecondary">
+                Posted by
+              </Typography>
+              <Chip
+                icon={<FaceIcon />}
+                clickable
+                label={props.author}
+                variant="outlined"
+              />
+              <Spacer y={2} />
 
 
               <Typography className={classes.title} color="textSecondary">
@@ -382,7 +349,7 @@ const obj = {
                   <MenuItem value="Open">
                     Open
                   </MenuItem>
-                  <MenuItem value="InProgress">
+                  <MenuItem value="In Progress">
                     In Progress</MenuItem>
                   <MenuItem value="Closed">
                     Closed</MenuItem>
@@ -402,7 +369,7 @@ const obj = {
                   defaultValue={props.priority}
                   onChange={handleIssuePriority}
                   fullWidth
-                > 
+                >
 
                   <MenuItem value="High">
                     <Icon className={classes.highpriority}>radio_button_unchecked</Icon> High
@@ -412,7 +379,7 @@ const obj = {
                   <MenuItem value="Low">
                     <Icon className={classes.lowpriority}>radio_button_unchecked</Icon> Low</MenuItem>
                 </Select>
-               
+
               </FormControl>
               <Spacer y={4} />
               <Typography className={classes.title} color="textSecondary">
@@ -487,4 +454,4 @@ const obj = {
   )
 }
 
-export default ProjectCard
+export default ProjectModal

@@ -98,7 +98,7 @@ const ProjectIssue = props => {
           <Grid item className="title" xs={12}>
             <Icon className={classes.priority} style={{ color: obj[props.priority] }} >radio_button_unchecked</Icon>
 
-            {props.title} <i className="body"><div dangerouslySetInnerHTML={convertFromJSONToHTML(props.body)}> </div></i>
+            {props.title} <i className="body">{props.body}</i>
             
 
           </Grid>

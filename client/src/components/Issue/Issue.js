@@ -4,6 +4,9 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import Icon from '@material-ui/core/Icon';
+// ====================== RTF Draft WYSIWYG Editor ======================
+import { stateToHTML } from 'draft-js-export-html';
+import { convertFromRaw } from 'draft-js'
 
 const useStyles = makeStyles({
   root: {
@@ -39,7 +42,16 @@ const Issue = props => {
     Low: "#14a7fc"
   }
 
-  console.log('this is props in Issues', props)
+  // console.log('this is props in Issues', props)
+
+  const convertFromJSONToHTML = (text) => {
+    try {
+      return { __html: stateToHTML(convertFromRaw(text)) }
+    } catch (exp) {
+      console.log(exp)
+      return { __html: 'Error' }
+    }
+  }
 
   return(
     <Card className={classes.root}>
@@ -55,7 +67,6 @@ const Issue = props => {
             <Icon className={classes.priority} style={{ color: obj[props.priority] }}>radio_button_unchecked</Icon>
           
             {props.title}
-
           </Grid>
         </Grid>
       </CardContent>

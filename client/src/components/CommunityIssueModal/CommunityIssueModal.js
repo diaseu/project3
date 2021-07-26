@@ -45,6 +45,7 @@ const useStyles = makeStyles({
   },
   issueleft: {
     paddingRight: 20,
+    paddingBottom: 0,
   },
   issueright: {
     textAlign: 'right',
@@ -225,6 +226,15 @@ const CommunityIssueModal = props => {
   let formatdate = new Date(props.date)
   let timestamp = formatdate.toLocaleString('en-US', { timeZone: 'PST' })
 
+  const convertFromJSONToHTML = (text) => {
+    try {
+      return { __html: stateToHTML(convertFromRaw(text)) }
+    } catch (exp) {
+      console.log(exp)
+      return { __html: 'Error' }
+    }
+  }
+
   return (
     <Dialog maxWidth='md' fullWidth open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title" className='communitycard' style={{ borderColor: obj[props.status] }}>
@@ -249,18 +259,15 @@ const CommunityIssueModal = props => {
               className={classes.status}
               style={{ color: obj[props.status] }}
             />
-            
           </Grid>
         </Grid>
-        <Spacer y={2} />
       </DialogTitle>
 
       <DialogContent>
         <DialogContentText>
           
-              <Typography className={classes.mb}>
-                {props.body}
-              </Typography>
+              <div dangerouslySetInnerHTML={convertFromJSONToHTML(props.body)} />
+
 
               <TextField
                 margin="dense"

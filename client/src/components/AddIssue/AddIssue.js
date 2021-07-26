@@ -127,6 +127,7 @@ const SetModal = props => {
   // issueState
   const [issueTitle, setIssueTitle] = useState("");
   const [issueDescription, setIssueDescription] = useState(EditorState.createEmpty())
+
   const [issuePriority, setIssuePriority] = useState('Medium');
 
   // eslint-disable-next-line
@@ -162,6 +163,9 @@ const SetModal = props => {
  
   function handleAddIssue(e) {
     // e.preventDefault();
+    console.clear();
+    console.log('come see issueDescription raw', convertToRaw(issueDescription.getCurrentContent()))
+    
     Issue.create({
       title: issueTitle,
       body: convertToRaw(issueDescription.getCurrentContent()),
@@ -172,7 +176,7 @@ const SetModal = props => {
     })
     // console.log('issue created')
     props.handleClose()
-    window.location.reload()
+    // window.location.reload()
   }
 
 
@@ -195,20 +199,8 @@ const SetModal = props => {
                       onChange={handleIssueTitle}
                     />
                   </p>
-                  <p>
-                    <TextField 
-                      id="outlined-basic" 
-                      label="Description" 
-                      variant="outlined" 
-                      name='body'
-                      multiline
-                      rows={6}
-                      fullWidth
-                      onChange={handleIssueDescription}
-                    />
-                  </p>
 
-                  <Editor 
+                  {/* <Editor 
                     editorState={issueDescription}
                     wrapperClassName="wrapper-class"
                     editorClassName="editor-class"
@@ -220,6 +212,22 @@ const SetModal = props => {
                       list: { inDropdown: true },
                       textAlign: { inDropdown: true },
                       link: { inDropdown: true } }}
+                    onEditorStateChange={editorState => setIssueDescription(editorState)}
+                  /> */}
+
+                  <Editor editorState={issueDescription}
+                    wrapperClassName="wrapper-class"
+                    editorClassName="editor-class"
+                    toolbarClassName="toolbar-class"
+                    wrapperStyle={{ border: "2px solid green", marginBottom: "20px" }}
+                    editorStyle={{ height: "300px", padding: "10px" }}
+                    toolbar={{
+                      inline: { inDropdown: true },
+                      list: { inDropdown: true },
+                      textAlign: { inDropdown: true },
+                      link: { inDropdown: true },
+                      history: { inDropdown: true },
+                    }}
                     onEditorStateChange={editorState => setIssueDescription(editorState)}
                   />
 

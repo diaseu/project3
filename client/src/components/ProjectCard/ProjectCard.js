@@ -49,7 +49,7 @@ const ProjectCard = props => {
         <Spacer y={2}/>
         
         <Chip
-          // icon={<FaceIcon />}
+          icon={<FaceIcon />}
           label={props.owner}
           variant="outlined"
           size='small'
