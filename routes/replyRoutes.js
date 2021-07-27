@@ -6,16 +6,25 @@ const passport = require('passport')
 
 //create reply and push it to the issue replies
 router.post('/replies', passport.authenticate('jwt'), (req, res) => {
+  // console.log('req.body', req.body)
+  // console.log(req.body.text)
   Reply.create({
     text: req.body.text,
     author: req.user._id
     //post id (pid) expected here
   })
     .then(reply => {
-      Issue.findByIdAndUpdate(req.body.pid, { $push: { replies: reply._id } })
-        .then(() => res.json(reply))
+      User.findById(req.user._id)
+      .then(author => {
+        Issue.findByIdAndUpdate(req.body.pid, { $push: { replies: reply._id } })
+        .then(() => {
+          // console.log('this is reply', reply)
+          reply.author = author
+          res.json(reply)
+        })
         .catch(err => console.log(err))
-    })
+        })
+      })
     .catch(err => console.log(err))
 })
 

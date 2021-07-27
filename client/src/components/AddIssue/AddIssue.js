@@ -177,7 +177,7 @@ const SetModal = props => {
     window.location.reload()
     // console.log('issue created')
     props.handleClose()
-    // window.location.reload()
+    window.location.reload()
   }
 
 
@@ -220,7 +220,7 @@ const SetModal = props => {
                     wrapperClassName="wrapper-class"
                     editorClassName="editor-class"
                     toolbarClassName="toolbar-class"
-                    wrapperStyle={{ border: "2px solid green", marginBottom: "20px" }}
+                    wrapperStyle={{ border: "1px solid #ccc", marginBottom: "20px" }}
                     editorStyle={{ height: "300px", padding: "10px" }}
                     toolbar={{
                       inline: { inDropdown: true },

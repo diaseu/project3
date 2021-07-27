@@ -28,6 +28,9 @@ import IssueAPI from '../../utils/IssueAPI'
 // ====================== RTF Draft WYSIWYG Editor ======================
 import { stateToHTML } from 'draft-js-export-html';
 import { convertFromRaw } from 'draft-js'
+import { Editor } from 'react-draft-wysiwyg';
+import { EditorState, convertToRaw } from 'draft-js';
+import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 const useStyles = makeStyles({
   root: {
@@ -168,7 +171,7 @@ const CommunityIssueModal = props => {
     setStatusOpen(false);
   };
 
-  const [issueReply, setIssueReply] = useState("");
+  const [issueReply, setIssueReply] = useState(EditorState.createEmpty());
 
   function handleIssueReply(e) {
     setIssueReply(e.target.value)
@@ -176,10 +179,15 @@ const CommunityIssueModal = props => {
 
   function submitIssueReply(e) {
     ReplyAPI.create({
-      text: issueReply,
+      text: convertToRaw(issueReply.getCurrentContent()),
       pid: props.id
     })
-    window.location.reload()
+    .then(reply => {
+        console.clear()
+        const newReplies = [...replies, reply.data]
+        setReplies(newReplies)
+    })
+    .catch(err => console.log('err with SubmitIssueReply in CIM', err))
   }
 
   // priority
@@ -210,8 +218,9 @@ const CommunityIssueModal = props => {
     IssueAPI.getById(props.id)
       .then((res) => {
         setReplies(res.data.replies)
-      })
-      .catch(e => console.error(e))
+        console.clear();
+        })
+      .catch(e => console.error('useEffect error', e))
   }
     // eslint-disable-next-line
     , [])
@@ -226,11 +235,12 @@ const CommunityIssueModal = props => {
   let formatdate = new Date(props.date)
   let timestamp = formatdate.toLocaleString('en-US', { timeZone: 'PST' })
 
+  // For RTF Editor
   const convertFromJSONToHTML = (text) => {
     try {
       return { __html: stateToHTML(convertFromRaw(text)) }
     } catch (exp) {
-      console.log(exp)
+      console.log('convert error', exp)
       return { __html: 'Error' }
     }
   }
@@ -266,32 +276,46 @@ const CommunityIssueModal = props => {
       <DialogContent>
         <DialogContentText>
           
-              <div dangerouslySetInnerHTML={convertFromJSONToHTML(props.body)} />
+            <div dangerouslySetInnerHTML={convertFromJSONToHTML(props.body)} />
 
+            <Editor editorState={issueReply}
+              wrapperClassName="wrapper-class"
+              editorClassName="editor-class"
+              toolbarClassName="toolbar-class"
+              wrapperStyle={{ border: "1px solid #ccc", marginBottom: "20px" }}
+              editorStyle={{ height: "150px", padding: "0 10px" }}
+              toolbar={{
+                options: ['inline', 'blockType', 'list', 'textAlign', 'emoji'],
+                inline: {
+                  inDropdown: false,
+                  options: ['bold', 'italic', 'underline', 'strikethrough']
+                },
+                blockType: { inDropdown: true },
+                list: { inDropdown: true },
+                textAlign: { inDropdown: true },
+              }}
+              onEditorStateChange={editorState => setIssueReply(editorState)}
+            />
 
-              <TextField
-                margin="dense"
-                id="comment"
-                label="Comment"
-                type="comment"
-                fullWidth
-                onChange={handleIssueReply}
-              />
-              <Button color="primary" variant="contained" onClick={submitIssueReply}>Submit</Button>
-              <Spacer y={4} />
-              <Paper style={{ maxHeight: 200, overflow: 'auto', boxShadow: 'none' }}>
+            <div className={classes.right} >
+              <Button color="primary" variant="contained" onClick={submitIssueReply}>Submit Reply</Button>
+            </div>
+
+            <Spacer y={4} />
+              <Paper style={{ maxHeight: 400, overflow: 'auto', boxShadow: 'none' }}>
                 <List >
-                  {
-                    replies && replies.map((index, key) => {
-                      return (
-                        <div key={key}>
-                          <Card className={classes.comments}>
-                            {index.author.username}: {index.text}
-                          </Card>
-                        </div>
-                      )
-                    })
-                  }
+              {
+                replies?.length ? replies.map((index, key) => {
+                  return (
+                    <div key={key}>
+                      <Card className={classes.comments}>
+                        {index.author.name}: <div dangerouslySetInnerHTML={convertFromJSONToHTML(index.text)} />
+                      </Card>
+                    </div>
+                  )
+                })
+                  : null
+              }
                 </List>
               </Paper>
             

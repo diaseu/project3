@@ -103,14 +103,14 @@ const Dashboard = () => {
           openCommunity: false
         }))
         issues.reverse()
-        console.log(issues)
         setIssueState(issues)
+        console.clear()
       })
       .catch(err => console.log(err))
     //gets the users info including their issues
     UserAPI.me()
       .then(res => {
-        console.log('this is res in Dashboard', res)
+        // console.log('this is res in Dashboard', res)
         const project = res.data
         project.issues = res.data.issues.map(issues => ({
           ...issues,
@@ -124,8 +124,9 @@ const Dashboard = () => {
         setProjectIssueState(project.issues)
         setProjectState(res.data.projects)
         setMyId(res.data._id)
+        console.clear()
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log('useEffect UserAPI.me err', err))
   }, [])
 
 
@@ -177,6 +178,7 @@ const Dashboard = () => {
                   title={issueData.title}
                   body={issueData.body.blocks[0].text}
                   priority={issueData.priority}
+                  status={issueData.status}
                   date={issueData.createdAt}
                   author={issueData.author.name}
                   project={issueData.pid}
@@ -191,7 +193,9 @@ const Dashboard = () => {
                 body={issueData.body}
                 author={issueData.author.name}
                 status={issueData.status}
+                isPublic={issueData.isPublic}
                 date={issueData.createdAt}
+                replies={issueData.replies}
                 // authorusername={issueData.author.username}
                 priority={issueData.priority}
                 open={issueData.isOpen}
@@ -215,6 +219,7 @@ const Dashboard = () => {
                   key={issueData.id}
                   id={issueData._id}
                   title={issueData.title}
+                  body={issueData.body}
                   status={issueData.status}
                   date={issueData.createdAt}
                   author={issueData.author.name}
@@ -225,9 +230,11 @@ const Dashboard = () => {
               <CommunityIssueModal
                 id={issueData._id}
                 title={issueData.title}
-                // body={issueData.body}
+                body={issueData.body}
                 status={issueData.status}
+                date={issueData.createdAt}
                 author={issueData.author.name}
+                replies={issueData.replies}
                 open={issueData.openCommunity}
                 handleClose={() => handleCommunityIssueOpen(issueData._id)}
               />
