@@ -2,7 +2,7 @@ const { model, Schema} = require('mongoose')
 
 //just see the author of the reply
 const Reply = new Schema({
-  body: {
+  text: {
     type: Object,
     required: true
   },
@@ -12,7 +12,7 @@ const Reply = new Schema({
   }
 },
   {
-    timestamps: true
+    timestamps: true, minimize: false
   }
 )
 

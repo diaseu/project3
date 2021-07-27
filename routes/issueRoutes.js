@@ -44,6 +44,7 @@ router.get('/issues', passport.authenticate('jwt'), (req, res) => {
 
 //create new issue (needs project id)
 router.post('/issues', passport.authenticate('jwt'), (req, res) => {
+  console.log(req.body.body)
   Issue.create({
     title: req.body.title,
     body: req.body.body,

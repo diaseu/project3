@@ -16,6 +16,7 @@ import {
   Link
 } from "react-router-dom";
 
+
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
@@ -56,6 +57,7 @@ const Help = () => {
   const [issueState, setIssueState] = useState([])
   
   const [communityissue, setCommunityIssue] = useState(false);
+
 
   const handleCommunityIssueOpen = _id => {
     let issues = issueState
@@ -109,7 +111,7 @@ const Help = () => {
           <Typography variant="h6" component="h2">
             Help Answer Others' Issues
           </Typography>
-          {issueState.filter(issue => issue.isPublic === true && issue.status === 'Open' ).slice(0, 8).map((issueData) => (
+          {issueState.filter(issue => issue.isPublic === true && issue.status === 'Open' || issue.status === 'In Progress' ).slice(0, 8).map((issueData) => (
             <>
               <Link onClick={() => handleCommunityIssueOpen(issueData._id)}>
                 <CommunityIssueCard
@@ -153,7 +155,7 @@ const Help = () => {
                     status={issueData.status}
                     date={issueData.createdAt}
                     author={issueData.author.name}
-                    replycount={issueData.replies.length}
+                    replycount={issueData.replies?.length}
                   />
                 </Link>
 
