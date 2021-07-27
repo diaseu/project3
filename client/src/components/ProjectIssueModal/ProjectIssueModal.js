@@ -523,39 +523,47 @@ const ProjectModal = props => {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleDeleteOpen} color="primary">
-          Delete
-        </Button>
-        <Dialog
-          open={deleteConfirm}
-          onClose={props.handleClose}
-          aria-labelledby="delete"
-          aria-describedby="delete"
-        >
-          <DialogTitle id="delete">{"Do You Wish To Delete?"}</DialogTitle>
-          <DialogContent>
-            <DialogContentText id="delete">
-              Once you delete, this issue will be permanently deleted.
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} color="primary">
-              Disagree
+        <Grid container>
+          <Grid item xs={6} md={6} className={classes.left}>
+            <Button onClick={handleDeleteOpen} color="primary">
+              Delete
             </Button>
-            <Button onClick={handleDeleteIssue} color="primary" autoFocus>
-              Agree
+            <Dialog
+              open={deleteConfirm}
+              onClose={props.handleClose}
+              aria-labelledby="delete"
+              aria-describedby="delete"
+            >
+              <DialogTitle id="delete">{"Do You Wish To Delete?"}</DialogTitle>
+              <DialogContent>
+                <DialogContentText id="delete">
+                  Once you delete, this issue will be permanently deleted.
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                  Disagree
+                </Button>
+                <Button onClick={handleDeleteIssue} color="primary" autoFocus>
+                  Agree
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </Grid>
+          <Grid item xs={6} md={6} className={classes.right}>
+            <Button onClick={props.handleClose} color="primary">
+              Cancel
             </Button>
-          </DialogActions>
-        </Dialog>
-        <Button onClick={props.handleClose} color="primary">
-          Cancel
-        </Button>
-        <Button onClick={handleEditIssue} color="primary">
-          Edit
-        </Button>
-        <Button onClick={handleUpdateIssue} color="primary">
-          Save
-        </Button>
+            <Button onClick={handleEditIssue} color="primary">
+              Edit
+            </Button>
+            <Button onClick={handleUpdateIssue} color="primary">
+              Save
+            </Button>
+          </Grid>
+        </Grid>
+        
+        
       </DialogActions>
     </Dialog>
   )
