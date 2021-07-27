@@ -191,8 +191,10 @@ const CommunityIssueModal = props => {
     })
     .then(reply => {
         console.clear()
+        console.log('CIM reply.data', reply.data)
         const newReplies = [...replies, reply.data]
         setReplies(newReplies)
+        setIssueReply(EditorState.createEmpty())
     })
     .catch(err => console.log('err with SubmitIssueReply in CIM', err))
   }
@@ -224,8 +226,7 @@ const CommunityIssueModal = props => {
   useEffect(() => {
     IssueAPI.getById(props.id)
       .then((res) => {
-        let reversedReplies = res.data.replies.reverse()
-        setReplies(reversedReplies)
+        setReplies(res.data.replies)
         console.clear();
         })
       .catch(e => console.error('useEffect error', e))
@@ -257,7 +258,7 @@ const CommunityIssueModal = props => {
     <Dialog maxWidth='md' fullWidth open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title" className='communitycard' style={{ borderColor: obj[props.status] }}>
         <Grid container>
-          <Grid item xs={12} md={6} lg={6} className={classes.issueleft}>
+          <Grid item xs={12} md={11} lg={11}>
             {props.title}
             <Spacer y={1} />
             <Typography className={classes.title} color="textSecondary">
@@ -269,7 +270,7 @@ const CommunityIssueModal = props => {
               /> on {timestamp}  
             </Typography>
           </Grid>
-          <Grid item xs={12} md={6} lg={6} className={classes.issueright}>
+          <Grid item xs={12} md={1} lg={1} className={classes.issueright}>
             <Chip
               label={props.status}
               size='small'
@@ -286,6 +287,10 @@ const CommunityIssueModal = props => {
           
             <div dangerouslySetInnerHTML={convertFromJSONToHTML(props.body)} />
 
+            <hr />
+
+          <h4 style={{ marginBottom: 0 }}>Add Reply</h4>
+
             <Editor editorState={issueReply}
               wrapperClassName="wrapper-class"
               editorClassName="editor-class"
@@ -298,18 +303,20 @@ const CommunityIssueModal = props => {
                   inDropdown: false,
                   options: ['bold', 'italic', 'underline', 'strikethrough']
                 },
-                blockType: { inDropdown: false, options: ['Normal', 'H1', 'H2', 'H3', 'Blockquote', 'Code'], },
+                blockType: { inDropdown: false, options: ['Normal', 'H1', 'H2', 'H3', 'Blockquote'], },
                 list: { inDropdown: true },
                 textAlign: { inDropdown: true },
               }}
               onEditorStateChange={editorState => setIssueReply(editorState)}
             />
 
+            
+
             <div className={classes.right} >
               <Button color="primary" variant="contained" onClick={submitIssueReply}>Submit Reply</Button>
             </div>
 
-            <Spacer y={4} />
+          <h4 style={{ marginBottom: 0 }}>Add Reply</h4>
               <Paper style={{ maxHeight: 400, overflow: 'auto', boxShadow: 'none' }}>
                 <List >
               {

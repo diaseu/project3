@@ -37,26 +37,19 @@ const Dashboard = () => {
     setOpen(true);
   };
 
-  
-
   // Open Modal Individually
   // status = Modal status if open or closed
   const [status, setStatus] = useState(false);
   const [openIssue, setIssueOpen] = useState(false);
 
   const handleIssueOpen = _id => {
-    // console.log('this is plain status', status)
     let issues = status.project.issues
-
-    // console.log('this is issues set to status', issues)
     issues = issues.map(issue => {
       if (_id === issue._id) {
         issue.isOpen = !issue.isOpen
       }
       return issue
     })
-    
-    // console.log('what happens when i click handleIssueOpen', { status })
     const project = status.project
     project.issues = issues
     setStatus({ project })

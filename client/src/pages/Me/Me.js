@@ -38,8 +38,6 @@ const Me = props => {
     setOpen(true);
   };
 
-
-
   // Open Modal Individually
   // status = Modal status if open or closed
   const [status, setStatus] = useState(false);
