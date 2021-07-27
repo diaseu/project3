@@ -178,6 +178,8 @@ const ProjectModal = props => {
   
   const [issueStatus, setIssueStatus] = useState(props.status)
   const [issuePriority, setIssuePriority] = useState(props.priority)
+  const [issueDescription, setIssueDescription] = useState(props.body)
+  const [issueTitle, setIssueTitle] = useState(props.title)
 
 
   function handleIssuePriority(e) {
@@ -206,8 +208,7 @@ const ProjectModal = props => {
   }
 
   const [issuePublic, setIssuePublic] = useState(true);
-  const [showEditTitle, setShowEditTitle] = useState(false)
-  const [showEditDesc, setShowEditDesc] = useState(false)
+  const [showEditState, setShowEditState] = useState(false)
 
   const handleGoPublic = () => {
     IssueAPI.update(props.id, {
@@ -227,7 +228,9 @@ const ProjectModal = props => {
   const handleUpdateIssue = () => {
     IssueAPI.update(props.id, {
       status: issueStatus,
-      priority: issuePriority
+      priority: issuePriority,
+      title: issueTitle,
+      body: issueDescription
     })
       .then(res => {
         console.log('status priority updated - ProjectIssueModal', res)
@@ -259,11 +262,6 @@ const ProjectModal = props => {
   }
   const handleDeleteOpen = () => {
     setDeleteConfirm(true)
-  }
-
-  const handleEditIssue = () => {
-    setShowEditTitle(true)
-    setShowEditDesc(true)
   }
   
   const obj = {
@@ -322,12 +320,26 @@ const ProjectModal = props => {
     false: "Private"
   }
 
+  const handleEditIssue = () => {
+    setShowEditState(!showEditState)
+  }
+
   return (
     <Dialog maxWidth='lg' fullWidth open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title" className='dialogtitle' style={{ borderColor: obj[props.priority] }}>
         <Grid container>
           <Grid item xs={12} md={11} lg={11}>
             {props.title}
+            {showEditState ? 
+            <TextField
+              id="title"
+              label="Title"
+              variant="outlined"
+              name='title'
+              fullWidth
+            /> 
+            : 
+            null}
           </Grid>
           <Grid item xs={12} md={1} lg={1} className={classes.right}>
             <Chip
@@ -336,7 +348,7 @@ const ProjectModal = props => {
               variant="outlined"
               className={classes.publicCSS}
               style={{ color: publicColor[props.isPublic] }}
-            />
+              />
           </Grid>
         </Grid>
       </DialogTitle>
@@ -349,8 +361,38 @@ const ProjectModal = props => {
 
               <div dangerouslySetInnerHTML={convertFromJSONToHTML(props.body)} />
 
-              <hr />
+              {/* editissue description */}
+              {showEditState ? 
+                <Editor editorState={issueDescription}
+              wrapperClassName="wrapper-class"
+              editorClassName="editor-class"
+              toolbarClassName="toolbar-class"
+              wrapperStyle={{ border: "1px solid #ccc", marginBottom: "20px" }}
+              editorStyle={{ height: "150px", padding: "0 10px" }}
+              customBlockRenderFunc={myBlockStyleFn}
+              toolbar={{
+                options: ['inline', 'blockType', 'list', 'textAlign', 'emoji'],
+                inline: {
+                  inDropdown: false,
+                  options: ['bold', 'italic', 'underline', 'strikethrough']
+                },
+                blockType: {
+                  inDropdown: false,
+                  options: ['Normal', 'H1', 'H2', 'H3', 'Blockquote'],
+                },
+                list: { inDropdown: true },
+                textAlign: { inDropdown: true },
+              }}
+                  onEditorStateChange={editorState => setIssueDescription(editorState)}
+            />
+            :
+            null}
 
+            <hr />
+
+            {showEditState ? null
+            :
+            <>
               <h4 style={{ marginBottom: 0 }}>Add Reply</h4>
               <Editor editorState={issueReply}
                 wrapperClassName="wrapper-class"
@@ -374,10 +416,17 @@ const ProjectModal = props => {
                 }}
                 onEditorStateChange={editorState => setIssueReply(editorState)}
               />
+              </>
+            }
 
+              {showEditState ? null
+              :
               <div className={classes.right} >
                 <Button color="primary" variant="contained" onClick={submitIssueReply}>Submit Reply</Button>
               </div>
+              }
+
+              
               <h4 style={{ marginBottom: 0 }}>Replies</h4>
               <Paper style={{ maxHeight: 400, overflow: 'auto', boxShadow: 'none' }}>
                 <List >
