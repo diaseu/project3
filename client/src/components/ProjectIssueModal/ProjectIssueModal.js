@@ -420,7 +420,6 @@ const ProjectModal = props => {
               />
               <Spacer y={2} />
 
-
               <Typography className={classes.title} color="textSecondary">
                 Status
               </Typography>
