@@ -550,9 +550,9 @@ const ProjectModal = props => {
         <Button onClick={props.handleClose} color="primary">
           Cancel
         </Button>
-        <Button onClick={handleEditIssue} color="primary">
+        {/* <Button onClick={handleEditIssue} color="primary">
           Edit
-        </Button>
+        </Button> */}
         <Button onClick={handleUpdateIssue} color="primary">
           Save
         </Button>

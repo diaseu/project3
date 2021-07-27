@@ -120,26 +120,26 @@ export default function About() {
             alignItems="center"
           >
 
-            {[{ 
-              name: 'Dia Seung', 
-              url: 'https://i.imgur.com/uRDhPgJ.jpeg', 
-              github: 'diaseu', 
-              linkedin: 'dianaseung'
+            {[{
+              name: 'Dia Seung',
+              url: 'https://i.imgur.com/uRDhPgJ.jpeg',
+              github: 'https://github.com/diaseu',
+              linkedin: 'https://www.linkedin.com/in/dianaseung'
             }, {
               name: 'Michael Scharf',
               url: 'https://i.imgur.com/ZsTfgsV.png',
-              github: '2017mike',
-              linkedin: 'michael-scharf-398899111'
+              github: 'https://github.com/2017mike',
+              linkedin: 'https://www.linkedin.com/in/michael-scharf-398899111'
             }, {
               name: 'Sle Ahn',
               url: 'https://i.imgur.com/M7kQZ7q.jpeg',
-              github: 'silentsonata92',
-              linkedin: 'sle-ahn'
+              github: 'https://github.com/silentsonata92',
+              linkedin: 'https://www.linkedin.com/in/sle-ahn'
             }, {
               name: 'Jake Eckfeldt',
               url: 'https://i.imgur.com/pju3WaK.png',
-              github: 'JEckfeldt',
-              linkedin: 'JEckfeldt'
+              github: 'https://github.com/JEckfeldt',
+              linkedin: 'https://www.linkedin.com/in/JEckfeldt'
             }].map(column => (
               <>
 
@@ -154,12 +154,12 @@ export default function About() {
                       <Typography variant="body2" color="textSecondary" component={'span'}>
                       </Typography>
                       <Button size="small" color="primary">
-                        <Link href="https://www.linkedin.com/in/dianaseung/" target="_blank">
+                        <Link href={column.linkedin} target="_blank">
                           LinkedIn
                         </Link>
                       </Button>
                       <Button size="small" color="primary">
-                        <Link href="https://github.com/diaseu" target="_blank" >
+                        <Link href={column.github} target="_blank" >
                           GitHub
                         </Link>
                       </Button>
