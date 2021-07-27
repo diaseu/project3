@@ -133,6 +133,9 @@ const useStyles = makeStyles({
   },
   replytext: {
     fontSize: 12,
+  },
+  right: {
+    textAlign: 'right',
   }
 });
 
