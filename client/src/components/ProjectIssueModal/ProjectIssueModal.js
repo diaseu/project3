@@ -206,6 +206,8 @@ const ProjectModal = props => {
   }
 
   const [issuePublic, setIssuePublic] = useState(true);
+  const [showEditTitle, setShowEditTitle] = useState(false)
+  const [showEditDesc, setShowEditDesc] = useState(false)
 
   const handleGoPublic = () => {
     IssueAPI.update(props.id, {
@@ -255,11 +257,15 @@ const ProjectModal = props => {
   const handleRefresh = () => {
     window.location.reload()
   }
-
   const handleDeleteOpen = () => {
     setDeleteConfirm(true)
   }
 
+  const handleEditIssue = () => {
+    setShowEditTitle(true)
+    setShowEditDesc(true)
+  }
+  
   const obj = {
     Low: "#14a7fc",
     Medium: "#f79d0c",
@@ -334,6 +340,7 @@ const ProjectModal = props => {
           </Grid>
         </Grid>
       </DialogTitle>
+
 
       <DialogContent>
         <DialogContentText>
@@ -542,6 +549,9 @@ const ProjectModal = props => {
         </Dialog>
         <Button onClick={props.handleClose} color="primary">
           Cancel
+        </Button>
+        <Button onClick={handleEditIssue} color="primary">
+          Edit
         </Button>
         <Button onClick={handleUpdateIssue} color="primary">
           Save

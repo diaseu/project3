@@ -169,7 +169,6 @@ const Dashboard = () => {
                   key={issueData.id}
                   id={issueData._id}
                   title={issueData.title}
-                  body={issueData.body.blocks[0].text}
                   priority={issueData.priority}
                   status={issueData.status}
                   date={issueData.createdAt}
