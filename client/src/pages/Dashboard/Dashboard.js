@@ -12,6 +12,9 @@ import ProjectIssueModal from '../../components/ProjectIssueModal'
 import Spacer from '../../components/Spacer'
 import UserAPI from '../../utils/UserAPI'
 import IssueAPI from '../../utils/IssueAPI'
+import Card from '@material-ui/core/Card';
+import MoreCard from '../../components/MoreCard'
+import NewProjectModal from '../../components/NewProjectModal'
 import Box from '@material-ui/core/Box';
 // eslint-disable-next-line
 import {
@@ -86,6 +89,14 @@ const Dashboard = () => {
 
   const [myid, setMyId] = useState('');
 
+  const [mooprojectState, setMooProjectState] = useState([])
+
+  const [openNewProjectModal, setNewProjectModalOpen] = useState(false);
+
+  const handleNewProjectModalOpen = () => {
+    setNewProjectModalOpen(true);
+  };
+
 
   useEffect(() => {
     IssueAPI.getAll()
@@ -112,6 +123,7 @@ const Dashboard = () => {
         }))
         project.projects.reverse()
         project.issues.reverse()
+        setMooProjectState(res.data.projects)
         setStatus({ project })
         setCommunityIssue({ project })
         setProjectIssueState(project.issues)
@@ -133,7 +145,7 @@ const Dashboard = () => {
           </Typography>
         </Grid>
 
-        {projectState.slice(0, 5).map((projectData) => (
+        {projectState?.length ? projectState.slice(0, 5).map((projectData) => (
           <Grid className={classes.projectcard} item xs={12} sm={4} md={4} lg={2}>
             {/* <Link to={`/projects/${id}`}> */}
             <Link to={`/project/${projectData._id}`}>
@@ -145,7 +157,15 @@ const Dashboard = () => {
               />
             </Link>
           </Grid>
-        ))}
+        )) : <>
+          <Link onClick={handleNewProjectModalOpen}>
+            <MoreCard clickable />
+          </Link>
+          <NewProjectModal
+            open={openNewProjectModal}
+            handleClose={() => setNewProjectModalOpen(false)}
+          />
+        </>}
         
       </Grid>
       <Spacer y={4} />
@@ -162,7 +182,7 @@ const Dashboard = () => {
           </Grid>
           <Spacer y={1} />
 
-          {projectIssueState.filter(issue => issue.status === 'Open').slice(0, 8).map(issueData => (
+          {projectIssueState?.length ? projectIssueState.filter(issue => issue.status === 'Open').slice(0, 8).map(issueData => (
             <>
               <Link onClick={() => handleIssueOpen(issueData._id)}>
                 <ProjectIssue
@@ -174,12 +194,11 @@ const Dashboard = () => {
                   date={issueData.createdAt}
                   author={issueData.author.name}
                   project={issueData.pid}
-                  // date={issueData._id.getTimestamp}
+                // date={issueData._id.getTimestamp}
                 />
               </Link>
 
-              {/* See Project Page for how to call ProjectIssueModals properly */}
-              <ProjectIssueModal 
+              <ProjectIssueModal
                 id={issueData._id}
                 title={issueData.title}
                 body={issueData.body}
@@ -194,7 +213,9 @@ const Dashboard = () => {
                 handleClose={() => handleIssueOpen(issueData._id)}
               />
             </>
-          ))}
+          )) : <>
+            <Card style={{ fontSize: 22, padding: 20, textAlign: 'center' }}>No issues to show!</Card>
+          </>}
           
         </Grid>
         <Box m={2}/>

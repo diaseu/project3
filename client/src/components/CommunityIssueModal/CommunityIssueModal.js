@@ -292,7 +292,7 @@ const CommunityIssueModal = props => {
 
             <hr />
 
-          <h4 style={{ marginBottom: 0 }}>Add Reply</h4>
+          <h4 style={{ marginBottom: 0 }}>Replies</h4>
 
             <Editor editorState={issueReply}
               wrapperClassName="wrapper-class"

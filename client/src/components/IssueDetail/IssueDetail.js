@@ -39,14 +39,14 @@ const IssueDetail = props => {
     <>
       <Grid item xs={6} md={9}>
         <Typography className={classes.pos} color="textSecondary">
-          <Link to={`/project/${props.pid}`}>
+          {/* <Link to={`/project/${props.pid}`}> */}
             <Chip 
               label={props.project} 
               size="small" 
               component="a" 
-              clickable 
+              
               />
-            </Link>
+            {/* </Link> */}
         </Typography>
       </Grid>
       <Grid item xs={6} md={3}>
