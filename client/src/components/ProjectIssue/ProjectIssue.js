@@ -98,8 +98,8 @@ const ProjectIssue = props => {
         >
           <IssueDetail 
             author={props.author}
-            project={props.project.title}
-            pid={props.project._id}
+            project={props.project ? props.project.title : null}
+            pid={props.project ? props.project.title : null}
           />
 
           <Grid item className="title" xs={12}>
