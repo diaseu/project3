@@ -19,6 +19,7 @@ import Select from '@material-ui/core/Select';
 import Card from '@material-ui/core/Card';
 import List from '@material-ui/core/List';
 import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
 // ====================== Material UI icons ======================
 import FaceIcon from '@material-ui/icons/Face';
 // ====================== API Calls ======================
@@ -126,6 +127,12 @@ const useStyles = makeStyles({
   },
   status: {
     fontWeight: 500,
+  },
+  tiny: {
+    fontSize: 10,
+  },
+  replytext: {
+    fontSize: 12,
   }
 });
 
@@ -217,7 +224,8 @@ const CommunityIssueModal = props => {
   useEffect(() => {
     IssueAPI.getById(props.id)
       .then((res) => {
-        setReplies(res.data.replies)
+        let reversedReplies = res.data.replies.reverse()
+        setReplies(reversedReplies)
         console.clear();
         })
       .catch(e => console.error('useEffect error', e))
@@ -290,7 +298,7 @@ const CommunityIssueModal = props => {
                   inDropdown: false,
                   options: ['bold', 'italic', 'underline', 'strikethrough']
                 },
-                blockType: { inDropdown: true },
+                blockType: { inDropdown: false, options: ['Normal', 'H1', 'H2', 'H3', 'Blockquote', 'Code'], },
                 list: { inDropdown: true },
                 textAlign: { inDropdown: true },
               }}
@@ -306,12 +314,28 @@ const CommunityIssueModal = props => {
                 <List >
               {
                 replies?.length ? replies.map((index, key) => {
+                  // console.log('this is replies index', index)
+                  let formatdate = new Date(index.createdAt)
+                  let timestamp = formatdate.toLocaleString('en-US', { timeZone: 'PST' })
                   return (
-                    <div key={key}>
-                      <Card className={classes.comments}>
-                        {index.author.name}: <div dangerouslySetInnerHTML={convertFromJSONToHTML(index.text)} />
-                      </Card>
-                    </div>
+
+                    <Card key={key} className={classes.comments}>
+                      <Box display="flex" flexDirection="row">
+                        <div className={classes.issueleft} style={{ minWidth: 125 }}>
+                          <Chip
+                            label={index.author.name}
+                            // label="Priyanka Superfragilisticexpialidocious"
+                            size='small'
+                            variant="outlined"
+                            className={classes.replychip}
+                          />
+                          <p className={classes.tiny}>Posted on {timestamp}</p>
+                        </div>
+
+                        <div className="replytext" dangerouslySetInnerHTML={convertFromJSONToHTML(index.text)} />
+                      </Box>
+                    </Card>
+
                   )
                 })
                   : null

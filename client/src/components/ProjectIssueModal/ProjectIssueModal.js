@@ -108,8 +108,7 @@ const useStyles = makeStyles({
     textAlign: 'right',
   },
   formControl: {
-    margin: 10,
-    minWidth: 120,
+    minWidth: 100,
   },
   selectEmpty: {
     marginTop: 20,
@@ -133,10 +132,11 @@ const useStyles = makeStyles({
   },
   tiny: {
     fontSize: 10,
-
+  },
+  replytext: {
+    fontSize: 12,
   }
 });
-
 
 
 
@@ -150,7 +150,6 @@ const ProjectModal = props => {
     priority: '',
     issue: []
   })
-
 
   // For the Status dropdown
   const [openStatus, setStatusOpen] = useState(false);
@@ -171,15 +170,11 @@ const ProjectModal = props => {
     setStatusOpen(true);
   };
 
-
-
   const handleClose = () => {
     setStatusOpen(false);
     setOpen(false)
     setDeleteConfirm(false)
   };
-
-
   
   const [issueStatus, setIssueStatus] = useState(props.status)
   const [issuePriority, setIssuePriority] = useState(props.priority)
@@ -250,9 +245,11 @@ const ProjectModal = props => {
     //   console.log('check out data', res.data)
     // })
     // .catch(e => console.error(e))
+    
+    let getRepliesReversed = props.replies.reverse()
 
-    setReplies(props.replies)
-    console.log('PIM replies', props.replies)
+    setReplies(getRepliesReversed)
+    // console.log('PIM replies', props.replies)
 
   }
     // eslint-disable-next-line
@@ -304,6 +301,13 @@ const ProjectModal = props => {
     }
   }
 
+  function myBlockStyleFn(contentBlock) {
+    const type = contentBlock.getType();
+    if (type === 'code') {
+      return 'superFancyBlockquote';
+    }
+  }
+
   const publicColor = {
     true: "rgb(113, 153, 116)",
     false: "red",
@@ -348,13 +352,17 @@ const ProjectModal = props => {
                 toolbarClassName="toolbar-class"
                 wrapperStyle={{ border: "1px solid #ccc", marginBottom: "20px" }}
                 editorStyle={{ height: "150px", padding: "0 10px" }}
+                customBlockRenderFunc={myBlockStyleFn}
                 toolbar={{
                   options: ['inline', 'blockType', 'list', 'textAlign', 'emoji'],
                   inline: {
                     inDropdown: false,
                     options: ['bold', 'italic', 'underline', 'strikethrough']
                   },
-                  blockType: { inDropdown: true },
+                  blockType: { 
+                    inDropdown: false,
+                    options: ['Normal', 'H1', 'H2', 'H3', 'Blockquote'],
+                   },
                   list: { inDropdown: true },
                   textAlign: { inDropdown: true },
                 }}
@@ -365,7 +373,7 @@ const ProjectModal = props => {
                 <Button color="primary" variant="contained" onClick={submitIssueReply}>Submit Reply</Button>
               </div>
               <Spacer y={4} />
-              <Paper style={{ maxHeight: 200, overflow: 'auto', boxShadow: 'none' }}>
+              <Paper style={{ maxHeight: 400, overflow: 'auto', boxShadow: 'none' }}>
                 <List >
 
                   {
