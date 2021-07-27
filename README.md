@@ -3,7 +3,7 @@
 <img src="https://img.shields.io/github/package-json/dependency-version/2017mike/project3/express?style=for-the-badge" alt="Express Version" />
 <img src="https://img.shields.io/github/package-json/dependency-version/2017mike/project3/mongoose?style=for-the-badge" alt="Mongoose Version" />
 
-<img src= 'https://i.imgur.com/Q0IAOwI.png' width= '200px' />
+<img style="background-color: white" src= 'https://i.imgur.com/syLKFay.png' width= '200px' />
 <br>
 <br>
 
@@ -24,6 +24,8 @@
 ### Zap is an app created to combine the project management and bug tracking aspects of app development. You can ask for help both within your group or ask the community. Our goal is to streamline the process of app development by giving you one place to manage projects and ask any and all questions related to development. Let's get Zapping!
 ---
 ## Screenshots
+<details>
+ <summary>Click to reveal!</summary>
 <img src='./client/src/images/Zap login.png' width= '800px'>
 <img src='./client/src/images/Zap register.png' width= '800px'>
 <img src='./client/src/images/Zap Dash.png' width= '800px'>
@@ -32,6 +34,7 @@
 <img src='./client/src/images/Zap view my projects.png' width= '800px'>
 <img src='./client/src/images/Zap community.png' width= '800px'>
 <img src='./client/src/images/Zap about.png' width= '800px'>
+</details>
 
 ---
 ## Installation

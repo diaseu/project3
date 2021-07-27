@@ -25,6 +25,7 @@ const useStyles = makeStyles({
     flexGrow: 1,
     marginBottom: 12,
     borderLeft: '3px solid #cccccc',
+    borderRight: '3px solid #cccccc',
     paddingBottom: 6,
   },
   projectissue: {
@@ -64,10 +65,16 @@ const ProjectIssue = props => {
   const classes = useStyles();
 
   const obj = {
+    Low: "#14a7fc",
     Medium: "#f79d0c",
     High: "red",
-    Low: "#14a7fc"
   }
+
+  const status = {
+    Open: "rgb(113, 153, 116)",
+    'In Progress': "#f79d0c",
+    Closed: "red"
+  } 
 
   const convertFromJSONToHTML = (text) => {
     try {
@@ -80,7 +87,7 @@ const ProjectIssue = props => {
 
   return (
 
-    <Card className={classes.root} style={{ borderColor: obj[props.priority] }}>
+    <Card className={classes.root} style={{ borderLeftColor: obj[props.priority], borderRightColor: status[props.status] }}>
       <CardContent className={classes.projectissue}>
         <Grid
           container

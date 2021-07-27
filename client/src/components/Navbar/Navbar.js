@@ -221,7 +221,7 @@ const Navbar = ({ pages, setpageState, me, isLoggedIn, handleLogOut }) => {
               open={Boolean(anchorEl)}
               onClose={handleUserClose}
             >
-              <MenuItem onClick={handleUserClose}>Profile</MenuItem>
+             
               <MenuItem onClick={handleLogOut}>Logout</MenuItem>
             </Menu>
           </div>

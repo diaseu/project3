@@ -39,7 +39,14 @@ passport.use(new JwtStrategy({
       path: 'author',
       model: 'User',
       select: 'name'
-    },
+    }, {
+        path: 'replies',
+        model: 'Reply',
+        populate: {
+          path: 'author',
+          model: 'User',
+        }
+      },
     {
       path: 'pid',
       model: 'Project',

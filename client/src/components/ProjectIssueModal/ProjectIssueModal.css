@@ -3,3 +3,12 @@
   font-size: 2rem;
   border-top: 5px solid rgba(0,0,0,0.5);
 }
+
+.public-DraftStyleDefault-block {
+    margin: 0;
+}
+
+.replytext p {
+  margin: 2px;
+  margin-left: 20px;
+}

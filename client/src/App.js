@@ -24,7 +24,7 @@ import {
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    backgroundColor: 'rgba(0,0,0,0.13)',
+    backgroundColor: 'rgba(0,0,0,0.11)',
   },
   appBarSpacer: theme.mixins.toolbar,
   content: {

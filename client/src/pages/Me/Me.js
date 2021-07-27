@@ -29,7 +29,7 @@ const useStyles = makeStyles({
 
 
 
-const Me = () => {
+const Me = props => {
 
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -85,7 +85,10 @@ const Me = () => {
 
   const [myid, setMyId] = useState('');
 
+  const [replies, setReplies] = useState([]);
+
   useEffect(() => {
+    setReplies(props.replies)
     UserAPI.me()
       .then(res => {
         console.log('this is res', res.data)
@@ -136,7 +139,9 @@ const Me = () => {
                     id={issueData._id}
                     title={issueData.title}
                     priority={issueData.priority}
+                    status={issueData.status}
                     author={issueData.author.name}
+                    replies={issueData.replies}
                     project={issueData.pid}
                     body={issueData.body.blocks[0].text}
                   />
@@ -148,6 +153,8 @@ const Me = () => {
                   title={issueData.title}
                   body={issueData.body}
                   author={issueData.author.name}
+                  replies={issueData.replies}
+                  isPublic={issueData.isPublic}
                   status={issueData.status}
                   priority={issueData.priority}
                   open={issueData.isOpen}

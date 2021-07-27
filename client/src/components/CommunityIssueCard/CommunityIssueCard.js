@@ -52,7 +52,7 @@ const useStyles = makeStyles({
 
 const obj = {
   Open: "#719974",
-  InProgress: "#f79d0c",
+  'In Progress': "#f79d0c",
   Closed: "red"
 }
 

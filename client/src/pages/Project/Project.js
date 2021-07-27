@@ -69,7 +69,7 @@ const useStyles = makeStyles({
   },
   columntest: {
     backgroundColor: '#ffffff',
-    borderLeft: '3px solid #cccccc',
+    borderTop: '3px solid #cccccc',
   }, 
   allmembers: {
     marginBottom: 12,
@@ -178,9 +178,11 @@ const Project = () => {
     setEditProjectOpen(false)
   };
 
-  
-
-  
+  const statusColor = {
+    Open: "rgb(113, 153, 116)",
+    'In Progress': "#f79d0c",
+    Closed: "red"
+  }
 
   const obj = {
     Medium: "#f79d0c",
@@ -195,7 +197,7 @@ const Project = () => {
     ProjectAPI.getById(params.projectId)
       .then(res => {
         console.clear()
-        console.log(res.data)
+        console.log('SEE HERE res.data', res.data)
         const project = res.data
         project.issues = res.data.issues.map(issue => ({
           ...issue,
@@ -302,7 +304,7 @@ const Project = () => {
           
           {/* Project Description */}
           <div className={classes.column}>
-            <Card className={classes.columntest}>
+            <Card>
               <CardContent>
                 <Typography>
                  {project.description}
@@ -338,7 +340,7 @@ const Project = () => {
           <Grid key={column} className={classes.columngrid} item xs={12} lg={4}>
             <div className={classes.column}>
               
-              <Card className={classes.columntest} style={{ borderColor: obj[column] }}>
+              <Card className={classes.columntest} style={{ borderColor: statusColor[column] }}>
                   <CardContent>
                     <Typography className={classes.mb} variant="h5" component="h5">
                       {column}
@@ -361,7 +363,9 @@ const Project = () => {
                           body={issueData.body}
                           status={issueData.status}
                           priority={issueData.priority}
+                          isPublic={issueData.isPublic}
                           author={issueData.author.name}
+                          replies={issueData.replies}
                           open={issueData.isOpen}
                           handleClose={() => handleIssueOpen(issueData._id)}
                         />

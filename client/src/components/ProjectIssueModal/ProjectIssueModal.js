@@ -21,12 +21,16 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Card from '@material-ui/core/Card';
+import Box from '@material-ui/core/Box';
 // ====================== API Calls ======================
 import ReplyAPI from '../../utils/ReplyAPI'
 import IssueAPI from '../../utils/IssueAPI'
 // ====================== RTF Draft WYSIWYG Editor ======================
 import { stateToHTML } from 'draft-js-export-html';
 import { convertFromRaw } from 'draft-js'
+import { Editor } from 'react-draft-wysiwyg';
+import { EditorState, convertToRaw } from 'draft-js';
+import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 const useStyles = makeStyles({
   root: {
@@ -44,10 +48,10 @@ const useStyles = makeStyles({
   },
   issueleft: {
     paddingRight: 20,
+    borderRight: '1px solid #ccc',
   },
   issueright: {
     paddingLeft: 20,
-    borderLeft: '1px solid #ccc',
   },
   issuerightchip: {
     marginBottom: 20,
@@ -120,6 +124,16 @@ const useStyles = makeStyles({
     paddingRight: 12,
     paddingTop: 8,
     paddingBottom: 8,
+  },
+  right: {
+    textAlign: 'right',
+  },
+  publicCSS: {
+    fontWeight: 600,
+  },
+  tiny: {
+    fontSize: 10,
+
   }
 });
 
@@ -169,23 +183,12 @@ const ProjectModal = props => {
     setDeleteConfirm(false)
   };
 
-  const [issueReply, setIssueReply] = useState("");
 
-  function handleIssueReply(e) {
-    setIssueReply(e.target.value)
-  }
 
-  function submitIssueReply(e) {
-    ReplyAPI.create({
-      text: issueReply,
-      pid: props.id
-    })
-    window.location.reload()
-  }
+  const [issueStatus, setIssueStatus] = useState(props.status);
 
-  
-  const [issueStatus, setIssueStatus] = useState(props.status)
-  const [issuePriority, setIssuePriority] = useState(props.priority)
+  // priority
+  const [issuePriority, setIssuePriority] = useState(props.priority);
 
 
   function handleIssuePriority(e) {
@@ -199,16 +202,18 @@ const ProjectModal = props => {
   }
 
   const handleDeleteIssue = () => {
+    console.log(props.id, 'this is issue id')
     IssueAPI.delete(props.id)
       .then(res => console.log(res))
+      window.location.reload()
       .catch(err => console.log(err))
   }
   
   
   const handlePublicTrue = () => {
-  setIssuePublic(true)
-  console.clear();
-  console.log('this is the issuePublic before update', issuePublic)
+    setIssuePublic(true)
+    // console.clear();
+    // console.log('this is the issuePublic before update', issuePublic)
   }
 
   const [issuePublic, setIssuePublic] = useState(true);
@@ -220,8 +225,8 @@ const ProjectModal = props => {
       isPublic: issuePublic
     })
       .then(res => {
-        console.clear();
-        console.log('status priority updated - ProjectIssueModal', res)
+
+        // console.log('status priority updated - ProjectIssueModal', res)
         handleClose()
         window.location = '/help'
       })
@@ -229,7 +234,6 @@ const ProjectModal = props => {
     // window.location.reload()
 
   }
-
 
   const handleUpdateIssue = () => {
     IssueAPI.update(props.id, {
@@ -246,12 +250,18 @@ const ProjectModal = props => {
   const [replies, setReplies] = useState([]);
 
   useEffect(() => {
-    IssueAPI.getById(props.id)
-      .then((res) => {
-        setReplies(res.data.replies)
-        console.log('check out replies', res.data.replies)
-      })
-      .catch(e => console.error(e))
+    // console.clear()
+    // console.log(props.id)
+    // IssueAPI.getById(props.id)
+    // .then((res) => {
+    //   setReplies(res.data.replies)
+    //   console.log('check out data', res.data)
+    // })
+    // .catch(e => console.error(e))
+
+    setReplies(props.replies)
+    console.log('PIM replies', props.replies)
+
   }
     // eslint-disable-next-line
     , [])
@@ -268,8 +278,37 @@ const ProjectModal = props => {
     setShowEditDesc(true)
   }
   
+  const obj = {
+    Low: "#14a7fc",
+    Medium: "#f79d0c",
+    High: "red",
+  }
+
+
+  // Replies
+  const [issueReply, setIssueReply] = useState(EditorState.createEmpty());
+
+  function handleIssueReply(e) {
+    setIssueReply(e.target.value)
+  }
+
+  function submitIssueReply(e) {
+    ReplyAPI.create({
+      text: convertToRaw(issueReply.getCurrentContent()),
+      pid: props.id
+    })
+      .then(reply => {
+        // console.clear()
+        const newReplies = [...replies, reply.data]
+        setReplies(newReplies)
+      })
+  }
+
+  // For RTF Editor
   const convertFromJSONToHTML = (text) => {
     try {
+      // console.log('this is not converted text', text)
+      // console.log('this is converted text', stateToHTML(convertFromRaw(text)))
       return { __html: stateToHTML(convertFromRaw(text)) }
     } catch (exp) {
       console.log(exp)
@@ -277,18 +316,33 @@ const ProjectModal = props => {
     }
   }
 
+  const publicColor = {
+    true: "rgb(113, 153, 116)",
+    false: "red",
+  }
+
+  const publicTag = {
+    true: "Public",
+    false: "Private"
+  }
+
   return (
     <Dialog maxWidth='lg' fullWidth open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title" className='dialogtitle'>
-        {props.title}
-        {/* edit title shows here */}
-        {!showEditTitle ? null : <TextField
-          id="title"
-          label="Title"
-          variant="outlined"
-          name='title'
-          fullWidth
-        />}
+      <DialogTitle id="form-dialog-title" className='dialogtitle' style={{ borderColor: obj[props.priority] }}>
+        <Grid container>
+          <Grid item xs={12} md={6} lg={6} className={classes.issueleft}>
+            {props.title}
+          </Grid>
+          <Grid item xs={12} md={6} lg={6} className={classes.right}>
+            <Chip
+              label={publicTag[props.isPublic]}
+              size='small'
+              variant="outlined"
+              className={classes.publicCSS}
+              style={{ color: publicColor[props.isPublic] }}
+            />
+          </Grid>
+        </Grid>
       </DialogTitle>
 
 
@@ -296,45 +350,64 @@ const ProjectModal = props => {
         <DialogContentText>
           <Grid container>
             <Grid className={classes.issueleft} item xs={12} lg={9}>
-              {/* description body */}
-              <Typography className={classes.mb}>
-                {/* {props.body}
-                {/* edit desc goes here */}
-                {!showEditDesc ? null : <TextField
-                  id="outlined-basic"
-                  label="Description"
-                  variant="outlined"
-                  name='body'
-                  multiline
-                  rows={6}
-                  fullWidth
-                />} */}
-              </Typography>
 
               <div dangerouslySetInnerHTML={convertFromJSONToHTML(props.body)} />
 
-              <TextField
-                margin="dense"
-                id="comment"
-                label="Comment"
-                type="comment"
-                fullWidth
-                onChange={handleIssueReply}
+              <hr />
+
+              <Editor editorState={issueReply}
+                wrapperClassName="wrapper-class"
+                editorClassName="editor-class"
+                toolbarClassName="toolbar-class"
+                wrapperStyle={{ border: "1px solid #ccc", marginBottom: "20px" }}
+                editorStyle={{ height: "150px", padding: "0 10px" }}
+                toolbar={{
+                  options: ['inline', 'blockType', 'list', 'textAlign', 'emoji'],
+                  inline: {
+                    inDropdown: false,
+                    options: ['bold', 'italic', 'underline', 'strikethrough']
+                  },
+                  blockType: { inDropdown: true },
+                  list: { inDropdown: true },
+                  textAlign: { inDropdown: true },
+                }}
+                onEditorStateChange={editorState => setIssueReply(editorState)}
               />
-              <Button color="primary" variant="contained" onClick={submitIssueReply}>Submit</Button>
+
+              <div className={classes.right} >
+                <Button color="primary" variant="contained" onClick={submitIssueReply}>Submit Reply</Button>
+              </div>
               <Spacer y={4} />
               <Paper style={{ maxHeight: 200, overflow: 'auto', boxShadow: 'none' }}>
                 <List >
+
                   {
-                    replies && replies.map((index, key) => {
+                    replies?.length ? replies.map((index, key) => {
+                      // console.log('this is replies index', index)
+                      let formatdate = new Date(index.createdAt)
+                      let timestamp = formatdate.toLocaleString('en-US', { timeZone: 'PST' })
                       return (
-                        <div key={key}>
-                          <Card className={classes.comments}>
-                            {index.author.name}: {index.text}
-                          </Card>
-                        </div>
+                        
+                        <Card key={key} className={classes.comments}>
+                          <Box display="flex" flexDirection="row">
+                            <div className={classes.issueleft} style={{ minWidth: 125 }}>
+                              <Chip
+                                label={index.author.name}
+                                // label="Priyanka Superfragilisticexpialidocious"
+                                size='small'
+                                variant="outlined"
+                                className={classes.replychip}
+                              />
+                              <p className={classes.tiny}>Posted on {timestamp}</p>
+                            </div>
+                            
+                            <div className="replytext" dangerouslySetInnerHTML={convertFromJSONToHTML(index.text)} />
+                            </Box>
+                        </Card>
+                        
                       )
                     })
+                      : null
                   }
 
                 </List>
