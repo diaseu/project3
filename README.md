@@ -3,7 +3,7 @@
 <img src="https://img.shields.io/github/package-json/dependency-version/2017mike/project3/express?style=for-the-badge" alt="Express Version" />
 <img src="https://img.shields.io/github/package-json/dependency-version/2017mike/project3/mongoose?style=for-the-badge" alt="Mongoose Version" />
 
-<img style="background-color: white" src= 'https://i.imgur.com/Q0IAOwI.png' width= '200px' />
+<img style="background-color: white" src= 'https://i.imgur.com/syLKFay.png' width= '200px' />
 <br>
 <br>
 
