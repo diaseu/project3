@@ -247,10 +247,7 @@ const ProjectModal = props => {
     //   console.log('check out data', res.data)
     // })
     // .catch(e => console.error(e))
-    
-    let getRepliesReversed = props.replies.reverse()
-
-    setReplies(getRepliesReversed)
+    setReplies(props.replies)
     // console.log('PIM replies', props.replies)
 
   }
@@ -292,6 +289,7 @@ const ProjectModal = props => {
         // console.clear()
         const newReplies = [...replies, reply.data]
         setReplies(newReplies)
+        setIssueReply(EditorState.createEmpty())
       })
   }
 
@@ -328,10 +326,10 @@ const ProjectModal = props => {
     <Dialog maxWidth='lg' fullWidth open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title" className='dialogtitle' style={{ borderColor: obj[props.priority] }}>
         <Grid container>
-          <Grid item xs={12} md={6} lg={6} className={classes.issueleft}>
+          <Grid item xs={12} md={11} lg={11}>
             {props.title}
           </Grid>
-          <Grid item xs={12} md={6} lg={6} className={classes.right}>
+          <Grid item xs={12} md={1} lg={1} className={classes.right}>
             <Chip
               label={publicTag[props.isPublic]}
               size='small'
@@ -353,12 +351,13 @@ const ProjectModal = props => {
 
               <hr />
 
+              <h4 style={{ marginBottom: 0 }}>Add Reply</h4>
               <Editor editorState={issueReply}
                 wrapperClassName="wrapper-class"
                 editorClassName="editor-class"
                 toolbarClassName="toolbar-class"
                 wrapperStyle={{ border: "1px solid #ccc", marginBottom: "20px" }}
-                editorStyle={{ height: "150px", padding: "0 10px" }}
+                editorStyle={{ height: "120px", padding: "0 10px" }}
                 customBlockRenderFunc={myBlockStyleFn}
                 toolbar={{
                   options: ['inline', 'blockType', 'list', 'textAlign', 'emoji'],
@@ -379,7 +378,7 @@ const ProjectModal = props => {
               <div className={classes.right} >
                 <Button color="primary" variant="contained" onClick={submitIssueReply}>Submit Reply</Button>
               </div>
-              <Spacer y={4} />
+              <h4 style={{ marginBottom: 0 }}>Replies</h4>
               <Paper style={{ maxHeight: 400, overflow: 'auto', boxShadow: 'none' }}>
                 <List >
 
@@ -427,7 +426,6 @@ const ProjectModal = props => {
                 variant="outlined"
               />
               <Spacer y={2} />
-
 
               <Typography className={classes.title} color="textSecondary">
                 Status
