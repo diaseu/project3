@@ -21,6 +21,11 @@ const Issue = {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`
     }
+  }),
+  delete: id => axios.delete(`/api/issues/${id}`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    }
   })
 }
 
