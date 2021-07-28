@@ -23,7 +23,7 @@
 - [Questions](#Questions)
 ---
 ## Description
-### Zap is an app created to combine the project management and bug tracking aspects of app development. You can ask for help both within your group or ask the community. Our goal is to streamline the process of app development by giving you one place to manage projects and ask any and all questions related to development. Let's get Zapping!
+### Zap is a social bugtracker app created to make the bug tracking aspects of app development more social. You can track issues within your group, and if needed, ask the community for help. Our goal is to streamline the process of app development by giving you one place to track bugs and ask questions related to development. Let's get Zapping!
 ---
 ## Screenshots
 <details>
