@@ -90,9 +90,9 @@
 9. Mobile-Friendly
 ---
 ## Credits
-- Due to having a lot of technologies we have to credit, we list in the following:
+- Major technologies we used include:
   - "material ui, axios, concurrently, cors, dotenv, express, if-env, jsonwebtoken, jwt-decode, mongoose, passport, passport-jwt, passport-local, passport-local-mongoose, react-beautiful-dnd, clsx, email js-com, http-proxy-middleware, react, web-vitals, 
-- Dale de Silva from pinterest for ZAP logo https://www.pinterest.com/pin/774408098395699249/
+- Credit to Craig Flood for ZAP logo (used only for educational purposes, not commercial)
 ---
 ## Questions
 If you have any questions please contact us through using our website https://zapbugtracker.herokuapp.com/ and on the website you will find the contact the zap team button. 
